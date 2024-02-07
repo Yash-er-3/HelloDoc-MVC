@@ -1,0 +1,85 @@
+
+.hallodoc-img{
+    width: 200px;
+    height: 100px;
+}
+
+.main-1 {
+    margin-top: 100px;
+    width: 400px;
+}
+
+.light-1{
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    height: 40px;
+    width: 40px;
+}
+
+.back{
+    height: 15px;
+    width: 16px;
+}
+
+
+#terms-1 {
+    bottom: 5%;
+    color: #bababa;
+}
+
+/* input animation style */
+.form-floating>.form-control-plaintext~label, .form-floating>.form-control:focus~label, .form-floating>.form-control:not(:placeholder-shown)~label, .form-floating>.form-select~label{
+    color: #00b8e6;
+}
+
+.form-floating>.form-control-plaintext~label::after, .form-floating>.form-control:focus~label::after, .form-floating>.form-control:not(:placeholder-shown)~label::after, .form-floating>.form-select~label::after{
+    background-color: transparent;
+}
+
+.form-control:focus{
+    border: 1px solid #00b8e6;
+}
+
+.form-control{
+    border: 1px solid;
+}
+
+.bg{
+    z-index: -1;
+    position: absolute;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	-webkit-background-size: cover;
+	background-size: cover;
+	-webkit-filter: blur(10px);
+	-moz-filter: blur(5px);
+	filter: blur(5px);
+    height: 60%;
+    /* display: none; */
+}
+
+
+@media screen and (max-width:425px) {
+        .hallodoc-img{
+            display: none;
+        }
+
+        .main-1{
+            margin-top: 50%;
+            width: 300px;
+        }
+
+        #terms-1{
+            padding: 0px;
+            margin-left: 10px;
+            font-size:small;
+        }
+
+        .bg{
+            width: 290px;
+        }
+    }
+
+

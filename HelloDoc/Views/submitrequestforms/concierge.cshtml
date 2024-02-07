@@ -1,0 +1,203 @@
+﻿@{
+    Layout = "rpstyle";
+}
+
+
+<div class="container mt-3">
+
+    <div class="d-flex justify-content-between mt-2">
+        <div class="d-flex">
+            <h3>Submit Information</h3>
+        </div>
+
+        <div>
+            <a asp-controller ="Home" asp-action="submitrequest" class="text-decoration-none">
+                <span class="back-btn small" style="color: #00b8e6;">&lt;Back</span>
+            </a>
+        </div>
+        <!-- <div class="d-flex back-btn small">
+            <a href="../submitrequest.html"
+                class="d-flex text-decoration-none align-items-center border border-0 bg-transparent">
+                <div class="d-flex">
+                    <img class="back" src="../images/back.png" alt="">
+                </div>
+                <span style="color: #00b8e6;">Back</span>
+            </a>
+        </div> -->
+    </div>
+
+    <div class="border border-0 shadow rounded-1 px-3 py-2 mt-2 mb-5" id="content-color">
+        <h6>Concierge Information</h6>
+        <form action="">
+            <div class="mt-3 d-flex row">
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent" placeholder="First Name">
+                        <label class="FloatingInput" for="Name">Your First Name</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent" placeholder="Last Name">
+                        <label class="FloatingInput" for="Name">Your Last Name</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                    <div class="telephone rounded form-floating">
+                        <div class="input-group d-flex align-items-center rounded ">
+                            <input type="tel" id="tel" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                    <div class="form-floating ">
+                        <input type="email" class="form-control shadow-none bg-transparent" placeholder="Email">
+                        <label class="FloatingInput" for="Name">Your Email</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent"
+                               placeholder="Hotel/Property Name">
+                        <label class="FloatingInput" for="Name">Hotel/Property Name</label>
+                    </div>
+                </div>
+
+                <h6 class="mt-3">Concierge Location</h6>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent" placeholder="Street">
+                        <label class="FloatingInput" for="Name">Street</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent" placeholder="City">
+                        <label class="FloatingInput" for="Name">City</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent" placeholder="State">
+                        <label class="FloatingInput" for="Name">State</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent" placeholder="Zip Code">
+                        <label class="FloatingInput" for="Name">Zip Code</label>
+                    </div>
+                </div>
+
+
+
+                <h6 class="mt-3">Patient Information</h6>
+
+                <div class="p-2 col-xl-12">
+                    <div class="form-floating">
+                        <div class="form-floating">
+                            <textarea class="form-control shadow-none bg-transparent"
+                                      placeholder="Enter Brief Details Of Symptomps(Optional)"
+                                      style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Enter Brief Details Of Symptomps(Optional)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent" placeholder="First Name">
+                        <label class="FloatingInput" for="Name">First Name</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent" placeholder="Last Name">
+                        <label class="FloatingInput" for="Name">Last Name</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="date" class="form-control shadow-none bg-transparent date-iconDark"
+                               placeholder="Date Of Birth" id="date-icon">
+                        <label class="FloatingInput" for="Name">Date Of Birth</label>
+                    </div>
+                </div>
+
+                <h6 class="mt-3">Patient Contact Information</h6>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                    <div class="form-floating ">
+                        <input type="email" class="form-control shadow-none bg-transparent" placeholder="Email">
+                        <label class="FloatingInput" for="Name">Email</label>
+                    </div>
+                </div>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                    <div class="telephone rounded form-floating">
+                        <div class="input-group d-flex align-items-center rounded ">
+                            <input type="tel" id="tel1" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+
+                <h6 class="mt-3">Patient Location</h6>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" class="form-control shadow-none bg-transparent"
+                               placeholder="Room # / Suite (Optional)">
+                        <label class="FloatingInput" for="Name">Room # / Suite (Optional)</label>
+                    </div>
+                </div>
+
+
+
+                <div class="justify-content-end d-flex">
+                    <div class="mx-3">
+                        <button type="submit" class="border border-0 text-white sub rounded-2 px-3 py-2 small">
+                            Submit
+                        </button>
+                    </div>
+                    <div>
+                        <button type="reset" class="can rounded-2 px-3 py-2 small bg-white">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="fixed-bottom navbar bg-dark d-flex justify-content-end" id="terms">
+    <div class="d-flex text-light fw-normal small p-2 mx-3 footer">
+        <span>Terms of Conditions &nbsp;</span><span>|</span><span>&nbsp;&nbsp;Privacy Policy</span>
+    </div>
+</div>
+
+<script src="../js/bootstrap.bundle.js"></script>
+<script src="./submit-request.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+
+<script>
+   
+
+    const phoneInputField1 = document.querySelector("#tel1");
+    const phoneInput1 = window.intlTelInput(phoneInputField1, {
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+</script>

@@ -1,0 +1,79 @@
+.hallodoc-img-1 {
+    width: 200px;
+    height: 75px;
+    padding-left: 30px;
+}
+
+.patient-btn {
+    background-color: #e4e8f3;
+    border: 1px solid #cdd1dd;
+    color: #617cd6;
+    padding: 2px 40px 15px 10px;
+}
+
+.ff-btn {
+    background-color: #e5f3f9;
+    border: 1px solid #c5dfe5;
+    color: #599dbc;
+    padding: 2px 40px 15px 10px;
+}
+
+
+.con-btn {
+    background-color: #e9f1e8;
+    border: 1px solid #cbe2ce;
+    color: #54854d;
+    padding: 2px 40px 15px 10px;
+}
+
+
+.busi-btn {
+    background-color: #f8e6ee;
+    border: 1px solid #dfcad6;
+    color: #ad378f;
+    padding: 2px 40px 15px 10px;
+}
+
+.back-btn {
+    padding: 5px;
+    border: 1px solid #00b8e6;
+    border-radius: 5px;
+    right: 25%;
+}
+
+.back {
+    width: 20px;
+    height: 18px;
+}
+
+.light {
+    margin-right: 20px;
+    width: 40px;
+    height: 40px;
+}
+
+@media screen and (max-width:450px) {
+
+   /* .hallodoc-img {
+        padding-left: 10px;
+        width: 150px;
+
+    }*/
+
+    .patient-btn,
+    .ff-btn,
+    .con-btn,
+    .busi-btn {
+        text-align: center;
+        padding: 2px 40px 15px 30px;
+    }
+
+
+    .back-btn {
+        right: 10%;
+    }
+
+    .footer{
+        font-size: 0.7rem;
+    }
+}

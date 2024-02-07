@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "_Layout";
+}
+<div class="d-flex justify-content-center align-items-center">
+
+    <div class="d-flex flex-column main justify-content-between">
+
+        <div class="d-flex flex-column under">
+            <div class="d-flex justify-content-between ps-4">
+                <div>
+                    <img class="hallodoc-img" src="./images/hallodoc.png" alt="">
+                </div>
+
+                <div id="img-btn">
+                    <img class="light-1" role="button" src="./images/light.png" alt="" id="img-mode">
+                </div>
+            </div>
+
+            <div class="d-grid gap-2 mt-5">
+                <a asp-action="submitrequest" >
+                    <button class="btn w-100 p-2 border-0 fw-medium btn-both" style="background-color: #00b8e6; color: white;"
+                            type="button">
+                        Submit A Request
+                    </button>
+                </a>
+                <a asp-action="registeredpatient">
+                    <button class="btn w-100 p-2 border-0 fw-medium btn-both" style="background-color: #00004d; color: white;"
+                            type="button">
+                        Registered Patients
+                    </button>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="fw-medium small p-2 mx-3" id="terms">
+            <span>Terms of Conditions &nbsp;</span><span>|</span><span>&nbsp;&nbsp;Privacy Policy</span>
+        </div>
+    </div>
+
+</div>

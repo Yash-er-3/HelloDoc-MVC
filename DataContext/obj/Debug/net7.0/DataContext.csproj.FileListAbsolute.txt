@@ -1,0 +1,17 @@
+D:\Projects\HelloDoc\DataContext\bin\Debug\net7.0\DataContext.deps.json
+D:\Projects\HelloDoc\DataContext\bin\Debug\net7.0\DataContext.runtimeconfig.json
+D:\Projects\HelloDoc\DataContext\bin\Debug\net7.0\DataContext.dll
+D:\Projects\HelloDoc\DataContext\bin\Debug\net7.0\DataContext.pdb
+D:\Projects\HelloDoc\DataContext\bin\Debug\net7.0\DataModels.dll
+D:\Projects\HelloDoc\DataContext\bin\Debug\net7.0\DataModels.pdb
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.csproj.AssemblyReference.cache
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.AssemblyInfoInputs.cache
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.AssemblyInfo.cs
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.csproj.CoreCompileInputs.cache
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.csproj.CopyComplete
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.dll
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\refint\DataContext.dll
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.pdb
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\DataContext.genruntimeconfig.cache
+D:\Projects\HelloDoc\DataContext\obj\Debug\net7.0\ref\DataContext.dll

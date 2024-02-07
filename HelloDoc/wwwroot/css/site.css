@@ -1,0 +1,45 @@
+.main {
+    height: 100vh;
+}
+
+.hallodoc-img {
+    width: 200px;
+    height: 100px;
+}
+
+.light {
+    width: 40px;
+    height: 40px;
+}
+
+.under {
+    margin-top: 100%;
+}
+
+#terms {
+    background-color: transparent;
+    margin-bottom: 5%;
+    color: #bababa;
+}
+
+@media screen and (max-width:450px) {
+
+    .main {
+        justify-content: space-between;
+    }
+
+    .hallodoc-img {
+        display: none;
+    }
+
+    .light {
+        position: fixed;
+        right: 5%;
+        top: 2%;
+    }
+
+    .btn-both {
+        padding: 10px 0px;
+    }
+
+}

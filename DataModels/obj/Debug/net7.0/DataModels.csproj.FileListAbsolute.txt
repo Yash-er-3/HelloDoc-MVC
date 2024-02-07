@@ -1,0 +1,14 @@
+D:\Projects\HelloDoc\DataModels\bin\Debug\net7.0\DataModels.deps.json
+D:\Projects\HelloDoc\DataModels\bin\Debug\net7.0\DataModels.runtimeconfig.json
+D:\Projects\HelloDoc\DataModels\bin\Debug\net7.0\DataModels.dll
+D:\Projects\HelloDoc\DataModels\bin\Debug\net7.0\DataModels.pdb
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\DataModels.csproj.AssemblyReference.cache
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\DataModels.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\DataModels.AssemblyInfoInputs.cache
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\DataModels.AssemblyInfo.cs
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\DataModels.csproj.CoreCompileInputs.cache
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\DataModels.dll
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\refint\DataModels.dll
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\DataModels.pdb
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\DataModels.genruntimeconfig.cache
+D:\Projects\HelloDoc\DataModels\obj\Debug\net7.0\ref\DataModels.dll
