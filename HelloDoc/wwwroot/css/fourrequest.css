@@ -129,6 +129,11 @@
     background-color: transparent;
 }
 
+
+input[type=tel]::placeholder {
+    color:lightgray;
+}
+
 .iti{
     width:100%;
 }

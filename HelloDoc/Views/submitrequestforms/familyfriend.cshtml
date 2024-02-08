@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "rpstyle";
 }
-
+@*
 <div id="exampleModal" class="modal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <div class="container mt-3">
 
@@ -238,4 +238,9 @@
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
     });
 
+    swal("Information",
+        "When Submitting the request, you must provide the correct contact information for the patient or responsibly party.Failure to provide the correct email and phone number will delay the service or be declined.",
+        "warning", {
+        closeOnClickOutside: true,
+    });
 </script>

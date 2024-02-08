@@ -3,6 +3,8 @@ const imgbtn = document.getElementById('img-mode')
 const font = document.getElementById('font-color')
 const contentcolor = document.getElementById('content-color')
 const dateIcon = document.getElementById('date-icon')
+const navDark = document.getElementById('navDark')
+
 modebtn.addEventListener('click', darkLight)
 var flag;
 
@@ -28,8 +30,9 @@ function darkLight() {
     if (flag == 0) {
         document.querySelector('body').style.backgroundColor = "black"
         imgbtn.toString().replace('light', 'dark')
-        imgbtn.src = "../images/dark.png"
+        imgbtn.src = "../images/light.png"
         document.querySelector('body').style.color = "white"
+        navDark.classList().replace("bg-dark", "bg-light");
         try {
             contentcolor.style.backgroundColor = "rgb(33,37,41)"
             dateIcon.classList.replace('date-iconLight', 'date-iconDark')
@@ -44,8 +47,9 @@ function darkLight() {
         document.querySelector('body').style.backgroundColor = "rgb(247,247,247)"
         document.querySelector('body').setAttribute('data-bs-theme', 'light')
         imgbtn.toString().replace('dark', 'light')
-        imgbtn.src = "../images/light.png"
+        imgbtn.src = "../images/dark.png"
         document.querySelector('body').style.color = "black"
+        navDark.classList().replace("bg-light", "bg-dark");
         try {
             contentcolor.style.backgroundColor = "white"
             dateIcon.classList.replace('date-iconDark', 'date-iconLight')

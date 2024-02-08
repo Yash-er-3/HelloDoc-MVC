@@ -1,5 +1,5 @@
 ﻿
-@model HelloDoc.DataModels.User;
+@model HelloDoc.DataModels.Aspnetuser;
 
 @{
     Layout = "_Layout";
@@ -38,13 +38,14 @@
 
                 <h2 class="text-center mt-2">
                     Login To Your Account
+
                 </h2>
                 <div class="position-relative">
                     <div class="form-floating">
                         <input type="email" asp-for="Email"  class="form-control shadow-none mt-5 bg-transparent"
-                            style="white-space: no-wrap;" placeholder="Email">
-                        <label class="FloatingInput" for="Name">Email</label>
-
+                        style="white-space:" placeholder="Email" required>
+                    <label class="FloatingInput" for="Name" >Email</label>
+                        <span class="text-danger small">@TempData["email"]</span>
                     </div>
                     <div style="top: 25%; position: absolute; right: 3%;">
                         <i class="bi bi-person-circle" role="button"></i>
@@ -54,9 +55,10 @@
 
                 <div class="position-relative">
                     <div class="form-floating">
-                        <input type="password" asp-for="Aspnetuser.Passwordhash"  class="form-control shadow-none mt-3 bg-transparent"
-                            placeholder="Password" id="pswd">
-                        <label class="FloatingInput" for="Name">Password</label>
+                        <input type="password" asp-for="Passwordhash"  class="form-control shadow-none mt-3 bg-transparent"
+                            placeholder="Password" id="pswd" required>
+                    <label class="FloatingInput" for="Name" >Password</label>
+                    <span class="text-danger small"> @TempData["password"]</span>
 
                     </div>
                     <div style="top: 28%; position: absolute; right: 3%;" onclick="hideviewpswd()">

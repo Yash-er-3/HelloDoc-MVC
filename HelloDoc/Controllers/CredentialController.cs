@@ -16,19 +16,24 @@ namespace HelloDoc.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(Aspnetuser user)
         {
             try
             {
                 var match = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == user.Email);
 
-                if(match.Passwordhash == user.Aspnetuser.Passwordhash) {
+                if(match.Passwordhash == user.Passwordhash) {
                     return RedirectToAction("Index", "Home");
                 }
-                return RedirectToAction("Privacy", "Home");
+                TempData["style"] = "text-danger";
+                TempData["password"] = "Enter valid password";
+                return RedirectToAction("registeredpatient", "Home");
+
             }
             catch (Exception e)
             {
+                TempData["style"] = "text-danger";
+                TempData["email"] = "Enter valid email";
                 return RedirectToAction("registeredpatient", "Home");
             }
         }

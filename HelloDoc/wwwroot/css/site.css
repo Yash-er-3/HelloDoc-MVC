@@ -22,6 +22,16 @@
     color: #bababa;
 }
 
+.bglight{
+    background-color:white;
+}
+
+.bgdark{
+    background-color:gray;
+}
+
+
+
 @media screen and (max-width:450px) {
 
     .main {
