@@ -23,6 +23,7 @@ namespace HelloDoc.Controllers
                 var match = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == user.Email);
 
                 if(match.Passwordhash == user.Passwordhash) {
+                    @TempData["msg"] = "<script>alert('Change succesfully');</script>";
                     return RedirectToAction("Index", "Home");
                 }
                 TempData["style"] = "text-danger";

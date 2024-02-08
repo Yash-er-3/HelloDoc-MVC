@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloDoc", "HelloDoc\HelloDoc.csproj", "{124EFEDB-28F9-47C5-B8E7-8F7556BECBA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloDoc", "HelloDoc\HelloDoc.csproj", "{124EFEDB-28F9-47C5-B8E7-8F7556BECBA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContext", "DataContext\DataContext.csproj", "{392E5EF7-8B2F-4595-8297-C75DC142A99A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataContext", "DataContext\DataContext.csproj", "{392E5EF7-8B2F-4595-8297-C75DC142A99A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModels", "DataModels\DataModels.csproj", "{8E2CD626-B4D8-445F-A1DA-B0F3065B093E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataModels\DataModels.csproj", "{8E2CD626-B4D8-445F-A1DA-B0F3065B093E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
