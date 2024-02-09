@@ -25,8 +25,8 @@ namespace HelloDoc.Controllers
 
             if(Aspnetuser == null)
             {
-
                 Aspnetuser aspnetuser = new Aspnetuser();
+                aspnetuser.Id = Guid.NewGuid().ToString();
                 aspnetuser.Passwordhash = r.Password;
                 aspnetuser.Email = r.Email;
                 String username = r.FirstName + r.LastName;
