@@ -2,6 +2,7 @@
     background-color: rgb(247, 247, 247);
 }*/
 
+
 .light-mode {
     margin-right: 20px;
     width: 40px;
@@ -217,4 +218,13 @@ input[type=tel]::placeholder {
 
 .modal.in .modal-dialog {
     transform: translate3d(0, 0, 0);
+}
+
+
+div#passwordFields1 {
+    display: none;
+}
+
+div#passwordFields2 {
+    display: none;
 }
