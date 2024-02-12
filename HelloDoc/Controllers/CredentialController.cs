@@ -24,7 +24,8 @@ namespace HelloDoc.Controllers
 
                 if(match.Passwordhash == user.Passwordhash) {
                     @TempData["msg"] = "<script>alert('Change succesfully');</script>";
-                    return RedirectToAction("Index", "Home");
+                    TempData["success"] = "Login Successfull";
+                    return RedirectToAction("PatientDashboard", "Patient");
                 }
                 TempData["style"] = "text-danger";
                 TempData["password"] = "Enter valid password";
@@ -35,6 +36,8 @@ namespace HelloDoc.Controllers
             {
                 TempData["style"] = "text-danger";
                 TempData["email"] = "Enter valid email";
+                //TempData["error"] = "Enter Valid Email and Password";
+
                 return RedirectToAction("registeredpatient", "Home");
             }
         }

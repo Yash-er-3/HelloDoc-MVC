@@ -6,7 +6,7 @@ using HelloDoc.DataModels;
 using HelloDoc.ViewModels;
 using System.Collections;
 
-namespace HelloDoc.Controllers
+namespace HelloDoc.Controllers.DataController
 {
     public class CreatePatientController : Controller
     {
@@ -23,13 +23,13 @@ namespace HelloDoc.Controllers
         {
             var Aspnetuser = await _log.Aspnetusers.FirstOrDefaultAsync(m => m.Email == r.Email);
 
-            if(Aspnetuser == null)
+            if (Aspnetuser == null)
             {
                 Aspnetuser aspnetuser = new Aspnetuser();
                 aspnetuser.Id = Guid.NewGuid().ToString();
                 aspnetuser.Passwordhash = r.Password;
                 aspnetuser.Email = r.Email;
-                String username = r.FirstName + r.LastName;
+                string username = r.FirstName + r.LastName;
                 aspnetuser.Username = username;
                 aspnetuser.Phonenumber = r.PhoneNumber;
                 aspnetuser.Modifieddate = DateTime.Now;
@@ -55,8 +55,9 @@ namespace HelloDoc.Controllers
             _log.Users.Add(user);
             _log.SaveChanges();
 
-            Request request = new Request {
-                Requesttypeid = 2,
+            Request request = new Request
+            {
+                Requesttypeid = 1,
                 Firstname = r.FirstName,
                 Lastname = r.LastName,
                 Phonenumber = r.PhoneNumber,
@@ -64,7 +65,7 @@ namespace HelloDoc.Controllers
                 Status = 1,
                 Createddate = DateTime.Now,
                 Modifieddate = DateTime.Now,
-            Userid = user.Userid
+                Userid = user.Userid
             };
 
             _log.Requests.Add(request);
@@ -77,10 +78,10 @@ namespace HelloDoc.Controllers
                 Lastname = r.LastName,
                 Phonenumber = r.PhoneNumber,
                 Notes = r.Symptoms,
-                Email = r.Email, 
+                Email = r.Email,
                 Street = r.Street,
                 City = r.City,
-                State = r.State,   
+                State = r.State,
                 Zipcode = r.ZipCode,
                 Regionid = 1
             };
@@ -88,8 +89,8 @@ namespace HelloDoc.Controllers
             _log.Requestclients.Add(requestclient);
             _log.SaveChanges();
 
-            return RedirectToAction("registeredpatient","Home");
-            
+            return RedirectToAction("registeredpatient", "Home");
+
         }
 
         [Route("/CreatePatient/patient/checkmail/{email}")]

@@ -2,6 +2,7 @@
 {
     public class PatientInfo
     {
+        //public int requestpatientid = 1;
         public String Symptoms { get; set; }
 
         public String FirstName { get; set;}
