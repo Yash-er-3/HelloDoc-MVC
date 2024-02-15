@@ -168,7 +168,9 @@
                         <div class="p-2 col-12 ">
                             <div class="form-group rounded d-flex align-items-center justify-content-between uploadbtndiv">
                                 <div class="px-3">
-                                    <lable class="choosenfile text-dark" id="file-chosen">No item selected</lable>
+                                    @*<lable class="choosenfile text-dark" id="file-chosen">No item selected</lable>*@
+                                    <input type="text" style="width:10vw;" id="file-chosen" class="border border-0" placeholder="No item selected" asp-for="FileName" disabled />
+
                                 </div>
                                 <div role="button" class="uploadbtn p-2 d-flex">
                                     <input type="file" id="actual-btn" hidden />

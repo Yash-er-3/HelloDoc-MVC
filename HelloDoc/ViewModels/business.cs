@@ -1,11 +1,14 @@
-﻿namespace HelloDoc.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HelloDoc.ViewModels
 {
     public class business
     {
-
+        [Required]
         public String FirstName { get; set; }
-
+        [Required]
         public String LastName { get; set; }
+        [Required]
 
         public String PhoneNumber { get; set; }
 
@@ -17,13 +20,16 @@
 
         public String Symptoms { get; set; }
 
+        [Required]
         public String PFirstName { get; set; }
-
+        [Required]
         public String PLastName { get; set; }
 
         public DateOnly PDOB { get; set; }
+        [Required]
 
         public String PEmail { get; set; }
+        [Required]
 
         public String PPhoneNumber { get; set; }
 

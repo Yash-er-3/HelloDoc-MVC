@@ -11,13 +11,17 @@ namespace HelloDoc.Controllers.DataController
     public class CreatePatientController : Controller
     {
 
+        private readonly IWebHostEnvironment _env;
         private readonly HelloDocDbContext _log;
 
-        public CreatePatientController(HelloDocDbContext log)
+        public CreatePatientController(HelloDocDbContext log, IWebHostEnvironment env)
         {
             _log = log;
+            _env = env;
         }
-
+        public IActionResult patient() { 
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> patient(PatientInfo r)
         {
@@ -54,7 +58,10 @@ namespace HelloDoc.Controllers.DataController
 
             _log.Users.Add(user);
             _log.SaveChanges();
+            //var user1 = await _log.Users.FirstOrDefaultAsync(m => m.Email == r.Email);
 
+            var region = await _log.Regions.FirstOrDefaultAsync(x => x.Regionid == user.Regionid);
+            var requestcount = (from m in _log.Requests where m.Createddate.Date == DateTime.Now.Date select m).ToList();
             Request request = new Request
             {
                 Requesttypeid = 1,
@@ -65,7 +72,9 @@ namespace HelloDoc.Controllers.DataController
                 Status = 1,
                 Createddate = DateTime.Now,
                 Modifieddate = DateTime.Now,
-                Userid = user.Userid
+                Userid = user.Userid,
+                Confirmationnumber = (region.Abbreviation.Substring(0, 2) + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + r.LastName.Substring(0, 2) + r.FirstName.Substring(0, 2) + requestcount.Count().ToString().PadLeft(4, '0')).ToUpper(),
+
             };
 
             _log.Requests.Add(request);
@@ -89,8 +98,36 @@ namespace HelloDoc.Controllers.DataController
             _log.Requestclients.Add(requestclient);
             _log.SaveChanges();
 
+
+            if (r.Upload != null)
+            {
+                uploadFile(r.Upload,requestdata.Requestid);
+            }
             return RedirectToAction("registeredpatient", "Home");
 
+        }
+
+        public void uploadFile(List<IFormFile> upload,int id)
+        {
+
+            foreach(var item in upload)
+            {
+                String path = _env.WebRootPath + "/upload/" + id + " " +item.FileName;
+                FileStream stream = new FileStream(path, FileMode.Create);
+
+                item.CopyTo(stream);
+
+                Requestwisefile requestwisefile = new Requestwisefile();
+
+                requestwisefile.Requestid = id;
+                requestwisefile.Filename = path;
+                requestwisefile.Createddate = DateTime.Now;
+
+                _log.Add(requestwisefile);
+                _log.SaveChanges();
+            }
+
+           
         }
 
         [Route("/CreatePatient/patient/checkmail/{email}")]
@@ -100,6 +137,8 @@ namespace HelloDoc.Controllers.DataController
             var emailExists = _log.Aspnetusers.Any(u => u.Email == email);
             return Json(new { exists = emailExists });
         }
+
+       
 
     }
 }

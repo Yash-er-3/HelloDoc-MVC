@@ -36,5 +36,8 @@
 
         public String Room { get; set; }
 
+        public String FileName { get; set; }
+
+
     }
 }

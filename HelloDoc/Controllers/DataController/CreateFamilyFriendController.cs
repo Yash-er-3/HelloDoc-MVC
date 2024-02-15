@@ -64,6 +64,16 @@ namespace HelloDoc.Controllers.DataController
 
                 _log.Requestclients.Add(r);
                 _log.SaveChanges();
+
+                Requestwisefile requestwisefile = new Requestwisefile();
+
+                requestwisefile.Requestid = r.Requestid;
+                requestwisefile.Filename = f.FileName;
+                requestwisefile.Createddate = DateTime.Now;
+
+                _log.Add(requestwisefile);
+                _log.SaveChanges();
+
                 return RedirectToAction("Index", "Home");
             }
             else

@@ -25,14 +25,14 @@
 
     <div class="border border-0 shadow rounded-1 px-3 py-2 mt-2 mb-5" id="content-color">
         <h6>Patient Information</h6>
-        <form asp-controller="CreatePatient" asp-action="patient" method="post">
+        <form asp-controller="CreatePatient" asp-action="patient" method="post" enctype="multipart/form-data">
             <div class="mt-3 d-flex row">
                 <div class="p-2 col-xl-12">
                     <div class="form-floating">
                         <div class="form-floating">
                             <textarea asp-for="Symptoms" class="form-control shadow-none"
                                       placeholder="Enter Brief Details Of Symptomps(Optional)"
-                                      style="height: 100px" ></textarea>
+                                      style="height: 100px"></textarea>
                             <label for="floatingTextarea2">Enter Brief Details Of Symptomps(Optional)</label>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
-                        <input type="date" asp-for="DOB"  class="form-control shadow-none"
+                        <input type="date" asp-for="DOB" class="form-control shadow-none"
                                placeholder="Date Of Birth">
                         <label class="FloatingInput" for="Name">Date Of Birth</label>
                     </div>
@@ -64,7 +64,7 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                     <div class="form-floating ">
-                        <input type="email" asp-for="Email" class="form-control shadow-none " placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
+                        <input type="email" asp-for="Email" class="form-control shadow-none" placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
                         <label class="FloatingInput" for="Name">Email</label>
                     </div>
                 </div>
@@ -78,16 +78,22 @@
                 </div>
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6" id="passwordFields1">
-                    <div class="form-floating " >
-                        <input type="password" asp-for="Password" class="form-control shadow-none " placeholder="Password" >
+                    <div class="form-floating ">
+                        <input type="password" asp-for="Password" id="pswd" class="form-control shadow-none " placeholder="Password">
                         <label class="FloatingInput" for="Name">Password</label>
+                        <div style="top: 28%; position: absolute; right: 3%;" onclick="hideviewpswd()">
+                            <i class="bi bi-eye-fill" role="button" id="eye-icon"></i>
+                        </div>
                     </div>
                 </div>
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6" id="passwordFields2">
-                    <div class="form-floating " >
-                        <input type="password" class="form-control shadow-none " placeholder="Password" >
+                    <div class="form-floating ">
+                        <input type="password" class="form-control shadow-none" id="pswd-1" placeholder="Password">
                         <label class="FloatingInput" for="Name">Confirm Password</label>
+                        <div style="top: 28%; position: absolute; right: 3%;" onclick="hideviewpswd1()">
+                            <i class="bi bi-eye-fill" role="button" id="eye-icon-1"></i>
+                        </div>
                     </div>
                 </div>
 
@@ -137,10 +143,11 @@
                         <div class="p-2 col-12 ">
                             <div class="form-group rounded d-flex align-items-center justify-content-between uploadbtndiv">
                                 <div class="px-3">
-                                    <label class="choosenfile text-dark small" id="file-chosen">No item selected</label>
+                                    @*<label class="choosenfile text-dark small" id="file-chosen">No item selected</label>*@
+                                    <input type="text" style="width:60vw;" id="file-chosen" class="border border-0" placeholder="No item selected" disabled />
                                 </div>
                                 <div role="button" class="uploadbtn p-2 d-flex">
-                                    <input type="file" id="actual-btn" hidden />
+                                    <input type="file" asp-for="Upload" id="actual-btn" hidden multiple/>
                                     <label role="button" for="actual-btn" class="d-flex align-items-center">
                                         <i class="bi bi-cloud-arrow-up p-2"></i><div>Upload</div>
                                     </label>
@@ -149,7 +156,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="justify-content-end d-flex">
                     <div class="mx-3">
@@ -183,27 +189,62 @@
         closeOnClickOutside: true,
     });
 
-    
-        function checkEmailExists() {
-            var email = document.getElementById("patientEmail").value;
 
-            fetch('/CreatePatient/patient/checkmail/' + email)
-                .then(response => response.json())
-                .then(data => {
-                    var patientPassword = document.getElementById('passwordFields1');
-                    var patientConfirmPassword = document.getElementById('passwordFields2');
-                    if (data.exists) {
-                        patientPassword.style.display = 'none';
-                        patientConfirmPassword.style.display = 'none';
-                        console.log("exist ")
-                    }
-                    else {
-                        patientPassword.style.display = 'block';
-                        patientConfirmPassword.style.display = 'block';
-                        console.log(" not exist ")
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+    function checkEmailExists() {
+
+        var email = document.getElementById("patientEmail").value;
+
+        fetch('/CreatePatient/patient/checkmail/' + email)
+            .then(response => response.json())
+            .then(data => {
+                var patientPassword = document.getElementById('passwordFields1');
+                var patientConfirmPassword = document.getElementById('passwordFields2');
+                if (data.exists) {
+                    patientPassword.style.display = 'none';
+                    patientConfirmPassword.style.display = 'none';
+                    console.log("exist ")
+                }
+                else {
+                    patientPassword.style.display = 'block';
+                    patientConfirmPassword.style.display = 'block';
+                    console.log(" not exist ")
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+    const eyeicon = document.getElementById('eye-icon')
+    const password = document.getElementById('pswd')
+
+ 
+    function hideviewpswd() {
+        if (password.type === "password") {
+            eyeicon.classList.replace('bi-eye-fill', 'bi-eye-slash-fill')
+            password.type = "text"
+        }
+        else {
+            eyeicon.classList.replace('bi-eye-slash-fill', 'bi-eye-fill')
+            password.type = "password"
+
         }
 
+    }
+
+    const eyeicon1 = document.getElementById('eye-icon-1')
+    const password1 = document.getElementById('pswd-1')
+    function hideviewpswd1() {
+        if (password1.type === "password") {
+            eyeicon1.classList.replace('bi-eye-fill', 'bi-eye-slash-fill')
+            password1.type = "text"
+        }
+        else {
+            eyeicon1.classList.replace('bi-eye-slash-fill', 'bi-eye-fill')
+            password1.type = "password"
+
+        }
+
+    }
 </script>
+
+

@@ -1,16 +1,153 @@
 ﻿using HelloDoc.DataContext;
+using HelloDoc.DataModels;
+using HelloDoc.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Policy;
 
 namespace HelloDoc.Controllers
 {
     public class PatientController:Controller
     {
-      
+        public readonly HelloDocDbContext Context;
 
-
+        public PatientController(HelloDocDbContext context)
+        {
+            Context = context;
+        }
         public IActionResult PatientDashboard()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                int id = (int)HttpContext.Session.GetInt32("UserId");
+                patient_dashboard dash = new patient_dashboard();
+                var userdata = Context.Users.FirstOrDefault(m => m.Userid == id);
+                TempData["user"] = userdata.Firstname;
+                dash.user = userdata;
+                var request = from m in Context.Requests
+                              where m.Userid == id
+                              select m;
+                dash.requests = request.ToList();
+                dash.requestwisefile = Context.Requestwisefiles.ToList();
+                return View(dash);
+            }
+            else
+            {
+                return RedirectToAction("registeredpatient", "Home");
+            }
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("UserId");
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult ydit(patient_dashboard dash)
+        {
+            int id = (int)HttpContext.Session.GetInt32("UserId");
+            var userdata = Context.Users.FirstOrDefault(m => m.Userid == id);
+            userdata.Firstname = dash.user.Firstname;
+            userdata.Lastname = dash.user.Lastname;
+            userdata.City = dash.user.City;
+            userdata.State = dash.user.State;
+            userdata.Street = dash.user.Street;
+            userdata.Zip = dash.user.Zip;
+
+            Context.Users.Update( userdata );
+            Context.SaveChanges();
+
+            return RedirectToAction("PatientDashboard", "Patient");
+        }
+
+        //for view document
+
+        public IActionResult viewdoc(int requestid)
+        {
+            int id = (int)HttpContext.Session.GetInt32("UserId");
+            patient_dashboard patient_Dashboard = new patient_dashboard();
+            var userdata = Context.Users.FirstOrDefault(m => m.Userid == id);
+            TempData["user"] = userdata.Firstname;
+            patient_Dashboard.user = userdata;
+            var req = from m in Context.Requestwisefiles
+                          where m.Requestid == requestid
+                          select m;
+            patient_Dashboard.requestwisefile = req.ToList();
+            patient_Dashboard.requestid = requestid;
+            return View(patient_Dashboard);
+        }
+
+        [HttpPost]
+        public void UploadTable(int id,List<IFormFile> file)
+        {
+            foreach (var item in file)
+
+            {
+
+                //string path = _environment.WebRootPath + "/UploadDocument/" + item.FileName;
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload", item.FileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    item.CopyTo(fileStream);
+                }
+
+                Requestwisefile requestWiseFiles = new Requestwisefile
+                {
+                    Requestid = id,
+                    Filename = path,
+                    Createddate = DateTime.Now,
+                };
+                Context.Requestwisefiles.Add(requestWiseFiles);
+                Context.SaveChanges();
+
+            }
+        }
+
+        [HttpPost]
+        public IActionResult UploadButton(patient_dashboard req, int requestid)
+        {
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                int id = (int)HttpContext.Session.GetInt32("UserId");
+                patient_dashboard model = new patient_dashboard();
+                var users = Context.Users.FirstOrDefault(m => m.Userid == id);
+                model.user = Context.Users.FirstOrDefault(m => m.Userid == id);
+                model.requests = (from m in Context.Requests where m.Userid == id select m).ToList();
+                TempData["user"] = users.Firstname;
+                TempData["RequestId"] = requestid;
+                //var req = Context.Requests.FirstOrDefault(m => m.UserId == id);
+                model.requestwisefile = (from m in Context.Requestwisefiles where m.Requestid == requestid select m).ToList();
+                //var reqe = Context.Requests.FirstOrDefault(m => m.UserId == id);
+                //var confirmationNumber =  Context.Requests.FirstOrDefault(x => x.RequestId == (Model.requests.FirstOrDefault(m => m.UserId == Model.
+                model.requestid = requestid;
+
+                if (req.fileName != null)
+                {
+                    UploadTable(requestid, req.fileName);
+                }
+
+                return RedirectToAction("viewdoc", model);
+            }
+            else
+            {
+                return RedirectToAction("viewdoc", requestid);
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult redirect(bool?c1,bool? c2)
+        {
+            if (c2.GetValueOrDefault())
+            {
+                return RedirectToAction("submitrequest", "Home");
+            }
+            else
+            {
+                return RedirectToAction("patient", "submitrequestforms");
+            }
+        }
+       
     }
 }

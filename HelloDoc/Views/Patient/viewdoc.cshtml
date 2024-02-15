@@ -1,0 +1,231 @@
+﻿@{
+    Layout = "_dashboard";
+}
+
+@model HelloDoc.ViewModels.patient_dashboard;
+
+
+
+<div class="tab-content container-fluid" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+
+        <div class="container-fluid pb-5 mb-5">
+            <div class="margin-viewdoc">
+                <div class="d-flex flex-row justify-content-between">
+                    <div class="d-flex h4">
+                        Documents
+                    </div>
+                    <div class="d-flex">
+                        <a asp-controller="Patient" asp-action="PatientDashboard" class="text-decoration-none">
+                            <span class="back-btn" style="color: #00b8e6;">&lt;Back</span>
+                        </a>
+                    </div>
+
+                </div>
+                <div class="bglight rounded p-3 shadow mt-3" id="content">
+                    <span class="text-secondary">Patient Name</span>
+
+                    <div class="mt-1">
+                        <span class="h4 text-info">@Model.user.Firstname @Model.user.Lastname</span>
+                        <span class="text-secondary">
+                            (jhdsvfjbrgjsre)
+@*                            (@Model.requests.FirstOrDefault(x => x.Requestid == (Model.requests.FirstOrDefault(m =>m.Userid == Model.user.Userid).Requestid)).Confirmationnumber)
+*@                        </span>
+
+                        <p class="small text-secondary mt-2">Check here for any files that you or the doctors of your subrequests requestors have attached for you to review.</p>
+
+                        <form method="post" asp-action="UploadButton" asp-controller="Patient" asp-route-requestid="@Model.requestid" enctype="multipart/form-data">
+                            <div class="row d-flex mt-3">
+                                <div class="py-2 col-12 ">
+                                    <div class="form-group rounded d-flex align-items-center justify-content-between uploadbtndiv">
+                                        <div class="px-3 table-responsive">
+                                            <input type="file" id="actual-btn" asp-for="fileName" multiple hidden />
+                                            <label role="button" for="actual-btn" id="file-chosen" class="choosenfile text-nowrap text-secondary">No item selected</label>
+                                        </div>
+                                        <button type="submit" class="uploadbtn px-2 py-1 d-flex ms-1 border-0">
+                                            <label role="button" class="d-flex align-items-center"><i class="bi bi-cloud-arrow-up p-2"></i><div>Upload</div></label>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div>
+                        </div>
+
+                        <div>
+                            <div class="d-flex flex-row justify-content-between mt-4">
+                                <div class="d-flex h5">
+                                    Documents
+                                </div>
+                                <div class="d-flex">
+                                    <a role="button" class="text-decoration-none">
+                                        <span class="p-2 text-info border rounded-2 border-info">Download All</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <table class="table mt-2">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"><input type="checkbox" id="documents" /></th>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Uploader</th>
+                                        <th scope="col">Upload Date</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var m in Model.requestwisefile)
+                                    {
+                                        <tr>
+                                            <td><input type="checkbox" class="childCheckbox" /></td>
+                                            <td>
+                                                @m.Filename.Substring(45)
+                                            </td>
+                                            <td>@Model.user.Firstname</td>
+                                            <td>@m.Createddate</td>
+                                            <td>
+                                                <a role="button" class="text-decoration-none" href="~/upload/@m.Filename.Substring(45)" download>
+                                                    <span class="p-1 text-info border rounded-2 border-info">
+                                                        <i class="bi bi-cloud-arrow-down"></i>
+                                                    </span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+        <div class="container-fluid ">
+            <div class="form-margin">
+                <h5 class="ms-2">User Profile</h5>
+
+                <form id="thisform" asp-controller="Patient" asp-action="ydit">
+                    <div class="border rounded-2 shadow row px-3">
+                        <h6 class="pt-3">General Information</h6>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.Firstname" class="form-control shadow-none" placeholder="First Name">
+                                <label class="FloatingInput" for="Name">First Name</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.Lastname" class="form-control shadow-none" placeholder="Last Name">
+                                <label class="FloatingInput" for="Name">Last Name</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="date" asp-for="user.Modifieddate" class="form-control shadow-none"
+                                       placeholder="Date Of Birth">
+                                <label class="FloatingInput" for="Name">Date Of Birth</label>
+                            </div>
+                        </div>
+
+                        <h6 class="pt-3 mt-2">Contact Information</h6>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                            <div class="telephone rounded form-floating">
+                                <div class="input-group d-flex align-items-center rounded ">
+                                    <input type="tel" asp-for="user.Aspnetuser.Phonenumber" id="tel" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                            <div class="form-floating ">
+                                <input type="email" asp-for="user.Email" class="form-control shadow-none " placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
+                                <label class="FloatingInput" for="Name">Email</label>
+                            </div>
+                        </div>
+
+                        <h6 class="pt-3 mt-2">Location Information</h6>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.Street" class="form-control shadow-none " placeholder="Street">
+                                <label class="FloatingInput" for="Name">Street</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.City" class="form-control shadow-none " placeholder="City">
+                                <label class="FloatingInput" for="Name">City</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.State" class="form-control shadow-none " placeholder="State">
+                                <label class="FloatingInput" for="Name">State</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating">
+                                <input type="text" asp-for="user.Zip" class="form-control shadow-none " placeholder="Zip Code">
+                                <label class="FloatingInput" for="Name">Zip Code</label>
+                            </div>
+                        </div>
+
+                        <div class="mr-3 mt-3 justify-content-end d-flex">
+                            <button id="editButton" class="border border-0 text-white sub rounded-2 px-3 py-2">
+                                Edit
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable(
+            //info: true,
+            //ordering: true,
+            //paging: true,
+            //searching: true
+
+        );
+    });
+
+    // jQuery script to handle leader checkbox click event
+    $(document).ready(function () {
+        $('#documents').click(function () {
+            $('.childCheckbox').prop('checked', $(this).prop('checked'));
+        });
+
+        // Handle individual checkbox clicks to update the leader checkbox state
+        $('.childCheckbox').click(function () {
+            $('#documents').prop('checked', $('.childCheckbox:checked').length === $('.childCheckbox').length);
+        });
+    });
+
+</script>

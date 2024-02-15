@@ -26,5 +26,7 @@
         public String ZipCode { get; set; }
 
         public String Room { get; set;}
+
+        public List<IFormFile> Upload { get; set;}
     }
 }

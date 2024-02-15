@@ -3,6 +3,7 @@ using HelloDoc.DataModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace HelloDoc.Controllers
 {
     public class CredentialController : Controller
@@ -21,15 +22,20 @@ namespace HelloDoc.Controllers
             try
             {
                 var match = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == user.Email);
-
+                var users = await _context.Users.FirstOrDefaultAsync(m => m.Email == user.Email);
                 if(match.Passwordhash == user.Passwordhash) {
                     @TempData["msg"] = "<script>alert('Change succesfully');</script>";
                     TempData["success"] = "Login Successfull";
+                    HttpContext.Session.SetInt32("UserId", users.Userid);
                     return RedirectToAction("PatientDashboard", "Patient");
                 }
-                TempData["style"] = "text-danger";
-                TempData["password"] = "Enter valid password";
-                return RedirectToAction("registeredpatient", "Home");
+                else
+                {
+                    TempData["style"] = "text-danger";
+                    TempData["password"] = "Enter valid password";
+                    return RedirectToAction("registeredpatient", "Home");
+                }
+
 
             }
             catch (Exception e)

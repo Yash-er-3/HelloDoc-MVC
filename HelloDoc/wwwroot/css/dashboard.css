@@ -1,0 +1,28 @@
+﻿.form-margin{
+    margin:0vh 5vh;
+}
+
+.logouttext{
+    color:#00b8e6;
+}
+
+.margin-viewdoc{
+    margin:0% 18%;
+}
+
+
+/*css for patient dashboard*/
+@media only screen and (min-width:450px) {
+    .plusimg {
+        display: none;
+    }
+}
+
+
+@media only screen and (max-width:450px) {
+
+    .cnr {
+        display: none;
+    }
+}
+
