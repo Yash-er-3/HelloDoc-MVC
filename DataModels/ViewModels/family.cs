@@ -1,4 +1,6 @@
-﻿namespace HelloDoc.ViewModels
+﻿using Microsoft.AspNetCore.Http;
+
+namespace HelloDoc.ViewModels
 {
     public class family
     {
@@ -25,7 +27,6 @@
         public String PPhoneNumber { get; set; }
 
 
-
         public String Street { get; set; }
 
         public String City { get; set; }
@@ -36,8 +37,7 @@
 
         public String Room { get; set; }
 
-        public String FileName { get; set; }
-
+        public List<IFormFile> FileName { get; set; }
 
     }
 }

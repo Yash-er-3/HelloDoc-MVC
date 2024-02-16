@@ -36,8 +36,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxzdWJtaXRyZXF1ZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projects/HelloDoc/HelloDoc/Views/Patient/me.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxtZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projects/HelloDoc/HelloDoc/Views/Patient/PatientDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxQYXRpZW50RGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Patient/someone.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFxzb21lb25lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Patient/viewdoc.cshtml]
@@ -86,6 +94,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Projects/HelloDoc/HelloDoc/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/wwwroot/upload/_ViewImports (2).cshtml]
+build_metadata.AdditionalFiles.TargetPath = d3d3cm9vdFx1cGxvYWRcX1ZpZXdJbXBvcnRzICgyKS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/wwwroot/upload/_ViewImports (4).cshtml]
+build_metadata.AdditionalFiles.TargetPath = d3d3cm9vdFx1cGxvYWRcX1ZpZXdJbXBvcnRzICg0KS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Shared/_Layout.cshtml]

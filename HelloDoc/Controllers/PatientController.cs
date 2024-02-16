@@ -4,6 +4,7 @@ using HelloDoc.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Security.Policy;
 
 namespace HelloDoc.Controllers
@@ -137,17 +138,40 @@ namespace HelloDoc.Controllers
         }
 
         [HttpPost]
-        public ActionResult redirect(bool?c1,bool? c2)
+        public ActionResult redirect()
         {
-            if (c2.GetValueOrDefault())
+            var radio = Request.Form["options-outlined"];
+            if (radio == "me")
             {
-                return RedirectToAction("submitrequest", "Home");
+                return RedirectToAction("me", "Patient");
             }
             else
             {
-                return RedirectToAction("patient", "submitrequestforms");
+                return RedirectToAction("someone", "Patient");
             }
         }
-       
+
+        public IActionResult me()
+        {
+            int id = (int)HttpContext.Session.GetInt32("UserId");
+            var users = Context.Users.FirstOrDefault(m => m.Userid == id);
+            PatientInfo details = new PatientInfo();
+            details.FirstName = users.Firstname;
+            details.LastName = users.Lastname;
+            details.Email = users.Email;
+            //details.DOB = new DateTime(Convert.ToInt32(users.Intyear), DateTime.ParseExact(users.Strmonth, "MMMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(users.Intdate));
+            return View(details);
+        }
+
+        public IActionResult someone()
+        {
+            int id = (int)HttpContext.Session.GetInt32("UserId");
+            var users = Context.Users.FirstOrDefault(m => m.Userid == id);
+            family f = new family();
+            f.FirstName = users.Firstname;
+            f.LastName = users.Lastname;
+            return View(f);
+        }
+
     }
 }

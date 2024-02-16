@@ -17,6 +17,31 @@ namespace HelloDoc.Controllers.DataController
         {
             _log = log;
         }
+        [HttpPost]
+        public void UploadTable(int id, List<IFormFile> file)
+        {
+            foreach (var item in file)
+
+            {
+
+                //string path = _environment.WebRootPath + "/UploadDocument/" + item.FileName;
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload", item.FileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    item.CopyTo(fileStream);
+                }
+
+                Requestwisefile requestWiseFiles = new Requestwisefile
+                {
+                    Requestid = id,
+                    Filename = path,
+                    Createddate = DateTime.Now,
+                };
+                _log.Requestwisefiles.Add(requestWiseFiles);
+                _log.SaveChanges();
+
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> Family(family f)
@@ -30,10 +55,10 @@ namespace HelloDoc.Controllers.DataController
                 {
                     Requesttypeid = 2,
                     Userid = user.Userid,
-                    Firstname = f.FirstName,
-                    Lastname = f.LastName,
-                    Phonenumber = f.PhoneNumber,
-                    Email = f.Email,
+                    Firstname = f.PFirstName,
+                    Lastname = f.PLastName,
+                    Phonenumber = f.PPhoneNumber,
+                    Email = f.PEmail,
                     Status = 1,
                     Createddate = DateTime.Now,
                     Modifieddate = DateTime.Now,
@@ -45,7 +70,7 @@ namespace HelloDoc.Controllers.DataController
 
 
                 Requestclient r = new Requestclient();
-                ;
+                
                 r.Notes = f.Symptoms;
                 r.Requestid = request.Requestid;
                 r.Firstname = f.FirstName;
@@ -65,14 +90,13 @@ namespace HelloDoc.Controllers.DataController
                 _log.Requestclients.Add(r);
                 _log.SaveChanges();
 
-                Requestwisefile requestwisefile = new Requestwisefile();
+                //Requestwisefile requestwisefile = new Requestwisefile();
 
-                requestwisefile.Requestid = r.Requestid;
-                requestwisefile.Filename = f.FileName;
-                requestwisefile.Createddate = DateTime.Now;
-
-                _log.Add(requestwisefile);
-                _log.SaveChanges();
+                //requestwisefile.Requestid = r.Requestid;
+                if (f.FileName != null)
+                {
+                    UploadTable(request.Requestid,f.FileName);
+                }
 
                 return RedirectToAction("Index", "Home");
             }

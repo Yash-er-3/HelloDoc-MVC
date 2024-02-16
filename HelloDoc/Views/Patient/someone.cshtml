@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = "rpstyle";
 }
 @model HelloDoc.ViewModels.family;
@@ -12,71 +11,26 @@
         </div>
 
         <div>
-            <a asp-action="submitrequest" asp-controller="Home" class="text-decoration-none">
+            <!-- <a href="../submitrequest.html"
+                class="d-flex text-decoration-none align-items-center border border-0 bg-transparent"> -->
+            <!-- <div class="d-flex">
+                <img class="back" src="../images/back.png" alt="">
+            </div> -->
+            <a asp-controller="Patient" asp-action="PatientDashboard" class="text-decoration-none">
                 <span class="back-btn small" style="color: #00b8e6;">&lt;Back</span>
             </a>
+            <!-- </a> -->
         </div>
-
-        <!-- <div class="d-flex back-btn small">
-            <a href="../submitrequest.html"
-                class="d-flex text-decoration-none align-items-center border border-0 ">
-                <div class="d-flex">
-                    <img class="back" src="../images/back.png" alt="">
-                </div>
-                <span style="color: #00b8e6;">Back</span>
-            </a>
-        </div> -->
     </div>
 
-    <div class=" border border-0 shadow rounded-1 px-3 py-2 mt-2 mb-5" id="content-color">
-        <h6>Family/Friend Information</h6>
-        <form asp-action="Family" asp-controller="CreateFamilyFriend" method="post" enctype="multipart/form-data">
+    <div class="border border-0 shadow rounded-1 px-3 py-2 mt-2 mb-5" id="content-color">
+        <h6>Patient Information</h6>
+        <form asp-controller="CreatePatient" asp-action="patient" method="post" enctype="multipart/form-data">
             <div class="mt-3 d-flex row">
-
-                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                    <div class="form-floating ">
-                        <input type="text" asp-for="FirstName" class="form-control shadow-none " placeholder="First Name">
-                        <label class="FloatingInput" for="Name">Your First Name</label>
-                    </div>
-                </div>
-
-                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                    <div class="form-floating ">
-                        <input type="text" asp-for="LastName" class="form-control shadow-none " placeholder="Last Name">
-                        <label class="FloatingInput" for="Name">Your Last Name</label>
-                    </div>
-                </div>
-
-                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
-                    <div class="telephone rounded form-floating">
-                        <div class="input-group d-flex align-items-center rounded ">
-                            <input type="tel" asp-for="PhoneNumber" id="tel" class="form-control" placeholder="">
-                        </div>
-                    </div>
-                </div>
-                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
-                    <div class="form-floating ">
-                        <input type="email" asp-for="Email" class="form-control shadow-none " placeholder="Email">
-                        <label class="FloatingInput" for="Name">Your Email</label>
-                    </div>
-                </div>
-
-                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                    <div class="form-floating ">
-                        <input type="text" asp-for="RelationWithPatient" class="form-control shadow-none "
-                               placeholder="Relation With Patient">
-                        <label class="FloatingInput" for="Name">Relation With Patient</label>
-                    </div>
-                </div>
-
-
-
-                <h6 class="mt-3">Patient Information</h6>
-
                 <div class="p-2 col-xl-12">
                     <div class="form-floating">
                         <div class="form-floating">
-                            <textarea class="form-control shadow-none " asp-for="Symptoms"
+                            <textarea asp-for="Symptoms" class="form-control shadow-none"
                                       placeholder="Enter Brief Details Of Symptomps(Optional)"
                                       style="height: 100px"></textarea>
                             <label for="floatingTextarea2">Enter Brief Details Of Symptomps(Optional)</label>
@@ -86,22 +40,22 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
-                        <input type="text" asp-for="PFirstName" class="form-control shadow-none " placeholder="First Name">
+                        <input type="text" asp-for="FirstName" class="form-control shadow-none" placeholder="First Name">
                         <label class="FloatingInput" for="Name">First Name</label>
                     </div>
                 </div>
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
-                        <input type="text" asp-for="PLastName" class="form-control shadow-none " placeholder="Last Name">
+                        <input type="text" asp-for="LastName" class="form-control shadow-none" placeholder="Last Name">
                         <label class="FloatingInput" for="Name">Last Name</label>
                     </div>
                 </div>
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
-                        <input type="date" asp-for="PDOB" class="form-control shadow-none  date-iconDark"
-                               placeholder="Date Of Birth" id="date-icon">
+                        <input type="date" asp-for="PDOB" class="form-control shadow-none"
+                               placeholder="Date Of Birth">
                         <label class="FloatingInput" for="Name">Date Of Birth</label>
                     </div>
                 </div>
@@ -110,7 +64,7 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                     <div class="form-floating ">
-                        <input type="email" asp-for="PEmail" class="form-control shadow-none " placeholder="Email">
+                        <input type="email" asp-for="PEmail" class="form-control shadow-none" placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
                         <label class="FloatingInput" for="Name">Email</label>
                     </div>
                 </div>
@@ -118,7 +72,7 @@
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                     <div class="telephone rounded form-floating">
                         <div class="input-group d-flex align-items-center rounded ">
-                            <input type="tel" asp-for="PPhoneNumber" id="tel1" class="form-control" placeholder="(201) 555-0123">
+                            <input type="tel" asp-for="PPhoneNumber" id="tel" class="form-control" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -155,9 +109,18 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
-                        <input type="text" class="form-control shadow-none " asp-for="Room"
+                        <input type="text" asp-for="Room" class="form-control shadow-none "
                                placeholder="Room # / Suite (Optional)">
                         <label class="FloatingInput" for="Name">Room # / Suite (Optional)</label>
+                    </div>
+                </div>
+
+                <h6 class="mt-3">Relation</h6>
+
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-floating ">
+                        <input type="text" asp-for="RelationWithPatient" class="form-control shadow-none" placeholder="Relation With Patient (Optional)">
+                        <label class="FloatingInput" for="Name">Relation With Patient (Optional)</label>
                     </div>
                 </div>
 
@@ -168,21 +131,19 @@
                         <div class="p-2 col-12 ">
                             <div class="form-group rounded d-flex align-items-center justify-content-between uploadbtndiv">
                                 <div class="px-3">
-                                    @*<lable class="choosenfile text-dark" id="file-chosen">No item selected</lable>*@
-                                    <input type="text" style="width:10vw;" id="file-chosen" class="border border-0" placeholder="No item selected" disabled />
+                                    @*<label class="choosenfile text-dark small" id="file-chosen">No item selected</label>*@
+                                    <input type="text" style="width:60vw;" id="file-chosen" class="border border-0" placeholder="No item selected" disabled />
                                 </div>
                                 <div role="button" class="uploadbtn p-2 d-flex">
-                                    <input type="file" asp-for="FileName" id="actual-btn" multiple hidden />
+                                    <input type="file" asp-for="FileName" id="actual-btn" hidden multiple />
                                     <label role="button" for="actual-btn" class="d-flex align-items-center">
-                                        <i class="bi bi-cloud-arrow-up p-2"></i>
-                                        <div>Upload</div>
+                                        <i class="bi bi-cloud-arrow-up p-2"></i><div>Upload</div>
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="justify-content-end d-flex">
                     <div class="mx-3">
@@ -208,18 +169,5 @@
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
-<script>
-   
-    const phoneInputField1 = document.querySelector("#tel1");
-    const phoneInput1 = window.intlTelInput(phoneInputField1, {
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
 
-    swal("Information",
-        "When Submitting the request, you must provide the correct contact information for the patient or responsibly party.Failure to provide the correct email and phone number will delay the service or be declined.",
-        "warning", {
-        closeOnClickOutside: true,
-    });
-</script>

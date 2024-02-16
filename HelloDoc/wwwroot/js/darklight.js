@@ -13,16 +13,6 @@ window.onload = function () {
     flag = parseInt(array[1]);
     darkLight()
     // console.log(flag)
-    try {
-        const myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-
-        myModal.show();
-
-        const closeBtn = document.getElementById("closeBtn");
-        closeBtn.addEventListener('click', function () { myModal.hide(); })
-    } catch (error) {
-
-    }
 }
 
 function darkLight() {
@@ -74,4 +64,5 @@ actualBtn.addEventListener('change', function () {
     fileChosen.textContent = this.files[0].name
     fileChosen.placeholder = this.files[0].name
     fileChosen.value = this.files[0].name
+
 })

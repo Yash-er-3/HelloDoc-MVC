@@ -39,28 +39,30 @@ namespace HelloDoc.Controllers.DataController
                 aspnetuser.Modifieddate = DateTime.Now;
                 _log.Aspnetusers.Add(aspnetuser);
                 Aspnetuser = aspnetuser;
+
+                User user = new User();
+                user.Aspnetuserid = Aspnetuser.Id;
+                user.Firstname = r.FirstName;
+                user.Lastname = r.LastName;
+                user.Email = r.Email;
+                user.Mobile = r.PhoneNumber;
+                user.Street = r.Street;
+                user.City = r.City;
+                user.State = r.State;
+                user.Zip = r.ZipCode;
+                user.Createdby = r.FirstName + r.LastName;
+                user.Modifieddate = DateTime.Now;
+                user.Status = 1;
+                user.Regionid = 1;
+
+                _log.Users.Add(user);
+                _log.SaveChanges();
             }
 
-            User user = new User();
-            user.Aspnetuserid = Aspnetuser.Id;
-            user.Firstname = r.FirstName;
-            user.Lastname = r.LastName;
-            user.Email = r.Email;
-            user.Mobile = r.PhoneNumber;
-            user.Street = r.Street;
-            user.City = r.City;
-            user.State = r.State;
-            user.Zip = r.ZipCode;
-            user.Createdby = r.FirstName + r.LastName;
-            user.Modifieddate = DateTime.Now;
-            user.Status = 1;
-            user.Regionid = 1;
 
-            _log.Users.Add(user);
-            _log.SaveChanges();
-            //var user1 = await _log.Users.FirstOrDefaultAsync(m => m.Email == r.Email);
+            var user1 = await _log.Users.FirstOrDefaultAsync(m => m.Email == r.Email);
 
-            var region = await _log.Regions.FirstOrDefaultAsync(x => x.Regionid == user.Regionid);
+            var region = await _log.Regions.FirstOrDefaultAsync(x => x.Regionid == user1.Regionid);
             var requestcount = (from m in _log.Requests where m.Createddate.Date == DateTime.Now.Date select m).ToList();
             Request request = new Request
             {
@@ -72,17 +74,17 @@ namespace HelloDoc.Controllers.DataController
                 Status = 1,
                 Createddate = DateTime.Now,
                 Modifieddate = DateTime.Now,
-                Userid = user.Userid,
+                Userid = user1.Userid,
                 Confirmationnumber = (region.Abbreviation.Substring(0, 2) + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + r.LastName.Substring(0, 2) + r.FirstName.Substring(0, 2) + requestcount.Count().ToString().PadLeft(4, '0')).ToUpper(),
 
             };
 
             _log.Requests.Add(request);
             _log.SaveChanges();
-            var requestdata = await _log.Requests.FirstOrDefaultAsync(m => m.Email == user.Email);
+            //var requestdata = await _log.Requests.FirstOrDefaultAsync(m => m.Email == user.Email);
             Requestclient requestclient = new Requestclient
             {
-                Requestid = requestdata.Requestid,
+                Requestid = request.Requestid,
                 Firstname = r.FirstName,
                 Lastname = r.LastName,
                 Phonenumber = r.PhoneNumber,
@@ -101,7 +103,13 @@ namespace HelloDoc.Controllers.DataController
 
             if (r.Upload != null)
             {
-                uploadFile(r.Upload,requestdata.Requestid);
+                uploadFile(r.Upload,request.Requestid);
+            }
+
+            if (HttpContext.Session.GetInt32("UserId") != null)
+            {
+                return RedirectToAction("PatientDashboard", "Patient");
+
             }
             return RedirectToAction("registeredpatient", "Home");
 

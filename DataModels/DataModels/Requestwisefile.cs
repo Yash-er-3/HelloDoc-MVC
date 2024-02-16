@@ -19,7 +19,7 @@ public partial class Requestwisefile
 
     [Column("filename")]
     [StringLength(500)]
-    public string Filename { get; set; } = null!;
+    public string Filename { get; set; }= null!;
 
     [Column("createddate", TypeName = "timestamp without time zone")]
     public DateTime Createddate { get; set; }

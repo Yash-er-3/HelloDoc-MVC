@@ -20,8 +20,8 @@
                 </div>
                 <div class="bglight rounded p-3 shadow" id="content">
                     <div class="d-flex justify-content-end mb-1">
-                        <a class="text-decoration-none" >
-                            
+                        <a class="text-decoration-none">
+
                             <button class="d-flex text-info border border-info rounded align-item-center p-1 px-2 bg-transparent" data-toggle="modal" data-target="#exampleModalCenter" type="button" class="btn btn-primary modal-dialog modal-dialog-centered" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <div class="plusimg"><i class="bi bi-plus-lg"></i></div>
                                 <div class="cnr"><span>&nbsp;Create New request</span></div>
@@ -38,18 +38,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                        @foreach (var m in Model.requests)
-                        {
+                                @foreach (var m in Model.requests)
+                                {
                                     <tr>
                                         <td>@m.Createddate.ToString("MMM dd , yyyy")</td>
                                         <td>@Model.StatusFind(m.Status)</td>
                                         <td>
                                             <a asp-action="viewdoc" asp-controller="Patient" class="btn btn-outline-info" asp-route-requestid="@m.Requestid">
-                                               @m.Requestwisefiles.Count() Document
+                                                @m.Requestwisefiles.Count() Document
                                             </a>
                                         </td>
                                     </tr>
-                        }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -66,121 +66,147 @@
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Create New Request</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form asp-action="redirect" asp-route-c2="me" asp-controller="Patient" method="post">
+                <form asp-action="redirect" asp-controller="Patient" method="post">
+                    <p class="mt-3 ms-3 text-secondary">Here, I want to create new request for...</p>
                     <div class="modal-body d-flex justify-content-center">
                         <div class="px-2">
-                            <input type="radio"  name="me" value="false" hidden>
-                            <label for="me"><button type="button"  class="btn btn-info border border-1 border-info text-light">Me</button></label>
+                            <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" value="me" autocomplete="off" checked>
+                            <label class="btn btn-outline-info" for="success-outlined">Me</label>
                         </div>
                         <div class="px-2">
-                            <input type="radio" name="me" id="someone" value="false" hidden>
-                            <label for="someone"><button type="button" class="btn border border-1 border-info text-info">Some One Else</button></label>
+                            <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" value="someone" autocomplete="off">
+                            <label class="btn btn-outline-info" for="danger-outlined">Someone else</label>
                         </div>
 
                     </div>
+
                     <div class="modal-footer">
-                        <button class="btn btn-info" onclick="redirect()" role="button">Continue</button>
-                        <button class="btn border border-1 border-info text-info" data-bs-dismiss="modal" role="button">Close</button>
+                        <button class="btn btn-info" onclick="redirect()" type="submit" role="button">Continue</button>
+                        <button class="btn border border-1 border-info text-info" data-bs-dismiss="modal" role="button" type="button">Close</button>
                     </div>
                 </form>
-                
+
+
+
+            </div>
         </div>
     </div>
-    </div>
 
-<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-    <div class="container-fluid ">
-        <div class="form-margin">
-            <h5 class="ms-2">User Profile</h5>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+        <div class="container-fluid ">
+            <div class="form-margin">
+                <h5 class="ms-2">User Profile</h5>
 
-            <form id="thisform" asp-controller="Patient" asp-action="ydit">
-                <div class="border rounded-2 shadow row px-3">
-                    <h6 class="pt-3">General Information</h6>
+                <form id="thisform" asp-controller="Patient" asp-action="ydit">
+                    <div class="border rounded-2 shadow row px-3">
+                        <h6 class="pt-3">General Information</h6>
 
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="form-floating ">
-                            <input type="text" asp-for="user.Firstname" class="form-control shadow-none" placeholder="First Name">
-                            <label class="FloatingInput" for="Name">First Name</label>
-                        </div>
-                    </div>
-
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="form-floating ">
-                            <input type="text" asp-for="user.Lastname" class="form-control shadow-none" placeholder="Last Name">
-                            <label class="FloatingInput" for="Name">Last Name</label>
-                        </div>
-                    </div>
-
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="form-floating ">
-                            <input type="date" asp-for="user.Modifieddate" class="form-control shadow-none"
-                                   placeholder="Date Of Birth">
-                            <label class="FloatingInput" for="Name">Date Of Birth</label>
-                        </div>
-                    </div>
-
-                    <h6 class="pt-3 mt-2">Contact Information</h6>
-
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
-                        <div class="telephone rounded form-floating">
-                            <div class="input-group d-flex align-items-center rounded ">
-                                <input type="tel" asp-for="user.Aspnetuser.Phonenumber" id="tel" class="form-control" placeholder="">
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.Firstname" class="form-control shadow-none" placeholder="First Name" disabled>
+                                <label class="FloatingInput" for="Name">First Name</label>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.Lastname" class="form-control shadow-none" placeholder="Last Name" disabled>
+                                <label class="FloatingInput" for="Name">Last Name</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="date" asp-for="user.Modifieddate" class="form-control shadow-none"
+                                       placeholder="Date Of Birth" disabled>
+                                <label class="FloatingInput" for="Name">Date Of Birth</label>
+                            </div>
+                        </div>
+
+                        <h6 class="pt-3 mt-2">Contact Information</h6>
+
+                        @*<div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                        <div class="telephone rounded form-floating">
+                        <div class="input-group d-flex align-items-center rounded ">
+                        <input type="tel" asp-for="user.Aspnetuser.Phonenumber" id="tel" class="form-control" placeholder="" disabled>
+                        </div>
+                        </div>
+                        </div>*@
+
+                        <div class="col-lg-2 mt-2">
+                            <div class="form-floating">
+                                <select class="form-select form-control shadow-none" aria-label="Default select example">
+                                    <option selected>Mobile</option>
+                                    <option value="1">Phone</option>
+                                </select>
+                                <label for="floatingPassword" class="form-label">Type</label>
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 mt-2">
+                            <div class="telephone rounded form-floating">
+                                <div class="input-group d-flex align-items-center rounded ">
+                                    <input type="tel" id="tel" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                        </div>
 
 
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
-                        <div class="form-floating ">
-                            <input type="email" asp-for="user.Email" class="form-control shadow-none " placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
-                            <label class="FloatingInput" for="Name">Email</label>
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="email" asp-for="user.Email" class="form-control shadow-none " placeholder="Email" id="patientEmail" disabled>
+                                <label class="FloatingInput" for="Name">Email</label>
+                            </div>
+                        </div>
+
+                        <h6 class="pt-3 mt-2">Location Information</h6>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.Street" class="form-control shadow-none " placeholder="Street" disabled>
+                                <label class="FloatingInput" for="Name">Street</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.City" class="form-control shadow-none " placeholder="City" disabled>
+                                <label class="FloatingInput" for="Name">City</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="text" asp-for="user.State" class="form-control shadow-none " placeholder="State" disabled>
+                                <label class="FloatingInput" for="Name">State</label>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating">
+                                <input type="text" asp-for="user.Zip" class="form-control shadow-none " placeholder="Zip Code" disabled>
+                                <label class="FloatingInput" for="Name">Zip Code</label>
+                            </div>
+                        </div>
+
+                        <div class="mr-3 mt-3 mb-3 justify-content-end d-flex">
+                            <a id="editButton" role="button" class="border border-0 text-white sub rounded-2 px-3 py-2 text-decoration-none">
+                                Edit
+                            </a>
+
+                            <button id="saveButton" type="submit" class="border border-0 text-white sub rounded-2 px-3 py-2 text-decoration-none" hidden>
+                                Save
+                            </button>
                         </div>
                     </div>
+                </form>
 
-                    <h6 class="pt-3 mt-2">Location Information</h6>
 
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
-                        <div class="form-floating ">
-                            <input type="text" asp-for="user.Street" class="form-control shadow-none " placeholder="Street">
-                            <label class="FloatingInput" for="Name">Street</label>
-                        </div>
-                    </div>
-
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
-                        <div class="form-floating ">
-                            <input type="text" asp-for="user.City" class="form-control shadow-none " placeholder="City">
-                            <label class="FloatingInput" for="Name">City</label>
-                        </div>
-                    </div>
-
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="form-floating ">
-                            <input type="text" asp-for="user.State" class="form-control shadow-none " placeholder="State">
-                            <label class="FloatingInput" for="Name">State</label>
-                        </div>
-                    </div>
-
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                        <div class="form-floating">
-                            <input type="text" asp-for="user.Zip" class="form-control shadow-none " placeholder="Zip Code">
-                            <label class="FloatingInput" for="Name">Zip Code</label>
-                        </div>
-                    </div>
-
-                    <div class="mr-3 mt-3 justify-content-end d-flex">
-                        <button id="editButton" class="border border-0 text-white sub rounded-2 px-3 py-2">
-                            Edit
-                        </button>
-                    </div>
-
-                </div>
-            </form>
-
+            </div>
 
         </div>
-
     </div>
-</div>
 </div>
 <script>
     $(document).ready(function () {
@@ -192,189 +218,20 @@
         );
     });
 
-
+    $(document).ready(function () {
+        $('#editButton').click(function () {
+            // Remove disabled attribute to make inputs editable
+            // $('#name').prop('disabled', false);
+            // $('#age').prop('disabled', false);
+            $('input[type="text"]').removeAttr('disabled', false);
+            $('input[type="date"]').removeAttr('disabled', false);
+            $('input[type="tel"]').removeAttr('disabled', false);
+            // Hide the edit button after clicking it
+            $(this).hide();
+            $('#saveButton').removeAttr('hidden', false);
+        });
+    });
 
 </script>
 
 
-                        @*
-<div class="container-fluid pb-5 mb-5">
-    <div class="px-4">
-
-        <div class="d-flex subinfodiv align-items-center py-3">
-            <div class="h3 subinfotext fw-bold">Medical History </div>
-        </div>
-        <div class="bglight rounded p-3 shadow" id="content">
-            <div class="d-flex justify-content-end">
-                <a asp-controller="Dashboard" asp-action="Dashboard">
-                    <button class="d-flex babtn rounded align-item-center p-1 px-2">
-                        <div class="plusimg"><i class="bi bi-plus-lg"></i></div>
-                        <div class="cnr"><span>Create New request</span></div>
-                    </button>
-                </a>
-            </div>
-            <div>
-                <table class="table">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">Created Date</th>
-                            <th scope="col">Current Status</th>
-                            <th scope="col">Document</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var m in Model.requests)
-                        {
-                            <tr>
-                                <th>@m.Createddate</th>
-                                <th>@m.Createduserid</th>
-                                <th>@m.Requestid</th>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-*@
-                        @*
-
-@{
-    Layout = "_LayoutForDashboard";
-}
-@model HelloDoc.DataModels.User;
-@{
-    int monthNumber = DateTime.ParseExact("March", "MMMM", CultureInfo.CurrentCulture).Month;
-    //var datevalue = Model.Intyear.ToString() + "-" + monthNumber.ToString() + "-" + Model.Intdate.ToString();
-}
-<header>
-    <nav class="navbar navbar-light bg-light shadow rounded px-4">
-        <a class="navbar-brand px" asp-controller="Home" asp-action="Index">
-            <img src="~/Logo.png" width="sauto" id="logo" alt="">
-        </a>
-        <div class="navdiv">
-            @if (Model != null)
-            {
-                <span>Welcome , @Html.DisplayFor(model => model.Firstname)</span>
-                <a asp-action="PatientLogin" asp-controller="Home">
-                <button style="background-color: transparent;" class="border-1 rounded text-info border-info p-2">
-                    <div class="logoutimg"><i class=" fa-solid fa-arrow-right-from-bracket "></i></div>
-                    <div class="logouttext"><span class="">Log Out</span></div>
-                    </button>
-                </a>
-            }
-
-            <button style="background-color: transparent;" class="border-1 rounded p-2 border-info " id="btn1">
-                <i class="fa-solid fa-sun fa-xl" id="imgmode"></i>
-            </button>
-
-        </div>
-    </nav>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container-fluid">
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between px-4">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="MedicalHistory" asp-route-id="@Model.Userid">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Dashboard" asp-action="UserProfile" asp-route-id="@Model.Userid">Profile</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<div class="container-fluid pb-5 mb-5">
-    <div class="px-4">
-<div class="bglight rounded p-3 shadow" id="content">
-    <form>
-
-    <div>
-        <div class="h5 fw-bold">Patient Information</div>
-        <div class="row d-flex">
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12 ">
-                <div class="form-group d-flex align-items-center rounded">
-                        <input type="text" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.Firstname)" required="required"><span>First Name</span>
-                </div>
-            </div>
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12 ">
-                <div class="form-group d-flex align-items-center rounded">
-                        <input type="text" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.Lastname)" required="required"><span>Last Name</span>
-                </div>
-            </div>
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12">
-                <div class="form-group d-flex align-items-center rounded">
-                        <input type="date" class="form-control" placeholder="" value="" required="required"><span>Date of Birth</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mt-4">
-        <div class="h5 fw-bold">Patient Contact Information</div>
-        <div class="row d-flex">
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12">
-                <div class="telephone rounded">
-                    <div class="input-group d-flex align-items-center rounded ">
-                            <input type="tel" id="tel" class="form-control" value="@Html.DisplayFor(model => model.Mobile)">
-                    </div>
-                </div>
-            </div>
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12 ">
-                <div class="form-group d-flex align-items-center rounded">
-                        <input type="email" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.Email)" required="required" id="patientEmail"> <span>Email</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="mt-4">
-        <div class="h5 fw-bold">Patient Location</div>
-        <div class="row d-flex">
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12 ">
-                <div class="form-group d-flex align-items-center rounded">
-                        <input type="text" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.Street)" required="required"><span>Street</span>
-                </div>
-            </div>
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12 ">
-                <div class="form-group d-flex align-items-center rounded">
-                        <input type="text" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.City)" required="required"><span>City</span>
-                </div>
-            </div>
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12">
-                <div class="form-group d-flex align-items-center rounded">
-                        <input type="text" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.State)" required="required"><span>State</span>
-                </div>
-            </div>
-            <div class="py-2 col-xl-6 col-md-6 col-sm-12 ">
-                <div class="form-group d-flex align-items-center rounded">
-                        <input type="text" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.Zip)" required="required"><span>Zip Code</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="">
-        <div class="row d-flex justify-content-end">
-            <div class="py-2 col-xl-1 col-md-2 col-4 align-items-center">
-                <div class="form-group d-flex   border-0">
-                    <button class="p-2 babtn rounded w-100">
-                        Edit
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    </form>
-</div>
-</div>
-</div>
-
-
-*@

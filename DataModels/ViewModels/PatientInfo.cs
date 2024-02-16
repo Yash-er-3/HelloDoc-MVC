@@ -1,4 +1,6 @@
-﻿namespace HelloDoc.ViewModels
+﻿using Microsoft.AspNetCore.Http;
+
+namespace HelloDoc.ViewModels
 {
     public class PatientInfo
     {
@@ -9,7 +11,7 @@
 
         public String LastName { get; set;}
 
-        public DateOnly DOB { get; set; }
+        public DateTime DOB { get; set; }
 
         public String Email { get; set;}
 
