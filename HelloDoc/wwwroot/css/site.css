@@ -21,6 +21,36 @@
     margin-bottom: 5%;
     color: #bababa;
 }
+/*admin*/
+
+.main-admin{
+    height:100vh;
+}
+
+.admin-photo{
+    height:100%;
+    width:100%;
+}
+
+@media screen and (max-width:768px) {
+
+    .admin-photo {
+        height: 100%!important;
+        width: 95%;
+        z-index: -1;
+        position: absolute;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        -webkit-background-size: cover;
+        background-size: cover;
+        -webkit-filter: blur(10px);
+        -moz-filter: blur(5px);
+        filter: blur(10px);
+        height: 60%;
+        opacity: 0.6;
+    }
+}
 
 
 @media screen and (max-width:450px) {

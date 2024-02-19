@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "BuTZ+3/bHtQx4SfW/+isjXlI6+4oklUH85wiR2sIMFQ=",
+  "Hash": "HEzYfw5h1lQCMhYXkHi4jw9FmsiSfftTHv3KwZi4nmc=",
   "Source": "HelloDoc",
   "BasePath": "_content/HelloDoc",
   "Mode": "Default",
@@ -1647,6 +1647,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\Dashboard_mobile_to-close_1.png"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig8. Admin dashboard in To Close state.jpg",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "upload/Fig8. Admin dashboard in To Close state.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\Fig8. Admin dashboard in To Close state.jpg"
     },
     {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\orders.sql",

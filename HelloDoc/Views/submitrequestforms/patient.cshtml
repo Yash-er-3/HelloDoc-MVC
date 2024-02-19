@@ -42,6 +42,7 @@
                     <div class="form-floating ">
                         <input type="text" asp-for="FirstName" class="form-control shadow-none" placeholder="First Name">
                         <label class="FloatingInput" for="Name">First Name</label>
+                        <span asp-validation-for="FirstName" class="text-danger small"></span>
                     </div>
                 </div>
 
@@ -49,6 +50,8 @@
                     <div class="form-floating ">
                         <input type="text" asp-for="LastName" class="form-control shadow-none" placeholder="Last Name">
                         <label class="FloatingInput" for="Name">Last Name</label>
+                        <span asp-validation-for="LastName" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -57,6 +60,8 @@
                         <input type="date" asp-for="DOB" class="form-control shadow-none"
                                placeholder="Date Of Birth">
                         <label class="FloatingInput" for="Name">Date Of Birth</label>
+                        <span asp-validation-for="DOB" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -66,6 +71,8 @@
                     <div class="form-floating ">
                         <input type="email" asp-for="Email" class="form-control shadow-none" placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
                         <label class="FloatingInput" for="Name">Email</label>
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -73,14 +80,20 @@
                     <div class="telephone rounded form-floating">
                         <div class="input-group d-flex align-items-center rounded ">
                             <input type="tel" asp-for="PhoneNumber" id="tel" class="form-control" placeholder="">
+
                         </div>
+
                     </div>
+                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+
                 </div>
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6" id="passwordFields1">
                     <div class="form-floating ">
                         <input type="password" asp-for="Password" id="pswd" class="form-control shadow-none " placeholder="Password">
                         <label class="FloatingInput" for="Name">Password</label>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+
                         <div style="top: 28%; position: absolute; right: 3%;" onclick="hideviewpswd()">
                             <i class="bi bi-eye-fill" role="button" id="eye-icon"></i>
                         </div>
@@ -91,6 +104,8 @@
                     <div class="form-floating ">
                         <input type="password" class="form-control shadow-none" id="pswd-1" placeholder="Password">
                         <label class="FloatingInput" for="Name">Confirm Password</label>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+
                         <div style="top: 28%; position: absolute; right: 3%;" onclick="hideviewpswd1()">
                             <i class="bi bi-eye-fill" role="button" id="eye-icon-1"></i>
                         </div>

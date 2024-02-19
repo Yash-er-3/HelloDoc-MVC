@@ -9,7 +9,7 @@ using System.Security.Policy;
 
 namespace HelloDoc.Controllers
 {
-    public class PatientController:Controller
+    public class PatientController : Controller
     {
         public readonly HelloDocDbContext Context;
 
@@ -56,7 +56,7 @@ namespace HelloDoc.Controllers
             userdata.Street = dash.user.Street;
             userdata.Zip = dash.user.Zip;
 
-            Context.Users.Update( userdata );
+            Context.Users.Update(userdata);
             Context.SaveChanges();
 
             return RedirectToAction("PatientDashboard", "Patient");
@@ -72,15 +72,15 @@ namespace HelloDoc.Controllers
             TempData["user"] = userdata.Firstname;
             patient_Dashboard.user = userdata;
             var req = from m in Context.Requestwisefiles
-                          where m.Requestid == requestid
-                          select m;
+                      where m.Requestid == requestid
+                      select m;
             patient_Dashboard.requestwisefile = req.ToList();
             patient_Dashboard.requestid = requestid;
             return View(patient_Dashboard);
         }
 
         [HttpPost]
-        public void UploadTable(int id,List<IFormFile> file)
+        public void UploadTable(int id, List<IFormFile> file)
         {
             foreach (var item in file)
 
