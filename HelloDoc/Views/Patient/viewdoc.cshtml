@@ -5,7 +5,6 @@
 @model HelloDoc.ViewModels.patient_dashboard;
 
 
-
 <div class="tab-content container-fluid" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
 
@@ -58,16 +57,16 @@
                                     Documents
                                 </div>
                                 <div class="d-flex">
-                                    <a role="button" class="text-decoration-none">
-                                        <span class="p-2 text-info border rounded-2 border-info">Download All</span>
-                                    </a>
+                                    <button role="button" class="btn btn-outline-info" onclick="downloadSelectedFiles()">
+                                       Download All
+                                    </button>
                                 </div>
                             </div>
 
                             <table class="table mt-2">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col"><input type="checkbox" id="documents" /></th>
+                                        <th scope="col"><input type="checkbox" id="doc" /></th>
                                         <th scope="col">First</th>
                                         <th scope="col">Uploader</th>
                                         <th scope="col">Upload Date</th>
@@ -78,14 +77,14 @@
                                     @foreach (var m in Model.requestwisefile)
                                     {
                                         <tr>
-                                            <td><input type="checkbox" class="childCheckbox" /></td>
+                                            <td><input type="checkbox" class="child" name="checkdoc" /></td>
                                             <td>
-                                                @m.Filename.Substring(45)
+                                                @System.IO.Path.GetFileName(@m.Filename)
                                             </td>
                                             <td>@Model.user.Firstname</td>
                                             <td>@m.Createddate</td>
                                             <td>
-                                                <a role="button" class="text-decoration-none" href="~/upload/@m.Filename.Substring(45)" download>
+                                                <a role="button" class="text-decoration-none" href="~/upload/@System.IO.Path.GetFileName(@m.Filename)" download>
                                                     <span class="p-1 text-info border rounded-2 border-info">
                                                         <i class="bi bi-cloud-arrow-down"></i>
                                                     </span>
@@ -118,33 +117,54 @@
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="form-floating ">
-                                <input type="text" asp-for="user.Firstname" class="form-control shadow-none" placeholder="First Name">
+                                <input type="text" asp-for="user.Firstname" class="form-control shadow-none" placeholder="First Name" disabled>
                                 <label class="FloatingInput" for="Name">First Name</label>
+                                <span asp-validation-for="user.Firstname" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="form-floating ">
-                                <input type="text" asp-for="user.Lastname" class="form-control shadow-none" placeholder="Last Name">
+                                <input type="text" asp-for="user.Lastname" class="form-control shadow-none" placeholder="Last Name" disabled>
                                 <label class="FloatingInput" for="Name">Last Name</label>
+                                <span asp-validation-for="user.Lastname" class="text-danger"></span>
+
                             </div>
                         </div>
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="form-floating ">
-                                <input type="date" asp-for="user.Modifieddate" class="form-control shadow-none"
-                                       placeholder="Date Of Birth">
+                                @{
+                                    string max = DateTime.Now.ToString("yyyy-MM-dd");
+                                }
+                                <input type="date" asp-for="DOB" class="form-control shadow-none"
+                                       placeholder="Date Of Birth" max="@max" disabled>
                                 <label class="FloatingInput" for="Name">Date Of Birth</label>
+                                <span asp-validation-for="DOB" class="text-danger"></span>
+
                             </div>
                         </div>
 
                         <h6 class="pt-3 mt-2">Contact Information</h6>
 
-                       
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+
+                        <div class="col-lg-2 col-md-2 mt-2">
+                            <div class="form-floating">
+                                <select class="form-select form-control shadow-none" aria-label="Default select example" disabled>
+                                    <option selected>Mobile</option>
+                                    <option value="1">Phone</option>
+                                </select>
+                                <label for="floatingPassword" class="form-label">Type</label>
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 mt-2">
                             <div class="telephone rounded form-floating">
-                                <div class="input-group d-flex align-items-center rounded ">
-                                    <input type="tel" asp-for="user.Aspnetuser.Phonenumber" id="tel" class="form-control" placeholder="">
+                                <div class="input-group d-flex align-items-center rounded" disabled>
+                                    <input type="tel" id="tel" asp-for="user.Mobile" class="form-control" placeholder="" disabled>
+                                    <span asp-validation-for="user.Mobile" class="text-danger"></span>
+
                                 </div>
                             </div>
                         </div>
@@ -152,8 +172,10 @@
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                             <div class="form-floating ">
-                                <input type="email" asp-for="user.Email" class="form-control shadow-none " placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
+                                <input type="email" asp-for="user.Email" class="form-control shadow-none" placeholder="Email" disabled>
                                 <label class="FloatingInput" for="Name">Email</label>
+                                <span asp-validation-for="user.Email" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -161,35 +183,47 @@
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                             <div class="form-floating ">
-                                <input type="text" asp-for="user.Street" class="form-control shadow-none " placeholder="Street">
+                                <input type="text" asp-for="user.Street" class="form-control shadow-none " placeholder="Street" disabled>
                                 <label class="FloatingInput" for="Name">Street</label>
+                                <span asp-validation-for="user.Street" class="text-danger"></span>
+
                             </div>
                         </div>
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                             <div class="form-floating ">
-                                <input type="text" asp-for="user.City" class="form-control shadow-none " placeholder="City">
+                                <input type="text" asp-for="user.City" class="form-control shadow-none " placeholder="City" disabled>
                                 <label class="FloatingInput" for="Name">City</label>
+                                <span asp-validation-for="user.City" class="text-danger"></span>
+
                             </div>
                         </div>
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="form-floating ">
-                                <input type="text" asp-for="user.State" class="form-control shadow-none " placeholder="State">
+                                <input type="text" asp-for="user.State" class="form-control shadow-none " placeholder="State" disabled>
                                 <label class="FloatingInput" for="Name">State</label>
+                                <span asp-validation-for="user.State" class="text-danger"></span>
+
                             </div>
                         </div>
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="form-floating">
-                                <input type="text" asp-for="user.Zip" class="form-control shadow-none " placeholder="Zip Code">
+                                <input type="text" asp-for="user.Zip" class="form-control shadow-none " placeholder="Zip Code" disabled>
                                 <label class="FloatingInput" for="Name">Zip Code</label>
+                                <span asp-validation-for="user.Zip" class="text-danger"></span>
+
                             </div>
                         </div>
 
-                        <div class="mr-3 mt-3 justify-content-end d-flex">
-                            <button id="editButton" class="border border-0 text-white sub rounded-2 px-3 py-2">
+                        <div class="mr-3 mt-3 mb-3 justify-content-end d-flex">
+                            <a id="editButton" role="button" class="border border-0 text-white sub rounded-2 px-3 py-2 text-decoration-none">
                                 Edit
+                            </a>
+
+                            <button id="saveButton" type="submit" class="border border-0 text-white sub rounded-2 px-3 py-2 text-decoration-none" hidden>
+                                Save
                             </button>
                         </div>
 
@@ -217,16 +251,66 @@
         );
     });
 
-    // jQuery script to handle leader checkbox click event
     $(document).ready(function () {
-        $('#documents').click(function () {
-            $('.childCheckbox').prop('checked', $(this).prop('checked'));
+        $('#editButton').click(function () {
+            // Remove disabled attribute to make inputs editable
+            // $('#name').prop('disabled', false);
+            // $('#age').prop('disabled', false);
+            $('input[type="text"]').removeAttr('disabled', false);
+            $('input[type="date"]').removeAttr('disabled', false);
+            $('input[type="tel"]').removeAttr('disabled', false);
+            $('select').removeAttr('disabled',false);
+            // Hide the edit button after clicking it
+            $(this).hide();
+            $('#saveButton').removeAttr('hidden', false);
+        });
+    });
+
+    $(document).ready(function () {
+
+        $('#doc').click(function () {
+            console.log("hasfevuew")
+            $('.child').prop('checked', $(this).prop('checked'));
         });
 
         // Handle individual checkbox clicks to update the leader checkbox state
-        $('.childCheckbox').click(function () {
-            $('#documents').prop('checked', $('.childCheckbox:checked').length === $('.childCheckbox').length);
+        $('.child').click(function () {
+            $('#doc').prop('checked', $('.child:checked').length === $('.child').length);
         });
     });
+
+
+    // Function to handle download of selected files
+    function downloadSelectedFiles() {
+        var selectedFiles = document.querySelectorAll('input[name="checkdoc"]:checked');
+        var fileUrls = [];
+
+        // Iterate through selected checkboxes and extract file URLs
+        selectedFiles.forEach(function (checkbox) {
+            var row = checkbox.closest('tr');
+            var fileUrl = row.querySelector('a').getAttribute('href');
+            fileUrls.push(fileUrl);
+        });
+
+        // Download each file
+        fileUrls.forEach(function (url) {
+            // Create an anchor element to trigger the download
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+
+    // Event listener for download button
+    document.getElementById('downloadSelected').addEventListener('click', function (event) {
+        event.preventDefault();
+        downloadSelectedFiles();
+    });
+
+    // jQuery script to handle leader checkbox click event
+    
 
 </script>

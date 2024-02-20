@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using HelloDoc.DataModels;
 using HelloDoc.ViewModels;
 using System.Collections;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HelloDoc.Controllers.DataController
 {
@@ -25,6 +26,10 @@ namespace HelloDoc.Controllers.DataController
         [HttpPost]
         public async Task<IActionResult> patient(PatientInfo r)
         {
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(r);
+            //}
             var Aspnetuser = await _log.Aspnetusers.FirstOrDefaultAsync(m => m.Email == r.Email);
 
             if (Aspnetuser == null)
@@ -36,7 +41,7 @@ namespace HelloDoc.Controllers.DataController
                 string username = r.FirstName + r.LastName;
                 aspnetuser.Username = username;
                 aspnetuser.Phonenumber = r.PhoneNumber;
-                aspnetuser.Modifieddate = DateTime.Now;
+                aspnetuser.Createddate = DateTime.Now;
                 _log.Aspnetusers.Add(aspnetuser);
                 Aspnetuser = aspnetuser;
 
@@ -51,7 +56,10 @@ namespace HelloDoc.Controllers.DataController
                 user.State = r.State;
                 user.Zip = r.ZipCode;
                 user.Createdby = r.FirstName + r.LastName;
-                user.Modifieddate = DateTime.Now;
+                user.Createddate = DateTime.Now;
+                user.Intyear = int.Parse(r.DOB.ToString("yyyy"));
+                user.Intdate = int.Parse(r.DOB.ToString("dd"));
+                user.Strmonth = r.DOB.ToString("MMM");
                 user.Status = 1;
                 user.Regionid = 1;
 
@@ -61,7 +69,6 @@ namespace HelloDoc.Controllers.DataController
 
 
             var user1 = await _log.Users.FirstOrDefaultAsync(m => m.Email == r.Email);
-
             var region = await _log.Regions.FirstOrDefaultAsync(x => x.Regionid == user1.Regionid);
             var requestcount = (from m in _log.Requests where m.Createddate.Date == DateTime.Now.Date select m).ToList();
             Request request = new Request
@@ -94,8 +101,11 @@ namespace HelloDoc.Controllers.DataController
                 City = r.City,
                 State = r.State,
                 Zipcode = r.ZipCode,
-                Regionid = 1
-            };
+                Regionid = 1,
+                Intyear = int.Parse(r.DOB.ToString("yyyy")),
+                Intdate = int.Parse(r.DOB.ToString("dd")),
+                Strmonth = r.DOB.ToString("MMM")
+        };
 
             _log.Requestclients.Add(requestclient);
             _log.SaveChanges();

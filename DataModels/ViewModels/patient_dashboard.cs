@@ -16,6 +16,7 @@ namespace HelloDoc.ViewModels
 
         public int requestid { get; set; }
 
+        public DateTime DOB { get; set; }
         enum statusName
         {
             january,

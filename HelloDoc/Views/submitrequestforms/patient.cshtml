@@ -34,6 +34,8 @@
                                       placeholder="Enter Brief Details Of Symptomps(Optional)"
                                       style="height: 100px"></textarea>
                             <label for="floatingTextarea2">Enter Brief Details Of Symptomps(Optional)</label>
+                            <span asp-validation-for="Symptoms" class="text-danger small"></span>
+
                         </div>
                     </div>
                 </div>
@@ -51,14 +53,16 @@
                         <input type="text" asp-for="LastName" class="form-control shadow-none" placeholder="Last Name">
                         <label class="FloatingInput" for="Name">Last Name</label>
                         <span asp-validation-for="LastName" class="text-danger small"></span>
-
                     </div>
                 </div>
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
+                        @{
+                            string max = DateTime.Now.ToString("yyyy-MM-dd");
+                        }
                         <input type="date" asp-for="DOB" class="form-control shadow-none"
-                               placeholder="Date Of Birth">
+                               placeholder="Date Of Birth"  max="@max">
                         <label class="FloatingInput" for="Name">Date Of Birth</label>
                         <span asp-validation-for="DOB" class="text-danger small"></span>
 
@@ -80,9 +84,7 @@
                     <div class="telephone rounded form-floating">
                         <div class="input-group d-flex align-items-center rounded ">
                             <input type="tel" asp-for="PhoneNumber" id="tel" class="form-control" placeholder="">
-
                         </div>
-
                     </div>
                     <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
 
@@ -102,9 +104,10 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6" id="passwordFields2">
                     <div class="form-floating ">
-                        <input type="password" class="form-control shadow-none" id="pswd-1" placeholder="Password">
+                        <input type="password" asp-for="ConfirmPassword" class="form-control shadow-none" id="pswd-1" placeholder="Password">
                         <label class="FloatingInput" for="Name">Confirm Password</label>
-                        <span asp-validation-for="Password" class="text-danger small"></span>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+
 
                         <div style="top: 28%; position: absolute; right: 3%;" onclick="hideviewpswd1()">
                             <i class="bi bi-eye-fill" role="button" id="eye-icon-1"></i>
@@ -119,6 +122,8 @@
                     <div class="form-floating ">
                         <input type="text" asp-for="Street" class="form-control shadow-none " placeholder="Street">
                         <label class="FloatingInput" for="Name">Street</label>
+                        <span asp-validation-for="Street" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -126,6 +131,8 @@
                     <div class="form-floating ">
                         <input type="text" asp-for="City" class="form-control shadow-none " placeholder="City">
                         <label class="FloatingInput" for="Name">City</label>
+                        <span asp-validation-for="City" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -133,6 +140,8 @@
                     <div class="form-floating ">
                         <input type="text" asp-for="State" class="form-control shadow-none " placeholder="State">
                         <label class="FloatingInput" for="Name">State</label>
+                        <span asp-validation-for="State" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -140,6 +149,8 @@
                     <div class="form-floating ">
                         <input type="text" asp-for="ZipCode" class="form-control shadow-none " placeholder="Zip Code">
                         <label class="FloatingInput" for="Name">Zip Code</label>
+                        <span asp-validation-for="ZipCode" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -148,6 +159,8 @@
                         <input type="text" asp-for="Room" class="form-control shadow-none "
                                placeholder="Room # / Suite (Optional)">
                         <label class="FloatingInput" for="Name">Room # / Suite (Optional)</label>
+                        <span asp-validation-for="Room" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -214,6 +227,7 @@
             .then(data => {
                 var patientPassword = document.getElementById('passwordFields1');
                 var patientConfirmPassword = document.getElementById('passwordFields2');
+                    
                 if (data.exists) {
                     patientPassword.style.display = 'none';
                     patientConfirmPassword.style.display = 'none';
@@ -223,6 +237,7 @@
                     patientPassword.style.display = 'block';
                     patientConfirmPassword.style.display = 'block';
                     console.log(" not exist ")
+
                 }
             })
             .catch(error => console.error('Error:', error));

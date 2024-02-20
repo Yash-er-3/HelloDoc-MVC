@@ -81,8 +81,9 @@ namespace HelloDoc.Controllers.DataController
                 r.City = f.City;
                 r.Zipcode = f.ZipCode;
                 r.Address = f.Room + " , " + f.Street + " , " + f.City + " , " + f.State;
-                r.Intdate = f.PDOB.Day;
-                r.Intyear = f.PDOB.Year;
+                user.Intyear = int.Parse(f.PDOB.ToString("yyyy"));
+                user.Intdate = int.Parse(f.PDOB.ToString("dd"));
+                user.Strmonth = f.PDOB.ToString("MMM");
                 r.Strmonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(f.PDOB.Month);
                 r.Regionid = 1;
 

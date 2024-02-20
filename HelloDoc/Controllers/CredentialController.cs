@@ -25,7 +25,7 @@ namespace HelloDoc.Controllers
                 var users = await _context.Users.FirstOrDefaultAsync(m => m.Email == user.Email);
                 if(match.Passwordhash == user.Passwordhash) {
                     @TempData["msg"] = "<script>alert('Change succesfully');</script>";
-                    TempData["info"] = "Login Successfull";
+                    TempData["success"] = "Login Successfull";
                     HttpContext.Session.SetInt32("UserId", users.Userid);
                     return RedirectToAction("PatientDashboard", "Patient");
                 }

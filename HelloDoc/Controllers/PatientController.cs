@@ -1,6 +1,7 @@
 ﻿using HelloDoc.DataContext;
 using HelloDoc.DataModels;
 using HelloDoc.ViewModels;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace HelloDoc.Controllers
                               where m.Userid == id
                               select m;
                 dash.requests = request.ToList();
+                dash.DOB = new DateTime(Convert.ToInt32(userdata.Intyear), DateTime.ParseExact(userdata.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(userdata.Intdate));
                 dash.requestwisefile = Context.Requestwisefiles.ToList();
                 return View(dash);
             }
@@ -51,10 +53,15 @@ namespace HelloDoc.Controllers
             var userdata = Context.Users.FirstOrDefault(m => m.Userid == id);
             userdata.Firstname = dash.user.Firstname;
             userdata.Lastname = dash.user.Lastname;
+            userdata.Mobile = dash.user.Mobile; 
             userdata.City = dash.user.City;
             userdata.State = dash.user.State;
             userdata.Street = dash.user.Street;
             userdata.Zip = dash.user.Zip;
+            userdata.Modifieddate = DateTime.Now;
+            userdata.Strmonth = dash.DOB.ToString("MMM");
+            userdata.Intdate = int.Parse(dash.DOB.ToString("dd"));
+            userdata.Intyear= int.Parse(dash.DOB.ToString("yyyy"));
 
             Context.Users.Update(userdata);
             Context.SaveChanges();

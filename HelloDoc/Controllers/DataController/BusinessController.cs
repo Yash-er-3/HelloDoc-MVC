@@ -7,7 +7,7 @@ using HelloDoc.ViewModels;
 
 namespace HelloDoc.Controllers.DataController
 {
-    public class BusinessController:Controller
+    public class BusinessController : Controller
     {
         private readonly HelloDocDbContext _log;
 
@@ -53,10 +53,10 @@ namespace HelloDoc.Controllers.DataController
                     City = b.City,
                     Zipcode = b.ZipCode,
                     Address = b.Room + " , " + b.Street + " , " + b.City + " , " + b.State,
-                    Intdate = b.PDOB.Day,
-                    Intyear = b.PDOB.Year,
-                    Strmonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(b.PDOB.Month),
-                    Regionid = (int)user.Regionid,
+                    Intyear = int.Parse(b.PDOB.ToString("yyyy")),
+                    Intdate = int.Parse(b.PDOB.ToString("dd")),
+                    Strmonth = b.PDOB.ToString("MMM"),
+                    Regionid = (int)user.Regionid
                 };
                 _log.Add(requestclient);
                 _log.SaveChanges();
@@ -89,8 +89,8 @@ namespace HelloDoc.Controllers.DataController
             else
             {
                 return RedirectToAction("submitrequest", "Home");
+            }
         }
-    }
 
-}
+    }
 }
