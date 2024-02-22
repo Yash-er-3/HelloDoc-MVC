@@ -1778,9 +1778,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\HelloDoc\\DataContext\\DataContext.csproj",
-      "projectName": "DataContext",
-      "projectPath": "D:\\Projects\\HelloDoc\\DataContext\\DataContext.csproj",
+      "projectUniqueName": "D:\\Projects\\HelloDoc\\DataContext\\Services.csproj",
+      "projectName": "Services",
+      "projectPath": "D:\\Projects\\HelloDoc\\DataContext\\Services.csproj",
       "packagesPath": "C:\\Users\\pci38\\.nuget\\packages\\",
       "outputPath": "D:\\Projects\\HelloDoc\\DataContext\\obj\\",
       "projectStyle": "PackageReference",

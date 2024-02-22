@@ -1,7 +1,10 @@
-﻿@Html.Partial("header_dashboard");
-@Html.Partial("Tabs");
+﻿@Html.Partial("notification")
+@{
+    Layout = "header_dashboard";
+}
 
+@Html.Partial("Tabs")
 
-<div>
+<div class="container-fluid gx-5">
     Admin Dashboard
 </div>

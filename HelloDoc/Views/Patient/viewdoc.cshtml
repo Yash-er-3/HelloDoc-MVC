@@ -27,9 +27,11 @@
                     <div class="mt-1">
                         <span class="h4 text-info">@Model.user.Firstname @Model.user.Lastname</span>
                         <span class="text-secondary">
-                            (jhdsvfjbrgjsre)
-@*                            (@Model.requests.FirstOrDefault(x => x.Requestid == (Model.requests.FirstOrDefault(m =>m.Userid == Model.user.Userid).Requestid)).Confirmationnumber)
-*@                        </span>
+                            (HJDXHDEBBEBJHB)
+                            @*Confirmationnumber = (region.Abbreviation.Substring(0, 2) + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + model.LastName.Substring(0, 2) + model.FirstName.Substring(0, 2) + requestcount.Count().ToString().PadLeft(4, '0')).ToUpper(),*@
+
+                            @*(@Model.requests.FirstOrDefault(x => x.Requestid == (Model.requests.FirstOrDefault(m => m.Userid == Model.user.Userid).Requestid)).Confirmationnumber)*@
+                        </span>
 
                         <p class="small text-secondary mt-2">Check here for any files that you or the doctors of your subrequests requestors have attached for you to review.</p>
 
@@ -133,7 +135,7 @@
                         </div>
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-floating ">
+                            <div class="form-floating">
                                 @{
                                     string max = DateTime.Now.ToString("yyyy-MM-dd");
                                 }

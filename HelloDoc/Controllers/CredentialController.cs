@@ -23,7 +23,14 @@ namespace HelloDoc.Controllers
             {
                 var match = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == user.Email);
                 var users = await _context.Users.FirstOrDefaultAsync(m => m.Email == user.Email);
-                if(match.Passwordhash == user.Passwordhash) {
+                if (match == null)
+                {
+                    TempData["email"] = "email doesn't exist";
+                    return RedirectToAction("registeredpatient", "Home");
+
+                }
+
+                if (match.Passwordhash == user.Passwordhash) {
                     @TempData["msg"] = "<script>alert('Change succesfully');</script>";
                     TempData["success"] = "Login Successfull";
                     HttpContext.Session.SetInt32("UserId", users.Userid);

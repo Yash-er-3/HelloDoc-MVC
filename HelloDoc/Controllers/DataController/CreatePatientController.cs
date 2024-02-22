@@ -67,7 +67,6 @@ namespace HelloDoc.Controllers.DataController
                 _log.SaveChanges();
             }
 
-
             var user1 = await _log.Users.FirstOrDefaultAsync(m => m.Email == r.Email);
             var region = await _log.Regions.FirstOrDefaultAsync(x => x.Regionid == user1.Regionid);
             var requestcount = (from m in _log.Requests where m.Createddate.Date == DateTime.Now.Date select m).ToList();
@@ -83,7 +82,6 @@ namespace HelloDoc.Controllers.DataController
                 Modifieddate = DateTime.Now,
                 Userid = user1.Userid,
                 Confirmationnumber = (region.Abbreviation.Substring(0, 2) + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + r.LastName.Substring(0, 2) + r.FirstName.Substring(0, 2) + requestcount.Count().ToString().PadLeft(4, '0')).ToUpper(),
-
             };
 
             _log.Requests.Add(request);

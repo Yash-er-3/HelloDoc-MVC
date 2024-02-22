@@ -3,52 +3,48 @@ using HelloDoc.DataModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Services.Contracts;
 
 namespace HelloDoc.Controllers.Admin
 {
     public class CredentialAdminController : Controller
     {
-        public readonly HelloDocDbContext _context;
+        private readonly HelloDocDbContext _context;
+        private readonly IAdminCredential adminCredential;
 
-        public CredentialAdminController(HelloDocDbContext context) { 
+        public CredentialAdminController(HelloDocDbContext context, IAdminCredential adminCredential) { 
             _context = context;
+            this.adminCredential = adminCredential;
         }
         [HttpPost]
         public async Task<IActionResult> Login(Aspnetuser user)
         {
-            var correct = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == user.Email);
+            int valid =  adminCredential.Login(user);
 
-            if(correct != null)
+            if (valid == 2)
             {
-                var admin = await _context.Admins.FirstOrDefaultAsync(u => u.Aspnetuserid == correct.Id);
-
-                if(admin != null)
-                {
-                    if(user.Passwordhash == correct.Passwordhash)
-                    {
-                        int id = admin.Adminid;
-                        HttpContext.Session.SetInt32("AdminId", id);
-                        HttpContext.Session.SetString("UserName", admin.Firstname + admin.Lastname);
-                        return RedirectToAction("Admindashboard", "Admin");
-                    }
-                    TempData["WrongPassword"] = "Enter Correct Password";
-                    TempData["PassStyle"] = "border-danger";
-                    return RedirectToAction("Admin", "Admin");
-                }
-                else
-                {
-                    TempData["WrongPassword"] = "You're not Admin!";
-                    TempData["PassStyle"] = "border-danger";
-                    TempData["EmailStyle"] = "border-danger";
-                    return RedirectToAction("Admin", "Admin");
-
-                }
+                TempData["WrongPassword"] = "Enter Correct Password";
+                TempData["PassStyle"] = "border-danger";
+                return RedirectToAction("Admin", "Admin");
             }
-            else
+            else if (valid == 3)
+            {
+                TempData["WrongPassword"] = "You're not Admin!";
+                TempData["PassStyle"] = "border-danger";
+                TempData["EmailStyle"] = "border-danger";
+                return RedirectToAction("Admin", "Admin");
+
+            }
+            else if (valid == 4)
             {
                 TempData["Email"] = "Enter correct email!";
                 TempData["EmailStyle"] = "border-danger";
                 return RedirectToAction("Admin", "Admin");
+            }
+            else
+            {
+                TempData["success"] = "Login SuccessFull...";
+               return RedirectToAction("Admindashboard", "Admin");
             }
         }
     }

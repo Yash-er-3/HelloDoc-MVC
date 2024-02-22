@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataContext\DataContext.csproj" />
+    <ProjectReference Include="..\DataContext\Services.csproj" />
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
   </ItemGroup>
 

@@ -74,6 +74,7 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                     <div class="form-floating ">
+                        <input asp-for="Email" hidden/>
                         <input type="email" asp-for="Email" class="form-control shadow-none" placeholder="Email" id="patientEmail" disabled>
                         <label class="FloatingInput" for="Name">Email</label>
                         <span asp-validation-for="Email" class="text-danger small"></span>

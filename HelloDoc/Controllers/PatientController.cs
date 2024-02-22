@@ -83,6 +83,8 @@ namespace HelloDoc.Controllers
                       select m;
             patient_Dashboard.requestwisefile = req.ToList();
             patient_Dashboard.requestid = requestid;
+            patient_Dashboard.DOB = new DateTime(Convert.ToInt32(userdata.Intyear), DateTime.ParseExact(userdata.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(userdata.Intdate));
+
             return View(patient_Dashboard);
         }
 
@@ -126,8 +128,8 @@ namespace HelloDoc.Controllers
                 TempData["RequestId"] = requestid;
                 //var req = Context.Requests.FirstOrDefault(m => m.UserId == id);
                 model.requestwisefile = (from m in Context.Requestwisefiles where m.Requestid == requestid select m).ToList();
-                //var reqe = Context.Requests.FirstOrDefault(m => m.UserId == id);
-                //var confirmationNumber =  Context.Requests.FirstOrDefault(x => x.RequestId == (Model.requests.FirstOrDefault(m => m.UserId == Model.
+                //var reqe = Context.Requests.FirstOrDefault(m => m.UserId == id)
+
                 model.requestid = requestid;
 
                 if (req.fileName != null)
@@ -166,7 +168,7 @@ namespace HelloDoc.Controllers
             details.FirstName = users.Firstname;
             details.LastName = users.Lastname;
             details.Email = users.Email;
-            //details.DOB = new DateTime(Convert.ToInt32(users.Intyear), DateTime.ParseExact(users.Strmonth, "MMMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(users.Intdate));
+            details.DOB = new DateTime(Convert.ToInt32(users.Intyear), DateTime.ParseExact(users.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(users.Intdate));
             return View(details);
         }
 

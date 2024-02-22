@@ -980,22 +980,6 @@
           "lib/netcoreapp2.1/_._": {}
         }
       },
-      "DataContext/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v7.0",
-        "dependencies": {
-          "DataModels": "1.0.0",
-          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "7.0.15",
-          "Microsoft.EntityFrameworkCore": "7.0.15",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
-        },
-        "compile": {
-          "bin/placeholder/DataContext.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/DataContext.dll": {}
-        }
-      },
       "DataModels/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -1009,6 +993,22 @@
         },
         "runtime": {
           "bin/placeholder/DataModels.dll": {}
+        }
+      },
+      "Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "DataModels": "1.0.0",
+          "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "7.0.15",
+          "Microsoft.EntityFrameworkCore": "7.0.15",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11"
+        },
+        "compile": {
+          "bin/placeholder/Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Services.dll": {}
         }
       }
     }
@@ -2475,26 +2475,26 @@
         "version.txt"
       ]
     },
-    "DataContext/1.0.0": {
-      "type": "project",
-      "path": "../DataContext/DataContext.csproj",
-      "msbuildProject": "../DataContext/DataContext.csproj"
-    },
     "DataModels/1.0.0": {
       "type": "project",
       "path": "../DataModels/DataModels.csproj",
       "msbuildProject": "../DataModels/DataModels.csproj"
+    },
+    "Services/1.0.0": {
+      "type": "project",
+      "path": "../DataContext/Services.csproj",
+      "msbuildProject": "../DataContext/Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "DataContext >= 1.0.0",
       "DataModels >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 7.0.15",
       "Microsoft.AspNetCore.Session >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 7.0.15",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.15",
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.11"
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.11",
+      "Services >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2525,8 +2525,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Projects\\HelloDoc\\DataContext\\DataContext.csproj": {
-              "projectPath": "D:\\Projects\\HelloDoc\\DataContext\\DataContext.csproj"
+            "D:\\Projects\\HelloDoc\\DataContext\\Services.csproj": {
+              "projectPath": "D:\\Projects\\HelloDoc\\DataContext\\Services.csproj"
             },
             "D:\\Projects\\HelloDoc\\DataModels\\DataModels.csproj": {
               "projectPath": "D:\\Projects\\HelloDoc\\DataModels\\DataModels.csproj"

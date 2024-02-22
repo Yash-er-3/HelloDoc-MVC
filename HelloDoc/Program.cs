@@ -1,4 +1,6 @@
 using HelloDoc.DataContext;
+using Services.Contracts;
+using Services.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSession(options =>
@@ -12,6 +14,8 @@ builder.Services.AddSession(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HelloDocDbContext>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddTransient<IAdminCredential, AdminCredential>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,8 +35,8 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-//pattern: "{controller=Admin}/{action=Admin}/{id?}");
+//pattern: "{controller=home}/{action=index}/{id?}");
+pattern: "{controller=Admin}/{action=Admin}/{id?}");
 
 
 app.Run();

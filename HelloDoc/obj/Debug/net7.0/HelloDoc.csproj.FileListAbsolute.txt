@@ -40,9 +40,7 @@ D:\Projects\HelloDoc\HelloDoc\obj\Debug\net7.0\refint\HelloDoc.dll
 D:\Projects\HelloDoc\HelloDoc\obj\Debug\net7.0\HelloDoc.pdb
 D:\Projects\HelloDoc\HelloDoc\obj\Debug\net7.0\HelloDoc.genruntimeconfig.cache
 D:\Projects\HelloDoc\HelloDoc\obj\Debug\net7.0\ref\HelloDoc.dll
-D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\DataContext.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\DataModels.dll
-D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\DataContext.pdb
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\DataModels.pdb
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\refs\Microsoft.AspNetCore.Antiforgery.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\refs\Microsoft.AspNetCore.Authentication.Abstractions.dll
@@ -374,3 +372,5 @@ D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\zh-Hans\Microsoft.CodeAnalysis.CS
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 D:\Projects\HelloDoc\HelloDoc\obj\Debug\net7.0\HelloDoc.MvcApplicationPartsAssemblyInfo.cs
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\System.Security.Permissions.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Services.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Services.pdb

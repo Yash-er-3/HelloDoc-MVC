@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qd7a0kPD/g94QTrery2A/tYgUZ8XOLYSXVh53iD9B/S863eYkwL+f5KtSKFwSRbregtv7RYE4D1ScQks65U4dA==",
+  "dgSpecHash": "RoXUmn2FxqpArzqURvuCkeVyZaqiO+8M82nJs5sLPD0eEOM41fSzQ4A1RaaUT6KP47uX/7m9cabdWfHa1GD7UQ==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\HelloDoc\\DataContext\\DataContext.csproj",
+  "projectFilePath": "D:\\Projects\\HelloDoc\\DataContext\\Services.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\pci38\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\pci38\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\6.0.0\\microsoft.aspnetcore.mvc.razor.extensions.6.0.0.nupkg.sha512",
