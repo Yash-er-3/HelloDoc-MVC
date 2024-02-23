@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OuHWqnATR3u8BObjcqCchXIozYRgjTJVveO5bN2GFP0=",
+  "Hash": "q/39a6cgdO2aXnQFufXlk579uTu05Uzg1cyRxlHSn1o=",
   "Source": "HelloDoc",
   "BasePath": "_content/HelloDoc",
   "Mode": "Default",
@@ -1683,6 +1683,23 @@
       "OriginalItemSpec": "wwwroot\\upload\\121 Fig8. Admin dashboard in To Close state.jpg"
     },
     {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\122 Fig17.Transfer (9).jpg",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "upload/122 Fig17.Transfer (9).jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\122 Fig17.Transfer (9).jpg"
+    },
+    {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\122 Fig17.Transfer.jpg",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
@@ -2242,6 +2259,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\Fig9. Admin dashboard in Unpaid state - Copy.jpg"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Home.cshtml",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "upload/Home.cshtml",
+      "AssetKind": "Build",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "Never",
+      "OriginalItemSpec": "wwwroot\\upload\\Home.cshtml"
     },
     {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\orders.sql",

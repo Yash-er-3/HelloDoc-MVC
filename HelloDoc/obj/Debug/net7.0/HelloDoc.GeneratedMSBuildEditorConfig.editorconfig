@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = D:\Projects\HelloDoc\HelloDoc
 build_property._RazorSourceGeneratorDebug = 
 
+[D:/Projects/HelloDoc/HelloDoc/Views/Admin/ActiveState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWN0aXZlU3RhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projects/HelloDoc/HelloDoc/Views/Admin/Admin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -24,12 +28,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5kYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projects/HelloDoc/HelloDoc/Views/Admin/CardWithTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2FyZFdpdGhUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Admin/ConcludeState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ29uY2x1ZGVTdGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projects/HelloDoc/HelloDoc/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/HelloDoc/HelloDoc/Views/Admin/Tabs.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVGFicy5jc2h0bWw=
+[D:/Projects/HelloDoc/HelloDoc/Views/Admin/NewState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTmV3U3RhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Admin/PendingState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVuZGluZ1N0YXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Admin/ToCloseState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVG9DbG9zZVN0YXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Admin/UnpaidState.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVW5wYWlkU3RhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Home/forgotpassword.cshtml]
@@ -118,6 +142,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Projects/HelloDoc/HelloDoc/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/wwwroot/upload/Home.cshtml]
+build_metadata.AdditionalFiles.TargetPath = d3d3cm9vdFx1cGxvYWRcSG9tZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/wwwroot/upload/_ViewImports (2).cshtml]

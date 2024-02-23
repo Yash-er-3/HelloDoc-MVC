@@ -20,8 +20,4 @@
     <ProjectReference Include="..\DataModels\DataModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Viewmodels\" />
-  </ItemGroup>
-
 </Project>

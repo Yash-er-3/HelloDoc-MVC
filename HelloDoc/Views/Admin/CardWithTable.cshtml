@@ -1,0 +1,264 @@
+﻿@using Services.Viewmodels
+@model AdminDashboardViewModel;
+
+<div class="container-fluid">
+    <nav>
+        <div class="nav nav-tabs row g-0 border-0 mt-4" id="status-tab" role="tablist">
+            <div class="allstatus ">
+                <button class="w-100 nav-link dashboardtab active position-relative" id="status-new" data-bs-toggle="tab" data-bs-target="#s_new" type="button" role="tab" aria-controls="s_new" aria-selected="true">
+                    <div class="p-2 new rounded-3">
+                        <div class="d-flex">
+                            <div class="px-2 icons float-start small"><i class="bi bi-plus-circle-dotted"></i></div><div class="small fw-bold">NEW</div>
+                        </div>
+                        <div class="fw-bolder fs-4 px-2 pt-2 text-start">
+
+                            @Model.requests.Count(x => x.Status == 1)
+                        </div>
+                    </div>
+                    <div class="bottomarrow"></div>
+                </button>
+            </div>
+            <div class="allstatus">
+                <button class="nav-link dashboardtab position-relative w-100" id="status-pending" data-bs-toggle="tab" data-bs-target="#s_pending" type="button" role="tab" aria-controls="s_pending" aria-selected="false">
+                    <div class="p-2 pending rounded-3">
+                        <div class="d-flex">
+                            <div class="px-2 icons  float-start small"><i class="bi bi-plus-circle-dotted"></i></div><div class="small fw-bold">PENDING</div>
+                        </div>
+                        <div class="fw-bolder fs-4 px-2 pt-2 text-start">
+                            @Model.requests.Count(x => x.Status == 2)</di
+                        </div>
+                        <div class="bottomarrow"></div>
+                </button>
+            </div>
+            <div class="allstatus">
+                <button class="nav-link dashboardtab position-relative w-100" id="status-active" data-bs-toggle="tab" data-bs-target="#s_active" type="button" role="tab" aria-controls="s_active" aria-selected="false">
+                    <div class="p-2 activecase rounded-3">
+                        <div class="d-flex">
+                            <div class="px-2 icons  float-start small"><i class="bi bi-plus-circle-dotted"></i></div><div class="small fw-bold">ACTIVE</div>
+                        </div>
+                        <div class="fw-bolder fs-4 px-2 pt-2 text-start">
+                            @Model.requests.Count(x => x.Status == 4 || x.Status == 5)
+                        </div>
+                        <div class="bottomarrow"></div>
+                </button>
+            </div>
+            <div class="allstatus">
+                <button class="nav-link dashboardtab position-relative w-100" id="status-conclude" data-bs-toggle="tab" data-bs-target="#s_conclude" type="button" role="tab" aria-controls="s_conclude" aria-selected="false">
+                    <div class="p-2 conclude rounded-3">
+                        <div class="d-flex">
+                            <div class="px-2  icons float-start small"><i class="bi bi-plus-circle-dotted"></i></div><div class="small fw-bold">CONCLUDE</div>
+                        </div>
+                        <div class="fw-bolder fs-4 px-2 pt-2 text-start">
+                            @Model.requests.Count(x => x.Status == 6)
+                        </div>
+                    </div>
+                    <div class="bottomarrow"></div>
+                </button>
+            </div>
+            <div class="allstatus">
+                <button class="nav-link dashboardtab position-relative w-100" id="status-toclose" data-bs-toggle="tab" data-bs-target="#s_toclose" type="button" role="tab" aria-controls="s_toclose" aria-selected="false">
+                    <div class="p-2 toclose rounded-3">
+                        <div class="d-flex">
+                            <div class="px-2 icons  float-start small"><i class="bi bi-plus-circle-dotted"></i></div><div class="small fw-bold">TO CLOSE</div>
+                        </div>
+                        <div class="fw-bolder fs-4 px-2 pt-2 text-start">
+                            @Model.requests.Count(x => x.Status == 3 || x.Status == 7 || x.Status == 8)
+                        </div>
+                    </div>
+                    <div class="bottomarrow"></div>
+                </button>
+            </div>
+            <div class="allstatus">
+                <button class="nav-link dashboardtab position-relative w-100" id="status-unpaid" data-bs-toggle="tab" data-bs-target="#s_unpaid" type="button" role="tab" aria-controls="s_unpaid" aria-selected="false">
+                    <div class="p-2 unpaid rounded-3">
+                        <div class="d-flex">
+                            <div class="px-2 icons  float-start small"><i class="bi bi-plus-circle-dotted"></i></div><div class="small fw-bold">UNPAID</div>
+                        </div>
+                        <div class="fw-bolder fs-4 px-2 pt-2 text-start">
+                            @Model.requests.Count(x => x.Status == 9)
+                        </div>
+                    </div>
+                    <div class="bottomarrow"></div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="d-flex flex-row justify-content-between mx-2 mt-4">
+        <div class="d-flex align-items-center">
+            <div class="h4">
+                Patients<small class="h6" style="color:#203f9a" id="state"> (New)</small>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="p-2 px-3 text-white mx-2 bg-info rounded" role="button">
+                Send Link
+            </div>
+            <div class="p-2 px-3 text-white mx-2 bg-info rounded" role="button">
+                Create Requests
+            </div>
+            <div class="p-2 px-3 text-white mx-2 bg-info rounded" role="button">
+                Export
+            </div>
+            <div class="p-2 px-3 text-white mx-2 bg-info rounded" role="button">
+                Export All
+            </div>
+            <div class="p-2 px-3 text-white mx-2 bg-info rounded" role="button">
+                Request DTY Support
+            </div>
+
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4 mx-4">
+        <div class="dropdown d-flex">
+            <input type="search" placeholder="search" class="me-2" />
+            <button class="btn bg-white border border-dark dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-magnifying-glass fa-xs"></i> <label class="me-4">All Region</label>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+        </div>
+        <div class="d-flex ms-4">
+            <input type="radio" class="btn-check" name="requestby" id="requestbyAll" autocomplete="off">
+            <label class="btn" for="requestbyAll">All</label>
+            <input type="radio" class="btn-check" name="requestby" id="1" autocomplete="off">
+            <label class="btn" for="1">Patient</label>
+            <input type="radio" class="btn-check" name="requestby" id="2" autocomplete="off">
+            <label class="btn" for="2">Family</label>
+            <input type="radio" class="btn-check" name="requestby" id="3" autocomplete="off">
+            <label class="btn" for="3">Concierge</label>
+            <input type="radio" class="btn-check" name="requestby" id="4" autocomplete="off">
+            <label class="btn" for="4">Business</label>
+            <input type="radio" class="btn-check" name="requestby" id="5" autocomplete="off">
+            <label class="btn" for="5">VIP</label>
+
+        </div>
+    </div>
+
+
+
+    <div class="tab-content" id="status-tabContent">
+        @*<div class="tab-pane fade show active" id="s_new" role="tabpanel" aria-labelledby="status-new">
+
+        </div>
+        <div class="tab-pane fade" id="s_pending" role="tabpanel" aria-labelledby="status-panding">
+        Patients(Pending)
+        </div>
+        <div class="tab-pane fade" id="s_active" role="tabpanel" aria-labelledby="status-active">
+        Patients(Active)
+        </div>
+        <div class="tab-pane fade" id="s_conclude" role="tabpanel" aria-labelledby="status-conclude">
+        Patients(Conclude)
+        </div>
+        <div class="tab-pane fade" id="s_toclose" role="tabpanel" aria-labelledby="status-toclose">
+        Patients(To Close)
+        </div>
+        <div class="tab-pane fade" id="s_unpaid" role="tabpanel" aria-labelledby="status-unpaid">
+        Patients(Unpaid)
+        </div>*@
+    </div>
+</div>
+
+
+<script>
+
+    var table = $('#dtBasicExample').DataTable({ dom: 'lrtip' }); // Initialize your DataTable
+    $('input[type="search"]').on('keyup', function () {
+        table.search(this.value).draw();
+    });
+    $('input[name="requestby"]').on('change', function () {
+        var value = $(this).attr('id');
+        console.log(value);
+        if (value == 'requestbyAll') {
+            table.columns(0).search('').draw();
+        }
+        else {
+            table.columns(0).search(value).draw(); // Replace 0 with the index of the column you want to filter
+        }
+    });
+
+
+
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Admin/NewState',
+            success: function (response) {
+                $('#status-tabContent').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+
+    $(document).ready(function () {
+        var target1 = localStorage.getItem(target1);
+        console.log(target1);
+        $('.dashboardtab').on('click', function (e) {
+            e.preventDefault();
+            $('.dashboardtab').removeClass('active');
+            $(this).addClass('active');
+            var target1 = $(this).data('bs-target');
+            console.log(target1);
+            localStorage.setItem('target1', target1);
+            console.log(localStorage.getItem(target1));
+            var url;
+            switch (target1) {
+                case '#s_new':
+                    $('#state').html("(New)")
+                    url = '/Admin/NewState';
+                    break;
+                case '#s_pending':
+                    $('#state').html("(Pending)")
+                    url = '/Admin/PendingState';
+                    break;
+                case '#s_active':
+                    $('#state').html("(Active)")
+                    url = '/Admin/ActiveState';
+                    break;
+                case '#s_conclude':
+                    $('#state').html("(Conclude)")
+                    url = '/Admin/ConcludeState';
+                    break;
+                case '#s_toclose':
+                    $('#state').html("(ToClose)")
+                    url = '/Admin/ToCloseState';
+                    break;
+                case '#s_unpaid':
+                    $('#state').html("(Unpaid)")
+                    url = '/Admin/UnpaidState';
+                    break;
+
+                default:
+                    url = '/Admin/Admindashboard';
+            }
+
+
+            $.ajax({
+                url: url,
+
+                success: function (response) {
+                    $('#status-tabContent').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+        });
+        console.log(target1);
+        $('.dashboardtab[data-bs-target="' + target1 + '"]').trigger('click');
+
+        if (target1 == null) {
+            $('.dashboardtab[data-bs-target="#s_new"]').trigger('click');
+
+        }
+    });
+
+</script>

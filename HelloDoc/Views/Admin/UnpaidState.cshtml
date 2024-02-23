@@ -1,0 +1,57 @@
+﻿@using Services.Viewmodels
+@model List<allrequestdataViewModel>;
+
+<div class="table-responsive">
+    <table class="table mt-5" id="dtBasicExample">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Date Of Birth</th>
+                <th scope="col">Requestor</th>
+                <th scope="col">Physician Name</th>
+                <th scope="col">Date Of Service</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">Notes</th>
+                <th scope="col">Chat With</th>
+                <th scope="col">Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.PatientName</td>
+                    <td>@item.PatientDOB</td>
+                    <td>@item.RequestorName</td>
+                    <td>@item.RequestorName</td>
+                    <td>@item.RequestedDate</td>
+                    <td>@item.PatientPhone<br />@item.RequestorPhone</td>
+                    <td>@item.RequestorEmail</td>
+                    @*<td>@item.Address</td>*@
+                    <td>@item.Notes</td>
+                    <td>@item.ProviderEmail</td>
+                    <td>@item.RequestType</td>
+
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#dtBasicExample').DataTable(
+            //info: true,
+            //ordering: true,
+            //paging: true,
+            //searching: true
+        );
+    });
+</script>

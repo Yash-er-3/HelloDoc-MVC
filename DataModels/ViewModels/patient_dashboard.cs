@@ -21,12 +21,15 @@ namespace HelloDoc.ViewModels
         {
             january,
             Unassigned,
-            Cancelled,
+            Accepted,
             MdEnRoute,
             MdOnSite,
+            Conclude,
+            Cancelled,
+            CancelledByPatient,
             Closed,
-            Clear,
-            Unpaid
+            Unpaid,
+            Clear
         }
 
         public string StatusFind(int id)

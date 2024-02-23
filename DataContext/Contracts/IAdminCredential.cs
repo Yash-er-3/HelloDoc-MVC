@@ -2,9 +2,10 @@
 
 namespace Services.Contracts
 {
-    public interface IAdminCredential
+    public interface IAdminCredential : IRepository<Admin>
     {
         int Login(Aspnetuser user);
 
+        void Save();
     }
 }

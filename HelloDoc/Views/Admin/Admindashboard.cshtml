@@ -1,10 +1,62 @@
-﻿@Html.Partial("notification")
+﻿
+@Html.Partial("notification")
 @{
     Layout = "header_dashboard";
 }
 
-@Html.Partial("Tabs")
-
-<div class="container-fluid gx-5">
-    Admin Dashboard
+<div class="mainnav bg-white">
+    <nav class="shadow">
+        <div class="ps-4 nav nav-tabs border-bottom-0 border-start-0 border-end-0 border border-2" id="nav-tab" role="tablist">
+            <button class="nav-link active me-4" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Dashboard</button>
+            <button class="nav-link me-4" id="nav-provider-location-tab" data-bs-toggle="tab" data-bs-target="#nav-provider-location" type="button" role="tab" aria-controls="nav-provider-location" aria-selected="false">Provider Location</button>
+            <button class="nav-link me-4" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">My Profile</button>
+            <button class="nav-link me-4" id="nav-provider-tab" data-bs-toggle="tab" data-bs-target="#nav-provider" type="button" role="tab" aria-controls="nav-provider" aria-selected="false">Providers</button>
+            <button class="nav-link me-4" id="nav-partner-tab" data-bs-toggle="tab" data-bs-target="#nav-partner" type="button" role="tab" aria-controls="nav-partner" aria-selected="false">Partners</button>
+            <button class="nav-link me-4" id="nav-access-tab" data-bs-toggle="tab" data-bs-target="#nav-access" type="button" role="tab" aria-controls="nav-access" aria-selected="false">Access</button>
+            <button class="nav-link me-4" id="nav-record-tab" data-bs-toggle="tab" data-bs-target="#nav-record" type="button" role="tab" aria-controls="nav-record" aria-selected="false">Records</button>
+        </div>
+    </nav>
 </div>
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        @Html.Partial("CardWithTable")
+    </div>
+
+    <div class="tab-pane fade" id="nav-provider-location" role="tabpanel" aria-labelledby="nav-provider-location-tab">
+        2
+    </div>
+
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        3
+    </div>
+
+    <div class="tab-pane fade" id="nav-provider" role="tabpanel" aria-labelledby="nav-provider-tab">
+        4
+    </div>
+
+    <div class="tab-pane fade" id="nav-partner" role="tabpanel" aria-labelledby="nav-partner-tab">
+        5
+    </div>
+
+    <div class="tab-pane fade" id="nav-access" role="tabpanel" aria-labelledby="nav-access-tab">
+        6
+    </div>
+
+    <div class="tab-pane fade" id="nav-record" role="tabpanel" aria-labelledby="nav-record-tab">
+        7
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

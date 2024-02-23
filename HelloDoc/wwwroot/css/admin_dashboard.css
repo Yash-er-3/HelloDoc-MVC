@@ -1,4 +1,5 @@
-﻿.new {
+﻿
+.new {
     background-color: #e9eaef;
     color: #203f9a;
     border: 1px solid #203f9a;
@@ -35,12 +36,12 @@
 }
 
 .allstatus {
-    width: 16.6%;
-    padding: 4px;
+    width: 16.6% !important;
+    padding: 4px!important;
 }
 
 .nav-link {
-    padding: 8px;
+    padding: 8px!important;
 }
 
 .bottomarrow {
@@ -146,7 +147,7 @@
 
 @media only screen and (max-width:900px) {
     .allstatus {
-        width: 33.3%
+        width: 33.3%!important
     }
 }
 
@@ -167,6 +168,6 @@
     }
 
     .small {
-        font-size: 0.75rem
+        font-size: 0.75rem!important;
     }
 }

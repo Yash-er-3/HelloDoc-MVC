@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Admin\TableContent\" />
     <Folder Include="wwwroot\upload\" />
   </ItemGroup>
 

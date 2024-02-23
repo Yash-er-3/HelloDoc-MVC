@@ -1,4 +1,5 @@
 using HelloDoc.DataContext;
+using HelloDoc.Views.Shared;
 using Services.Contracts;
 using Services.Implementation;
 
@@ -14,8 +15,9 @@ builder.Services.AddSession(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HelloDocDbContext>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+builder.Services.AddScoped<IRequestRepository , RequestRepository>();
 builder.Services.AddTransient<IAdminCredential, AdminCredential>();
+builder.Services.AddScoped<IRequestDataRepository , RequestDataRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

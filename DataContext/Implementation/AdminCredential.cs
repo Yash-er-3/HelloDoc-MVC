@@ -12,16 +12,22 @@ using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
-    public class AdminCredential : IAdminCredential
+    public class AdminCredential : Repository<Admin>, IAdminCredential
     {
-        private readonly HelloDocDbContext _context;
-        private readonly IHttpContextAccessor _httpcontext;
+        private HelloDocDbContext _context;
+        private IHttpContextAccessor _httpcontext;
 
-        public AdminCredential(HelloDocDbContext context, IHttpContextAccessor httpContextAccessor)
+        public AdminCredential(HelloDocDbContext context, IHttpContextAccessor httpContextAccessor) : base(context)
         {
             _context = context;
             _httpcontext = httpContextAccessor;
         }
+
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
         public int Login(Aspnetuser user)
         {
             var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
@@ -52,6 +58,8 @@ namespace Services.Implementation
                 return 4;
             }
         }
+
+       
     }
 }
 
