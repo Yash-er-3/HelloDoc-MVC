@@ -27,9 +27,9 @@
                     <div class="mt-1">
                         <span class="h4 text-info">@Model.user.Firstname @Model.user.Lastname</span>
                         <span class="text-secondary">
-                            (HJDXHDEBBEBJHB)
+                            @*(HJDXHDEBBEBJHB)*@
                             @*Confirmationnumber = (region.Abbreviation.Substring(0, 2) + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + model.LastName.Substring(0, 2) + model.FirstName.Substring(0, 2) + requestcount.Count().ToString().PadLeft(4, '0')).ToUpper(),*@
-
+                            (@Model.Confirmationnumber)
                             @*(@Model.requests.FirstOrDefault(x => x.Requestid == (Model.requests.FirstOrDefault(m => m.Userid == Model.user.Userid).Requestid)).Confirmationnumber)*@
                         </span>
 

@@ -1,0 +1,148 @@
+﻿@using Services.Viewmodels
+@model ViewUploadModel
+
+<div class="container mt-3 pb-5 mb-5">
+    <div class="margin-viewdoc">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="d-flex h4">
+                Documents
+            </div>
+            <div class="d-flex">
+                <a asp-controller="Patient" asp-action="PatientDashboard" class="text-decoration-none">
+                    <span class="back-btn" style="color: #00b8e6;">&lt;Back</span>
+                </a>
+            </div>
+
+        </div>
+        <div class="bglight rounded p-3 shadow mt-3" id="content">
+            <span class="text-secondary">Patient Name</span>
+
+            <div class="mt-1">
+                <span class="h4 text-info">@Model.FirstName @Model.LastName</span>
+                <span>
+                    (@Model.ConfirmationNumber)
+                </span>
+             
+
+                <p class="small text-secondary mt-2">Check here review and add files that you or the Client/Members has attached to the Request.</p>
+
+                <form>
+                    <div class="row d-flex mt-3">
+                        <div class="py-2 col-12 ">
+                            <div class="form-group rounded d-flex align-items-center justify-content-between border border-2 uploadbtndiv">
+                                <div class="px-3 table-responsive">
+                                    <input type="file" id="actual-btn" asp-for="upload" multiple hidden />
+                                    <label role="button" for="actual-btn" id="file-chosen" class="choosenfile text-nowrap text-secondary">No item selected</label>
+                                </div>
+                                <button type="button" class="uploadbtn px-2 py-1 d-flex ms-1 border-0">
+                                    <label role="button" class="d-flex align-items-center">
+                                        <i class="bi bi-cloud-arrow-up p-2"></i>
+                                        <div>Upload</div>
+                                    </label>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                </div>
+
+                <div>
+                    <div class="d-flex flex-row justify-content-between mt-4">
+                        <div class="d-flex h5">
+                            Documents
+                        </div>
+                        <div class="d-flex">
+                            <button role="button" class="btn btn-outline-info shadow-none" onclick="downloadSelectedFiles()">
+                                Download All
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+
+                    <table class="table mt-2">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col"><input type="checkbox" id="doc" /></th>
+                                <th scope="col">Documents</th>
+                                <th scope="col">Upload Date</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           @foreach (var m in Model.totalFiles)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" class="child" name="checkdoc" /></td>
+                                    <td>
+                                        @m.Filename.Substring(45)
+                                    </td>
+                                    <td>@m.Createddate</td>
+                                    <td>
+                                        <a role="button" class="text-decoration-none" href="~/upload/@System.IO.Path.GetFileName(@m.Filename)" download>
+                                            <span class="p-1 text-info border rounded-2 border-info">
+                                                <i class="bi bi-cloud-arrow-down"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#doc').click(function () {
+            $('.child').prop('checked', $(this).prop('checked'));
+        });
+
+        // Handle individual checkbox clicks to update the leader checkbox state
+        $('.child').click(function () {
+            $('#doc').prop('checked', $('.child:checked').length === $('.child').length);
+        });
+    });
+
+
+    // Function to handle download of selected files
+    function downloadSelectedFiles() {
+        var selectedFiles = document.querySelectorAll('input[name="checkdoc"]:checked');
+        var fileUrls = [];
+
+        // Iterate through selected checkboxes and extract file URLs
+        selectedFiles.forEach(function (checkbox) {
+            var row = checkbox.closest('tr');
+            var fileUrl = row.querySelector('a').getAttribute('href');
+            fileUrls.push(fileUrl);
+        });
+
+        // Download each file
+        fileUrls.forEach(function (url) {
+            // Create an anchor element to trigger the download
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = '';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
+
+    // Event listener for download button
+    document.getElementById('downloadSelected').addEventListener('click', function (event) {
+        event.preventDefault();
+        downloadSelectedFiles();
+    });
+
+    $()
+
+</script>

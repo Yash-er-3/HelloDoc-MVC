@@ -24,11 +24,12 @@ namespace Services.Implementation
         {
             var allRequestDataViewModels = from user in _db.Users
                                            join req in _db.Requests on user.Userid equals req.Userid
+                                           join reqclient in _db.Requestclients on req.Requestid equals reqclient.Requestid
                                            where req.Status == status
                                            orderby req.Createddate descending
                                            select new allrequestdataViewModel
                                            {
-                                               PatientName = user.Firstname + " " + user.Lastname,
+                                               PatientName = reqclient.Firstname + " " + reqclient.Lastname,
                                                PatientDOB = new DateOnly(Convert.ToInt32(user.Intyear), DateTime.ParseExact(user.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(user.Intdate)),
                                                RequestorName = req.Firstname + " " + req.Lastname,
                                                RequestedDate = req.Createddate,
@@ -40,6 +41,7 @@ namespace Services.Implementation
                                                PatientEmail = user.Email,
                                                RequestorEmail = req.Email,
                                                RequestType = req.Requesttypeid,
+                                               RequestId = req.Requestid
                                            };
             return allRequestDataViewModels.ToList();
         }

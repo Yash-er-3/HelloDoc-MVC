@@ -75,7 +75,7 @@
 }
 
     .nav-tabs .allstatus .nav-link.active .pending + .bottomarrow {
-        border-top: 15px solid #36a6c9;
+        border-top: 15px solid #36a6c9 !important;
     }
 
 .nav-tabs .allstatus .nav-link.active .activecase {
@@ -84,7 +84,7 @@
 }
 
     .nav-tabs .allstatus .nav-link.active .activecase + .bottomarrow {
-        border-top: 15px solid #367f40;
+        border-top: 15px solid #367f40 !important;
     }
 
 .nav-tabs .allstatus .nav-link.active .conclude {
@@ -143,6 +143,35 @@
         border-bottom: 2px solid #0dcaf0;
         background-color: transparent;
     }
+
+
+.green-dot {
+    --bs-table-bg: #5fbc61 !important;
+}
+
+.orange-dot {
+    --bs-table-bg: #ed9124 !important;
+}
+
+.pink-dot {
+    --bs-table-bg: #e4657c !important;
+}
+
+.cyan-dot {
+    --bs-table-bg: #007fc6 !important;
+}
+
+.purple-dot {
+    --bs-table-bg: #933cb5 !important;
+}
+
+td {
+    color: white !important;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    background-color: transparent !important;
+}
 
 
 @media only screen and (max-width:900px) {

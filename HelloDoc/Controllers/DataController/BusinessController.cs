@@ -27,7 +27,7 @@ namespace HelloDoc.Controllers.DataController
 
                 Request request = new Request
                 {
-                    Requesttypeid = 2,
+                    Requesttypeid = 4,
                     Userid = user.Userid,
                     Firstname = b.PFirstName,
                     Lastname = b.PLastName,

@@ -1,11 +1,6 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-const modebtn = document.getElementById('img-btn')
-const imgbtn = document.getElementById('img-mode')
-const terms = document.getElementById('terms-1')
+﻿var modebtn = document.getElementById('img-btn')
+var imgbtn = document.getElementById('img-mode')
+var terms = document.getElementById('terms-1')
 
 modebtn.addEventListener('click', darkLight)
 

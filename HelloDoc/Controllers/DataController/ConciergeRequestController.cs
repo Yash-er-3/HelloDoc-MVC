@@ -30,7 +30,7 @@ namespace HelloDoc.Controllers.DataController
             {
                 Request request = new Request
                 {
-                    Requesttypeid = 2,
+                    Requesttypeid = 3,
                     Userid = user.Userid,
                     Firstname = c.PFirstName,
                     Lastname = c.PLastName,

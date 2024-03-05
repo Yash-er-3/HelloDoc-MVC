@@ -32,6 +32,8 @@ namespace HelloDoc.ViewModels
             Clear
         }
 
+        public string Confirmationnumber { get; set; }
+
         public string StatusFind(int id)
         {
             string sName = ((statusName)id).ToString();

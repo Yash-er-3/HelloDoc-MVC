@@ -18,6 +18,11 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<IRequestRepository , RequestRepository>();
 builder.Services.AddTransient<IAdminCredential, AdminCredential>();
 builder.Services.AddScoped<IRequestDataRepository , RequestDataRepository>();
+builder.Services.AddScoped<IViewCaseRepository,ViewCaseRepository >();
+builder.Services.AddScoped<IBlockCaseRepo, BlockCaseRepo>();
+builder.Services.AddScoped<IAddOrUpdateRequestStatusLog, AddOrUpdateRequestStatusLog>();
+builder.Services.AddScoped<IAddOrUpdateRequestNotes, AddOrUpdateRequestNotes>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

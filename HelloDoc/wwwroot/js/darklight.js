@@ -1,8 +1,8 @@
-const modebtn = document.getElementById('img-btn')
-const imgbtn = document.getElementById('img-mode')
-const font = document.getElementById('font-color')
-const contentcolor = document.getElementById('content-color')
-const dateIcon = document.getElementById('date-icon')
+var modebtn = document.getElementById('img-btn')
+var imgbtn = document.getElementById('img-mode')
+var font = document.getElementById('font-color')
+var contentcolor = document.getElementById('content-color')
+var dateIcon = document.getElementById('date-icon')
 
 modebtn.addEventListener('click', darkLight)
 var flag;
@@ -57,12 +57,18 @@ function darkLight() {
 
 // file upload js
 
-const actualBtn = document.getElementById('actual-btn');
-const fileChosen = document.getElementById('file-chosen');
+var actualBtn = document.getElementById('actual-btn');
+var fileChosen = document.getElementById('file-chosen');
 
-actualBtn.addEventListener('change', function () {
-    fileChosen.textContent = this.files[0].name
-    fileChosen.placeholder = this.files[0].name
-    fileChosen.value = this.files[0].name
+try {
 
-})
+    actualBtn.addEventListener('change', function () {
+        fileChosen.textContent = this.files[0].name
+        fileChosen.placeholder = this.files[0].name
+        fileChosen.value = this.files[0].name
+
+    })
+}
+catch {
+
+}

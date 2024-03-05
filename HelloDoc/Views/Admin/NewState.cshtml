@@ -1,16 +1,17 @@
 ﻿@using Services.Viewmodels
 @model List<allrequestdataViewModel>;
 
-<div class="table-responsive">
-    <table class="table mt-5" id="dtBasicExample">
+
+<div class="table-responsive px-4">
+    <table class="table mt-5 small align-middle" id="dtBasicExample">
         <thead>
-            <tr>
+            <tr class="bg-light">
                 <th class="d-none"></th>
                 <th scope="col">Name</th>
                 <th scope="col">Date Of Birth</th>
                 <th scope="col">Requestor</th>
                 <th scope="col">Physician Name</th>
-                <th scope="col">Date Of Service</th>
+                <th scope="col">Requestor Date</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
                 <th scope="col">Notes</th>
@@ -20,21 +21,153 @@
             </tr>
         </thead>
         <tbody>
+
+
             @foreach (var item in Model)
             {
-                <tr>
-                    <td class="" >@item.RequestType</td>
-                    <td>@item.PatientName</td>
+
+
+                var color = "green-dot";
+
+                switch (item.RequestType)
+                {
+                    case 1:
+                        {
+                            color = "green-dot";
+                            break;
+                        }
+                    case 2:
+                        {
+                            color = "orange-dot";
+                            break;
+                        }
+                    case 3:
+                        {
+                            color = "pink-dot";
+                            break;
+                        }
+                    case 4:
+                        {
+                            color = "cyan-dot";
+                            break;
+                        }
+                    default:
+                        {
+                            color = "purple-dot";
+                            break;
+                        }
+                }
+
+                <tr class="@color">
+                    <td class="d-none">@item.RequestType</td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            @item.PatientName <div class="btn btn-outline-light btn-sm"><i class="fa-regular fa-envelope fa-sm"></i></div>
+                        </div>
+                    </td>
                     <td>@item.PatientDOB</td>
-                    <td>@item.RequestorName</td>
+                    <td>@item.RequestTypeName(item.RequestType)</td>
                     <td>@item.RequestorName</td>
                     <td>@item.RequestedDate</td>
-                    <td>@item.PatientPhone<br />@item.RequestorPhone</td>
-                    <td>@item.RequestorEmail</td>
-                    @*<td>@item.Address</td>*@
-                    <td>@item.Notes</td>
-                    <td>@item.ProviderEmail</td>
-                    <td>@item.RequestType</td>
+                    <td>
+                        <div class="border rounded-1 p-1 d-flex justify-content-around ">
+                            <i class="bi bi-telephone"></i>
+                            @item.PatientPhone
+                        </div>
+                        <small>(Patient)</small>
+
+
+
+                        @if (item.RequestType == 2 && item.RequestorPhone != null)
+                        {
+                            <div class="border rounded-1 p-1 d-flex justify-content-around ">
+                                <i class="bi bi-telephone"></i>
+                                @item.PatientPhone
+                            </div>
+                            <small>(Family/Friend)</small>
+
+                        }
+                        @if (item.RequestType == 3 && item.RequestorPhone != null)
+                        {
+                            <div class="border rounded-1 p-1 d-flex justify-content-around ">
+                                <i class="bi bi-telephone"></i>
+                                @item.PatientPhone
+                            </div>
+                            <small>(Concierge)</small>
+
+                        }
+                        @if (item.RequestType == 4 && item.RequestorPhone != null)
+                        {
+                            <div class="border rounded-1 p-1 d-flex justify-content-around ">
+                                <i class="bi bi-telephone"></i>
+                                @item.PatientPhone
+                            </div>
+                            <small>(Business)</small>
+
+                        }
+                    </td>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Address</td>
+                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Notes</td>
+                    <td>
+                        @item.ProviderEmail
+                        <div class="d-flex">
+
+                            <button class="btn btn-outline-light p-1 shadow-none"
+                                    type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                <i class="bi bi-person-badge-fill"></i>
+                                <span>
+                                    Provider
+                                </span>
+                            </button>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div class="dropstart ms-2">
+
+
+                            <button class="btn btn-outline-light shadow-none" type="button" data-bs-toggle="dropdown" id="drop" aria-expanded="false">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button type="button" class="dropdown-item text-secondary getname" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAssign">
+                                        <i class="fa-regular fa-rectangle-list me-2"></i>Assign case
+                                    </button>
+                                </li>
+                                <li>
+                                    @*<a class="dropdown-item text-secondary" >
+                                </a>*@
+
+                                    <button type="button" value="@item.PatientName" class="dropdown-item text-secondary getname" id="@item.RequestId" value="@item.PatientName" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="fa-regular fa-circle-xmark me-2"></i>Cancel case
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="dropdown-item text-secondary Viewcase" value="@item.RequestId">
+                                        <i class="bi bi-view-list me-2"></i>
+                                        View case
+                                    </button>
+                                </li>
+                                @*asp-action="ViewCase" asp-controller="Admin" asp-route-requestid="@item.RequestId"*@
+                                <li>
+                                    <button value="@item.RequestId" class="dropdown-item text-secondary viewNotes">
+                                        <i class="fa-solid fa-book-journal-whills me-2"></i>View Notes
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" id="@item.RequestId" value="@item.PatientName" class="dropdown-item text-secondary getname" data-toggle="modal" data-target="#exampleModalBlock">
+                                        <i class="fa-regular fa-circle-xmark me-2"></i>Block case
+                                    </button>
+                                </li>
+                            </ul>
+
+
+                        </div>
+                    </td>
+
 
                 </tr>
             }
@@ -48,13 +181,63 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
-<script>
-   
 
-   
+
+
+<script>
+    $(document).ready(function () {
+        $('.getname').on('click', function (e) {
+            var name = $(this).attr('value');
+            var requestid = $(this).attr('id');
+            console.log(requestid);
+            $('.requestid').val(requestid);
+            $('.patientname').html(name);
+        })
+    })
+
+    $(document).ready(function () {
+        $('.Viewcase').on('click', function (e) {
+            console.log("hello")
+            var requestid = $(this).attr('value');
+            console.log(requestid);
+            $.ajax({
+                url: '/Admin/ViewCase',
+                type: 'GET',
+                data: { id: requestid },
+                success: function (response) {
+                    $('#nav-tabContent').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('.viewNotes').on('click', function (e) {
+            console.log("hello")
+            var requestid = $(this).attr('value');
+            console.log(requestid);
+            $.ajax({
+                url: '/Admin/ViewNotes',
+                type: 'GET',
+                data: { id: requestid },
+                success: function (response) {
+                    $('#nav-home').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+
     var table = $('#dtBasicExample').DataTable({ dom: 'lrtip' }); // Initialize your DataTable
-    
-    $('input[name="requestby"]').on('change', function () {
+    $('input[type="search"]').on('keyup', function () {
+        table.search(this.value).draw();
+    });
+    $('input[name="requestby"]').on('click', function () {
         var value = $(this).attr('id');
         console.log(value);
         if (value == 'requestbyAll') {
@@ -64,4 +247,5 @@
             table.columns(0).search(value).draw(); // Replace 0 with the index of the column you want to filter
         }
     });
+
 </script>

@@ -22,15 +22,15 @@ namespace Services.Viewmodels
         public string PatientEmail { get; set; }
         public int RequestType { get; set; }
 
-
+        public int RequestId { get; set; }
 
         public enum Requestby
         {
             first,
             Patient,
-            FriendorFamily,
+            Friend_Family,
             Concierge,
-            BusinessPartner
+            Business_Partner
         }
         public string RequestTypeName(int by)
         {

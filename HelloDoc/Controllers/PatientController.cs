@@ -76,6 +76,7 @@ namespace HelloDoc.Controllers
             int id = (int)HttpContext.Session.GetInt32("UserId");
             patient_dashboard patient_Dashboard = new patient_dashboard();
             var userdata = Context.Users.FirstOrDefault(m => m.Userid == id);
+            var confirmnumber = Context.Requests.FirstOrDefault(m => m.Requestid == requestid);
             TempData["user"] = userdata.Firstname;
             patient_Dashboard.user = userdata;
             var req = from m in Context.Requestwisefiles
@@ -84,7 +85,7 @@ namespace HelloDoc.Controllers
             patient_Dashboard.requestwisefile = req.ToList();
             patient_Dashboard.requestid = requestid;
             patient_Dashboard.DOB = new DateTime(Convert.ToInt32(userdata.Intyear), DateTime.ParseExact(userdata.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(userdata.Intdate));
-
+            patient_Dashboard.Confirmationnumber = confirmnumber.Confirmationnumber;
             return View(patient_Dashboard);
         }
 

@@ -1,22 +1,141 @@
-﻿
+﻿@using Services.Viewmodels
+
+@model AdminDashboardViewModel;
+
+
 @Html.Partial("notification")
 @{
     Layout = "header_dashboard";
 }
 
-<div class="mainnav bg-white">
-    <nav class="shadow">
-        <div class="ps-4 nav nav-tabs border-bottom-0 border-start-0 border-end-0 border border-2" id="nav-tab" role="tablist">
-            <button class="nav-link active me-4" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Dashboard</button>
-            <button class="nav-link me-4" id="nav-provider-location-tab" data-bs-toggle="tab" data-bs-target="#nav-provider-location" type="button" role="tab" aria-controls="nav-provider-location" aria-selected="false">Provider Location</button>
-            <button class="nav-link me-4" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">My Profile</button>
-            <button class="nav-link me-4" id="nav-provider-tab" data-bs-toggle="tab" data-bs-target="#nav-provider" type="button" role="tab" aria-controls="nav-provider" aria-selected="false">Providers</button>
-            <button class="nav-link me-4" id="nav-partner-tab" data-bs-toggle="tab" data-bs-target="#nav-partner" type="button" role="tab" aria-controls="nav-partner" aria-selected="false">Partners</button>
-            <button class="nav-link me-4" id="nav-access-tab" data-bs-toggle="tab" data-bs-target="#nav-access" type="button" role="tab" aria-controls="nav-access" aria-selected="false">Access</button>
-            <button class="nav-link me-4" id="nav-record-tab" data-bs-toggle="tab" data-bs-target="#nav-record" type="button" role="tab" aria-controls="nav-record" aria-selected="false">Records</button>
+
+@*cancle modal*@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Confirm Cancellation</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="cancelCaseModal" method="post">
+                    <div class="mb-3">Patient Name : <span class="patientname text-info fw-semibold"></span> </div>
+                    <input type="number" name="requestid" class="requestid" hidden />
+
+
+                    <div class="form-group">
+                        <select class="form-select form-select-lg mb-3 fs-6 shadow-none" aria-label=".form-select-lg example">
+                            <option class="fs-6" selected hidden>Reason for Cancellation</option>
+                            @foreach (var item in Model.casetags)
+                            {
+                                <option class="fs-6">@item.Name</option>
+                            }
+
+                        </select>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control shadow-none" asp-for="blocknotes" placeholder="Patient Notes" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Provide Additional Notes</label>
+                    </div>
+                    <div class="d-flex float-end mt-4">
+                        <button type="submit" class="btn btn-info text-white mx-2 shadow-none">Confirm</button>
+                        <button type="button" class="btn border-info text-info shadow-none" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+
         </div>
-    </nav>
+    </div>
 </div>
+
+
+@*assign modal*@
+<div class="modal fade" id="exampleModalAssign" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Assign Request</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="assignCaseModal" method="post">
+                    <small class="text-secondary">To assign this request,search and select another Physician.</small>
+                    <input type="number" name="requestid" class="requestid" hidden />
+
+                    <div class="form-floating">
+                        <select name="regionname" class="form-select shadow-none mt-3" id="floatingSelect" aria-label="Floating label select example">
+                            <option class="regionselect" selected hidden>Narrow Search By Region</option>
+
+                            @foreach (var item in Model.regions)
+                            {
+                                <option class="regionselect" itemid="@item.Regionid">@item.Name</option>
+
+                            }
+                        </select>
+                        <label class="text-secondary" for="floatingSelect">Narrow Search by Region</label>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="physicianname" class="form-select form-select-lg mt-3 mb-3 fs-6 shadow-none physiciandrop" aria-label=".form-select-lg example">
+                            <option class="fs-6" selected hidden>Select Physician</option>
+
+
+
+                        </select>
+                    </div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control shadow-none" placeholder="Description" style="height: 100px" asp-for="blocknotes"></textarea>
+                        <label for="floatingTextarea2">Description</label>
+                    </div>
+                    <div class="d-flex float-end mt-4">
+                        <button type="submit" class="btn btn-info text-white mx-2 shadow-none">Submit</button>
+                        <button type="button" class="btn border-info text-info shadow-none" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*block modal*@
+<div class="modal fade" id="exampleModalBlock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Confirm Block</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="BlockCaseModal" method="post">
+                    <input type="number" name="requestid" class="requestid" hidden />
+                    <div class="mb-3">Patient Name : <span class="patientname"></span> </div>
+
+
+                    <div class="form-floating">
+                        <textarea class="form-control shadow-none" asp-for="blocknotes" placeholder="Reason for Block Request" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Reason for Block Request</label>
+                    </div>
+                    <div class="d-flex float-end mt-4">
+                        <button type="submit" class="btn btn-info text-white mx-2 shadow-none">Confirm</button>
+                        <button type="button" class="btn border-info text-info shadow-none" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -47,15 +166,6 @@
         7
     </div>
 </div>
-
-
-
-
-
-
-
-
-
 
 
 
