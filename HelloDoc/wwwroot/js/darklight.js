@@ -47,7 +47,7 @@ function darkLight() {
         catch {
 
         }
-        
+
 
         // font.style.color = "white"
         document.cookie = "flag = " + flag
@@ -55,12 +55,12 @@ function darkLight() {
     }
 }
 
+
 // file upload js
-
-var actualBtn = document.getElementById('actual-btn');
-var fileChosen = document.getElementById('file-chosen');
-
 try {
+    console.log("run")
+    var actualBtn = document.getElementById('actual-btn');
+    var fileChosen = document.getElementById('file-chosen');
 
     actualBtn.addEventListener('change', function () {
         fileChosen.textContent = this.files[0].name

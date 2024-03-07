@@ -46,7 +46,7 @@
 
                         <a asp-action="registeredpatient" asp-controller="Home">
                             <button style="background-color: transparent;" class="border-1 rounded text-info border-info p-2">
-                                <a asp-action="Admin" asp-controller="Admin" class="text-decoration-none">
+                                <a asp-action="Logout" asp-controller="CreadentialAdmin" class="text-decoration-none">
                                     <div class="logouttext"><span class="">Log out</span></div>
                                 </a>
                             </button>
@@ -87,7 +87,6 @@
 
 
 
-    <script src="~/js/darklight.js" asp-append-version="true"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.min.js"></script>
@@ -116,15 +115,21 @@
     @*  @await RenderSectionAsync("Scripts", required: false)*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/darklight.js" asp-append-version="true"></script>
 
 </body>
 </html>
 
 <script>
-    const phoneInputField = document.querySelector("#tel");
-    const phoneInput = window.intlTelInput(phoneInputField, {
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
+    try{
+        const phoneInputField = document.querySelector("#tel");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    }
+    catch{
+
+    }
 </script>
 
 <style>

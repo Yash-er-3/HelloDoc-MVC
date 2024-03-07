@@ -141,7 +141,7 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="dropdown-item text-secondary" value="@item.RequestId">
+                                    <button class="dropdown-item text-secondary viewupload" value="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
                                         View Uploads
                                     </button>
@@ -263,6 +263,23 @@
                 }
             });
         });
+
+        $('.viewupload').on('click', function (e) {
+            console.log("viewupload");
+            var requestid = $(this).attr('value');
+            console.log(requestid);
+            $.ajax({
+                url: '/Admin/ViewUpload',
+                type: 'GET',
+                data: { requestid: requestid },
+                success: function (response) {
+                    $('#nav-home').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        })
     });
 
 

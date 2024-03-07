@@ -1,26 +1,25 @@
-﻿using HelloDoc.DataContext;
+﻿using DataAccess.ServiceRepository;
+using DataAccess.ServiceRepository.IServiceRepository;
+using HelloDoc.DataContext;
 using HelloDoc.DataModels;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Services.Viewmodels;
 
 namespace Services.Implementation
 {
+    [AuthorizationRepository("Admin")]
     public class AdminCredential : Repository<Admin>, IAdminCredential
     {
         private HelloDocDbContext _context;
         private IHttpContextAccessor _httpcontext;
+        
 
         public AdminCredential(HelloDocDbContext context, IHttpContextAccessor httpContextAccessor) : base(context)
         {
             _context = context;
             _httpcontext = httpContextAccessor;
+        
         }
 
         public void Save()
@@ -31,6 +30,7 @@ namespace Services.Implementation
         public int Login(Aspnetuser user)
         {
             var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
+           
 
             if (correct != null)
             {

@@ -6,10 +6,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 using Services.Viewmodels;
+using System.Collections;
+using System.Net.Mail;
+using System.Net;
 using static Services.Viewmodels.allrequestdataViewModel;
+using DataAccess.ServiceRepository;
 
 namespace HelloDoc.Controllers.Admin
 {
+
     public class AdminController : Controller
     {
         private readonly IRequestRepository _request;
@@ -21,7 +26,7 @@ namespace HelloDoc.Controllers.Admin
         private readonly IAddOrUpdateRequestNotes _addOrUpdateRequestNotes;
 
 
-        public AdminController(IRequestRepository requestRepository, IRequestDataRepository requestDataRepository, IViewCaseRepository view, HelloDocDbContext context, 
+        public AdminController(IRequestRepository requestRepository, IRequestDataRepository requestDataRepository, IViewCaseRepository view, HelloDocDbContext context,
             IBlockCaseRepo blockCaseRepo, IAddOrUpdateRequestStatusLog addOrUpdateRequestStatusLog, IAddOrUpdateRequestNotes addOrUpdateRequestNotes)
         {
             _request = requestRepository;
@@ -38,18 +43,25 @@ namespace HelloDoc.Controllers.Admin
             return View();
         }
 
+    [AuthorizationRepository("Admin")]
+
         public IActionResult Admindashboard()
         {
-            var requests = _request.GetAll().ToList();
-            var region = _context.Regions.ToList();
-            var casetag = _context.Casetags.ToList();
-            var physician = _context.Physicians.ToList();
+            if (HttpContext.Session.GetInt32("AdminId") != null)
+            {
 
-            AdminDashboardViewModel adminDashboardViewModel = new AdminDashboardViewModel();
-            adminDashboardViewModel.requests = requests;
-            adminDashboardViewModel.regions = region;
-            adminDashboardViewModel.casetags = casetag;
-            return View(adminDashboardViewModel);
+                var requests = _request.GetAll().ToList();
+                var region = _context.Regions.ToList();
+                var casetag = _context.Casetags.ToList();
+                var physician = _context.Physicians.ToList();
+
+                AdminDashboardViewModel adminDashboardViewModel = new AdminDashboardViewModel();
+                adminDashboardViewModel.requests = requests;
+                adminDashboardViewModel.regions = region;
+                adminDashboardViewModel.casetags = casetag;
+                return View(adminDashboardViewModel);
+            }
+            return RedirectToAction("Admin");
         }
 
         public IActionResult NewState()
@@ -72,7 +84,7 @@ namespace HelloDoc.Controllers.Admin
         {
             var model = _data.GetAllRequestData(6);
 
-            return View(model);
+            return View(model);      
         }
         public IActionResult ToCloseState()
         {
@@ -184,7 +196,7 @@ namespace HelloDoc.Controllers.Admin
 
         public IActionResult ViewUpload(int requestid)
         {
-            var filelist = _context.Requestwisefiles.ToList().Where(m => m.Requestid == requestid).ToList();
+            var filelist = _context.Requestwisefiles.ToList().Where(m => m.Requestid == requestid && m.Isdeleted == null).ToList();
             var requestclientdata = _context.Requestclients.FirstOrDefault(m => m.Requestid == requestid);
             var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
 
@@ -199,58 +211,114 @@ namespace HelloDoc.Controllers.Admin
             return View(modeldata);
         }
 
-
         [HttpPost]
-        public IActionResult UploadButton(ViewUploadModel document)
+        public IActionResult UploadFiles(List<IFormFile> files, int RequestsId)
         {
-            if (HttpContext.Session.GetInt32("UserId") != null)
-            {
-                int id = (int)HttpContext.Session.GetInt32("UserId");
-                patient_dashboard model = new patient_dashboard();
-                var users = _context.Users.FirstOrDefault(m => m.Userid == id);
-                model.requests = (from m in _context.Requests where m.Userid == id select m).ToList();
-              
-                //var req = Context.Requests.FirstOrDefault(m => m.UserId == id);
-                model.requestwisefile = (from m in _context.Requestwisefiles where m.Requestid == document.requestId select m).ToList();
-                //var reqe = Context.Requests.FirstOrDefault(m => m.UserId == id)
-
-                model.requestid = document.requestId;
-
-                if (document.upload != null)
-                {
-                    uploadFile(document);
-                }
-            }
-                return RedirectToAction("ViewUpload" , new { requestid  = document.requestId});
-          
+            Add(RequestsId, files);
+            return RedirectToAction("ViewUpload", "Admin", new { requestid = RequestsId });
         }
-        [HttpPost]
-        public void uploadFile(ViewUploadModel document)
+        public void Add(int id, List<IFormFile> formFiles)
         {
-
-            foreach (var item in document.upload)
-
+            foreach (var file in formFiles)
             {
+                string filename = file.FileName;
+                string filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
+                string extension = Path.GetExtension(filename);
+                string filewith = filenameWithoutExtension + "_" + DateTime.Now.ToString("dd`MM`yyyy`HH`mm`ss") + extension;
 
-                //string path = _environment.WebRootPath + "/UploadDocument/" + item.FileName;
-                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload", item.FileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "upload", file.FileName);
+
+
+                string filePath = path;
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                    item.CopyTo(fileStream);
+                    file.CopyTo(fileStream);
                 }
 
-                Requestwisefile requestWiseFiles = new Requestwisefile
+                Requestwisefile requestwisefile = new Requestwisefile()
                 {
-                    Requestid = document.requestId,
-                    Filename = path,
+                    Requestid = id,
+                    Filename = filePath,
                     Createddate = DateTime.Now,
                 };
-                _context.Requestwisefiles.Add(requestWiseFiles);
-                _context.SaveChanges();
+
+                _context.Requestwisefiles.Add(requestwisefile);
 
             }
+            _context.SaveChanges();
+        }
+
+        [HttpPost]
+        public IActionResult DeleteDoc(int id, int reqid)
+        {
+            var file = _context.Requestwisefiles.FirstOrDefault(x => x.Requestwisefileid == id);
+            BitArray r = new BitArray(1);
+            r[0] = true;
+            file.Isdeleted = r;
+            _context.Requestwisefiles.Update(file);
+            _context.SaveChanges();
+
+            return RedirectToAction("ViewUpload", new { requestid = reqid });
         }
 
 
+        [HttpPost]
+        public IActionResult SendMail(List<int> wiseFileId, int reqid)
+        {
+            List<string> filenames = new List<string>();
+            foreach (var item in wiseFileId)
+            {
+                var s = (item);
+                var file = _context.Requestwisefiles.FirstOrDefault(x => x.Requestwisefileid == s).Filename;
+                filenames.Add(file);
+            }
+
+            Sendemail("yashsarvaiya40@gmail.com", "Your Attachments", "Please Find Your Attachments Here", filenames);
+
+            TempData["success"] = "Email sent successfully!";
+            return RedirectToAction("ViewUpload", new { requestid = reqid });
+
+        }
+        public async Task Sendemail(string email, string subject, string message, List<string> attachmentPaths)
+        {
+            try
+            {
+                var mail = "tatva.dotnet.yashsarvaiya@outlook.com";
+                var password = "Yash@1234";
+
+                var client = new SmtpClient("smtp.office365.com", 587)
+                {
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential(mail, password)
+                };
+
+                var mailMessage = new MailMessage
+                {
+                    From = new MailAddress(mail),
+                    Subject = subject,
+                    Body = message,
+                    IsBodyHtml = true // Set to true if your message contains HTML
+                };
+
+                mailMessage.To.Add(email);
+
+                foreach (var attachmentPath in attachmentPaths)
+                {
+                    if (!string.IsNullOrEmpty(attachmentPath))
+                    {
+                        var attachment = new Attachment(attachmentPath);
+                        mailMessage.Attachments.Add(attachment);
+                    }
+                }
+
+                await client.SendMailAsync(mailMessage);
+            TempData["success"] = "Email sent successfully!";
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error sending email: {ex.Message}");
+            }
+        }
     }
 }

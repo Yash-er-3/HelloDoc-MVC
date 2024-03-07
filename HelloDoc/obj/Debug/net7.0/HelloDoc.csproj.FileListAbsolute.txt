@@ -374,3 +374,11 @@ D:\Projects\HelloDoc\HelloDoc\obj\Debug\net7.0\HelloDoc.MvcApplicationPartsAssem
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\System.Security.Permissions.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Services.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Services.pdb
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll

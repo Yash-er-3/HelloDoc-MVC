@@ -1,3 +1,5 @@
+using DataAccess.ServiceRepository;
+using DataAccess.ServiceRepository.IServiceRepository;
 using HelloDoc.DataContext;
 using HelloDoc.Views.Shared;
 using Services.Contracts;
@@ -22,6 +24,8 @@ builder.Services.AddScoped<IViewCaseRepository,ViewCaseRepository >();
 builder.Services.AddScoped<IBlockCaseRepo, BlockCaseRepo>();
 builder.Services.AddScoped<IAddOrUpdateRequestStatusLog, AddOrUpdateRequestStatusLog>();
 builder.Services.AddScoped<IAddOrUpdateRequestNotes, AddOrUpdateRequestNotes>();
+builder.Services.AddScoped<IAuthorizatoinRepository, AuthorizationRepository>();
+builder.Services.AddScoped<IJwtRepository, JwtRepository>();
 
 var app = builder.Build();
 
