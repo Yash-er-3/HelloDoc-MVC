@@ -146,7 +146,7 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="dropdown-item text-secondary" value="@item.RequestId">
+                                    <button class="dropdown-item text-secondary orders" value="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
                                         Orders
                                     </button>
@@ -261,6 +261,24 @@
                     console.error(error);
                 }
             });
+        })
+
+        $('.orders').on('click', function (e) {
+            console.log("orders");
+
+            var requestid = $(this).attr('value');
+
+            $.ajax({
+                url: '/Admin/Orders',
+                type: 'GET',
+                data: { requestid: requestid },
+                success: function (response) {
+                    $('#nav-home').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            })
         })
     });
 

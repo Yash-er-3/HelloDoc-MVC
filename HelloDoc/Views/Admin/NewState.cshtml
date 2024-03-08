@@ -2,8 +2,8 @@
 @model List<allrequestdataViewModel>;
 
 
-<div class="table-responsive px-4">
-    <table class="table mt-5 small align-middle" id="dtBasicExample">
+<div class="table-responsive mx-4 bg-white pt-2">
+    <table class="table mt-5 small align-middle d-none d-md-table" id="dtBasicExample">
         <thead>
             <tr class="bg-light">
                 <th class="d-none"></th>
@@ -175,14 +175,155 @@
 
         </tbody>
     </table>
-</div>
 
+
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 
 
+
+
+
+<div class="accordion accordion-flush d-md-none d-block" id="accordionFlushExample">
+
+    <div class="accordion-item">
+        @foreach (var item in Model)
+        {
+            var color = "green-dot";
+
+            switch (item.RequestType)
+            {
+                case 1:
+                    {
+                        color = "green-dot";
+                        break;
+                    }
+                case 2:
+                    {
+                        color = "orange-dot";
+                        break;
+                    }
+                case 3:
+                    {
+                        color = "pink-dot";
+                        break;
+                    }
+                case 4:
+                    {
+                        color = "cyan-dot";
+                        break;
+                    }
+                default:
+                    {
+                        color = "purple-dot";
+                        break;
+                    }
+            }
+
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseone-@item.RequestId" aria-expanded="false" aria-controls="flush-collapseone-@item.RequestId" style="background-color:#e7f1ff; color:black;">
+
+                    <div class="col d-flex flex-column">
+                        <span class="d-none">@item.RequestType</span>
+                        <span class="">@item.PatientName</span>
+                        <span class=" mt-4">@item.Address</span>
+                        <span class="mt-3"><i class="bi bi-clock text-info h6 me-2 icns"></i>Wait Time: DEC5, 2023</span>
+                    </div>
+                    <div class="col d-flex flex-column text-end mt-2 p-0">
+                        <div>
+                            <div>
+                                <span>@item.RequestTypeName(item.RequestType)</span>
+                                <i class="bi bi-circle-fill @color"></i>
+                            </div>
+                            <div class="btn text-info border-info float-end p-0 mt-3 rounded-pill py-1 px-3" style="font-size:14px;">
+                                Map Location
+                            </div>
+
+                        </div>
+
+                    </div>
+                </button>
+                <hr class="m-0">
+            </h2>
+
+            <div id="flush-collapseone-@item.RequestId" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="background-color:#e7f1ff; color:black">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="rounded-pill me-3 viewCaseBtn p-1 Viewcase" value="@item.RequestId" style="cursor : pointer">
+                        View Case
+                    </button>
+                </div>
+
+                <div class="accordion-body d-flex flex-column gap-1">
+                    <div><i class="bi bi-calendar2-minus me-2 icn"></i>Date of birth: @item.PatientDOB</div>
+                    <div><i class="bi bi-envelope me-2 icn"></i>Email: @item.PatientEmail</div>
+                    <div><i class="bi bi-telephone me-2 icn"></i>Patient: @item.PatientPhone</div>
+                    <div><i class="bi bi-person me-2 icn"></i>Requestor: @item.RequestorName</div>
+                </div>
+                <div class="container-fluid ">
+
+                    <div class="row gy-2">
+
+                        <div class="col-6 d-flex justify-content-center">
+                            <button type="button" class="btn w-100 text-white rounded-pill p-1 btn-sm text-secondary getname" style="background:#c40eff;" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAssign">
+                                @*<i class="fa-regular fa-rectangle-list me-2"></i>*@
+                                Assign case
+                            </button>
+                        </div>
+                        <div class="col-6 d-flex justify-content-center">
+
+                            <button type="button" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" id="@item.RequestId" value="@item.PatientName" data-toggle="modal" data-target="#exampleModal">
+                                @*<i class="fa-regular fa-circle-xmark me-2"></i>*@
+                                Cancel case
+                            </button>
+                        </div>
+
+
+
+                        <div class="col-6 d-flex justify-content-center">
+
+                            <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewNotes">
+                                @*<i class="fa-solid fa-book-journal-whills me-2"></i>*@
+                                View Notes
+                            </button>
+                        </div>
+
+                        <div class="col-6 d-flex justify-content-center">
+
+                            <button type="button" id="@item.RequestId" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" data-toggle="modal" data-target="#exampleModalBlock">
+                                @*<i class="fa-regular fa-circle-xmark me-2"></i>*@
+                                Block Patient
+                            </button>
+                        </div>
+
+                        <div class="col-6 d-flex justify-content-center">
+                            <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">Email</a>
+                        </div>
+
+
+                        @*<div class="col-6">
+                    <a class="btn w-100  text-white rounded-pill p-1 btn-sm" style="background:#c40eff;">Assign Case</a>
+                    </div>
+                    <div class="col-6" onclick="CancelCase(@item.Request.Requestid)">
+                    <a class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm">Cancel Case</a>
+                    </div>
+                    <div class="col-6 mt-2 viewNotes" id="@item.Request.Requestid">
+                    <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">View Notes</a>
+                    </div>
+                    <div class="col-6 mt-2" onclick="BlockCase(@item.Request.Requestid)">
+                    <a class="btn w-100  bg-danger text-white rounded-pill p-1 btn-sm">Block Patient</a>
+                    </div>
+                    <div class="col-6 mt-2">
+                    <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">Email</a>
+                    </div>*@
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -198,7 +339,7 @@
     $(document).ready(function () {
         $('.Viewcase').on('click', function (e) {
             console.log("hello")
-            var requestid = $(this).attr('value');
+            var requestid = $(this).val();
             console.log(requestid);
             $.ajax({
                 url: '/Admin/ViewCase',

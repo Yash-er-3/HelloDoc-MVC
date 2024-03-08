@@ -17,7 +17,7 @@ namespace DataAccess.ServiceRepository
     {
         private readonly string _role;
 
-        public AuthorizationRepository(string role = "")
+                public AuthorizationRepository(string role = "")
         {
             _role = role;
         }
@@ -28,8 +28,8 @@ namespace DataAccess.ServiceRepository
             var jwtservice = context.HttpContext.RequestServices.GetService<IJwtRepository>();
             if (jwtservice == null)
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "Admin" }));
-                //return;
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "CredentialAdmin", action = "Admin" }));
+                return;
             }
 
             var request = context.HttpContext.Request;
@@ -37,46 +37,24 @@ namespace DataAccess.ServiceRepository
 
             if (token == null || !jwtservice.ValidateToken(token, out JwtSecurityToken jwttoken))
             {
-                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "Admin" }));
-                //return;
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "CredentialAdmin", action = "Admin" }));
+                return;
             }
 
-            //var roleClaim = jwttoken.Claims.FirstOrDefault(x => x.Type == "Role");
+            var roleClaim = jwttoken.Claims.FirstOrDefault(x => x.Type == "Role");
 
-            //if (roleClaim == null)
-            //{
-            //    context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "Admin" }));
-            //    //return;
-            //}
+            if (roleClaim == null)
+            {
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "CredentialAdmin", action = "Admin" }));
+                return;
+            }
 
-            //if (string.IsNullOrEmpty(_role) || roleClaim.Value != _role)
-            //{
-            //    context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Admin", action = "Admin" }));
-            //}
-
-
+            if (string.IsNullOrEmpty(_role) || roleClaim.Value != _role)
+            {
+                context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "CredentialAdmin", action = "Admin" }));
+            }
 
 
-
-
-
-
-
-
-
-            //var person = SessionUtilsRepository.GetLoggedInPerson(context.HttpContext.Session);
-            //if (person == null)
-            //{
-            //    context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "AdminLogin" }));
-            //    return;
-            //}
-            //if (!string.IsNullOrEmpty(_role))
-            //{
-            //    if (!(person.Role == _role))
-            //    {
-            //        context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Home", action = "AdminLogin" }));
-            //    }
-            //}
 
         }
     }

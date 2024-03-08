@@ -14,6 +14,7 @@ using DataAccess.ServiceRepository;
 
 namespace HelloDoc.Controllers.Admin
 {
+    [AuthorizationRepository("Admin")]
 
     public class AdminController : Controller
     {
@@ -38,12 +39,8 @@ namespace HelloDoc.Controllers.Admin
             _addOrUpdateRequestNotes = addOrUpdateRequestNotes;
         }
         // GET: AdminController
-        public ActionResult Admin()
-        {
-            return View();
-        }
+        
 
-    [AuthorizationRepository("Admin")]
 
         public IActionResult Admindashboard()
         {
@@ -69,6 +66,8 @@ namespace HelloDoc.Controllers.Admin
             var model = _data.GetAllRequestData(1);
             return View(model);
         }
+        [AuthorizationRepository("Admin")]
+
         public IActionResult PendingState()
         {
             var model = _data.GetAllRequestData(2);
@@ -112,7 +111,7 @@ namespace HelloDoc.Controllers.Admin
 
             var request = _context.Requests.FirstOrDefault(m => m.Confirmationnumber == viewcasedata.ConfirmationNumber);
 
-            return RedirectToAction("ViewCase", request);
+            return RedirectToAction("ViewCase", new {id = request.Requestid});
         }
 
         public IActionResult cancelCase(String number)
@@ -319,6 +318,58 @@ namespace HelloDoc.Controllers.Admin
             {
                 Console.WriteLine($"Error sending email: {ex.Message}");
             }
+        }
+
+        public IActionResult Orders(int requestid)
+        {
+            var professiontypeList = _context.Healthprofessionaltypes.ToList();
+            OrderModel orderdata = new OrderModel();
+            orderdata.requestid = requestid;
+            orderdata.Healthprofessionaltypes = professiontypeList;
+            return View(orderdata);
+        }
+
+        [HttpPost]
+        public IActionResult Orders(int requestid, int vendorid , int RefillNumber, string presription)
+        {
+            var venderDetails = _context.Healthprofessionals.FirstOrDefault(m => m.Vendorid == vendorid);
+            var order = new Orderdetail
+            {
+                Vendorid = vendorid,
+                Requestid = requestid,
+                Faxnumber = venderDetails.Faxnumber,
+                Email = venderDetails.Email,
+                Businesscontact = venderDetails.Businesscontact,
+                Createddate = DateTime.Now,
+                Prescription = presription,
+                Noofrefill = RefillNumber,
+                Createdby = HttpContext.Session.GetString("AdminName"),
+            };
+            if (order!= null)
+            {
+                _context.Orderdetails.Add(order);
+                _context.SaveChanges();
+                TempData["success"] = "Order Placed Successfully";
+            }
+            return RedirectToAction("NewState","Admin");       
+        }
+
+        [HttpGet]
+        public List<Healthprofessional> GetBusiness(int healthprofessionId)
+        {
+            var businessList = _context.Healthprofessionals.ToList().Where(m => m.Profession == healthprofessionId).ToList();
+
+            return businessList;
+        }
+
+        public OrderModel GetVendorDetail(int vendorid)
+        {
+            var vendordetails = _context.Healthprofessionals.FirstOrDefault(m => m.Vendorid == vendorid);
+            var orderdata = new OrderModel();
+            orderdata.FaxNumber = vendordetails.Faxnumber;
+            orderdata.Email = vendordetails.Email;
+            orderdata.BusinessContact = vendordetails.Businesscontact;
+            return orderdata;
         }
     }
 }

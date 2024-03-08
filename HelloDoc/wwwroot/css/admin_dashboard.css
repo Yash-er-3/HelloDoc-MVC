@@ -147,22 +147,28 @@
 
 .green-dot {
     --bs-table-bg: #5fbc61 !important;
+    color: #5fbc61 !important;
+
 }
 
 .orange-dot {
     --bs-table-bg: #ed9124 !important;
+    color: #ed9124 !important;
 }
 
 .pink-dot {
     --bs-table-bg: #e4657c !important;
+    color: #e4657c !important;
 }
 
 .cyan-dot {
     --bs-table-bg: #007fc6 !important;
+    color: #007fc6 !important;
 }
 
 .purple-dot {
     --bs-table-bg: #933cb5 !important;
+    color: #933cb5 !important;
 }
 
 td {
@@ -173,6 +179,42 @@ td {
     background-color: transparent !important;
 }
 
+.search-icon {
+    margin-left:10px;
+    padding-left: 25px;
+    background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
+    background-size: 20px;
+}
+
+/*for accordion*/
+
+/*.accordion-button::after {
+    content: none;
+}*/
+
+.icn::before {
+    border: 2px solid #0dcaf0;
+    border-radius: 50%;
+    line-height: 1;
+    font-size: 13px;
+    padding: 3px;
+}
+
+.icns::before {
+    font-weight: 900 !important;
+}
+
+.viewCaseBtn {
+    border: 2px solid #906cb6;
+    background-color: #efeef4;
+    color: #906cb6;
+    transform: translateY(-20px);
+    z-index: 5000 !important;
+}
+
+.accordion-button::after{
+    display:none;
+}
 
 @media only screen and (max-width:900px) {
     .allstatus {

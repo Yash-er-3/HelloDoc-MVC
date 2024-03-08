@@ -103,8 +103,4 @@ public partial class Admin
 
     [InverseProperty("Admin")]
     public virtual ICollection<Requestwisefile> Requestwisefiles { get; set; } = new List<Requestwisefile>();
-
-    [ForeignKey("Roleid")]
-    [InverseProperty("Admins")]
-    public virtual Aspnetuserrole? Role { get; set; }
 }

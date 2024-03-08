@@ -6,19 +6,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HelloDoc.DataModels;
 
+[PrimaryKey("Userid", "Roleid")]
 [Table("aspnetuserroles")]
 public partial class Aspnetuserrole
 {
+    [Key]
     [Column("userid")]
     [StringLength(128)]
     public string Userid { get; set; } = null!;
 
     [Key]
-    [Column("roleid")]
-    public int Roleid { get; set; }
-
-    [InverseProperty("Role")]
-    public virtual ICollection<Admin> Admins { get; set; } = new List<Admin>();
+    [Column(TypeName = "character varying")]
+    public string Roleid { get; set; } = null!;
 
     [ForeignKey("Userid")]
     [InverseProperty("Aspnetuserroles")]

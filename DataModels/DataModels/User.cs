@@ -20,15 +20,10 @@ public partial class User
 
     [Column("firstname")]
     [StringLength(100)]
-    [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Enter Valid Firstname")]
-    [Required(ErrorMessage = "Firstname is required")]
     public string Firstname { get; set; } = null!;
 
     [Column("lastname")]
     [StringLength(100)]
-    [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Enter a Valid Lastname")]
-    [Required(ErrorMessage = "Last Name is required")]
-
     public string? Lastname { get; set; }
 
     [Column("email")]
@@ -37,42 +32,28 @@ public partial class User
 
     [Column("mobile")]
     [StringLength(20)]
-    [RegularExpression(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$", ErrorMessage = "Please enter valid phone number")]
-    [Required(ErrorMessage = "Plese enter your Phone Number")]
-
     public string? Mobile { get; set; }
 
     [Column("ismobile", TypeName = "bit(1)")]
     public BitArray? Ismobile { get; set; }
 
     [Column("street")]
-    [Required(ErrorMessage = "Street is required")]
-    [StringLength(100, MinimumLength = 2, ErrorMessage = "Enter valid Street")]
-    [RegularExpression(@"^(?=.*\S)[a-zA-Z0-9\s.,'-]+$", ErrorMessage = "Enter a valid street address")]
-
+    [StringLength(100)]
     public string? Street { get; set; }
 
     [Column("city")]
-    [Required(ErrorMessage = "City is required")]
-    [StringLength(100, MinimumLength = 2, ErrorMessage = "Enter valid City")]
-    [RegularExpression(@"^(?=.*\S)[a-zA-Z\s.'-]+$", ErrorMessage = "Enter a valid city name")]
-
+    [StringLength(100)]
     public string? City { get; set; }
 
     [Column("state")]
-    [Required(ErrorMessage = "State is required")]
-    [StringLength(50, MinimumLength = 2, ErrorMessage = "Enter valid State")]
-    [RegularExpression(@"^(?=.*\S)[a-zA-Z\s.'-]+$", ErrorMessage = "Enter a valid State name")]
-    //[RegularExpression(@"^[A-Z]{2}$", ErrorMessage = "Enter a valid state abbreviation (e.g., NY, CA)")]
+    [StringLength(100)]
     public string? State { get; set; }
 
     [Column("regionid")]
     public int? Regionid { get; set; }
 
     [Column("zip")]
-    [Required(ErrorMessage = "Zip Code is required")]
-    [StringLength(10, ErrorMessage = "Enter valid Zip Code")]
-    [RegularExpression(@"^\d{6}$", ErrorMessage = "Enter a valid 6-digit zip code")]
+    [StringLength(10)]
     public string? Zip { get; set; }
 
     [Column("strmonth")]

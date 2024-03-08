@@ -20,10 +20,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWN0aXZlU3RhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/HelloDoc/HelloDoc/Views/Admin/Admin.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW4uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Projects/HelloDoc/HelloDoc/Views/Admin/Admindashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5kYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,6 +38,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Admin/NewState.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTmV3U3RhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Admin/Orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3JkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Admin/PendingState.cshtml]
@@ -66,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Admin/ViewUpload.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVmlld1VwbG9hZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/CredentialAdmin/Admin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbEFkbWluXEFkbWluLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Home/forgotpassword.cshtml]

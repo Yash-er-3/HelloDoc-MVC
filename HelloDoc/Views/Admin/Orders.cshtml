@@ -1,0 +1,246 @@
+﻿@model Services.Viewmodels.OrderModel
+
+@{
+    Layout = null;
+}
+
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+
+        <div class="container mt-5">
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="d-flex">
+
+                    <h4>Send Order</h4>
+
+                </div>
+
+                <div>
+
+                    <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
+                        <span class="back-btn p-2" style="color: #00b8e6;">&lt;Back</span>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="border border-0 shadow rounded-3 px-4 py-2 mt-2" id="content-color">
+
+
+                    <input type="number" name="requestid" class="requestid" hidden />
+                    <input type="number" name="vendorid" class="vendorid" hidden />
+
+
+                    <div class="mt-3 d-flex row">
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <select name="profession" id="itemid" class="form-select form-select-lg fs-6 py-3 shadow-none border border-secondary firstdropdown">
+                                    <option selected hidden>Select Profession</option>
+
+                                    @foreach (var item in Model.Healthprofessionaltypes)
+                                    {
+                                        <option itemid="@item.Healthprofessionalid">@item.Professionname</option>
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <select name="business" class="form-select form-select-lg fs-6 py-3 shadow-none border border-secondary business secondDropdown">
+                                    <option hidden>Business</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="text" name="BusinessContact" asp-for="BusinessContact" class="form-control shadow-none disable" placeholder="Business Contact">
+                                <label class="FloatingInput" for="Name">Business Contact</label>
+                                <span asp-validation-for="BusinessContact" class="text-danger small"></span>
+
+                            </div>
+                        </div>
+
+
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="email" name="Email" asp-for="Email" class="form-control shadow-none" placeholder="Email">
+                                <label class="FloatingInput" for="Name">Email</label>
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+
+                            </div>
+                        </div>
+
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating ">
+                                <input type="text" name="FaxNumber" asp-for="FaxNumber" class="form-control shadow-none disable" placeholder="Fax Number">
+                                <label class="FloatingInput" for="Name">Fax Number</label>
+                                <span asp-validation-for="FaxNumber" class="text-danger small"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-12">
+                            <div class="form-floating">
+                                <div class="form-floating">
+                                    <textarea asp-for="OrderDetails" class="form-control shadow-none prescription"
+                                              placeholder="Prescription or Order Details"
+                                              style="height: 100px"></textarea>
+                                    <label for="floatingTextarea2">Prescription or Order Details</label>
+                                    <span asp-validation-for="OrderDetails" class="text-danger small"></span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-floating">
+                                <select name="refill" class="form-select shadow-none mt-3 border-secondary RefillNum" id="floatingSelect" aria-label="Floating label select example">
+                                    <option class="refill" selected hidden>Number Of Refill</option>
+
+                                    <option class="refill" value="1">1</option>
+                                    <option class="refill" value="2">2</option>
+                                    <option class="refill" value="3">3</option>
+                                    <option class="refill" value="4">4</option>
+                                </select>
+                                <label class="text-secondary" for="floatingSelect">Narrow Search by Region</label>
+                            </div>
+                        </div>
+
+                        <div class="justify-content-end d-flex mt-4">
+
+                            <div class="mx-1">
+                                <button type="button" class="btn btn-info shadow-none text-white py-2 ordersubmit">
+                                    Submit
+                                </button>
+                            </div>
+                            <div class="mx-1">
+                                <button asp-action="Admindashboard" asp-controller="Admin" type="button" class="btn btn-outline-info shadow-none py-2">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+             
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="tab-pane fade" id="nav-provider-location" role="tabpanel" aria-labelledby="nav-provider-location-tab">
+        2
+    </div>
+
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        3
+    </div>
+
+    <div class="tab-pane fade" id="nav-provider" role="tabpanel" aria-labelledby="nav-provider-tab">
+        4
+    </div>
+
+    <div class="tab-pane fade" id="nav-partner" role="tabpanel" aria-labelledby="nav-partner-tab">
+        5
+    </div>
+
+    <div class="tab-pane fade" id="nav-access" role="tabpanel" aria-labelledby="nav-access-tab">
+        6
+    </div>
+
+    <div class="tab-pane fade" id="nav-record" role="tabpanel" aria-labelledby="nav-record-tab">
+        7
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.firstdropdown').change(function () {
+            var healthprofessionId = $(this).find(":selected").attr('itemid'); // This will get the id of the selected professional
+                    console.log(healthprofessionId);
+            $.ajax({
+                url: '/Admin/GetBusiness', // Replace with your server script URL
+                type: 'GET',
+                data: { healthprofessionId: healthprofessionId },
+                success: function (data) {
+
+                    var secondDropdown = $('.business'); // Replace with your second dropdown selector
+                    secondDropdown.empty(); // Clear existing options
+                    secondDropdown.append($('<option>', {
+                        hidden: "hidden",
+                        value: "invalid",
+                        text: "Business"
+                    }))
+                    $.each(data, function (index, item) {
+                        secondDropdown.append($('<option>', {
+                            value: item.vendorid, // Replace with the actual value from your data
+                            text: item.vendorname // Replace with the actual text from your data
+                        }));
+                    });
+                }
+            });
+        });
+
+        $('.secondDropdown').on('change', function () {
+            $.ajax({
+                url: '/Admin/GetVendorDetail',
+                data: { vendorid: $(this).val() },
+                success: function (data) {
+                    console.log(data)
+                    $('input[name="BusinessContact"]').val(data.businessContact);
+                    $('input[name="Email"]').val(data.email);
+                    $('input[name="FaxNumber"]').val(data.faxNumber);
+                }
+            });
+        })
+
+        //$.ajax({
+        //    url: '/Admin/ViewNotes',
+        //    type: 'POST',
+        //    dataType: 'json',
+        //    data: model,
+        //    success: function (response) {
+
+        //    },
+        //    error: function (xhr, status, error) {
+        //        console.error(error);
+        //    }
+        //});
+
+        $('.ordersubmit').on('click',function(){
+            debugger;
+            var requestid = @Model.requestid;
+            var vendorid = $('.secondDropdown').val();
+            var RefillNumber = $('.RefillNum').val();
+            var presription = $('.prescription').val();
+            //var OrderModal = {
+            //    requestid : requestid,
+            //    vendorid : vendorid
+            //}
+
+          
+            $.ajax({
+                url:'/Admin/Orders',
+                type:'POST',
+                data : {requestid : requestid,vendorid:vendorid,
+                RefillNumber:RefillNumber,presription:presription},
+                success:function(data){
+                    $('#status-tabContent').html(data);
+                },
+                error:function(xhr,status,error){
+                    console.log(error);
+                }
+            });
+        });
+
+    });
+
+</script>

@@ -5,6 +5,7 @@ using HelloDoc.Views.Shared;
 using Services.Contracts;
 using Services.Implementation;
 
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSession(options =>
 {
@@ -47,7 +48,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
 //pattern: "{controller=home}/{action=index}/{id?}");
-pattern: "{controller=Admin}/{action=Admin}/{id?}");
+pattern: "{controller=Admin}/{action=Admindashboard}/{id?}");
 
 
 app.Run();

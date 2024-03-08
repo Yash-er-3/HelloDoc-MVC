@@ -28,15 +28,22 @@ namespace HelloDoc.Controllers.Admin
             
         }
 
+        public ActionResult Admin()
+        {
+            return View();
+        }
+
         public IActionResult Logout() {
 
-            //Response.Cookies.Delete("jwt");
-            return View();
+            Response.Cookies.Delete("jwt");
+            return RedirectToAction("Admin", "CredentialAdmin");
         }
 
         [HttpPost]
         public async Task<IActionResult> Login(Aspnetuser user)
         {
+            var admin = _context.Admins.FirstOrDefault(m => m.Email == user.Email); 
+            HttpContext.Session.SetString("AdminName", $"{admin.Firstname}{admin.Lastname}");
             int valid =  adminCredential.Login(user);
             var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
             LoggedInPersonViewModel loggedInPersonViewModel = new LoggedInPersonViewModel();

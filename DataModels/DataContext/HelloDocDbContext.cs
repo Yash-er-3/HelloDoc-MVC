@@ -109,8 +109,6 @@ public partial class HelloDocDbContext : DbContext
             entity.HasOne(d => d.ModifiedbyNavigation).WithMany(p => p.AdminModifiedbyNavigations).HasConstraintName("fk_admin2");
 
             entity.HasOne(d => d.Region).WithMany(p => p.Admins).HasConstraintName("fk_admin3");
-
-            entity.HasOne(d => d.Role).WithMany(p => p.Admins).HasConstraintName("fk_admin4");
         });
 
         modelBuilder.Entity<Adminregion>(entity =>
@@ -140,9 +138,7 @@ public partial class HelloDocDbContext : DbContext
 
         modelBuilder.Entity<Aspnetuserrole>(entity =>
         {
-            entity.HasKey(e => e.Roleid).HasName("pk_aspnetuserrole");
-
-            entity.Property(e => e.Roleid).ValueGeneratedNever();
+            entity.HasKey(e => new { e.Userid, e.Roleid }).HasName("aspnetuserroles_pkey");
 
             entity.HasOne(d => d.User).WithMany(p => p.Aspnetuserroles)
                 .OnDelete(DeleteBehavior.ClientSetNull)

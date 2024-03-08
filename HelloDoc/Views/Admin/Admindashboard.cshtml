@@ -52,6 +52,57 @@
 </div>
 
 
+@*Trasnfer modal*@
+<div class="modal fade" id="exampleModalTransfer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Transfer Request</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="assignCaseModal" method="post">
+                    <small class="text-secondary">To assign this request,search and select another Physician.</small>
+                    <input type="number" name="requestid" class="requestid" />
+
+                    <div class="form-floating">
+                        <select name="regionname" class="form-select shadow-none mt-3 getregion" id="floatingSelect" aria-label="Floating label select example">
+                            <option class="regionselect" selected hidden>Narrow Search By Region</option>
+
+                            @foreach (var item in Model.regions)
+                            {
+                                <option class="regionselect" itemid="@item.Regionid">@item.Name</option>
+
+                            }
+                        </select>
+                        <label class="text-secondary" for="floatingSelect">Narrow Search by Region</label>
+                    </div>
+
+                    <div class="form-group">
+                        <select name="physicianname" class="form-select form-select-lg mt-3 mb-3 fs-6 shadow-none default-phy physiciandrop" aria-label=".form-select-lg example">
+                            <option class="fs-6" hidden>Select Physician</option>
+
+
+                        </select>
+                    </div>
+
+                    <div class="form-floating">
+                        <textarea class="form-control shadow-none" placeholder="Description" style="height: 100px" asp-for="blocknotes"></textarea>
+                        <label for="floatingTextarea2">Description</label>
+                    </div>
+                    <div class="d-flex float-end mt-4">
+                        <button type="submit" class="btn btn-info text-white mx-2 shadow-none">Submit</button>
+                        <button type="button" class="btn border-info text-info shadow-none" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @*assign modal*@
 <div class="modal fade" id="exampleModalAssign" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -65,10 +116,10 @@
             <div class="modal-body">
                 <form asp-action="assignCaseModal" method="post">
                     <small class="text-secondary">To assign this request,search and select another Physician.</small>
-                    <input type="number" name="requestid" class="requestid" hidden />
+                    <input type="number" name="requestid" class="requestid" />
 
                     <div class="form-floating">
-                        <select name="regionname" class="form-select shadow-none mt-3" id="floatingSelect" aria-label="Floating label select example">
+                        <select name="regionname" class="form-select shadow-none mt-3 getregion" id="floatingSelect" aria-label="Floating label select example">
                             <option class="regionselect" selected hidden>Narrow Search By Region</option>
 
                             @foreach (var item in Model.regions)
@@ -81,9 +132,8 @@
                     </div>
 
                     <div class="form-group">
-                        <select name="physicianname" class="form-select form-select-lg mt-3 mb-3 fs-6 shadow-none physiciandrop" aria-label=".form-select-lg example">
-                            <option class="fs-6" selected hidden>Select Physician</option>
-
+                        <select name="physicianname" class="form-select form-select-lg mt-3 mb-3 fs-6 shadow-none default-phy physiciandrop" aria-label=".form-select-lg example">
+                            <option class="fs-6" hidden>Select Physician</option>
 
 
                         </select>

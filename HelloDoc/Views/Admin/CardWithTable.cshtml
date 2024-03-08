@@ -55,7 +55,7 @@
                 </button>
             </div>
 
-            
+
             <div class="allstatus">
                 <button class="nav-link dashboardtab position-relative w-100" id="status-conclude" data-bs-toggle="tab" data-bs-target="#s_conclude" type="button" role="tab" aria-controls="s_conclude" aria-selected="false">
                     <div class="p-2 conclude rounded-3">
@@ -134,18 +134,32 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-between mt-4 mx-4">
-        <div class="dropdown d-flex">
-            <input class="form-control search-input fuzzy-search rounded-1 form-control-sm me-2 shadow-none" type="search" placeholder="Search..." aria-label="Search">
-            <button class="btn bg-white border border-dark dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-magnifying-glass fa-xs"></i> <label class="me-4">All Region</label>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
+    <div class="d-flex justify-content-between mt-4 mx-4 bg-white">
+        <div class="d-flex flex-row p-3">
+            @*  <div class="input-group-text bg-transparent border-right-0">
+            <i class="fa fa-search"></i>
+            </div>*@
+            <div class="d-flex rounded-2 border border-info">
+                <span class="search-icon"></span>
+                <input class="form-control form-control-sm border-0 shadow-none p-0" type="search" placeholder="Search Patients" aria-label="Search">
+            </div>
+            <div class="d-flex ms-3">
+
+            <select name="regionname" class="form-select shadow-none getregion h-100" id="floatingSelect" aria-label="Floating label select example">
+                <span class="search-icon "></span>
+
+                <option class="regionselect" selected>All Regions</option>
+
+                @foreach (var item in Model.regions)
+                {
+                    <option class="regionselect" itemid="@item.Regionid">@item.Name</option>
+
+                }
+            </select>
+            </div>
+
         </div>
+
 
         <div class="d-flex ms-4">
 
@@ -179,8 +193,8 @@
 
 
 
-    <div class="tab-content mt-2" id="status-tabContent" ">
-    @*<div class="tab-pane fade show active" id="s_new" role="tabpanel" aria-labelledby="status-new">
+    <div class="tab-content" id="status-tabContent" >
+        @*<div class="tab-pane fade show active" id="s_new" role="tabpanel" aria-labelledby="status-new">
 
         </div>
         <div class="tab-pane fade" id="s_pending" role="tabpanel" aria-labelledby="status-panding">
@@ -209,10 +223,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 
-        
+
 
     $(document).ready(function () {
-        $('.form-select').change(function () {
+        $('.getregion').change(function () {
             var regionId = $(this).find(":selected").attr('itemid'); // This will get the id of the selected region
             $.ajax({
                 url: '/Admin/GetPhysicianByRegionId', // Replace with your server script URL
@@ -225,6 +239,11 @@
                     var secondDropdown = $('.physiciandrop'); // Replace with your second dropdown selector
                     secondDropdown.empty(); // Clear existing options
 
+                    secondDropdown.append($('<option>', {
+                        hidden: "hidden",
+                        value: "invalid",
+                        text: "Select Physician"
+                    }))
                     $.each(data, function (index, item) {
                         secondDropdown.append($('<option>', {
                             value: item.firstname + item.lastname, // Replace with the actual value from your data
@@ -234,9 +253,9 @@
                 }
             });
         });
-    
 
-   
+
+
         $.ajax({
             url: '/Admin/NewState',
             success: function (response) {
@@ -248,9 +267,9 @@
                 console.error(error);
             }
         });
-    
 
-   
+
+
         var target1 = localStorage.getItem(target1);
         console.log(target1);
         $('.dashboardtab').on('click', function (e) {
