@@ -41,7 +41,9 @@ namespace Services.Implementation
                                                PatientEmail = user.Email,
                                                RequestorEmail = req.Email,
                                                RequestType = req.Requesttypeid,
-                                               RequestId = req.Requestid
+                                               RequestId = req.Requestid,
+                                               RegionId = req.Requestclients.FirstOrDefault(x => x.Requestid == req.Requestid).Regionid,
+                                               PhysicianId = req.Physicianid,
                                            };
             return allRequestDataViewModels.ToList();
         }

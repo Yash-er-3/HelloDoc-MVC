@@ -53,6 +53,10 @@
       "PackagePath": "staticwebassets\\images\\7774236_3736765.jpg"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\alert.png",
+      "PackagePath": "staticwebassets\\images\\alert.png"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\back-1.png",
       "PackagePath": "staticwebassets\\images\\back-1.png"
     },
@@ -83,6 +87,34 @@
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\person-circle.png",
       "PackagePath": "staticwebassets\\images\\person-circle.png"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\CardWithTable.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\CardWithTable.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\Orders.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\Orders.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\TableContent.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\TableContent.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\ViewCase.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\ViewCase.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\ViewNotes.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\ViewNotes.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\ViewUpload.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\ViewUpload.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\excel-download.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\excel-download.js"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\darklight.js",

@@ -18,7 +18,7 @@ namespace Services.Implementation
             _context = context;
         }
 
-        void IAddOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(int requestid, int? APId, string cancelnote, int? transtophyid = null)
+        void IAddOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(int requestid, int? APId=null, string? cancelnote=null, int? transtophyid = null)
         {
             var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
             if (request != null)

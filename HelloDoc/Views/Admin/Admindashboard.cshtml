@@ -9,6 +9,78 @@
 }
 
 
+@*Clear Case Modal *@
+<div class="modal fade rounded-3 shadow" id="ClearModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content py-4">
+            <form asp-action="ClearModal" method="post">
+                <div class="modal-body py-0">
+                    <div class="d-flex justify-content-center py-4">
+
+                        <img src="/images/alert.png" class="w-25 h-25 d-flex justify-content-center" />
+                    </div>
+                    <input type="number" name="requestid" class="requestid"/>
+
+
+                    <h4 class="d-flex justify-content-center">Confirmation For Clear Case</h4>
+
+                    <div class="d-flex justify-content-center align-items-center text-secondary px-4 py-2">
+                        <p class="d-flex justify-content-center small">Are sure you want to clear this request? Once clear this request then you are not able to see this request</p>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 d-flex justify-content-center py-0">
+                    <button type="submit" class="btn btn-info text-white">Clear</button>
+                    <button type="button" class="btn btn-outline-info shadow-none" data-dismiss="modal">Cancle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*Send agreement*@
+
+<div class="modal fade rounded-3 shadow" id="exampleModalAgreement" tabindex="-1" role="dialog" aria-labelledby="exampleModalAgreement" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Send Agreement</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <i class="bi bi-circle-fill" id="requesttype-dot"></i><span id="requesttype-agreement"></span>
+                <form asp-action="SendAgreementModal" method="post">
+                    <small class="text-secondary">To Send Agreement please make sure you are updating the correct contact information below for the responsible party.</small>
+                    <input type="number" name="requestid" class="requestid" />
+
+
+                    <div class="form-floating mt-3">
+                        <input type="text" id="agreement-phone" class="form-control shadow-none" placeholder="Phone Number" >
+                        <label class="FloatingInput" for="Phone Number">Phone Number</label>
+
+                    </div>
+
+
+                    <div class="form-floating mt-4">
+                        <input type="email" id="agreement-email"  class="form-control shadow-none" placeholder="Email" name="email" >
+                        <label class="FloatingInput" for="Email">Email</label>
+                    </div>
+
+                   
+                    <div class="d-flex float-end mt-4">
+                        <button type="submit" class="btn btn-info text-white mx-2 shadow-none">Send</button>
+                        <button type="button" class="btn border-info text-info shadow-none" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 @*cancle modal*@
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -22,7 +94,7 @@
             <div class="modal-body">
                 <form asp-action="cancelCaseModal" method="post">
                     <div class="mb-3">Patient Name : <span class="patientname text-info fw-semibold"></span> </div>
-                    <input type="number" name="requestid" class="requestid" hidden />
+                    <input type="number" name="id" class="requestid" hidden />
 
 
                     <div class="form-group">

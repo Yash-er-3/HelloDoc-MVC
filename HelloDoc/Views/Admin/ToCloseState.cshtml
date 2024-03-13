@@ -1,16 +1,17 @@
 ﻿@using Services.Viewmodels
 @model List<allrequestdataViewModel>;
 
-<div class="table-responsive px-4">
-    <table class="table mt-5 small" id="dtBasicExample">
+<div class="table-responsive mx-4 bg-white pt-2">
+    <table class="table mt-5 small align-middle d-none d-md-table" id="dtBasicExample">
         <thead>
             <tr class="bg-light">
                 <th class="d-none"></th>
+                <th class="d-none"></th>
                 <th scope="col">Name</th>
                 <th scope="col">Date Of Birth</th>
-                <th scope="col">Requestor</th>
+                <th scope="col">Region</th>
                 <th scope="col">Physician Name</th>
-                <th scope="col">Requestor Date</th>
+                <th scope="col">Date Of Service</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
                 <th scope="col">Notes</th>
@@ -59,10 +60,15 @@
 
                 <tr class="@color">
                     <td class="d-none">@item.RequestType</td>
-                    <td>@item.PatientName</td>
-                    <td>@item.PatientDOB</td>
-                    <td>@item.RequestTypeName(item.RequestType)</td>
+                    <td class="d-none">@item.RegionId</td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
 
+                            @item.PatientName <div class="btn btn-outline-light btn-sm"><i class="fa-regular fa-envelope fa-sm"></i></div>
+                        </div>
+                    </td>
+                    <td>@item.PatientDOB</td>
+                    <td>@item.RegionNameById(item.RegionId)</td>
                     <td>@item.RequestorName</td>
                     <td>@item.RequestedDate</td>
                     <td>
@@ -105,7 +111,7 @@
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Address</td>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Notes</td>
                     <td>
-                        @item.ProviderEmail
+                       
                         <div class="d-flex">
                             <button class="btn btn-outline-light p-1 me-2 shadow-none"
                                     type="button" data-bs-toggle="dropdown"
@@ -170,7 +176,7 @@
                                     </button>
                                 </li>
                                 <li>
-                                    <button class="dropdown-item text-secondary" value="@item.RequestId">
+                                    <button class="dropdown-item text-secondary getname" data-toggle="modal" data-target="#ClearModal" id="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
                                         Clear Case
                                     </button>
@@ -199,106 +205,4 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-
-<script>
-
-    var table = $('#dtBasicExample').DataTable({ dom: 'lrtip' }); // Initialize your DataTable
-    $('input[type="search"]').on('keyup', function () {
-        table.search(this.value).draw();
-    });
-    $('input[name="requestby"]').on('change', function () {
-        var value = $(this).attr('id');
-        console.log(value);
-        if (value == 'requestbyAll') {
-            table.columns(0).search('').draw();
-        }
-        else {
-            table.columns(0).search(value).draw(); // Replace 0 with the index of the column you want to filter
-        }
-    });
-
-    $(document).ready(function () {
-        $('.getname').on('click', function (e) {
-            var name = $(this).attr('value');
-            var requestid = $(this).attr('id');
-            console.log(requestid);
-            $('.requestid').val(requestid);
-            $('.patientname').html(name);
-        })
-    })
-
-    $(document).ready(function () {
-        $('.Viewcase').on('click', function (e) {
-            console.log("hello")
-            var requestid = $(this).attr('value');
-            console.log(requestid);
-            $.ajax({
-                url: '/Admin/ViewCase',
-                type: 'GET',
-                data: { id: requestid },
-                success: function (response) {
-                    $('#nav-tabContent').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-    });
-
-    $(document).ready(function () {
-        $('.viewNotes').on('click', function (e) {
-            console.log("hello")
-            var requestid = $(this).attr('value');
-            console.log(requestid);
-            $.ajax({
-                url: '/Admin/ViewNotes',
-                type: 'GET',
-                data: { id: requestid },
-                success: function (response) {
-                    $('#nav-home').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-
-        $('.viewupload').on('click', function (e) {
-            console.log("viewupload");
-            var requestid = $(this).attr('value');
-            console.log(requestid);
-            $.ajax({
-                url: '/Admin/ViewUpload',
-                type: 'GET',
-                data: { requestid: requestid },
-                success: function (response) {
-                    $('#nav-home').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        })
-
-        $('.orders').on('click', function (e) {
-            console.log("orders");
-
-            var requestid = $(this).attr('value');
-
-            $.ajax({
-                url: '/Admin/Orders',
-                type: 'GET',
-                data: { requestid: requestid },
-                success: function (response) {
-                    $('#nav-home').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                }
-            })
-        })
-    });
-
-
-</script>
+<script src="~/js/Admin/TableContent.js" asp-append-version="true"></script>

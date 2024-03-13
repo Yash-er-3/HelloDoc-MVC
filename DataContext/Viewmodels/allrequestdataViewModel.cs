@@ -1,6 +1,7 @@
 ﻿using HelloDoc.DataModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,11 @@ namespace Services.Viewmodels
         public string Notes { get; set; }
         public string ProviderEmail { get; set; }
         public string PatientEmail { get; set; }
+        public string PhysicianName { get; set; }
+        public int? PhysicianId { get; set; }
         public int RequestType { get; set; }
+
+        public int RegionId { get; set; }
 
         public int RequestId { get; set; }
 
@@ -31,6 +36,32 @@ namespace Services.Viewmodels
             Friend_Family,
             Concierge,
             Business_Partner
+        }
+
+        public enum RegionName
+        {
+            India,
+            [Description("New York")]
+            NewYork,
+            Virginia,
+            [Description("District Of Columbia")]
+            DistrictOfColumbia,
+            Maryland
+        }
+
+        public static string GetEnumDescription(Enum value)
+        {
+            var fieldInfo = value.GetType().GetField(value.ToString());
+
+            var attributes = (DescriptionAttribute[])fieldInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            return attributes.Length > 0 ? attributes[0].Description : value.ToString();
+        }
+
+        public string RegionNameById(int regionid)
+        {
+            string regionname = (GetEnumDescription((RegionName)regionid)).ToString();
+            return regionname;
         }
         public string RequestTypeName(int by)
         {

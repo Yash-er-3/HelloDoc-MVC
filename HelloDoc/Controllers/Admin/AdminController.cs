@@ -11,6 +11,9 @@ using System.Net.Mail;
 using System.Net;
 using static Services.Viewmodels.allrequestdataViewModel;
 using DataAccess.ServiceRepository;
+using Microsoft.EntityFrameworkCore;
+using Services.Implementation;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HelloDoc.Controllers.Admin
 {
@@ -26,6 +29,9 @@ namespace HelloDoc.Controllers.Admin
         private readonly IAddOrUpdateRequestStatusLog _addOrUpdateRequestStatusLog;
         private readonly IAddOrUpdateRequestNotes _addOrUpdateRequestNotes;
 
+        byte[] key = { 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
+        byte[] iv = { 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
+
 
         public AdminController(IRequestRepository requestRepository, IRequestDataRepository requestDataRepository, IViewCaseRepository view, HelloDocDbContext context,
             IBlockCaseRepo blockCaseRepo, IAddOrUpdateRequestStatusLog addOrUpdateRequestStatusLog, IAddOrUpdateRequestNotes addOrUpdateRequestNotes)
@@ -39,7 +45,7 @@ namespace HelloDoc.Controllers.Admin
             _addOrUpdateRequestNotes = addOrUpdateRequestNotes;
         }
         // GET: AdminController
-        
+
 
 
         public IActionResult Admindashboard()
@@ -58,7 +64,7 @@ namespace HelloDoc.Controllers.Admin
                 adminDashboardViewModel.casetags = casetag;
                 return View(adminDashboardViewModel);
             }
-            return RedirectToAction("Admin");
+            return RedirectToAction("Admin" , "CredentialAdmin");
         }
 
         public IActionResult NewState()
@@ -71,6 +77,11 @@ namespace HelloDoc.Controllers.Admin
         public IActionResult PendingState()
         {
             var model = _data.GetAllRequestData(2);
+            foreach ( var item in model)
+            {
+                var physician = _context.Physicians.FirstOrDefault(m => m.Physicianid == item.PhysicianId);
+                item.PhysicianName = physician.Firstname;
+            };
             return View(model);
         }
         public IActionResult ActiveState()
@@ -83,7 +94,7 @@ namespace HelloDoc.Controllers.Admin
         {
             var model = _data.GetAllRequestData(6);
 
-            return View(model);      
+            return View(model);
         }
         public IActionResult ToCloseState()
         {
@@ -111,7 +122,7 @@ namespace HelloDoc.Controllers.Admin
 
             var request = _context.Requests.FirstOrDefault(m => m.Confirmationnumber == viewcasedata.ConfirmationNumber);
 
-            return RedirectToAction("ViewCase", new {id = request.Requestid});
+            return RedirectToAction("ViewCase", new { id = request.Requestid });
         }
 
         public IActionResult cancelCase(String number)
@@ -169,14 +180,14 @@ namespace HelloDoc.Controllers.Admin
         }
 
         [HttpPost]
-        public IActionResult cancelCaseModal(int requestid, AdminDashboardViewModel note)
+        public IActionResult cancelCaseModal(int id, AdminDashboardViewModel note)
         {
-            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == id);
             request.Status = 3;
             _context.Requests.Update(request);
             _context.SaveChanges();
             var adminid = HttpContext.Session.GetInt32("AdminId");
-            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid, adminid, note.blocknotes);
+            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(id, adminid, note.blocknotes);
             return RedirectToAction("Admindashboard");
         }
 
@@ -186,6 +197,7 @@ namespace HelloDoc.Controllers.Admin
             var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
             var physician = _context.Physicians.FirstOrDefault(m => m.Firstname + m.Lastname == physicianname);
             request.Status = 2;
+            request.Physicianid = physician.Physicianid;
             _context.Requests.Update(request);
             _context.SaveChanges();
             var adminid = HttpContext.Session.GetInt32("AdminId");
@@ -311,7 +323,7 @@ namespace HelloDoc.Controllers.Admin
                 }
 
                 await client.SendMailAsync(mailMessage);
-            TempData["success"] = "Email sent successfully!";
+                TempData["success"] = "Email sent successfully!";
 
             }
             catch (Exception ex)
@@ -330,7 +342,7 @@ namespace HelloDoc.Controllers.Admin
         }
 
         [HttpPost]
-        public IActionResult Orders(int requestid, int vendorid , int RefillNumber, string presription)
+        public IActionResult Orders(int requestid, int vendorid, int RefillNumber, string presription)
         {
             var venderDetails = _context.Healthprofessionals.FirstOrDefault(m => m.Vendorid == vendorid);
             var order = new Orderdetail
@@ -345,13 +357,13 @@ namespace HelloDoc.Controllers.Admin
                 Noofrefill = RefillNumber,
                 Createdby = HttpContext.Session.GetString("AdminName"),
             };
-            if (order!= null)
+            if (order != null)
             {
                 _context.Orderdetails.Add(order);
                 _context.SaveChanges();
                 TempData["success"] = "Order Placed Successfully";
             }
-            return RedirectToAction("NewState","Admin");       
+            return RedirectToAction("NewState", "Admin");
         }
 
         [HttpGet]
@@ -371,5 +383,104 @@ namespace HelloDoc.Controllers.Admin
             orderdata.BusinessContact = vendordetails.Businesscontact;
             return orderdata;
         }
+
+        public IActionResult ClearModal(int requestid)
+        {
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
+
+            if (request != null)
+            {
+                request.Status = 10;
+                _context.Requests.Update(request);
+                _context.SaveChanges();
+            }
+
+            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid, HttpContext.Session.GetInt32("AdminId"));
+
+            return RedirectToAction("Admindashboard");
+        }
+
+        [HttpGet]
+        public JsonResult GetAgreementData(int requestid)
+        {
+            var requestclient = _context.Requests.Include(r => r.Requestclients).FirstOrDefault(x => x.Requestid == requestid);
+            var phonenumber = requestclient.Requestclients.ElementAt(0).Phonenumber;
+            var email = requestclient.Requestclients.ElementAt(0).Email;
+            var requesttype = requestclient.Requesttypeid;
+            var result = new
+            {
+                phonenumber = phonenumber,
+                email = email,
+                requesttype = requesttype
+            };
+            return Json(result);
+        }
+
+
+
+
+        [HttpPost]
+        public IActionResult SendAgreementModal(int requestid, string email)
+        {
+
+            string AgreementUrl = GenerateAgreementUrl(requestid);
+            SendEmail(email, "Confirm Your Agreement", $"Hello, Click On below Link for COnfirm Agreement: {AgreementUrl}");
+            SendEmailAndSMS.SendSMS();
+
+            TempData["success"] = "Agreement sent in Email..!";
+            return RedirectToAction("AdminDashboard");
+        }
+
+        public IActionResult ReviewAgreement(string id)
+        {
+            var requestid = int.Parse(EncryptDecrypt.Decrypt(id));
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
+            var model = new AdminDashboardViewModel
+            {
+                requestid = requestid,
+                PatientNameForAgreement = request.Firstname + " " + request.Lastname
+            };
+            return View(model);
+        }
+
+
+
+        private string GenerateAgreementUrl(int reqid)
+        {
+            var link = "https://localhost:44300/Admin/ReviewAgreement/?id=" + EncryptDecrypt.Encrypt(reqid.ToString()); 
+            return link;
+        }
+        public IActionResult SendAgreement(string id)
+        {
+            var viewModel = new AdminDashboardViewModel();
+            var requestid = EncryptDecrypt.Encrypt(id);
+            viewModel.requestid = int.Parse(requestid);
+            return View(viewModel);
+        }
+
+        private Task SendEmail(string email, string subject, string message)
+        {
+            var mail = "tatva.dotnet.tejpatel@outlook.com";
+            var password = "7T6d2P3@K";
+
+            var client = new SmtpClient("smtp.office365.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+
+            return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
+        }
+
+        public IActionResult IAgreeSendAgreement(int requestid)
+        {
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
+            request.Status = 4;
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid);
+            return RedirectToAction("PatientDashboard", "Patient");
+        }
+
     }
 }

@@ -21,5 +21,7 @@ namespace Services.Viewmodels
         public string adminname{ get; set; }
         public int requestid { get; set; }
         public DateTime assignTime { get; set; }
+
+        public String PatientNameForAgreement { get; set; }
     }
 }

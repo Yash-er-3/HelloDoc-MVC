@@ -2,15 +2,16 @@
 @model List<allrequestdataViewModel>;
 
 
-<div class="table-responsive mx-4 bg-white pt-2">
+
+<div class="table-responsive mx-4 bg-white pt-2 export-download" id="fields">
     <table class="table mt-5 small align-middle d-none d-md-table" id="dtBasicExample">
         <thead>
             <tr class="bg-light">
                 <th class="d-none"></th>
+                <th class="d-none"></th>
                 <th scope="col">Name</th>
                 <th scope="col">Date Of Birth</th>
                 <th scope="col">Requestor</th>
-                <th scope="col">Physician Name</th>
                 <th scope="col">Requestor Date</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
@@ -60,6 +61,7 @@
 
                 <tr class="@color">
                     <td class="d-none">@item.RequestType</td>
+                    <td class="d-none">@item.RegionId</td>
                     <td>
                         <div class="d-flex justify-content-between align-items-center">
 
@@ -68,7 +70,6 @@
                     </td>
                     <td>@item.PatientDOB</td>
                     <td>@item.RequestTypeName(item.RequestType)</td>
-                    <td>@item.RequestorName</td>
                     <td>@item.RequestedDate</td>
                     <td>
                         <div class="border rounded-1 p-1 d-flex justify-content-around ">
@@ -181,7 +182,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-
 
 
 
@@ -325,68 +325,8 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('.getname').on('click', function (e) {
-            var name = $(this).attr('value');
-            var requestid = $(this).attr('id');
-            console.log(requestid);
-            $('.requestid').val(requestid);
-            $('.patientname').html(name);
-        })
-    })
 
-    $(document).ready(function () {
-        $('.Viewcase').on('click', function (e) {
-            console.log("hello")
-            var requestid = $(this).val();
-            console.log(requestid);
-            $.ajax({
-                url: '/Admin/ViewCase',
-                type: 'GET',
-                data: { id: requestid },
-                success: function (response) {
-                    $('#nav-tabContent').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-    });
 
-    $(document).ready(function () {
-        $('.viewNotes').on('click', function (e) {
-            console.log("hello")
-            var requestid = $(this).attr('value');
-            console.log(requestid);
-            $.ajax({
-                url: '/Admin/ViewNotes',
-                type: 'GET',
-                data: { id: requestid },
-                success: function (response) {
-                    $('#nav-home').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-    });
 
-    var table = $('#dtBasicExample').DataTable({ dom: 'lrtip' }); // Initialize your DataTable
-    $('input[type="search"]').on('keyup', function () {
-        table.search(this.value).draw();
-    });
-    $('input[name="requestby"]').on('click', function () {
-        var value = $(this).attr('id');
-        console.log(value);
-        if (value == 'requestbyAll') {
-            table.columns(0).search('').draw();
-        }
-        else {
-            table.columns(0).search(value).draw(); // Replace 0 with the index of the column you want to filter
-        }
-    });
+<script src="~/js/Admin/TableContent.js" asp-append-version="true"></script>
 
-</script>

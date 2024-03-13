@@ -24,20 +24,15 @@ namespace Services.Implementation
         {
             var request = _view.Requests.FirstOrDefault(m => m.Confirmationnumber == view.ConfirmationNumber);
 
-            request.Firstname = view.FirstName;
-            request.Lastname = view.LastName;
+      
             request.Phonenumber = view.PhoneNumber;
             request.Modifieddate = DateTime.Now;
+            request.Email = view.Email;
 
             var updatedata = _view.Requestclients.FirstOrDefault(m => m.Requestid == request.Requestid);
 
-            updatedata.Firstname = view.FirstName;
-            updatedata.Lastname = view.LastName;
             updatedata.Phonenumber = view.PhoneNumber;
-            updatedata.Notes = view.PatientNotes;
-            updatedata.Strmonth = view.DOB.ToString("MMM");
-            updatedata.Intdate = int.Parse(view.DOB.ToString("dd"));
-            updatedata.Intyear = int.Parse(view.DOB.ToString("yyyy"));
+            updatedata.Email = view.Email;
 
             if(request!=null && updatedata!=null)
             {

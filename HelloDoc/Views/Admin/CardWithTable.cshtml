@@ -117,8 +117,9 @@
             </div>
             <div class="p-2 px-2 text-white mx-1 bg-info rounded small" role="button">
                 <i class="fa-solid fa-share pe-1"></i>
-
-                Export
+                <button class="download" data-table="dtBasicExample">
+                    Export
+                </button>
             </div>
             <div class="p-2 px-2 text-white mx-1 bg-info rounded small" role="button">
                 <i class="fa-solid fa-share pe-1"></i>
@@ -134,7 +135,7 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-between mt-4 mx-4 bg-white">
+    <div class="d-flex justify-content-between mt-4 mx-4 bg-white rounded-top-4">
         <div class="d-flex flex-row p-3">
             @*  <div class="input-group-text bg-transparent border-right-0">
             <i class="fa fa-search"></i>
@@ -145,17 +146,16 @@
             </div>
             <div class="d-flex ms-3">
 
-            <select name="regionname" class="form-select shadow-none getregion h-100" id="floatingSelect" aria-label="Floating label select example">
-                <span class="search-icon "></span>
+                <select name="regionname" id="RegionSearch" class="form-select shadow-none getregion h-100" aria-label="Floating label select example">
+                    <span class="search-icon "></span>
 
-                <option class="regionselect" selected>All Regions</option>
+                    <option class="regionselect" value="1234" selected>All Regions</option>
 
-                @foreach (var item in Model.regions)
-                {
-                    <option class="regionselect" itemid="@item.Regionid">@item.Name</option>
-
-                }
-            </select>
+                    @foreach (var item in Model.regions)
+                    {
+                        <option class="regionselect" value="@item.Regionid" itemid="@item.Regionid">@item.Name</option>
+                    }
+                </select>
             </div>
 
         </div>
@@ -193,7 +193,7 @@
 
 
 
-    <div class="tab-content" id="status-tabContent" >
+    <div class="tab-content" id="status-tabContent">
         @*<div class="tab-pane fade show active" id="s_new" role="tabpanel" aria-labelledby="status-new">
 
         </div>
@@ -221,119 +221,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+<script src="https://unpkg.com/file-saver"></script>
+<script src="~/js/Admin/excel-download.js" asp-append-version="true"></script>
+<script src="~/js/Admin/CardWithTable.js" asp-append-version="true"></script>
 
-
-
-    $(document).ready(function () {
-        $('.getregion').change(function () {
-            var regionId = $(this).find(":selected").attr('itemid'); // This will get the id of the selected region
-            $.ajax({
-                url: '/Admin/GetPhysicianByRegionId', // Replace with your server script URL
-                type: 'GET',
-                data: { regionId: regionId },
-                success: function (data) {
-                    console.log(data);
-
-                    console.log(data);
-                    var secondDropdown = $('.physiciandrop'); // Replace with your second dropdown selector
-                    secondDropdown.empty(); // Clear existing options
-
-                    secondDropdown.append($('<option>', {
-                        hidden: "hidden",
-                        value: "invalid",
-                        text: "Select Physician"
-                    }))
-                    $.each(data, function (index, item) {
-                        secondDropdown.append($('<option>', {
-                            value: item.firstname + item.lastname, // Replace with the actual value from your data
-                            text: item.firstname + item.lastname // Replace with the actual text from your data
-                        }));
-                    });
-                }
-            });
-        });
-
-
-
-        $.ajax({
-            url: '/Admin/NewState',
-            success: function (response) {
-                $('#status-tabContent').html('NewState');
-                $('#dtBasicExample').html(response);
-
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
-            }
-        });
-
-
-
-        var target1 = localStorage.getItem(target1);
-        console.log(target1);
-        $('.dashboardtab').on('click', function (e) {
-            e.preventDefault();
-            $('.dashboardtab').removeClass('active');
-            $(this).addClass('active');
-            var target1 = $(this).data('bs-target');
-            console.log(target1);
-            localStorage.setItem('target1', target1);
-            console.log(localStorage.getItem(target1));
-            var url;
-            switch (target1) {
-                case '#s_new':
-                    $('#state').html("(New)")
-                    url = '/Admin/NewState';
-                    break;
-                case '#s_pending':
-                    $('#state').html("(Pending)")
-                    url = '/Admin/PendingState';
-                    break;
-                case '#s_active':
-                    $('#state').html("(Active)")
-                    url = '/Admin/ActiveState';
-                    break;
-                case '#s_conclude':
-                    $('#state').html("(Conclude)")
-                    url = '/Admin/ConcludeState';
-                    break;
-                case '#s_toclose':
-                    $('#state').html("(ToClose)")
-                    url = '/Admin/ToCloseState';
-                    break;
-                case '#s_unpaid':
-                    $('#state').html("(Unpaid)")
-                    url = '/Admin/UnpaidState';
-                    break;
-
-                default:
-                    url = '/Admin/Admindashboard';
-            }
-
-
-            $.ajax({
-                url: url,
-
-                success: function (response) {
-                    $('#status-tabContent').html(response);
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-
-        });
-        console.log(target1);
-        $('.dashboardtab[data-bs-target="' + target1 + '"]').trigger('click');
-
-        if (target1 == null) {
-            $('.dashboardtab[data-bs-target="#s_new"]').trigger('click');
-
-        }
-    });
-
-
-
-</script>
 
