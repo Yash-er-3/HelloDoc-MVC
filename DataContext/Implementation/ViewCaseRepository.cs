@@ -1,5 +1,6 @@
 ﻿using HelloDoc.DataContext;
 using HelloDoc.DataModels;
+using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 using Services.Viewmodels;
 using System;
@@ -24,7 +25,7 @@ namespace Services.Implementation
         {
             var request = _view.Requests.FirstOrDefault(m => m.Confirmationnumber == view.ConfirmationNumber);
 
-      
+
             request.Phonenumber = view.PhoneNumber;
             request.Modifieddate = DateTime.Now;
             request.Email = view.Email;
@@ -34,7 +35,7 @@ namespace Services.Implementation
             updatedata.Phonenumber = view.PhoneNumber;
             updatedata.Email = view.Email;
 
-            if(request!=null && updatedata!=null)
+            if (request != null && updatedata != null)
             {
                 _view.Requests.Update(request);
                 _view.SaveChanges();
@@ -67,7 +68,6 @@ namespace Services.Implementation
 
             return data;
         }
-
 
     }
 }

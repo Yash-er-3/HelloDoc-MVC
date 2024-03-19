@@ -1,0 +1,175 @@
+﻿@using Services.Viewmodels
+@model ViewUploadModel
+
+
+<div class="container mt-3 mb-2">
+    <div class="margin-viewdoc">
+        <div class="d-flex flex-row justify-content-between">
+            <div class="d-flex h4">
+                Close Case
+            </div>
+            <div class="d-flex">
+                <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
+                    <span class="back-btn" style="color: #00b8e6;">&lt;Back</span>
+                </a>
+            </div>
+
+        </div>
+        <div class="rounded  shadow mt-3 bg-white" id="content">
+            <small class="text-secondary px-4 pt-3">Patient Name</small>
+
+            <div class="px-4">
+                <span class="h4 text-info">@Model.FirstName @Model.LastName</span>
+                <span class="text-secondary">
+                    (@Model.ConfirmationNumber)
+                </span>
+
+
+            </div>
+
+            <div>
+                <div class="d-flex h5 mt-4 px-4">
+                    Documents
+                </div>
+                <div class="table-responsive ">
+                    <table class="table mt-2 px-4">
+                        <thead class="bg-light">
+                            <tr class="px-4">
+                                <th scope="col" class="bg-light"></th>
+                                <th scope="col" class="bg-light">Upload Date</th>
+                                <th scope="col" class="bg-light">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var m in Model.totalFiles)
+                            {
+                                <tr class="px-4">
+                                    <td class="text-black ps-3">
+                                        @m.Filename.Substring(45)
+                                    </td>
+                                    <td class="text-black">@m.Createddate.ToString("MMM dd,yyyy")</td>
+                                    @*  <td>
+                                <a role="button" class="p-1 text-info border rounded-2 border-info text-decoration-none" href="~/upload/@System.IO.Path.GetFileName(@m.Filename)" download>
+                                <span class="p-1 text-info border rounded-2 border-info">
+                                <i class="bi bi-cloud-arrow-down"></i>
+                                </span>
+                                </a>
+                                <span role="button" class="p-1 text-info border rounded-2 border-info mx-1">
+                                <i class="bi bi-trash3"></i>
+                                </span>
+                                </td>*@
+
+                                    <td>
+                                        <a class="text-decoration-none" href="~/upload/@System.IO.Path.GetFileName(@m.Filename)" download>
+
+                                            <i class="bi bi-cloud-arrow-down  btn btn-outline-info"></i>
+                                        </a>
+
+
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="container-fluid bg-white px-4">
+
+                <div class="mt-3 d-flex row ">
+                    <div class="mt-3">
+                        <h5>Patient Information</h5>
+
+                    </div>
+                    <input class="CloseCaseRequestid" value="@Model.requestId" hidden />
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-floating ">
+                            <input type="text" asp-for="FirstName" class="form-control shadow-none" placeholder="First Name" disabled>
+                            <label class="FloatingInput" for="Name">First Name</label>
+                            <span asp-validation-for="FirstName" class="text-danger small"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-floating ">
+                            <input type="text" asp-for="LastName" class="form-control shadow-none" placeholder="Last Name" disabled>
+                            <label class="FloatingInput" for="Name">Last Name</label>
+                            <span asp-validation-for="LastName" class="text-danger small"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-floating ">
+                            @{
+                                string max = DateTime.Now.ToString("yyyy-MM-dd");
+                            }
+                            <input type="date" asp-for="PatientDOB" class="form-control shadow-none" max="@max"
+                                   placeholder="Date Of Birth" disabled>
+                            <label class="FloatingInput" for="Name">Date Of Birth</label>
+                            <span asp-validation-for="PatientDOB" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="telephone rounded form-floating">
+                            <div class="input-group d-flex align-items-center rounded ">
+                                <input type="tel" asp-for="PhoneNumber" id="tel" class="form-control disable viewcasephone" placeholder="" disabled>
+                            </div>
+                        </div>
+                        <span id="closecase-phonenumber" class="text-danger small"></span>
+                    </div>
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-floating ">
+                            <input type="email" asp-for="Email" class="form-control shadow-none disable" id="ViewCasePatientEmail" placeholder="Email" disabled>
+                            <label class="FloatingInput" for="Name">Email</label>
+                            <span id="closecase-email" class="text-danger small"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                </div>
+
+                <div class="justify-content-end d-flex mt-4 pb-3 pe-3" id="edit-close-closecase">
+
+                    <div class="mx-1">
+                        <button type="button" class="btn btn-info shadow-none text-white py-2 px-4" id="closecase-edit">
+                            Edit
+                        </button>
+                    </div>
+                    <div class="mx-1">
+                        <button type="button" class="btn btn-outline-info shadow-none  py-2" id="closecase-CloseCase">
+                            Close Case
+                        </button>
+                    </div>
+
+
+                </div>
+                <div class="justify-content-end d-flex mt-4 d-none pb-3 pe-3" id="save-cancel-closecase">
+                    <div class="mx-1">
+                        <button type="button" class="btn btn-info shadow-none text-white py-2 px-4" id="closecase-save">
+                            Save
+                        </button>
+                    </div>
+                    <div class="mx-1">
+                        <button type="button" class="btn btn-outline-info shadow-none  py-2 px-4" id="closecase-cancel">
+                            Cancel
+                        </button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script src="~/js/Admin/CloseCase.js" asp-append-version="true"></script>

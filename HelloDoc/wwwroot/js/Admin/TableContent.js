@@ -1,10 +1,6 @@
 
+$('#dtBasicExample').DataTable({
 
-
-// Initialize your DataTable
-var table = $('#dtBasicExample').DataTable({
-
-    dom: 'lrtip',
     "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
     "pageLength": 5,
     language: {
@@ -14,7 +10,10 @@ var table = $('#dtBasicExample').DataTable({
 
         }
     }
-}); 
+});
+
+$('.dataTables_filter').hide();
+var table = $('#dtBasicExample').DataTable();
 $('input[type="search"]').on('keyup', function () {
     table.search(this.value).draw();
 });
@@ -120,6 +119,70 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 console.log(error);
             }
+        })
+    })
+
+    $('.closecase').on('click', function (e) {
+        console.log("closecase");
+
+        var requestid = $(this).attr('value');
+        console.log(requestid)
+
+        $.ajax({
+            url: '/Admin/CloseCase',
+            type: 'GET',
+            data: { requestid: requestid },
+            success: function (response) {
+                $('#nav-home').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        })
+    })
+
+    $('.encounter').on('click', function (e) {
+        console.log('encounter');
+
+        var requestid = $(this).attr('value');
+        $('.requestid').val(requestid);
+
+    })
+
+
+
+    $('.consult').on('click', function (e) {
+        $('.arrivaltime-dropdown').removeClass('d-none')
+
+    })
+
+    $('.housecall').on('click', function (e) {
+        $('.arrivaltime-dropdown').addClass('d-none')
+
+    })
+
+    $('.encounter-save').on('click', function (e) {
+        var requestid = $('.requestid').val();
+        var encountervalue = $('input[name="options-outlined"]:checked').attr('value');
+        //if (encountervalue == "Consult") {
+        //}
+        console.log(encountervalue)
+        console.log(requestid)
+
+        $.ajax({
+            url: '/Admin/EncounterSubmit',
+            type: 'GET',
+            data: { requestid: requestid, encountervalue: encountervalue },
+            success: function (data) {
+                $('#exampleModalEncounter').click();
+                $('#nav-home').html(data);
+                location.reload();
+
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+
         })
     })
 

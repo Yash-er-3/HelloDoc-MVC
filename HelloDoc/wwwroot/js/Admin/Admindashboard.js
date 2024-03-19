@@ -1,0 +1,1 @@
+﻿$('#nav-profile-tab').click(function () {    console.log("hello this is profile");    $.ajax({        url: '/Admin/AdminProfile',        type: 'POST',        success: function (response) {            $('#nav-profile').html(response);        },        error: function (xhr, status, error) {            console.error(error);        }    });});

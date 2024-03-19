@@ -33,136 +33,136 @@
             <div class="border border-0 shadow rounded-3 px-4 py-2 mt-2" id="content-color">
                 <div class="mt-3">
                     <h5>Patient Information</h5>
-
                 </div>
-                    <div class="mt-3 d-flex row">
+                <div class="mt-3 d-flex row">
+                    <div>
+                        <span class="text-secondary small">Confirmation Number</span>
+                        <input type="text" asp-for="ConfirmationNumber" class="viewcaseconfirmationnumber" hidden />
+                        <input type="number" asp-for="requestid" class="requestid" hidden />
+                        <h5 class="text-info">@Model.ConfirmationNumber</h5>
+                    </div>
 
-                        <div>
-                            <span class="text-secondary small">Confirmation Number</span>
-                            <input type="text" asp-for="ConfirmationNumber" class="viewcaseconfirmationnumber" hidden />
-                            <input type="number" asp-for="requestid" class="requestid" hidden />
-                            <h5 class="text-info">@Model.ConfirmationNumber</h5>
-                        </div>
-
-                        <div class="p-2 col-xl-12">
+                    <div class="p-2 col-xl-12">
+                        <div class="form-floating">
                             <div class="form-floating">
-                                <div class="form-floating">
-                                    <textarea asp-for="PatientNotes" class="form-control shadow-none"
-                                              placeholder="Patient Notes"
-                                              style="height: 100px" disabled></textarea>
-                                    <label for="floatingTextarea2">Patient Notes</label>
-                                    <span asp-validation-for="PatientNotes" class="text-danger small"></span>
+                                <textarea asp-for="PatientNotes" class="form-control shadow-none"
+                                          placeholder="Patient Notes"
+                                          style="height: 100px" disabled></textarea>
+                                <label for="floatingTextarea2">Patient Notes</label>
+                                <span asp-validation-for="PatientNotes" class="text-danger small"></span>
 
-                                </div>
-                            </div>
-                        </div>
-                        <hr style="border:1px dashed gray" class="mt-4" />
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-floating ">
-                                <input type="text" asp-for="FirstName" class="form-control shadow-none" placeholder="First Name" disabled>
-                                <label class="FloatingInput" for="Name">First Name</label>
-                                <span asp-validation-for="FirstName" class="text-danger small"></span>
-
-                            </div>
-                        </div>
-
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-floating ">
-                                <input type="text" asp-for="LastName" class="form-control shadow-none" placeholder="Last Name" disabled>
-                                <label class="FloatingInput" for="Name">Last Name</label>
-                                <span asp-validation-for="LastName" class="text-danger small"></span>
-
-                            </div>
-                        </div>
-
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-floating ">
-                                @{
-                                    string max = DateTime.Now.ToString("yyyy-MM-dd");
-                                }
-                                <input type="date" asp-for="DOB" class="form-control shadow-none" max="@max"
-                                       placeholder="Date Of Birth" disabled>
-                                <label class="FloatingInput" for="Name">Date Of Birth</label>
-                                <span asp-validation-for="DOB" class="text-danger small"></span>
-                            </div>
-                        </div>
-
-
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                            <div class="telephone rounded form-floating">
-                                <div class="input-group d-flex align-items-center rounded ">
-                                    <input type="tel" asp-for="PhoneNumber" id="tel" class="form-control disable viewcasephone" placeholder="" disabled>
-                                </div>
-                            </div>
-                            <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
-                        </div>
-
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-floating ">
-                            <input type="email" asp-for="Email" class="form-control shadow-none disable" id="ViewCasePatientEmail" placeholder="Email" disabled>
-                                <label class="FloatingInput" for="Name">Email</label>
-                                <span asp-validation-for="Email" class="text-danger small"></span>
-
-                            </div>
-                        </div>
-
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
-                            <button id="editButton" type="button" class="btn btn-outline-info shadow-none rounded-2 h-100 px-4">
-                                Edit
-                            </button>
-                            <button id="savebtn" type="button" class="btn btn-outline-info shadow-none rounded-2 h-100 px-4" hidden>
-                                Save
-                            </button>
-                        </div>
-
-
-                        <h6 class="mt-3">Location Information</h6>
-
-
-
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
-                            <div class="form-floating ">
-                                <input type="text" asp-for="Address" class="form-control shadow-none " placeholder="Address" disabled>
-                                <label class="FloatingInput" for="Name">Business Name/Address</label>
-                                <span asp-validation-for="Address" class="text-danger small"></span>
-
-                            </div>
-                        </div>
-
-                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
-                            <div class="form-floating ">
-                                <input type="text" asp-for="Room" class="form-control shadow-none " placeholder="Room" disabled>
-                                <label class="FloatingInput" for="Name">Room</label>
-                                <span asp-validation-for="Room" class="text-danger small"></span>
-
-                            </div>
-                        </div>
-
-
-                        <div class="justify-content-end d-flex mt-4">
-
-                
-                                @if(Model.status == 1)
-                                {
-                                    <div class="mx-1">
-                                        <button type="button" class="btn btn-info shadow-none text-white py-2 getname" id="@Model.requestid" data-toggle="modal" data-target="#exampleModalAssign">
-                                            Assign
-                                        </button>
-                                    </div>
-                                }
-                            
-                            <div class="mx-1">
-                                <button type="button" value="@Model.requestid" class="btn btn-info shadow-none text-white py-2 viewNotes">
-                                    View Notes
-                                </button>
-                            </div>
-                            <div class="mx-1">
-                                <button type="button" class="btn btn-info shadow-none border-0 text-white py-2 bg-danger getname" id="@Model.requestid" value="@Model.FirstName @Model.LastName" data-toggle="modal" data-target="#exampleModal">
-                                    Cancel
-                                </button>
                             </div>
                         </div>
                     </div>
+                    <hr style="border:1px dashed gray" class="mt-4" />
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-floating ">
+                            <input type="text" asp-for="FirstName" class="form-control shadow-none" placeholder="First Name" disabled>
+                            <label class="FloatingInput" for="Name">First Name</label>
+                            <span asp-validation-for="FirstName" class="text-danger small"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-floating ">
+                            <input type="text" asp-for="LastName" class="form-control shadow-none" placeholder="Last Name" disabled>
+                            <label class="FloatingInput" for="Name">Last Name</label>
+                            <span asp-validation-for="LastName" class="text-danger small"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-floating ">
+                            @{
+                                string max = DateTime.Now.ToString("yyyy-MM-dd");
+                            }
+                            <input type="date" asp-for="DOB" class="form-control shadow-none" max="@max"
+                                   placeholder="Date Of Birth" disabled>
+                            <label class="FloatingInput" for="Name">Date Of Birth</label>
+                            <span asp-validation-for="DOB" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+
+
+                        <div class="telephone rounded form-floating">
+                            <div class="input-group d-flex align-items-center rounded ">
+                                <input type="tel" asp-for="PhoneNumber" id="tel" class="form-control disable viewcasephone" maxlength="10" placeholder="" disabled>
+                            </div>
+                        </div>
+                        <span id="viewcase-phone-validate" class="text-danger small"></span>
+                    </div>
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-floating ">
+                            <input type="email" asp-for="Email" class="form-control shadow-none disable" id="ViewCasePatientEmail" placeholder="Email" disabled>
+                            <label class="FloatingInput" for="Name">Email</label>
+                            <span id="viewcase-email-validate" class="text-danger small"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                        <button id="editButton" type="button" class="btn btn-outline-info shadow-none rounded-2 px-4 py-3">
+                            Edit
+                        </button>
+                        <button id="savebtn" type="button" class="btn btn-outline-info shadow-none rounded-2 px-4 py-3" hidden>
+                            Save
+                        </button>
+                    </div>
+
+
+                    <h6 class="mt-3">Location Information</h6>
+
+
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                        <div class="form-floating ">
+                            <input type="text" asp-for="Address" class="form-control shadow-none " placeholder="Address" disabled>
+                            <label class="FloatingInput" for="Name">Business Name/Address</label>
+                            <span asp-validation-for="Address" class="text-danger small"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
+                        <div class="form-floating ">
+                            <input type="text" asp-for="Room" class="form-control shadow-none " placeholder="Room" disabled>
+                            <label class="FloatingInput" for="Name">Room</label>
+                            <span asp-validation-for="Room" class="text-danger small"></span>
+
+                        </div>
+                    </div>
+
+
+                    <div class="justify-content-end d-flex mt-4">
+
+
+                        @if (Model.status == 1)
+                        {
+                            <div class="mx-1">
+                                <button type="button" class="btn btn-info shadow-none text-white py-2 getname" id="@Model.requestid" data-toggle="modal" data-target="#exampleModalAssign">
+                                    Assign
+                                </button>
+                            </div>
+                        }
+
+                        <div class="mx-1">
+                            <button type="button" value="@Model.requestid" class="btn btn-info shadow-none text-white py-2 viewNotes">
+                                View Notes
+                            </button>
+                        </div>
+                        <div class="mx-1">
+                            <button type="button" class="btn btn-info shadow-none border-0 text-white py-2 bg-danger getname" id="@Model.requestid" value="@Model.FirstName @Model.LastName" data-toggle="modal" data-target="#exampleModal">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>

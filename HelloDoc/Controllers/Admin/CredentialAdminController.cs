@@ -25,7 +25,7 @@ namespace HelloDoc.Controllers.Admin
             this.adminCredential = adminCredential;
             _jwtRepository = jwtRepository;
             _authorizatoinRepository = authorizatoinRepository;
-            
+
         }
 
         public ActionResult Admin()
@@ -33,7 +33,8 @@ namespace HelloDoc.Controllers.Admin
             return View();
         }
 
-        public IActionResult Logout() {
+        public IActionResult Logout()
+        {
 
             Response.Cookies.Delete("jwt");
             return RedirectToAction("Admin", "CredentialAdmin");
@@ -42,9 +43,12 @@ namespace HelloDoc.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> Login(Aspnetuser user)
         {
-            var admin = _context.Admins.FirstOrDefault(m => m.Email == user.Email); 
-            HttpContext.Session.SetString("AdminName", $"{admin.Firstname}{admin.Lastname}");
-            int valid =  adminCredential.Login(user);
+            var admin = _context.Admins.FirstOrDefault(m => m.Email == user.Email);
+            if (admin != null)
+            {
+                HttpContext.Session.SetString("AdminName", $"{admin.Firstname}{admin.Lastname}");
+            }
+            int valid = adminCredential.Login(user);
             var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
             LoggedInPersonViewModel loggedInPersonViewModel = new LoggedInPersonViewModel();
             loggedInPersonViewModel.AspnetId = correct.Id;
@@ -53,31 +57,47 @@ namespace HelloDoc.Controllers.Admin
             loggedInPersonViewModel.Role = _context.Aspnetroles.FirstOrDefault(x => x.Id == Roleid).Name;
             Response.Cookies.Append("jwt", _jwtRepository.GenerateJwtToken(loggedInPersonViewModel));
 
+
             if (valid == 2)
             {
                 TempData["WrongPassword"] = "Enter Correct Password";
                 TempData["PassStyle"] = "border-danger";
-                return RedirectToAction("Admin", "Admin");
+                return RedirectToAction("Admin", "CredentialAdmin");
             }
             else if (valid == 3)
             {
                 TempData["WrongPassword"] = "You're not Admin!";
                 TempData["PassStyle"] = "border-danger";
                 TempData["EmailStyle"] = "border-danger";
-                return RedirectToAction("Admin", "Admin");
+                return RedirectToAction("Admin", "CredentialAdmin");
 
             }
             else if (valid == 4)
             {
                 TempData["Email"] = "Enter correct email!";
                 TempData["EmailStyle"] = "border-danger";
-                return RedirectToAction("Admin", "Admin");
+                return RedirectToAction("Admin", "CredentialAdmin");
             }
             else
             {
                 TempData["success"] = "Login SuccessFull...";
-               return RedirectToAction("Admindashboard", "Admin");
+                return RedirectToAction("Admindashboard", "Admin");
             }
+        }
+
+        [HttpPost]
+        public IActionResult ResetPasswordProfileAdmin(string password, string email)
+        {
+            var aspnetuser = _context.Aspnetusers.FirstOrDefault(x => x.Email == email);
+
+            if (aspnetuser != null)
+            {
+                aspnetuser.Passwordhash = password;
+                _context.Aspnetusers.Update(aspnetuser);
+                _context.SaveChanges();
+            }
+            TempData["success"] = "Password changed successfully";
+            return RedirectToAction("AdminProfile", "Admin");
         }
     }
 }

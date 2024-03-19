@@ -15,41 +15,92 @@ $(document).ready(function () {
 
     });
 
-    $('#savebtn').click(function () {
-        console.log("checked for view case edit btn")
-        var requestid = $('.requestid').val();
-        var email = $('#ViewCasePatientEmail').val();
-        var phoneNumber = $('.viewcasephone').val();
-        var confirmationNumber = $('.viewcaseconfirmationnumber').val();
-        console.log(email)
-        console.log(phoneNumber)
-        var ViewModel = {
-            requestId: requestid,
-            Email: email,
-            PhoneNumber: phoneNumber,
-            ConfirmationNumber: confirmationNumber,
-        };
-        console.log(ViewModel)
-        $('input[type="email"]').attr('disabled', true);
-        $('input[type="tel"]').attr('disabled', true);
-        $(this).hide();
-        $('#savebtn').removeAttr('hidden', false);
 
-        $('#editButton').show();
-        $.ajax({
-            url: '/Admin/Edit',
-            type: 'POST',
-            data: ViewModel,
-            dataType: 'json',
-            success: function (response) {
-                $('#nav-home').html(response);
-            },
-            error: function (xhr, status, error) {
-                console.error(error);
+
+    $('.viewcasephone').on('input', function () {
+
+        var phonenumber = $('.viewcasephone').val();
+
+        if (phonenumber == "") {
+            $('#viewcase-phone-validate').html("*Required")
+        }
+        else {
+            var regex = /^[1-9][0-9]{9}$/
+
+            if (!regex.test(phonenumber)) {
+                $('#viewcase-phone-validate').html("*Enter valid phone number")
             }
-        });
+            else {
+                $('#viewcase-phone-validate').html("")
+            }
+        }
+    })
+
+    $('#ViewCasePatientEmail').on('input', function () {
+        var email = $('#ViewCasePatientEmail').val();
+
+        if (email == "") {
+
+            $('#viewcase-email-validate').html("  *Required")
+
+        }
+        else {
+
+            ///^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]/
+
+            var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+            console.log("hello")
+            if (!regex.test(email)) {
+                $('#viewcase-email-validate').html("*Enter valid email")
+            }
+            else {
+                $('#viewcase-email-validate').html("")
+            }
+
+        }
+    })
+
+    $('#savebtn').click(function () {
+
+        if ($('#viewcase-phone-validate').text() == "" &&
+            $('#viewcase-email-validate').text() == "") {
+
+
+            var requestid = $('.requestid').val();
+            var email = $('#ViewCasePatientEmail').val();
+            var phoneNumber = $('.viewcasephone').val();
+            var confirmationNumber = $('.viewcaseconfirmationnumber').val();
+            console.log(email)
+            console.log(phoneNumber)
+            var ViewModel = {
+                requestId: requestid,
+                Email: email,
+                PhoneNumber: phoneNumber,
+                ConfirmationNumber: confirmationNumber,
+            };
+            console.log(ViewModel)
+            $('input[type="email"]').attr('disabled', true);
+            $('input[type="tel"]').attr('disabled', true);
+            $(this).hide();
+            $('#savebtn').removeAttr('hidden', false);
+
+            $('#editButton').show();
+            $.ajax({
+                url: '/Admin/Edit',
+                type: 'POST',
+                data: ViewModel,
+                dataType: 'json',
+                success: function (response) {
+                    $('#nav-home').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
 
     })
+
 });
 
 

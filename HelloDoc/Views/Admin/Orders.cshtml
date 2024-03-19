@@ -60,7 +60,7 @@
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="form-floating ">
-                                <input type="text" name="BusinessContact" asp-for="BusinessContact" class="form-control shadow-none disable" placeholder="Business Contact">
+                                <input type="text" name="BusinessContact" asp-for="BusinessContact" class="form-control shadow-none disable" placeholder="Business Contact" readonly> 
                                 <label class="FloatingInput" for="Name">Business Contact</label>
                                 <span asp-validation-for="BusinessContact" class="text-danger small"></span>
 
@@ -71,7 +71,7 @@
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="form-floating ">
-                                <input type="email" name="Email" asp-for="Email" class="form-control shadow-none" placeholder="Email">
+                            <input type="email" name="Email" asp-for="Email" class="form-control shadow-none" placeholder="Email" readonly>
                                 <label class="FloatingInput" for="Name">Email</label>
                                 <span asp-validation-for="Email" class="text-danger small"></span>
 
@@ -81,7 +81,7 @@
 
                         <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                             <div class="form-floating ">
-                                <input type="text" name="FaxNumber" asp-for="FaxNumber" class="form-control shadow-none disable" placeholder="Fax Number">
+                            <input type="text" name="FaxNumber" asp-for="FaxNumber" class="form-control shadow-none disable" placeholder="Fax Number" readonly>
                                 <label class="FloatingInput" for="Name">Fax Number</label>
                                 <span asp-validation-for="FaxNumber" class="text-danger small"></span>
 
@@ -95,7 +95,7 @@
                                               placeholder="Prescription or Order Details"
                                               style="height: 100px"></textarea>
                                     <label for="floatingTextarea2">Prescription or Order Details</label>
-                                    <span asp-validation-for="OrderDetails" class="text-danger small"></span>
+                                    <span id="order-prescription" class="text-danger small"></span>
 
                                 </div>
                             </div>

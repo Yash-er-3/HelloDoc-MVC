@@ -14,6 +14,8 @@ using DataAccess.ServiceRepository;
 using Microsoft.EntityFrameworkCore;
 using Services.Implementation;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Globalization;
+using Twilio.Http;
 
 namespace HelloDoc.Controllers.Admin
 {
@@ -64,20 +66,29 @@ namespace HelloDoc.Controllers.Admin
                 adminDashboardViewModel.casetags = casetag;
                 return View(adminDashboardViewModel);
             }
-            return RedirectToAction("Admin" , "CredentialAdmin");
+            return RedirectToAction("Admin", "CredentialAdmin");
         }
+
+        [HttpGet]
+        public List<allrequestdataViewModel> ExportAllDownload()
+        {
+            var alldata = _data.GetAllExportData();
+            return alldata;
+        }
+
+
 
         public IActionResult NewState()
         {
             var model = _data.GetAllRequestData(1);
             return View(model);
         }
-        [AuthorizationRepository("Admin")]
+
 
         public IActionResult PendingState()
         {
             var model = _data.GetAllRequestData(2);
-            foreach ( var item in model)
+            foreach (var item in model)
             {
                 var physician = _context.Physicians.FirstOrDefault(m => m.Physicianid == item.PhysicianId);
                 item.PhysicianName = physician.Firstname;
@@ -204,6 +215,8 @@ namespace HelloDoc.Controllers.Admin
             _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid, adminid, note.blocknotes, physician.Physicianid);
             return RedirectToAction("Admindashboard");
         }
+
+
 
         public IActionResult ViewUpload(int requestid)
         {
@@ -447,7 +460,7 @@ namespace HelloDoc.Controllers.Admin
 
         private string GenerateAgreementUrl(int reqid)
         {
-            var link = "https://localhost:44300/Admin/ReviewAgreement/?id=" + EncryptDecrypt.Encrypt(reqid.ToString()); 
+            var link = "https://localhost:44300/Admin/ReviewAgreement/?id=" + EncryptDecrypt.Encrypt(reqid.ToString());
             return link;
         }
         public IActionResult SendAgreement(string id)
@@ -460,8 +473,8 @@ namespace HelloDoc.Controllers.Admin
 
         private Task SendEmail(string email, string subject, string message)
         {
-            var mail = "tatva.dotnet.tejpatel@outlook.com";
-            var password = "7T6d2P3@K";
+            var mail = "tatva.dotnet.yashsarvaiya@outlook.com";
+            var password = "Yash@1234";
 
             var client = new SmtpClient("smtp.office365.com", 587)
             {
@@ -482,5 +495,180 @@ namespace HelloDoc.Controllers.Admin
             return RedirectToAction("PatientDashboard", "Patient");
         }
 
+
+        [HttpGet]
+
+        public IActionResult CloseCase(int requestid)
+        {
+            var filelist = _context.Requestwisefiles.ToList().Where(m => m.Requestid == requestid && m.Isdeleted == null).ToList();
+            var requestclientdata = _context.Requestclients.FirstOrDefault(m => m.Requestid == requestid);
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
+
+            var modeldata = new ViewUploadModel
+            {
+                totalFiles = filelist,
+                requestId = requestid,
+                FirstName = requestclientdata.Firstname,
+                LastName = requestclientdata.Lastname,
+                ConfirmationNumber = request.Confirmationnumber,
+                PatientDOB = new DateTime(Convert.ToInt32(requestclientdata.Intyear), DateTime.ParseExact(requestclientdata.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(requestclientdata.Intdate)),
+                Email = requestclientdata.Email,
+                PhoneNumber = requestclientdata.Phonenumber
+            };
+            return View(modeldata);
+        }
+
+        public IActionResult EditCloseCase(ViewUploadModel obj, int requestid)
+        {
+            if (obj.Email != null)
+            {
+                var request = _context.Requestclients.FirstOrDefault(m => m.Requestid == obj.requestId);
+                request.Email = obj.Email;
+                request.Phonenumber = obj.PhoneNumber;
+                _context.Requestclients.Update(request);
+                _context.SaveChanges();
+                return RedirectToAction("CloseCase", new { requestid = obj.requestId });
+            }
+            return RedirectToAction("CloseCase", new { requestid = requestid });
+
+        }
+        [HttpPost]
+        public IActionResult CloseCase(ViewUploadModel obj)
+        {
+
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == obj.requestId);
+            request.Status = 9;
+            var adminid = HttpContext.Session.GetInt32("UserId");
+            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(obj.requestId, adminid);
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+            return RedirectToAction("Admindashboard");
+        }
+        public void EncounterSubmit(int requestid, string encountervalue)
+        {
+            var requestdata = _context.Requests.FirstOrDefault(x => x.Requestid == requestid);
+            if (encountervalue == "Housecall" && requestdata != null)
+            {
+                requestdata.Status = 6;
+                _context.Requests.Update(requestdata);
+                _context.SaveChanges();
+            }
+
+        }
+
+
+        public IActionResult AdminProfile()
+        {
+
+
+            var adminid = HttpContext.Session.GetInt32("AdminId");
+            var admin = _context.Admins.FirstOrDefault(m => m.Adminid == adminid);
+            var aspnetuser = _context.Aspnetusers.FirstOrDefault(m => m.Id == admin.Aspnetuserid);
+            var rolelist = _context.Aspnetroles.ToList();
+            var regionlist = _context.Regions.ToList();
+            var selectedregionlist = _context.Adminregions.ToList().Where(a => a.Adminid == adminid).ToList();
+            var model = new UserAllDataViewModel
+            {
+                UserName = aspnetuser.Username,
+                password = aspnetuser.Passwordhash,
+                status = admin.Status,
+                role = rolelist,
+                firstname = admin.Firstname,
+                lastname = admin.Lastname,
+                email = admin.Email,
+                confirmationemail = admin.Email,
+                phonenumber = admin.Mobile,
+                regionlist = regionlist,
+                address1 = admin.Address1,
+                address2 = admin.Address2,
+                zip = admin.Zip,
+                alterphonenumber = admin.Altphone,
+                adminregionlist = selectedregionlist,
+            };
+            return View(model);
+        }
+
+        public IActionResult MailingBillingEditProfileAdmin(UserAllDataViewModel u)
+        {
+            var adminid = HttpContext.Session.GetInt32("AdminId");
+            var admin = _context.Admins.FirstOrDefault(m => m.Adminid == adminid);
+
+            admin.Address1 = u.address1;
+            admin.Address2 = u.address2;
+            admin.Altphone = u.alterphonenumber;
+            admin.Zip = u.zip;
+
+            _context.Admins.Update(admin);
+            _context.SaveChanges();
+            return RedirectToAction("AdminProfile");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAdministrationInfoAdminProfile(UserAllDataViewModel model)
+        {
+            var adminid = HttpContext.Session.GetInt32("AdminId");
+
+            var admin = _context.Admins.Include(r => r.Adminregions).FirstOrDefault(m => m.Adminid == adminid);
+            var addadminregion = new Adminregion();
+            List<int> adminRegion = admin.Adminregions.Select(m => m.Regionid).ToList();
+            var RegionToDelete = adminRegion.Except(model.selectedregion);
+            foreach (var item in RegionToDelete)
+            {
+                Adminregion? adminRegionToDelete = _context.Adminregions
+            .FirstOrDefault(ar => ar.Adminid == adminid && ar.Regionid == item);
+
+                if (adminRegionToDelete != null)
+                {
+                    _context.Adminregions.Remove(adminRegionToDelete);
+                }
+            }
+            IEnumerable<int> regionsToAdd = model.selectedregion.Except(adminRegion);
+
+            foreach (int item in regionsToAdd)
+            {
+                Adminregion newAdminRegion = new Adminregion
+                {
+                    Adminid = (int)adminid,
+                    Regionid = item,
+                };
+                _context.Adminregions.Add(newAdminRegion);
+            }
+            _context.SaveChanges();
+
+            if (admin != null)
+            {
+                admin.Firstname = model.firstname;
+                admin.Lastname = model.lastname;
+                admin.Email = model.email;
+                admin.Mobile = model.phonenumber;
+            }
+            _context.Admins.Update(admin);
+            _context.SaveChanges();
+            return RedirectToAction("AdminProfile");
+        }
+
+
+        //send link button
+        private string GenerateSendLinkUrl(string name, string email, string phonenumber)
+        {
+
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string AgreementPath = Url.Action("patient", "submitrequestforms", new { name = name, phonenumber = phonenumber, email = email });
+            return baseUrl + AgreementPath;
+
+        }
+        public IActionResult SendLinkAdminModal(string name, string email, string phonenumber)
+        {
+            string SendLinkAdminUrl = GenerateSendLinkUrl(name, email, phonenumber);
+            SendEmail(email, "CREATE REQUEST", $"Hello, Click On below Link for Creating Request: {SendLinkAdminUrl}");
+
+            TempData["success"] = "Create Request Link Sent In Email!";
+            return RedirectToAction("Admindashboard");
+        }
+
+        public IActionResult CreateRequestAdmin()
+        {
+            return View();
+        }
     }
 }

@@ -89,8 +89,20 @@
       "PackagePath": "staticwebassets\\images\\person-circle.png"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\AdminProfile.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\AdminProfile.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\Admindashboard.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\Admindashboard.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\CardWithTable.js",
       "PackagePath": "staticwebassets\\js\\Admin\\CardWithTable.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\CloseCase.js",
+      "PackagePath": "staticwebassets\\js\\Admin\\CloseCase.js"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\Orders.js",

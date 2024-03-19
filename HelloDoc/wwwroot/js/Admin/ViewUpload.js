@@ -1,20 +1,25 @@
 
-var actualBtn = document.getElementById('actual-btn');
-var fileChosen = document.getElementById('file-chosen');
+try {
 
-actualBtn.addEventListener('change', function () {
+    var actualBtn = document.getElementById('actual-btn');
+    var fileChosen = document.getElementById('file-chosen');
 
-    var filesname = this.files[0].name;
-    console.log(filesname)
-    for (var i = 1; i < this.files.length; i++) {
-        filesname = filesname + " + " + this.files[i].name;
-    }
-    fileChosen.style.fontSize = "15px";
-    fileChosen.style.fontWeight = "bold"
-    fileChosen.textContent = filesname;
-    fileChosen.ariaPlaceholder = filesname;
-    console.log("run")
-})
+    actualBtn.addEventListener('change', function () {
+
+        var filesname = this.files[0].name;
+        console.log(filesname)
+        for (var i = 1; i < this.files.length; i++) {
+            filesname = filesname + " + " + this.files[i].name;
+        }
+        fileChosen.style.fontSize = "15px";
+        fileChosen.style.fontWeight = "bold"
+        fileChosen.textContent = filesname;
+        fileChosen.ariaPlaceholder = filesname;
+        console.log("run")
+    })
+} catch (Exception) {
+
+}
 
 $('.uploadbtn').on('click', function (e) {
     e.preventDefault();
@@ -104,23 +109,23 @@ $('#sendEmail').on('click', function (e) {
         formData.append('wiseFileId', wiseid)
     });
     formData.append('reqid', reqid)
-$.ajax({
-    url: '/Admin/SendMail', // Replace with your controller action URL
-    type: 'POST',
-    data: formData,
-    processData: false,
-    contentType: false,
+    $.ajax({
+        url: '/Admin/SendMail', // Replace with your controller action URL
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
 
-    success: function (response) {
-        $('#nav-home').html(response);
+        success: function (response) {
+            $('#nav-home').html(response);
 
-    },
-    error: function (error) {
-        console.error('Error uploading files:', error);
-    }
-});
+        },
+        error: function (error) {
+            console.error('Error uploading files:', error);
+        }
+    });
 
-    })
+})
 
 $(document).ready(function () {
 

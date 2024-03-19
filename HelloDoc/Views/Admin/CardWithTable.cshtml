@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 
-<div class="container-fluid">
+<div class="container-fluid p-0 p-sm-3">
     <nav>
         <div class="nav nav-tabs row g-0 border-0 mt-4" id="status-tab" role="tablist">
             <div class="allstatus ">
@@ -100,51 +100,63 @@
 
     <div class="d-flex flex-row justify-content-between mx-4 mt-4">
         <div class="d-flex align-items-center">
-            <div class="h4" style="font-size:clamp(12px,4vw) !important;">
-                Patients<small class="h6" style="color:#203f9a" id="state"> (New)</small>
+            <div class="h4" style="font-size:clamp(18px,4vw,22px);">
+                Patients<small class="h6" style="color:#203f9a; font-size:clamp(12px,4vw,18px);" id="state"> (New)</small>
             </div>
         </div>
         <div class="d-flex">
 
-            <div class="p-2 px-2 text-white mx-1 bg-info rounded small" role="button">
-                <i class="fa-regular fa-paper-plane  pe-1"></i>
-                Send Link
-            </div>
-            <div class="p-2 px-2 text-white mx-1 bg-info rounded small" role="button">
-                <i class="fa-solid fa-file-pen pe-1"></i>
+            <div class="px-0 px-sm-2 p-1 p-sm-2 text-white mx-1 bg-info rounded small" role="button">
+                <button class="bg-info border-0 text-white" data-toggle="modal" data-target="#SendLinkAdminModal">
 
-                Create Requests
-            </div>
-            <div class="p-2 px-2 text-white mx-1 bg-info rounded small" role="button">
-                <i class="fa-solid fa-share pe-1"></i>
-                <button class="download" data-table="dtBasicExample">
-                    Export
+                    <i class="fa-regular fa-paper-plane "></i>
+                    <span class="d-none d-md-inline-block ps-1">
+                        Send Link
+                    </span>
                 </button>
             </div>
-            <div class="p-2 px-2 text-white mx-1 bg-info rounded small" role="button">
-                <i class="fa-solid fa-share pe-1"></i>
+            <div class="px-0 px-sm-2 p-1 p-sm-2 text-white mx-1 bg-info rounded small" role="button">
+                <a class="bg-info border-0 text-white text-decoration-none" asp-action="CreateRequestAdmin" asp-controller="Admin">
 
-                Export All
+                    <i class="fa-solid fa-file-pen "></i>
+                    <span class="d-none d-md-inline-block ps-1">Create Requests</span>
+                </a>
+
             </div>
-            <div class="p-2 px-2 text-white mx-1 bg-info rounded small" role="button">
-                <i class="fa-solid fa-user-doctor pe-1"></i>
+            <div class="px-0 px-sm-2 p-1 p-sm-2 text-white mx-1 bg-info rounded small" role="button">
+                <button class="download bg-info border-0 text-white " data-table="dtBasicExample">
+                    <i class="fa-solid fa-share "></i>
+                    <span class="d-none d-md-inline-block ps-1">Export</span>
+                </button>
+            </div>
+            <div class="px-0 px-sm-2 p-1 p-sm-2 text-white mx-1 bg-info rounded small" role="button">
+                <button class="bg-info border-0 text-white exportall-download">
+                    <i class="fa-solid fa-share-from-square "></i>
+                    <span class="d-none d-md-inline-block ps-1">Export All</span>
+                </button>
+            </div>
+            <div class="px-0 px-sm-2 p-1 p-sm-2 text-white ms-1 bg-info rounded small" role="button">
+                <button class="bg-info border-0 text-white">
 
-                Request DTY Support
+                    <i class="fa-solid fa-user-doctor "></i>
+                    <span class="d-none d-md-inline-block ps-1">Request DTY Support</span>
+                </button>
             </div>
 
         </div>
     </div>
 
-    <div class="d-flex justify-content-between mt-4 mx-4 bg-white rounded-top-4">
-        <div class="d-flex flex-row p-3">
-            @*  <div class="input-group-text bg-transparent border-right-0">
-            <i class="fa fa-search"></i>
-            </div>*@
-            <div class="d-flex rounded-2 border border-info">
+    <div class="container-fluid  mt-3">
+        <div class="row mx-1  rounded-top-4 py-3 bg-white d-sm-flex d-block justify-content-between bg-white px-2">
+
+            @* <div class="d-flex justify-content-between mt-4 mx-4 bg-white rounded-top-4">
+            <div class="d-flex flex-row p-3">*@
+
+            <div class="d-flex rounded-2 border border-info col-12 col-md-3 col-xl-2 col-lg-3 py-3 ">
                 <span class="search-icon"></span>
-                <input class="form-control form-control-sm border-0 shadow-none p-0" type="search" placeholder="Search Patients" aria-label="Search">
+                <input class="form-control search-input fontsize border-0 shadow-none p-0" type="search" placeholder="Search Patients" aria-label="Search">
             </div>
-            <div class="d-flex ms-3">
+            <div class="d-flex col-12 col-md-3 col-xl-2 col-lg-2 align-items-center px-0 px-md-2 pt-2 pt-md-0">
 
                 <select name="regionname" id="RegionSearch" class="form-select shadow-none getregion h-100" aria-label="Floating label select example">
                     <span class="search-icon "></span>
@@ -157,43 +169,73 @@
                     }
                 </select>
             </div>
+            <div class="col-12 col-md-6 col-lg-7 col-xl-8 d-inline-block d-md-flex justify-content-end align-items-center mt-sm-2 mt-4 mb-2 pe-0">
 
-        </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1 width-xs">
+                    <input type="radio" class="btn-check  " name="requestby" id="requestbyAll" autocomplete="off">
+                    <label class="fontsize btn p-0 p-xl-2 font-size-xs" for="requestbyAll">All</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1 width-xs">
+                    <input type="radio" class="btn-check" name="requestby" id="1" autocomplete="off">
+                    <i class="fa-solid fa-circle fa-2xs pe-1 d-flex justify-content-center align-items-center" style="color:   #5fbc61;"></i>
 
-
-        <div class="d-flex ms-4">
-
-            <div class="d-flex justify-content-center align-items-center px-2">
-                <input type="radio" class="btn-check" name="requestby" id="requestbyAll" autocomplete="off">
-                <label class="btn" for="requestbyAll">All</label>
-            </div>
-            <div class="d-flex justify-content-center align-items-center px-2">
-                <input type="radio" class="btn-check" name="requestby" id="1" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 " style="color:  #5fbc61;"></i>
-                <label class="btn p-1 border-0" for="1">Patient</label>
-            </div>
-            <div class="d-flex justify-content-center align-items-center px-2">
-                <input type="radio" class="btn-check" name="requestby" id="2" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 " style="color:  #ed9124;"></i>
-                <label class="btn p-1 border-0" for="2">Family</label>
-            </div>
-            <div class="d-flex justify-content-center align-items-center px-2">
-                <input type="radio" class="btn-check" name="requestby" id="3" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1  " style="color:   #e36478;"></i>
-                <label class="btn p-1 border-0" for="3">Concierge</label>
-            </div>
-            <div class="d-flex justify-content-center align-items-center px-2">
-                <input type="radio" class="btn-check" name="requestby" id="4" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 " style="color:  #0c7db7;"></i>
-                <label class="btn p-1 border-0" for="4">Business</label>
-            </div>
-            <div class="d-flex justify-content-center align-items-center px-2">
-                <input type="radio" class="btn-check" name="requestby" id="5" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 " style="color:  #943db8;"></i>
-                <label class="btn p-1 border-0" for="5">VIP</label>
+                    <label class="fontsize btn p-0 p-xl-2 font-size-xs" for="1">Patient</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="2" autocomplete="off">
+                    <i class="fa-solid fa-circle fa-2xs pe-1 d-flex justify-content-center align-items-center" style="color:  #ed9124;"></i>
+                    <label class="fontsize btn p-0 p-xl-2" for="2">Family</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="3" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1  d-flex justify-content-center align-items-center" style="color:   #e36478;"></i>
+                    <label class="fontsize btn p-0 p-xl-2" for="3">Concierge</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="4" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 d-flex justify-content-center align-items-center" style="color:  #0c7db7;"></i>
+                    <label class="fontsize btn p-0 p-xl-2" for="4">Business</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center ps-sm-2 ">
+                    <input type="radio" class="btn-check" name="requestby" id="5" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 d-flex justify-content-center align-items-center" style="color:  #943db8;"></i>
+                    <label class="fontsize btn p-0 p-xl-2" for="5">VIP</label>
+                </div>
             </div>
 
+@*
+            <div class="col-12 col-md-7 col-xl-8 d-inline-block d-md-flex justify-content-end align-items-center mt-sm-2 mt-4 mb-2">
+
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="requestbyAll" autocomplete="off">
+                    <label class="btn p-0 p-xl-2 fontsize" for="requestbyAll">All</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="1" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 " style="color:  #5fbc61;"></i>
+                    <label class="btn p-0 p-xl-2 fontsize" for="1">Patient</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="2" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 " style="color:  #ed9124;"></i>
+                    <label class="btn p-0 p-xl-2 fontsize" for="2">Family</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="3" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1  " style="color:   #e36478;"></i>
+                    <label class="btn p-0 p-xl-2 fontsize" for="3">Concierge</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="4" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 " style="color:  #0c7db7;"></i>
+                    <label class="btn p-0 p-xl-2 fontsize" for="4">Business</label>
+                </div>
+                <div class="d-inline-block d-sm-inline-flex justify-content-center align-items-center px-sm-2 pe-1">
+                    <input type="radio" class="btn-check" name="requestby" id="5" autocomplete="off"><i class="fa-solid fa-circle fa-2xs pe-1 " style="color:  #943db8;"></i>
+                    <label class="btn p-0 p-xl-2 fontsize" for="5">VIP</label>
+                </div>
+
+            </div>
+*@
         </div>
     </div>
 
 
 
-    <div class="tab-content" id="status-tabContent">
+    <div class="tab-content mx-3 bg-white" id="status-tabContent">
         @*<div class="tab-pane fade show active" id="s_new" role="tabpanel" aria-labelledby="status-new">
 
         </div>
@@ -219,6 +261,7 @@
 
 
 
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.1/xlsx.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
@@ -227,3 +270,8 @@
 <script src="~/js/Admin/CardWithTable.js" asp-append-version="true"></script>
 
 
+<style>
+    .fontsize{
+        font-size:clamp(0.7rem,1.4vw,1rem);
+    }
+</style>

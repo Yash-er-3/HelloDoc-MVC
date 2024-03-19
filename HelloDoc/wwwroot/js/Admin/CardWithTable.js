@@ -1,18 +1,8 @@
 
 $(document).ready(function () {
 
-    //$('input[name="requestby"]').on('change', function () {
-    //    var value = $(this).attr('id');
-    //    console.log(value);
-    //    if (value == 'requestbyAll') {
-    //        table.columns(0).search('').draw();
-    //    }
-    //    else {
-    //        table.columns(0).search(value).draw(); // Replace 0 with the index of the column you want to filter
-    //    }
-    //});
 
-   
+
 
     $('.getregion').change(function () {
         var regionId = $(this).find(":selected").attr('itemid'); // This will get the id of the selected region
@@ -21,7 +11,7 @@ $(document).ready(function () {
             type: 'GET',
             data: { regionId: regionId },
             success: function (data) {
-               
+
                 var secondDropdown = $('.physiciandrop'); // Replace with your second dropdown selector
                 secondDropdown.empty(); // Clear existing options
 
@@ -57,7 +47,7 @@ $(document).ready(function () {
 
 
     var target1 = localStorage.getItem(target1);
-    console.log(target1);
+
     $('.dashboardtab').on('click', function (e) {
         e.preventDefault();
         $('.dashboardtab').removeClass('active');
@@ -65,7 +55,6 @@ $(document).ready(function () {
         var target1 = $(this).data('bs-target');
         console.log(target1);
         localStorage.setItem('target1', target1);
-        console.log(localStorage.getItem(target1));
         var url;
         switch (target1) {
             case '#s_new':
@@ -110,15 +99,130 @@ $(document).ready(function () {
         });
 
     });
-    console.log(target1);
+
     $('.dashboardtab[data-bs-target="' + target1 + '"]').trigger('click');
 
     if (target1 == null) {
         $('.dashboardtab[data-bs-target="#s_new"]').trigger('click');
     }
 
-   
+
+
 });
 
 
+
+$(document).ready(function () {
+
+    $('#sendlink-submit').on('click', function () {
+        var name = $('#sendlink-name-modal').val();
+        var email = $('#sendlink-email-modal').val();
+        var phonenumber = $('#sendlink-phonenumber-modal').val();
+
+        if (name == "" && email == "" && phonenumber == "") {
+
+            $('#sendlink-name').html("  *Required")
+            $('#sendlink-email').html("  *Required")
+            $('#sendlink-phonenumber').html("  *Required")
+        }
+
+        //else {
+        //    $('#sendlink-submit').closest('form').submit()
+        //}
+
+
+        if ($('#sendlink-name').text() == "" &&
+            $('#sendlink-email').text() == "" &&
+            $('#sendlink-phonenumber').text() == "") {
+
+                console.log("bdjc")
+
+            $('#sendlink-submit').closest('form').submit()
+
+        }
+
+    });
+
+
+    $('#sendlink-name-modal').on('input', function () {
+
+        var name = $('#sendlink-name-modal').val();
+
+        console.log(name)
+        if (name == "") {
+
+            $('#sendlink-name').html("  *Required")
+
+        }
+        else {
+            const regex = /^[a-zA-Z]+$/i
+
+
+            if (!regex.test(name)) {
+                $('#sendlink-name').html("*not valid")
+
+            } else {
+
+                $('#sendlink-name').html("")
+            }
+
+
+        }
+    });
+    $('#sendlink-email-modal').on('input', function () {
+
+        var email = $('#sendlink-email-modal').val();
+        console.log(email)
+
+        if (email == "") {
+
+            $('#sendlink-email').html("  *Required")
+
+        }
+        else {
+
+            ///^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]/
+
+            var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+            console.log("hello")
+            if (!regex.test(email)) {
+                $('#sendlink-email').html("*Enter valid email")
+            }
+            else {
+                $('#sendlink-email').html("")
+            }
+
+        }
+    });
+    $('#sendlink-phonenumber-modal').on('input', function (e) {
+
+        var phonenumber = $('#sendlink-phonenumber-modal').val();
+        console.log(phonenumber)
+
+        //if (e.which < 48 || e.which > 57) {
+        //    // Prevent the default action (typing the character)
+        //    e.preventDefault();
+        //}
+
+        if (phonenumber == "") {
+
+            $('#sendlink-phonenumber').html("  *Required")
+
+        }
+        else {
+
+
+
+            var regex = /^[1-9][0-9]{9}$/
+
+            if (!regex.test(phonenumber)) {
+                $('#sendlink-phonenumber').html("*Enter valid mobile number")
+            }
+            else {
+                $('#sendlink-phonenumber').html("")
+            }
+        }
+    });
+
+});
 

@@ -47,5 +47,34 @@ namespace Services.Implementation
                                            };
             return allRequestDataViewModels.ToList();
         }
+
+
+
+        public List<allrequestdataViewModel> GetAllExportData()
+        {
+            var allRequestDataViewModels = from user in _db.Users
+                                           join req in _db.Requests on user.Userid equals req.Userid
+                                           join reqclient in _db.Requestclients on req.Requestid equals reqclient.Requestid
+                                           orderby req.Createddate descending
+                                           select new allrequestdataViewModel
+                                           {
+                                               PatientName = reqclient.Firstname + " " + reqclient.Lastname,
+                                               PatientDOB = new DateOnly(Convert.ToInt32(user.Intyear), DateTime.ParseExact(user.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(user.Intdate)),
+                                               RequestorName = req.Firstname + " " + req.Lastname,
+                                               RequestedDate = req.Createddate,
+                                               PatientPhone = user.Mobile,
+                                               RequestorPhone = req.Phonenumber,
+                                               Address = req.Requestclients.FirstOrDefault(x => x.Requestid == req.Requestid).Address,
+                                               Notes = req.Requestclients.FirstOrDefault(x => x.Requestid == req.Requestid).Notes,
+                                               ProviderEmail = _db.Physicians.FirstOrDefault(x => x.Physicianid == req.Physicianid).Email,
+                                               PatientEmail = user.Email,
+                                               RequestorEmail = req.Email,
+                                               RequestType = req.Requesttypeid,
+                                               RequestId = req.Requestid,
+                                               RegionId = req.Requestclients.FirstOrDefault(x => x.Requestid == req.Requestid).Regionid,
+                                               PhysicianId = req.Physicianid,
+                                           };
+            return allRequestDataViewModels.ToList();
+        }
     }
 }

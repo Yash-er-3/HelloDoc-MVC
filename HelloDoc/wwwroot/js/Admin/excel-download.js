@@ -1,14 +1,39 @@
-﻿// Assuming you have jQuery
+﻿
+//for export all GamepadButton
+
+$('.exportall-download').click(function () {
+    console.log("Allexport")
+    $.ajax({
+        url: 'Admin/ExportAllDownload',
+        type: 'GET',
+        success: function (data) {
+            console.log(data);
+            // Include the xlsx library
+        /*    var XLSX = require('xlsx');*/
+
+            // Convert the JSON data to a worksheet
+            var worksheet = XLSX.utils.json_to_sheet(data);
+
+            // Create a new workbook, with the newly created worksheet
+            var workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+            // Write the workbook to a file
+            XLSX.writeFile(workbook, 'output.xlsx');
+        }
+    })
+})
+
+//for export button
 $('button.download').on('click', function () {
 
     console.log("excel-download")
     // Get the table associated with this tab
-    var tableId = $(this).data('table');
-    console.log(tableId);
-    var table = $('#dtBasicExample');
-    console.log("table" + table)
+    //var tableId = $(this).data('table');
+    var tabledata = $('#dtBasicExample');
+    console.log("table" + tabledata)
     // Convert the table data to JSON
-    var data = tableToJson(table);
+    var data = tableToJson(tabledata);
 
     // Use xlsx.js to convert the JSON to an Excel file
     var wb = XLSX.utils.book_new();
@@ -19,51 +44,26 @@ $('button.download').on('click', function () {
     var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
     saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'data.xlsx');
 });
+function tableToJson(tabledata) {
 
-function tableToJson(table) {
-
-    //var data = [];
-
-    //// first row needs to be headers
-    //var headers = [];
-    //for (var i = 0; i < table.rows[0].cells.length; i++) {
-    //    headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi, '');
-    //}
-
-    //// go through cells
-    //for (var i = 1; i < table.rows.length; i++) {
-
-    //    var tableRow = table.rows[i];
-    //    var rowData = {};
-
-    //    for (var j = 0; j < tableRow.cells.length; j++) {
-
-    //        rowData[headers[j]] = tableRow.cells[j].innerHTML;
-
-    //    }
-
-    //    data.push(rowData);
-    //}
-
-    //return data;
     var data = [];
 
     // Get the headers
     var headers = [];
-    table.find('th').each(function () {
+    tabledata.find('th').each(function () {
         headers.push($(this).text().trim());
     });
     console.log("headers : " + headers);
-    headers.shift();
-    headers.pop();
+  
 
     // Get the row data
-    table.find('tr').each(function () {
-        var row = {};
+    tabledata.find('tr').each(function () {
+        var row = {}
         $(this).find('td').each(function (i) {
             row[headers[i]] = $(this).text().trim();
         });
-        
+
+        console.log(row)
         data.push(row);
     });
 
