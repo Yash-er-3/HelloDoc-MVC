@@ -57,8 +57,14 @@ namespace HelloDoc.Controllers.Admin
             loggedInPersonViewModel.Role = _context.Aspnetroles.FirstOrDefault(x => x.Id == Roleid).Name;
             Response.Cookies.Append("jwt", _jwtRepository.GenerateJwtToken(loggedInPersonViewModel));
 
+            if(user.Email ==  null)
+            {
+                TempData["Email"] = "Please Enter email!";
+                TempData["EmailStyle"] = "border-danger";
+                return RedirectToAction("Admin", "CredentialAdmin");
+            }
 
-            if (valid == 2)
+            else if (valid == 2)
             {
                 TempData["WrongPassword"] = "Enter Correct Password";
                 TempData["PassStyle"] = "border-danger";

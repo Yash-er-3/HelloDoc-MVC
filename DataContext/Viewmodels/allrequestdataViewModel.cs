@@ -35,7 +35,8 @@ namespace Services.Viewmodels
             Patient,
             Friend_Family,
             Concierge,
-            Business_Partner
+            Business_Partner,
+            VIP
         }
 
         public enum RegionName

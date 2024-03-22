@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Services.Implementation;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Globalization;
-using Twilio.Http;
+//using Twilio.Http;
 
 namespace HelloDoc.Controllers.Admin
 {
@@ -376,7 +376,7 @@ namespace HelloDoc.Controllers.Admin
                 _context.SaveChanges();
                 TempData["success"] = "Order Placed Successfully";
             }
-            return RedirectToAction("NewState", "Admin");
+            return RedirectToAction("Admindashboard", "Admin");
         }
 
         [HttpGet]
@@ -670,5 +670,68 @@ namespace HelloDoc.Controllers.Admin
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRequestAdmin(PatientInfo req)
+        {
+
+            var aspuser = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == req.Email);
+            var user = await _context.Users.FirstOrDefaultAsync(n => n.Email == req.Email);
+            var region = await _context.Regions.FirstOrDefaultAsync(x => x.Regionid == user.Regionid);
+            var requestcount = (from m in _context.Requests where m.Createddate.Date == DateTime.Now.Date select m).ToList();
+            string regiondata = _context.Regions.FirstOrDefault(a => a.Regionid == user.Regionid).Abbreviation;
+            var adminid = HttpContext.Session.GetInt32("AdminId");
+            var admin = await _context.Admins.FirstOrDefaultAsync(m => m.Adminid == adminid);
+            if (aspuser != null)
+            {
+
+                Request requests = new Request
+                {
+                    Firstname = admin.Firstname,
+                    Lastname = admin.Lastname,
+                    Email = admin.Email,
+                    Createddate = DateTime.Now,
+                    Requesttypeid = 5,
+                    Status = 1,
+                    Userid = user.Userid,
+                    Phonenumber = admin.Mobile,
+                    Modifieddate = DateTime.Now,
+                    Confirmationnumber = (region.Abbreviation.Substring(0, 2) + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString().PadLeft(2, '0') + req.LastName.Substring(0, 2) + req.FirstName.Substring(0, 2) + requestcount.Count().ToString().PadLeft(4, '0')).ToUpper(),
+
+
+                };
+                _context.Requests.Add(requests);
+                _context.SaveChanges();
+                Requestclient requestclients = new Requestclient
+                {
+                    Firstname = req.FirstName,
+                    Lastname = req.LastName,
+                    Email = req.Email,
+                    Phonenumber = req.PhoneNumber,
+                    Street = req.Street,
+                    City = req.City,
+                    State = req.State,
+                    Zipcode = req.ZipCode,
+                    Requestid = requests.Requestid,
+                    Regionid = 1,
+                    Notes = req.Symptoms,
+                    Address = req.Street + " , " + req.City + " , " + req.State + " , " + req.ZipCode,
+                    Intdate = int.Parse(req.DOB.ToString("dd")),
+                    Intyear = int.Parse(req.DOB.ToString("yyyy")),
+                    Strmonth = req.DOB.ToString("MMM"),
+                };
+                _context.Requestclients.Add(requestclients);
+                _context.SaveChanges();
+
+                if (req.Upload != null)
+                {
+                    Add(requests.Requestid, req.Upload);
+                }
+            }
+
+            return RedirectToAction("Admindashboard");
+        }
+
+
     }
 }

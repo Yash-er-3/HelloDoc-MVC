@@ -35,7 +35,7 @@
             var regex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
             console.log("hello")
             if (!regex.test(email)) {
-                $('#closecase-email').html("*Enter valid email")
+                $('#closecase-email').html("*enter valid email")
             }
             else {
                 $('#closecase-email').html("")

@@ -1,4 +1,5 @@
 
+
 $('#dtBasicExample').DataTable({
 
     "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
@@ -25,7 +26,29 @@ $('input[name="requestby"]').on('change', function () {
     }
     else {
         table.columns(0).search(value).draw(); // Replace 0 with the index of the column you want to filter
+
+        try {
+            console.log('accp')
+            var headers = document.querySelectorAll('.accordion-header');
+
+            headers.forEach((header) => {
+                const requesttype = header.querySelector('.requesttype-accordion');
+                const nameText = requesttype.textContent || requesttype.innerText;
+
+
+                if (nameText.includes(value)) {
+                    header.style.display = ''; // Show the header
+                } else {
+                    header.style.display = 'none'; // Hide the header
+                }
+            });
+        }
+        catch {
+
+        }
     }
+
+
 });
 
 $('#RegionSearch').change(function () {
@@ -36,7 +59,29 @@ $('#RegionSearch').change(function () {
 
     } else {
         table.columns(1).search(regionid).draw();
+
+        try {
+
+            var headers = document.querySelectorAll('.accordion-header');
+
+            headers.forEach((header) => {
+                const regionName = header.querySelector('.region-accordion');
+                const nameText = regionName.textContent || regionName.innerText;
+
+                if (nameText.includes(regionid)) {
+                    header.style.display = ''; // Show the header
+                } else {
+                    header.style.display = 'none'; // Hide the header
+                }
+            });
+        }
+        catch {
+
+        }
     }
+
+   
+
 })
 
 $(document).ready(function () {

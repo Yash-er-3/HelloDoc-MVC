@@ -209,8 +209,8 @@ td {
     border: 2px solid #906cb6;
     background-color: #efeef4;
     color: #906cb6;
-    transform: translateY(-20px);
-    z-index: 5000 !important;
+    transform: translateY(-15px);
+    z-index: 5 !important;
 }
 
 .accordion-button::after{
@@ -221,13 +221,23 @@ td {
     border:none;
 }
 
+.offcanvas{
+    max-width: 70% !important;
+    position:absolute !important;
+    top:9% !important;
+}
+
+.offcanvas-backdrop{
+    position:absolute !important;
+}
+
 @media only screen and (max-width:900px) {
     .allstatus {
         width: 33.3%!important
     }
 }
 
-@media only screen and (max-width:500px) {
+@media only screen and (max-width:768px) {
 
     .nav-tabs .allstatus .nav-link.active .new + .bottomarrow,
     .nav-tabs .allstatus .nav-link.active .activecase + .bottomarrow,
@@ -235,7 +245,11 @@ td {
     .nav-tabs .allstatus .nav-link.active .unpaid + .bottomarrow,
     .nav-tabs .allstatus .nav-link.active .toclose + .bottomarrow,
     .nav-tabs .allstatus .nav-link.active .conclude + .bottomarrow {
-        border-top: none;
+        border-top: none !important;
+    }
+
+    .dashboardtab{
+        padding:0px !important;
     }
 
 

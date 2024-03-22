@@ -3,8 +3,8 @@
 
 
 
-<div class="table-responsive mx-4 bg-white pt-2 export-download" id="fields">
-    <table class="table mt-5 small align-middle d-none d-md-table" id="dtBasicExample">
+<div class="table-responsive mx-4 bg-white pt-2 d-none d-md-block export-download" >
+    <table class="table mt-5 small align-middle " id="dtBasicExample">
         <thead>
             <tr class="bg-light">
                 <th class="d-none"></th>
@@ -224,11 +224,12 @@
             }
 
             <h2 class="accordion-header" id="flush-headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseone-@item.RequestId" aria-expanded="false" aria-controls="flush-collapseone-@item.RequestId" style="background-color:#e7f1ff; color:black;">
+                <button class="accordion-button shadow-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseone-@item.RequestId" aria-expanded="false" aria-controls="flush-collapseone-@item.RequestId" style="background-color:#e7f1ff; color:black;">
 
                     <div class="col d-flex flex-column">
-                        <span class="d-none">@item.RequestType</span>
-                        <span class="">@item.PatientName</span>
+                        <span class="d-none requesttype-accordion">@item.RequestType</span>
+                        <span class="d-none region-accordion">@item.RegionId</span>
+                        <span class="patient-name">@item.PatientName</span>
                         <span class=" mt-4">@item.Address</span>
                         <span class="mt-3"><i class="bi bi-clock text-info h6 me-2 icns"></i>Wait Time: DEC5, 2023</span>
                     </div>
@@ -251,7 +252,7 @@
 
             <div id="flush-collapseone-@item.RequestId" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="background-color:#e7f1ff; color:black">
                 <div class="d-flex justify-content-end">
-                    <button type="button" class="rounded-pill me-3 viewCaseBtn p-1 Viewcase" value="@item.RequestId" style="cursor : pointer">
+                    <button type="button" class="rounded-pill me-3 viewCaseBtn px-2 py-1 small Viewcase" value="@item.RequestId" style="cursor : pointer">
                         View Case
                     </button>
                 </div>
@@ -268,14 +269,14 @@
 
                         <div class="col-6 d-flex justify-content-center">
                             <button type="button" class="btn w-100 text-white rounded-pill p-1 btn-sm text-secondary getname" style="background:#c40eff;" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAssign">
-                                @*<i class="fa-regular fa-rectangle-list me-2"></i>*@
+                              
                                 Assign case
                             </button>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
 
                             <button type="button" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" id="@item.RequestId" value="@item.PatientName" data-toggle="modal" data-target="#exampleModal">
-                                @*<i class="fa-regular fa-circle-xmark me-2"></i>*@
+                                
                                 Cancel case
                             </button>
                         </div>
@@ -285,7 +286,7 @@
                         <div class="col-6 d-flex justify-content-center">
 
                             <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewNotes">
-                                @*<i class="fa-solid fa-book-journal-whills me-2"></i>*@
+                              
                                 View Notes
                             </button>
                         </div>
@@ -293,7 +294,7 @@
                         <div class="col-6 d-flex justify-content-center">
 
                             <button type="button" id="@item.RequestId" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" data-toggle="modal" data-target="#exampleModalBlock">
-                                @*<i class="fa-regular fa-circle-xmark me-2"></i>*@
+                               
                                 Block Patient
                             </button>
                         </div>
@@ -303,21 +304,6 @@
                         </div>
 
 
-                        @*<div class="col-6">
-                    <a class="btn w-100  text-white rounded-pill p-1 btn-sm" style="background:#c40eff;">Assign Case</a>
-                    </div>
-                    <div class="col-6" onclick="CancelCase(@item.Request.Requestid)">
-                    <a class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm">Cancel Case</a>
-                    </div>
-                    <div class="col-6 mt-2 viewNotes" id="@item.Request.Requestid">
-                    <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">View Notes</a>
-                    </div>
-                    <div class="col-6 mt-2" onclick="BlockCase(@item.Request.Requestid)">
-                    <a class="btn w-100  bg-danger text-white rounded-pill p-1 btn-sm">Block Patient</a>
-                    </div>
-                    <div class="col-6 mt-2">
-                    <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">Email</a>
-                    </div>*@
                     </div>
                 </div>
             </div>
@@ -329,4 +315,3 @@
 
 
 <script src="~/js/Admin/TableContent.js" asp-append-version="true"></script>
-  

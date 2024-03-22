@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OAnYaL0V6kOL4pLDJ/SzjOPowttYKwUHo3emv5wZe5o=",
+  "Hash": "bMvQzA0O5TGonzx/aSY3/8axXEZt8B1E9EuiTWW38Lw=",
   "Source": "HelloDoc",
   "BasePath": "_content/HelloDoc",
   "Mode": "Default",
@@ -1581,6 +1581,23 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\data (13).xlsx",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "upload/data (13).xlsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\data (13).xlsx"
+    },
+    {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig Contact your Provider.jpg",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
@@ -1613,6 +1630,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\upload\\Fig1. Platform login page.jpg"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig10. View case (2).jpg",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "upload/Fig10. View case (2).jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\upload\\Fig10. View case (2).jpg"
     },
     {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig10. View case.jpg",

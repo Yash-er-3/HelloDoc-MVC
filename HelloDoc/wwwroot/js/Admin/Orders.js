@@ -13,7 +13,7 @@ $('.firstdropdown').change(function () {
             secondDropdown.empty(); // Clear existing options
             secondDropdown.append($('<option>', {
                 hidden: "hidden",
-                value: "invalid",
+                value: "",
                 text: "Business"
             }))
             $.each(data, function (index, item) {
@@ -54,46 +54,115 @@ $('.secondDropdown').on('change', function () {
 
 $('.prescription').on('input', function () {
 
-   var prescriptiondetails =  $('.prescription').val();
-
-
+    var prescriptiondetails = $('.prescription').val();
     if (prescriptiondetails == "") {
         $('#order-prescription').html("*Required")
     }
     else {
-        $('#order-prescription').html("")
+
+        const regex = /^[^\s\W,-/][\w\s,-/]*$/i
+
+        if (!regex.test(prescriptiondetails)) {
+            $('#order-prescription').html("*not valid")
+
+        } else {
+            $('#order-prescription').html("")
+
+
+        }
 
     }
 })
 
-$('.ordersubmit').on('click', function () {
 
 
-    var requestid = $('#requestid').val();
-    console.log(requestid)
-    var vendorid = $('.secondDropdown').val();
-    var RefillNumber = $('.RefillNum').val();
-    var presription = $('.prescription').val();
-    //var OrderModal = {
-    //    requestid : requestid,
-    //    vendorid : vendorid
-    //}
+//var prescriptiondetails = $('.prescription').val();
 
+//if (prescriptiondetails == "") {
+//    $('#order-prescription').html("*Required")
 
-    $.ajax({
-        url: '/Admin/Orders',
-        type: 'POST',
-        data: {
-            requestid: requestid, vendorid: vendorid,
-            RefillNumber: RefillNumber, presription: presription
-        },
-        success: function (data) {
-            $('#status-tabContent').html(data);
-        },
-        error: function (xhr, status, error) {
-            console.log(error);
+//}
+
+if ($('#order-prescription').text() == "") {
+    $('.ordersubmit').on('click', function () {
+
+        var orderfirstdrop = $('.firstdropdown').val();
+        var orderseconddrop = $('.secondDropdown').val();
+        var prescriptiondetails = $('.prescription').val();
+
+        var allvalidation = true;
+
+        $('#firstdroporder-span').html("");
+        $('#seconddroporder-span').html("");
+
+        if (prescriptiondetails == "") {
+            $('#order-prescription').html("*Required")
         }
-    });
-});
 
-//});
+        if (FirstDropDownValidation(orderfirstdrop)) {
+            $('#firstdroporder-span').html("*Please Select Profession");
+            allvalidation = false;
+        }
+        if (SecondDropDownValidation(orderseconddrop)) {
+            if (FirstDropDownValidation(orderfirstdrop)) {
+                $('#seconddroporder-span').html("*Please Select Profession First");
+
+            }
+            else {
+
+                $('#seconddroporder-span').html("*Please Select Business");
+            }
+            allvalidation = false;
+        }
+
+        if (allvalidation && $('#order-prescription').text()=="") {
+            var requestid = $('#requestid').val();
+            console.log(requestid)
+            var vendorid = $('.secondDropdown').val();
+            var RefillNumber = $('.RefillNum').val();
+            var presription = $('.prescription').val();
+            //var OrderModal = {
+            //    requestid : requestid,
+            //    vendorid : vendorid
+            //}
+
+
+            $.ajax({
+                url: '/Admin/Orders',
+                type: 'POST',
+                data: {
+                    requestid: requestid, vendorid: vendorid,
+                    RefillNumber: RefillNumber, presription: presription
+                },
+                success: function (data) {
+                    window.location.href = "https://localhost:44300/";
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+
+        }
+
+    });
+}
+
+
+
+function FirstDropDownValidation(firstdropvalue) {
+    console.log(firstdropvalue)
+    if (firstdropvalue == "") {
+        return true;
+    }
+    return false;
+};
+function SecondDropDownValidation(seconddropvalue) {
+    console.log(seconddropvalue)
+    if (seconddropvalue == "") {
+        return true;
+    }
+    return false;
+};
+
+
+

@@ -33,9 +33,9 @@
                         </h2>
                         <div class="position-relative">
                             <div class="form-floating">
-                                <input type="email" asp-for="Email" class="form-control shadow-none mt-5 bg-transparent @TempData["EmailStyle"]" placeholder="Email" />
-                                <label class="FloatingInput" for="Name">Email</label>
-                                <span class="text-danger small">@TempData["Email"]</span>
+                                <input type="email" asp-for="Email" class="form-control shadow-none mt-5 bg-transparent @TempData["EmailStyle"]" placeholder="Email" required/>
+                                <label class="FloatingInput" for="Email">Email</label>
+                                <span class="text-danger small" >@TempData["Email"]</span>
                             </div>
                             <div style="top: 25%; position: absolute; right: 3%;">
                                 <i class="bi bi-person-circle" role="button"></i>
@@ -47,7 +47,7 @@
                             <div class="form-floating">
                                 <input type="password" asp-for="Passwordhash" class="form-control shadow-none mt-3 bg-transparent @TempData["PassStyle"]"
                                        placeholder="Password" id="pswd" required>
-                                <label class="FloatingInput" for="Name">Password</label>
+                                <label class="FloatingInput" for="Password">Password</label>
                                 <span class="text-danger small"> @TempData["WrongPassword"]</span>
 
                             </div>
@@ -59,8 +59,7 @@
                         <div class="mt-3">
                             <div>
                                 <a href="">
-                                    <button class="btn w-100 border-0 fw-medium"
-                                            style="background-color: #00b8e6; color: white;" type="submit">
+                                    <button class="btn w-100 border-0 fw-medium" style="background-color: #00b8e6; color: white;" type="submit">
                                         Log in
                                     </button>
                                 </a>

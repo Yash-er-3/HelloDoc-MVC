@@ -108,22 +108,33 @@ $('#sendEmail').on('click', function (e) {
         console.log(wiseid)
         formData.append('wiseFileId', wiseid)
     });
-    formData.append('reqid', reqid)
-    $.ajax({
-        url: '/Admin/SendMail', // Replace with your controller action URL
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
 
-        success: function (response) {
-            $('#nav-home').html(response);
+    //console.log(formData)
+    //debugger
+    //if (formData.size == undefined) {
+    //    alert('Please select atleast 1 document!')
+    //}
+    //else {
 
-        },
-        error: function (error) {
-            console.error('Error uploading files:', error);
-        }
-    });
+    console.log(formData)
+    debugger
+        formData.append('reqid', reqid)
+        $.ajax({
+            url: '/Admin/SendMail', // Replace with your controller action URL
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+
+            success: function (response) {
+                $('#nav-home').html(response);
+
+            },
+            error: function (error) {
+                console.error('Error uploading files:', error);
+            }
+        });
+  
 
 })
 

@@ -373,6 +373,10 @@
       "PackagePath": "staticwebassets\\upload\\Fig1. Platform login page.jpg"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig10. View case (2).jpg",
+      "PackagePath": "staticwebassets\\upload\\Fig10. View case (2).jpg"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig10. View case.jpg",
       "PackagePath": "staticwebassets\\upload\\Fig10. View case.jpg"
     },
@@ -459,6 +463,10 @@
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig9. Admin dashboard in Unpaid state.jpg",
       "PackagePath": "staticwebassets\\upload\\Fig9. Admin dashboard in Unpaid state.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\data (13).xlsx",
+      "PackagePath": "staticwebassets\\upload\\data (13).xlsx"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.HelloDoc.Microsoft.AspNetCore.StaticWebAssets.props",
