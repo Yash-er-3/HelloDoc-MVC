@@ -1,0 +1,105 @@
+﻿@using Services.ViewModels
+@model AccessRoleViewModel
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<Partial name="notification" />
+
+@{
+    Layout = "header_dashboard";
+}
+
+<div class="container pb-4 px-2 px-sm-3 px-md-4 px-lg-5" id="accessrole-maindiv">
+    <div class="d-flex justify-content-between align-items-center w-100 my-3">
+        <h4>Account Access</h4>
+
+    </div>
+    <div class="container-fluid bg-white shadow">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end mt-3 ">
+                
+                <button class="btn btn-outline-info shadow-none" id="createaccessrole-btn">Create Access</button>
+            </div>
+            <div class="table-responsive  my-2">
+                <table class="table align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-3">Name</th>
+                            <th class="text-center">Account Type</th>
+                           
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datatable" class="bg-white">
+                        @foreach (var item in Model.rolelist)
+                        {
+                            <tr>
+                                <td class="ps-3">@item.Name</td>
+                                <td class="text-center">@Model.Accounttypename(item.Accounttype)</td>
+                                <td class="text-center" style="width:clamp(10rem, 25vw, 11rem)">
+                                    <button class="btn btn-outline-info editbtn-accessrole" value="@item.Roleid">Edit</button>
+                                    <button type="button" class="btn btn-outline-info deletebtn-accessrole" value="@item.Roleid">Delete</button>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*contact your provider modal*@
+<div class="modal fade" id="ContactProviderModal" tabindex="-1" role="dialog" aria-labelledby="ContactProviderModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Contact Your Provider</h5>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="ContactProviderModal" method="post">
+
+                    <small class="text-secondary">Choose communication to send message.</small>
+                    <br>
+                    <div class="mt-3">
+                        <label>
+                            <input type="radio" id="smscontact" name="contactMethod" value="SMS"> SMS
+                        </label>
+                        <br>
+                        <label class="mt-2">
+                            <input type="radio" id="emailcontact" name="contactMethod" value="Email"> Email
+                        </label>
+                        <br>
+                        <label class="mt-2">
+                            <input type="radio" id="bothcontact" name="contactMethod" value="Both"> Both
+                        </label>
+                    </div>
+
+
+                    <div class="form-floating mt-3">
+                        <textarea id="message-contactprovidermodel" class="form-control shadow-none" placeholder="Message" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Message</label>
+                        <span id="message-providercontactmodal-span" class="small text-danger"></span>
+
+                    </div>
+                    <div class="d-flex float-end mt-4">
+                        <button type="button" id="contactprovidersubmitbtn" class="btn btn-info text-white mx-2 shadow-none">Send</button>
+                        <button type="button" class="btn border-info text-info shadow-none" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script src="/js/Access/AccessRole.js" asp-append-version="true"></script>
+

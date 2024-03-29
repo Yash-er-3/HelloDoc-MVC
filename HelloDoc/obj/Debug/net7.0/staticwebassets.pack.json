@@ -89,6 +89,10 @@
       "PackagePath": "staticwebassets\\images\\person-circle.png"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Access\\AccessRole.js",
+      "PackagePath": "staticwebassets\\js\\Access\\AccessRole.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\AdminProfile.js",
       "PackagePath": "staticwebassets\\js\\Admin\\AdminProfile.js"
     },
@@ -127,6 +131,10 @@
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\excel-download.js",
       "PackagePath": "staticwebassets\\js\\Admin\\excel-download.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Provider\\Provider.js",
+      "PackagePath": "staticwebassets\\js\\Provider\\Provider.js"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\darklight.js",
@@ -363,6 +371,42 @@
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\3_AgreementDoc.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\3\\3_AgreementDoc.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\3_BackgroundDoc.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\3\\3_BackgroundDoc.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\5_AgreementDoc.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\5\\5_AgreementDoc.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\5_LicenseDoc.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\5\\5_LicenseDoc.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5_AgreementDoc.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\5_AgreementDoc.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5_Non-Disclosure Agreement.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\5_Non-Disclosure Agreement.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\7_BackgroundDoc.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\7\\7_BackgroundDoc.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\7_BackgroundDoc.jpg.bmp",
+      "PackagePath": "staticwebassets\\onboarding\\7\\7_BackgroundDoc.jpg.bmp"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\8\\8_AgreementDoc.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\8\\8_AgreementDoc.jpg"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig Contact your Provider.jpg",

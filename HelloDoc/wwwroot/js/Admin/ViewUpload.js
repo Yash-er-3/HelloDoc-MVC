@@ -32,7 +32,7 @@ $('.uploadbtn').on('click', function (e) {
     console.log(formData);
     // Add any other data you need (e.g., RequestsId)
 
-    $.ajax({
+    $.ajax({    
         url: '../Admin/UploadFiles', // Replace with your controller action URL
         type: 'POST',
         data: formData,

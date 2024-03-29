@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mail;
+using System.Net;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
@@ -18,5 +20,39 @@ public static class SendEmailAndSMS
            to: new Twilio.Types.PhoneNumber("+916351568818")
        );
 
+    }
+
+    public static async Task Sendemail(string email, string subject, string message)
+    {
+        try
+        {
+            var mail = "tatva.dotnet.yashsarvaiya@outlook.com";
+            var password = "Yash@1234";
+
+            var client = new SmtpClient("smtp.office365.com", 587)
+            {
+                EnableSsl = true,
+                Credentials = new NetworkCredential(mail, password)
+            };
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress(mail),
+                Subject = subject,
+                Body = message,
+                IsBodyHtml = true // Set to true if your message contains HTML
+            };
+
+            mailMessage.To.Add(email);
+
+           
+
+            await client.SendMailAsync(mailMessage);
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error sending email: {ex.Message}");
+        }
     }
 }

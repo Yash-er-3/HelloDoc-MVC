@@ -71,17 +71,6 @@ $('#editbtn-administrator-adminprofile').click(function () {
 
 
 
-    // $.ajax({
-    //     url: '/AdminCredential/ResetPassword',
-    //     type: 'POST',
-    //     data: { email: email, password: password },
-    //     success: function (response) {
-    //         $('#nav-profile').html(response);
-    //     },
-    //     error: function (xhr, status, error) {
-    //         console.error(error);
-    //     }
-    // });
 });
 $('#savebtn-administrator-adminprofile').click(function () {
     console.log("reset pass")
@@ -152,17 +141,7 @@ $('#editbtn-mailing-adminprofile').click(function () {
     $('#savebtn-mailing-adminprofile').show();
     $(this).hide();
 
-    // $.ajax({
-    //     url: '/AdminCredential/ResetPassword',
-    //     type: 'POST',
-    //     data: { email: email, password: password },
-    //     success: function (response) {
-    //         $('#nav-profile').html(response);
-    //     },
-    //     error: function (xhr, status, error) {
-    //         console.error(error);
-    //     }
-    // });
+    
 });
 
 $('#savebtn-mailing-adminprofile').click(function () {

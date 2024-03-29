@@ -78,7 +78,6 @@ $(document).ready(function () {
                 $('#state').html("(Unpaid)")
                 url = '/Admin/UnpaidState';
                 break;
-
             default:
                 url = '/Admin/Admindashboard';
         }
@@ -133,7 +132,7 @@ $(document).ready(function () {
             $('#sendlink-email').text() == "" &&
             $('#sendlink-phonenumber').text() == "") {
 
-                console.log("bdjc")
+            console.log("bdjc")
 
             $('#sendlink-submit').closest('form').submit()
 

@@ -1,0 +1,660 @@
+﻿@using Services.Viewmodels
+
+@model ProviderData;
+
+@Html.Partial("notification")
+
+<div class="modal fade" id="ModalToOpen" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="p-4 m-auto border border-1 border-info rounded-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>E-Signature</h1>
+                        <p>Sign in the canvas below and save your signature as an image!</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <canvas class="border border-secondary rounded-2" id="sig-canvas" width="300" height="160">
+                            Get a better browser, bro.
+                        </canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="p-2 px-3 text-white bg-info rounded border-info  mx-2 px-3 shadow-none" id="sig-submitBtn">Submit Signature</button>
+                        <button class="btn border-info text-info shadow-none" id="sig-clearBtn">Clear Signature</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" id="Cancelbutton" class="btn border-info text-info shadow-none" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-3">
+    <div class="d-flex justify-content-between align-items-center mt-2">
+        <h4>Edit Physician Account</h4>
+        <a asp-controller="Provider" asp-action="ProviderMenu" class="text-decoration-none">
+            <span class="back-btn p-2" style="color: #00b8e6;">&lt;Back</span>
+        </a>
+    </div>
+    <div class="border border-0 shadow rounded-3 px-4 py-2 mt-2 mb-3" id="content-color">
+        <div class="mt-3">
+            <h5>Account Information</h5>
+        </div>
+        <div class="d-flex row">
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="UserName" id="username-editprovideraccount" class="form-control shadow-none aidisabled" placeholder="User Name" disabled>
+                    <label class="FloatingInput">User Name</label>
+                    <span id="username-editprovideraccount-span" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="password" id="password-editprovideraccount" class="form-control shadow-none" placeholder="Password" disabled>
+                    <label class="FloatingInput">Password</label>
+                    <span id="resetpassword-editprovideraccount-span" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 form-floating mt-3">
+
+                <select class="form-select form-select-lg  fs-6 shadow-none aidisabled" aria-label=".form-select-lg example" asp-for="status" disabled>
+
+                    <option class="fs-6" value="1" selected>Active</option>
+                    <option class="fs-6" value="0" selected>Inactive</option>
+
+                </select>
+                <label for="floatingTextarea" class="text-secondary ms-3">Status</label>
+
+            </div>
+            <div class="col-12 col-sm-6 form-floating mt-3">
+                <select class="form-select form-select-lg  fs-6 shadow-none aidisabled" aria-label=".form-select-lg example" disabled>
+                    @foreach (var item in Model.role)
+                    {
+                        <option class="fs-6">@item.Name</option>
+                    }
+                </select>
+                <label for="floatingTextarea" class="text-secondary ms-3">Role</label>
+
+            </div>
+
+            <div class="mt-3 d-flex justify-content-end col-12">
+                <button class="btn btn-info me-2 text-white" id="Aieditbtn-editprovideraccount">Edit</button>
+                <button class="btn btn-info me-2 text-white d-none" id="Aisavebtn-editprovideraccount">Save</button>
+                <button class="btn btn-outline-info me-2" id="Airesetpasswordbtn-editprovideraccount">Reset Password</button>
+                <button class="btn btn-outline-info me-2 d-none" id="Aiupdatebtn-editprovideraccount">Update Password</button>
+            </div>
+
+            <h5>Physician Information</h5>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="firstname" id="firstname-editprovider" class="form-control shadow-none adisabled" placeholder="First Name" disabled>
+                    <label class="FloatingInput">First Name</label>
+                    <span id="providerinfo-firstname" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="lastname" id="lastname-editprovider" class="form-control shadow-none adisabled" placeholder="Last Name" disabled>
+                    <label class="FloatingInput">Last Name</label>
+                    <span id="providerinfo-lastname" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="email" id="email-editprovider" class="form-control shadow-none adisabled" placeholder="Email" disabled>
+                    <label class="FloatingInput">Email</label>
+                    <span id="providerinfo-email" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3 form-floating">
+                <div class="form-control p-0">
+                    <input id="phonenumber-editprovider" asp-for="phonenumber"
+                           type="tel" class="adisabled" maxlength="10"
+                           style="border: none; padding: 18px 2% 18px 50px; width:inherit" disabled />
+                    <span id="providerinfo-phonenumber" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="MedicalLicence" id="medicallicence-editprovider" class="form-control shadow-none adisabled" placeholder="Medical Licence #" disabled>
+                    <label class="FloatingInput">Medical Licence #</label>
+                    <span id="providerinfo-medicallicence" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="NPINumber" id="npinumber-editprovider" class="form-control shadow-none adisabled" placeholder="NPI Number" disabled>
+                    <label class="FloatingInput">NPI Number</label>
+                    <span id="providerinfo-npinumber" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="SynchronizeEmail" id="syncemail-editprovider" class="form-control shadow-none adisabled" placeholder="Synchronization Email Address" disabled>
+                    <label class="FloatingInput">Synchronization Email Address</label>
+                    <span id="providerinfo-syncemail" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 mt-4">
+                @foreach (var item in Model.regions)
+                {
+                    <div class="form-check form-check-inline ">
+                        <input class="form-check-input adisabled adminselectedregion-editprovider" type="checkbox"
+                        @if (Model.phyregionlist.Any(phyRegion => phyRegion.Regionid == item.Regionid))
+                        {
+                            @:checked
+                        } value="@item.Regionid"
+                               disabled>
+                        <label class="form-check-label" for="inlineCheckbox1">@item.Name</label>
+                    </div>
+                }
+            </div>
+            <div class="d-flex justify-content-end col-12 mt-3">
+                <button class="btn btn-info text-white px-4 shadow-none" id="editbtn-editprovider">Edit</button>
+                <button class="btn btn-info text-white px-4 shadow-none" id="savebtn-editprovider" hidden>Save</button>
+            </div>
+
+
+            <h5>Mailing & Billing Information</h5>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="address1" id="addr1-editprovider" class="form-control shadow-none mdisabled" placeholder="Address1" disabled>
+                    <label class="FloatingInput">Address 1</label>
+                    <span id="providerinfo-addr1" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="address2" id="addr2-editprovider" class="form-control shadow-none mdisabled" placeholder="Address2" disabled>
+                    <label class="FloatingInput">Address 2</label>
+                    <span id="providerinfo-addr2" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="city" id="city-editprovider" class="form-control shadow-none mdisabled" placeholder="city" disabled>
+                    <label class="FloatingInput">City</label>
+                    <span id="providerinfo-city" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+
+            <div class="col-12 col-sm-6 form-floating mt-3">
+
+                <select class="form-select form-select-lg  fs-6 shadow-none mdisabled" id="state-editprovider" aria-label=".form-select-lg example" disabled>
+                    <option class="fs-6" value="Gujarat" selected>Gujarat</option>
+                    <option class="fs-6" value="" selected>Maharastra</option>
+                    <option class="fs-6" value="" selected>Goa</option>
+                    @*    @foreach (var item in Model.role)
+                    {
+                    <option class="fs-6" >@item.Name</option>
+                    } *@
+                </select>
+                <label for="floatingTextarea" class="text-secondary ms-3">State</label>
+                <span id="providerinfo-state" class="text-danger small"></span>
+
+
+            </div>
+
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="zip" id="zip-editprovider" class="form-control shadow-none mdisabled" placeholder="zip" disabled>
+                    <label class="FloatingInput">Zip</label>
+                    <span id="providerinfo-zip" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3 form-floating">
+                <div class="form-control p-0">
+                    <input asp-for="alterphonenumber" id="altphone-editprovider"
+                           type="tel" class="mdisabled" maxlength="10"
+                           style="border: none; padding: 18px 2% 18px 50px; width:inherit" disabled />
+                    <span id="providerinfo-altphone" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+
+
+            <div class="d-flex justify-content-end col-12 mt-3 mb-3">
+                <button class="btn btn-info text-white px-4 me-2 shadow-none" id="editbtn-mailing-editprovider">Edit</button>
+                <button class="btn btn-info text-white px-4 me-2 shadow-none" id="savebtn-mailing-editprovider" hidden>Save</button>
+            </div>
+
+            <h5>Provider Profile</h5>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="BusinessName" id="ppdisable-businessname" class="form-control shadow-none ppdisable" placeholder="Business Name" disabled>
+                    <label class="FloatingInput">Business Name</label>
+                    <span id="ppdisable-businessname-span" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                <div class="form-floating">
+                    <input type="text" asp-for="BusinessWebsite" id="ppdisable-businesswebsite" class="form-control shadow-none ppdisable" placeholder="Business Website" disabled>
+                    <label class="FloatingInput">Business Website</label>
+                    <span id="ppdisable-businesswebsite-span" class="text-danger small"></span>
+
+                </div>
+            </div>
+
+            @*photo upload*@
+            <div class="col-xl-6 col-12 mt-3">
+                <div class="form-group rounded d-flex align-items-center justify-content-between border border-2 uploadbtndiv">
+                    <div class="px-3 table-responsive w-100">
+                        <input type="file" id="actual-btn" class="ppdisable" @*asp-for="UploadSign"*@ multiple hidden />
+                        <label role="button" for="actual-btn" id="file-chosen" class="choosenfile text-nowrap text-secondary w-100">No item selected</label>
+                    </div>
+                    <button type="button" class="uploadbtn px-2 py-1 d-flex ms-1 border-0 ppdisable" id="provider-photo">
+                        <label role="button" class="d-flex align-items-center">
+                            <i class="bi bi-cloud-arrow-up p-2"></i>
+                            <div>Upload</div>
+                        </label>
+                    </button>
+                </div>
+            </div>
+
+            @*sign upload*@
+
+            <div class="col-xl-4 col-10 mt-3">
+                <div class="form-group rounded d-flex align-items-center justify-content-between border border-2 uploadbtndiv">
+                    <div class="px-3 table-responsive w-100">
+                        <input type="file" id="actual-btn-sign" class="ppdisable" @*asp-for="UploadPhoto"*@ multiple hidden />
+                        <label role="button" for="actual-btn-sign" id="file-chosen-sign" class="choosenfile text-nowrap text-secondary w-100">No item selected</label>
+                    </div>
+                    <button type="button" class="uploadbtn px-2 py-1 d-flex ms-1 border-0 ppdisable" id="provider-sign">
+                        <label role="button" class="d-flex align-items-center">
+                            <i class="bi bi-cloud-arrow-up p-2"></i>
+                            <div>Upload</div>
+                        </label>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-xl-2 col-1 mt-3">
+                <button type="button" id="ModalToOpen" data-target="#ModalToOpen" data-toggle="modal" class="uploadbtn d-flex py-1 border-0 rounded-2 ppdisable">
+                    <label role="button" class="d-flex align-items-center">
+                        <i class="bi bi-pencil-fill p-2"></i>
+                        <div>Create</div>
+                    </label>
+                </button>
+            </div>
+
+            <div class="d-flex my-5">
+                <div class="w-50 d-flex justify-content-center align-items-center">
+                    <img src="@Model.UploadPhoto" style="width:20vw; height:20vh; object-fit:contain" />
+                </div>
+                <div class="w-50 d-flex justify-content-center align-items-center">
+                    <img src="@Model.UploadSign" style="width:20vw; height:20vh; object-fit:contain" />
+                </div>
+            </div>
+
+            <div class="col-12 mt-3">
+                <div class="form-floating">
+                    <textarea asp-for="AdminNotes" class="form-control shadow-none ppdisable" id="ppdisable-adminnotes"
+                              placeholder="Admin Notes"
+                              style="height: 100px" disabled></textarea>
+                    <label for="floatingTextarea2">Admin Notes</label>
+                    <span id="ppdisable-adminnotes-span" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end col-12 mt-3 mb-3">
+                <button class="btn btn-info text-white px-4 me-2" id="editbtn-ppdisable-editprovider">Edit</button>
+                <button class="btn btn-info text-white px-4 me-2" id="savebtn-ppdisable-editprovider" hidden>Save</button>
+            </div>
+
+            <hr class="text-muted" style="border : 1px solid black" />
+
+            <h5>Onboarding</h5>
+            <form>
+                <div class="table-responsive small" style="font-weight: bold">
+                    <table>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" class="form-check-input"
+                                @if (Model.IsAgreementDoc)
+                                {
+                                    @: checked
+                                }
+                                       readonly />
+                            </td>
+                            <td class="p-2 px-3">
+                                Independent Contractor Agreement
+                            </td>
+                            <td class="p-2">
+                                <button type="button" value="Independent Contractor Agreement" class="p-1 px-2 text-white fileuploadbtn bg-info rounded border-info d-flex align-items-center h-100">
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                    <span class="d-none d-lg-block ps-2">Upload</span>
+                                </button>
+                            </td>
+                            @if (Model.IsAgreementDoc)
+                            {
+                                <td class="p-2">
+                                    <button type="button" data-url="/AdminArea/AdminProviderTab/ViewICAdoc" class="p-1 px-2 text-white bg-info fileviewbtn rounded border-info d-flex align-items-center h-100">
+                                        <i class="bi  bi-eye-fill"></i>
+                                        <span class="d-none d-lg-block ps-2">View</span>
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" class="form-check-input"
+                                @if (Model.IsBackgroundDoc[0])
+                                {
+                                    @: checked
+                                }
+                                       readonly />
+                            </td>
+                            <td class="p-2 px-3">
+                                Background Check
+                            </td>
+                            <td class="p-2">
+                                <button type="button" value="Background Check" data-url="/AdminArea/AdminProviderTab/UploadBackDocdoc" class="p-1 px-2 text-white bg-info fileuploadbtn rounded border-info d-flex align-items-center h-100">
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                    <span class="d-none d-lg-block ps-2">Upload</span>
+                                </button>
+                            </td>
+                            @if (Model.IsBackgroundDoc[0])
+                            {
+                                <td class="p-2">
+                                    <button type="button" data-url="/AdminArea/AdminProviderTab/ViewBackDocdoc" class="p-1 px-2 text-white bg-info fileviewbtn rounded border-info d-flex align-items-center h-100">
+                                        <i class="bi  bi-eye-fill"></i>
+                                        <span class="d-none d-lg-block ps-2">View</span>
+                                    </button>
+                                </td>
+                            }
+
+                        </tr>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" class="form-check-input"
+                                @if (Model.IsCredentialDoc[0])
+                                {
+                                    @: checked
+                                }
+                                       readonly />
+                            </td>
+                            <td class="p-2 px-3">
+                                HIPAA Compliance
+                            </td>
+                            <td class="p-2">
+                                <button type="button" value="HIPAA Compliance" data-url="/AdminArea/AdminProviderTab/UploadCredentialdoc" class="p-1 px-2 text-white bg-info fileuploadbtn rounded border-info d-flex align-items-center h-100">
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                    <span class="d-none d-lg-block ps-2">Upload</span>
+                                </button>
+                            </td>
+                            @if (Model.IsCredentialDoc[0])
+                            {
+                                <td class="p-2">
+                                    <button type="button" data-url="/AdminArea/AdminProviderTab/VeiwCredentialdoc" class="p-1 px-2 text-white bg-info fileviewbtn rounded border-info d-flex align-items-center h-100">
+                                        <i class="bi  bi-eye-fill"></i>
+                                        <span class="d-none d-lg-block ps-2">View</span>
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" class="form-check-input"
+                                @if (Model.IsNonDisclosureDoc[0])
+                                {
+                                    @: checked
+                                }
+                                       readonly />
+                            </td>
+                            <td class="p-2 px-3">
+                                Non-Disclosure Agreement
+                            </td>
+                            <td class="p-2">
+                                <button type="button" value="Non-Disclosure Agreement" data-url="/AdminArea/AdminProviderTab/UploadNDAdoc" class="p-1 px-2 text-white bg-info rounded fileuploadbtn border-info d-flex align-items-center h-100">
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                    <span class="d-none d-lg-block ps-2">Upload</span>
+                                </button>
+                            </td>
+                            @if (Model.IsNonDisclosureDoc[0])
+                            {
+                                <td class="p-2">
+                                    <button type="button" data-url="/AdminArea/AdminProviderTab/ViewNDAdoc" class="p-1 px-2 text-white bg-info rounded fileviewbtn border-info d-flex align-items-center h-100">
+                                        <i class="bi  bi-eye-fill"></i>
+                                        <span class="d-none d-lg-block ps-2">View</span>
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" class="form-check-input"
+                                @if (Model.IsLicenseDoc[0])
+                                {
+                                    @: checked
+                                }
+                                       readonly />
+                            </td>
+                            <td class="p-2 px-3">
+                                License Document
+                            </td>
+                            <td class="p-2">
+                                <button type="button" value="License Document" data-url="/AdminArea/AdminProviderTab/UploadLicensedoc" class="p-1 px-2 text-white bg-info rounded fileuploadbtn border-info d-flex align-items-center h-100">
+                                    <i class="bi bi-cloud-arrow-up"></i>
+                                    <span class="d-none d-lg-block ps-2">Upload</span>
+                                </button>
+                            </td>
+                            @if (Model.IsLicenseDoc[0])
+                            {
+                                <td class="p-2">
+                                    <button type="button" data-url="/AdminArea/AdminProviderTab/ViewLicensedoc" class="p-1 px-2 text-white bg-info rounded fileviewbtn border-info d-flex align-items-center h-100">
+                                        <i class="bi  bi-eye-fill"></i>
+                                        <span class="d-none d-lg-block ps-2">View</span>
+                                    </button>
+                                </td>
+                            }
+                        </tr>
+                    </table>
+
+                </div>
+            </form>
+            <input type="file" id="SelectFileToUpload" data-allowed-file-extensions='["pdf"]' class="file file-loading"/>
+            <hr class="text-muted" style="border : 1px solid black" />
+            <div class="d-flex justify-content-end">
+
+                <div class="mx-1 d-flex">
+                    <button type="button" class="btn btn-info shadow-none text-white viewNotes small px-3">
+                        Save
+                    </button>
+                </div>
+                <div class="mx-1 d-flex">
+                    <button type="button" class="btn btn-info shadow-none border-0 text-white bg-danger small px-3">
+                        Delete Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+<script>
+
+    (function fun() {
+        window.requestAnimFrame = (function (callback) {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimaitonFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+        var canvas = document.getElementById("sig-canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.strokeStyle = "#222222";
+        ctx.lineWidth = 4;
+
+        var drawing = false;
+        var mousePos = {
+            x: 0,
+            y: 0
+        };
+        var lastPos = mousePos;
+
+        canvas.addEventListener("mousedown", function (e) {
+            drawing = true;
+            lastPos = getMousePos(canvas, e);
+        }, false);
+
+        canvas.addEventListener("mouseup", function (e) {
+            drawing = false;
+        }, false);
+
+        canvas.addEventListener("mousemove", function (e) {
+            mousePos = getMousePos(canvas, e);
+        }, false);
+
+        // Add touch event support for mobile
+        canvas.addEventListener("touchstart", function (e) {
+
+        }, false);
+
+        canvas.addEventListener("touchmove", function (e) {
+            var touch = e.touches[0];
+            var me = new MouseEvent("mousemove", {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(me);
+        }, false);
+
+        canvas.addEventListener("touchstart", function (e) {
+            mousePos = getTouchPos(canvas, e);
+            var touch = e.touches[0];
+            var me = new MouseEvent("mousedown", {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(me);
+        }, false);
+
+        canvas.addEventListener("touchend", function (e) {
+            var me = new MouseEvent("mouseup", {});
+            canvas.dispatchEvent(me);
+        }, false);
+
+        function getMousePos(canvasDom, mouseEvent) {
+            var rect = canvasDom.getBoundingClientRect();
+            return {
+                x: mouseEvent.clientX - rect.left,
+                y: mouseEvent.clientY - rect.top
+            }
+        }
+
+        function getTouchPos(canvasDom, touchEvent) {
+            var rect = canvasDom.getBoundingClientRect();
+            return {
+                x: touchEvent.touches[0].clientX - rect.left,
+                y: touchEvent.touches[0].clientY - rect.top
+            }
+        }
+
+        function renderCanvas() {
+            if (drawing) {
+                ctx.moveTo(lastPos.x, lastPos.y);
+                ctx.lineTo(mousePos.x, mousePos.y);
+                ctx.stroke();
+                lastPos = mousePos;
+            }
+        }
+
+        // Prevent scrolling when touching the canvas
+        document.body.addEventListener("touchstart", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+        document.body.addEventListener("touchend", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+        document.body.addEventListener("touchmove", function (e) {
+            if (e.target == canvas) {
+                e.preventDefault();
+            }
+        }, false);
+
+        (function drawLoop() {
+            requestAnimFrame(drawLoop);
+            renderCanvas();
+        })();
+
+        function clearCanvas() {
+            canvas.width = canvas.width;
+        }
+
+        // Set up the UI
+        var clearBtn = document.getElementById("sig-clearBtn");
+        var submitBtn = document.getElementById("sig-submitBtn");
+        clearBtn.addEventListener("click", function (e) {
+            clearCanvas();
+        }, false);
+        submitBtn.addEventListener("click", function (e) {
+            var dataUrl = canvas.toDataURL();
+            console.log(dataUrl);
+            $.ajax({
+                url: '/Provider/EditProviderSign',
+                type: 'POST',
+                data: { providerid: providerid, base64string: dataUrl },
+                success: function (response) {
+                    $('#Cancelbutton').trigger('click');
+                    $('#providermenudiv').html(response);
+                }
+            });
+        }, false);
+
+    })();
+
+</script>
+<script src="/js/Provider/Provider.js" asp-append-version="true"></script>

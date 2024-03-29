@@ -1,0 +1,16 @@
+﻿@using Services.ViewModels
+@model AccessRoleViewModel
+
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model.menulist)
+{
+    <div class="col-12  col-sm-6 col-md-4 col-lg-3 col-xl-2  pt-2">
+        <div class="form-check form-check-inline ">
+            <input class="form-check-input adisabled adminselectedregion-adminprofile" name="checkbox-createrole" type="checkbox" id="@item.Menuid" value="@item.Menuid">
+            <label class="form-check-label" for="@item.Menuid">@item.Name</label>
+        </div>
+    </div>
+}

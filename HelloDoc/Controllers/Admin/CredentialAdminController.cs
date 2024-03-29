@@ -49,6 +49,7 @@ namespace HelloDoc.Controllers.Admin
                 HttpContext.Session.SetString("AdminName", $"{admin.Firstname}{admin.Lastname}");
             }
             int valid = adminCredential.Login(user);
+            
             var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
             LoggedInPersonViewModel loggedInPersonViewModel = new LoggedInPersonViewModel();
             loggedInPersonViewModel.AspnetId = correct.Id;

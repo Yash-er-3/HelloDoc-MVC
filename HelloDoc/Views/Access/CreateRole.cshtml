@@ -1,0 +1,91 @@
+﻿@using Services.ViewModels
+@model AccessRoleViewModel
+<Partial name="notification" />
+
+
+@{
+    Layout = null;
+}
+<input type="number" id="roleid-createrole" hidden/>
+<div class="container pb-4 px-0 px-lg-5">
+
+    <div class="d-flex justify-content-between align-items-center w-100 my-3">
+        <h4 class="fw-bold">Create Role</h4>
+        <a asp-controller="Access" asp-action="AccessRole"
+           class="btn m-0 btn-outline-info  px-2 ">
+            <i class="fa-solid fa-chevron-left"></i>
+            Back
+        </a>
+    </div>
+
+    <div class="container-fluid bg-white shadow">
+        <div class="row">
+            <div class="col-12 mt-3 ">
+                <h5>Details</h5>
+            </div>
+
+            <div class="col-sm-6 col-12 form-floating mb-3 mt-3">
+                <input type="text" class="form-control shadow-none" id="rolename-createrole" asp-for="RoleName" placeholder="RoleName" />
+                <label class="d-flex justify-content-between ps-4">Role Name</label>
+                <span id="rolename-createrole-span" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 col-sm-6 form-floating mt-3">
+                <select class="form-select shadow-none accounttype-dropdown-createrole" aria-label=".form-select-lg example">
+                    <option class="fs-6 " value="0" selected>@Model.Accounttypename(0)</option>
+                    <option class="fs-6 " value="1">@Model.Accounttypename(1)</option>
+                    <option class="fs-6 " value="2">@Model.Accounttypename(2)</option>
+                    <option class="fs-6 " value="3">@Model.Accounttypename(3)</option>
+                </select>
+                <label for="floatingTextarea" class="text-secondary ms-3">Role</label>
+            </div>
+
+            <div id="menuselect-filter" class="row">
+
+                @foreach (var item in Model.menulist)
+                {
+                    <div class="col-12  col-sm-6 col-md-4 col-lg-3 col-xl-2  pt-2">
+                        <div class="form-check form-check-inline ">
+                            @if (Model.selectedrolemenulist != null)
+                            {
+                                <input class="form-check-input adisabled adminselectedregion-adminprofile"
+                                @if (Model.selectedrolemenulist.Any(m => m.Menuid == item.Menuid))
+                                {
+                                    @:checked
+                                };
+                               name="checkbox-createrole" type="checkbox" id="@item.Menuid" value="@item.Menuid" />
+                            }
+                            else
+                            {
+                                <input class="form-check-input adisabled adminselectedregion-adminprofile"
+                                       name="checkbox-createrole" type="checkbox" id="@item.Menuid" value="@item.Menuid" />
+                            }
+                            @* <input class="form-check-input adisabled adminselectedregion-adminprofile"
+                        @if (Model.selectedrolemenulist.Count() != 0)
+                        {
+                        @if (Model.selectedrolemenulist.Any(m => m.MenuId == item.MenuId))
+                        {
+                        @:checked
+                        };
+                        };
+                        name="checkbox-createrole" type="checkbox" id="@item.MenuId" value="@item.MenuId" /> *@
+                            <label class="form-check-label" for="@item.Menuid">@item.Name</label>
+                        </div>
+                    </div>
+                }
+                            <span class="text-danger" id="adminselectedregion-adminprofile-span"></span>
+            </div>
+
+            <div class="d-flex justify-content-end col-12 mt-3 mb-4">
+                <button class="btn btn-info me-2 text-white shadow-none" id="createrole-save">Save</button>
+                <button class="btn btn-outline-info me-2 shadow-none" id="createrole-cancel">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> *@
+<script src="/js/Access/AccessRole.js" asp-append-version="true"></script>
+

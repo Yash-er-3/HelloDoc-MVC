@@ -32,7 +32,7 @@
     </style>
 </head>
 
-<body>
+<body id="adminLayoutMainDiv">
 
 
     @*<nav class="navbar navbar-light bg-white rounded px-4">
@@ -104,20 +104,30 @@
     @*for big screen*@
     <div class="mainnav bg-white d-none d-sm-block">
         <nav class="shadow">
-            <div class="ps-4 nav nav-tabs border-bottom-0 border-start-0 border-end-0 border border-2" id="nav-tab" role="tablist">
-                <button class="nav-link active me-4" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Dashboard</button>
+            <div class="ps-4 nav nav-tabs border-bottom-0 border-start-0 d-flex border-end-0 border border-2" id="nav-tab" role="tablist">
+                
+               @* <button class="nav-link active me-4" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Dashboard</button>
                 <button class="nav-link me-4" id="nav-provider-location-tab" data-bs-toggle="tab" data-bs-target="#nav-provider-location" type="button" role="tab" aria-controls="nav-provider-location" aria-selected="false">Provider Location</button>
                 <button class="nav-link me-4 my-profile-load-page" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">My Profile</button>
                 <button class="nav-link me-4" id="nav-provider-tab" data-bs-toggle="dropdown" data-bs-target="#nav-provider" type="button" role="tab" aria-controls="nav-provider" aria-selected="false">Providers</button>
 
-                <div class="dropdown-menu dropdown-menu-right">
-                    <button type="button" id="provider-tab" class="dropdown-item text-center" data-bs-target="#providers">Provider</button>
-                    <button type="button" id="provider-scheduling" class="dropdown-item text-center" data-bs-target="#scheduling">Scheduling</button>
-                    <button type="button" class="dropdown-item text-center" data-bs-target="#invoicing">Invoicing</button>
-                </div>
                 <button class="nav-link me-4" id="nav-partner-tab" data-bs-toggle="tab" data-bs-target="#nav-partner" type="button" role="tab" aria-controls="nav-partner" aria-selected="false">Partners</button>
                 <button class="nav-link me-4" id="nav-access-tab" data-bs-toggle="tab" data-bs-target="#nav-access" type="button" role="tab" aria-controls="nav-access" aria-selected="false">Access</button>
-                <button class="nav-link me-4" id="nav-record-tab" data-bs-toggle="tab" data-bs-target="#nav-record" type="button" role="tab" aria-controls="nav-record" aria-selected="false">Records</button>
+                <button class="nav-link me-4" id="nav-record-tab" data-bs-toggle="tab" data-bs-target="#nav-record" type="button" role="tab" aria-controls="nav-record" aria-selected="false">Records</button>*@
+
+                <a class="admin-layout-nav admin-layout-nav-active text-secondary fw-bold me-2" id="nav-home-tab" asp-action="AdminDashboard" asp-controller="Admin">Dashboard</a>
+                <a class="admin-layout-nav text-secondary fw-bold me-1" id="nav-provider-location-tab">Provider Location</a>
+                <a class="admin-layout-nav text-secondary fw-bold nav-profile-tab-for-load-profile" id="nav-profile-tab" asp-action="AdminProfile" asp-controller="Admin">My Profile</a>
+
+                <a class="admin-layout-nav text-secondary fw-bold btn dropdown shadow-none" id="nav-provider-tab" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Providers</a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a id="provider-tab" asp-action="ProviderMenu" asp-controller="Provider" class="dropdown-item text-center">Provider</a>
+                    <a id="provider-scheduling" class="dropdown-item text-center">Scheduling</a>
+                    <a class="dropdown-item text-center">Invoicing</a>
+                </div>
+                <a class="admin-layout-nav text-secondary fw-bold" id="nav-partner-tab">Partners</a>
+                <a class="admin-layout-nav text-secondary fw-bold" id="nav-access-tab" asp-controller="Access" asp-action="AccessRole">Access</a>
+                <a class="admin-layout-nav text-secondary fw-bold" id="nav-record-tab">Records</a>
             </div>
         </nav>
     </div>

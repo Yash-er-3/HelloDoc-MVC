@@ -171,7 +171,7 @@
     color: #933cb5 !important;
 }
 
-td {
+#dtBasicExample td {
     color: white !important;
 }
 
@@ -229,6 +229,24 @@ td {
 
 .offcanvas-backdrop{
     position:absolute !important;
+}
+
+input[type=radio] {
+    accent-color: black;
+}
+
+.admin-layout-nav-active {
+    border-bottom: 2px solid #17a2b8;
+}
+
+.admin-layout-nav {
+    margin: 10px 5px;
+    padding: 0px 5px 5px 5px!important;
+    text-decoration: none;
+}
+
+.admin-layout-nav-mobile-active {
+    background-color: lightgray;
 }
 
 @media only screen and (max-width:900px) {

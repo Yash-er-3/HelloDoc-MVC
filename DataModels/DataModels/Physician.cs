@@ -39,7 +39,7 @@ public partial class Physician
     public string? Medicallicense { get; set; }
 
     [Column("photo")]
-    [StringLength(100)]
+
     public string? Photo { get; set; }
 
     [Column("adminnotes")]
@@ -120,7 +120,7 @@ public partial class Physician
     public BitArray? Islicensedoc { get; set; }
 
     [Column("signature")]
-    [StringLength(500)]
+
     public string? Signature { get; set; }
 
     [Column("iscredentialdoc", TypeName = "bit(1)")]
