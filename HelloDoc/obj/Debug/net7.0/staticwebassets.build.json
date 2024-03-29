@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qA+wAWNneWn/xXH1d6Pa9Awv90BmyG+5aD2qrtp0kvs=",
+  "Hash": "UWAjCOs5QWLKj0eOa6Om/O7By9JUTaDT/tHiUxUhrpw=",
   "Source": "HelloDoc",
   "BasePath": "_content/HelloDoc",
   "Mode": "Default",
@@ -1615,12 +1615,12 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\3_AgreementDoc.jpg",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\BackgroundCheck.jpg",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/3/3_AgreementDoc.jpg",
+      "RelativePath": "onboarding/3/BackgroundCheck.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1629,15 +1629,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\3\\3_AgreementDoc.jpg"
+      "OriginalItemSpec": "wwwroot\\onboarding\\3\\BackgroundCheck.jpg"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\3_BackgroundDoc.jpg",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\HIPAACompliance.pdf",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/3/3_BackgroundDoc.jpg",
+      "RelativePath": "onboarding/3/HIPAACompliance.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1646,15 +1646,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\3\\3_BackgroundDoc.jpg"
+      "OriginalItemSpec": "wwwroot\\onboarding\\3\\HIPAACompliance.pdf"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\5_AgreementDoc.jpg",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\LicenseDocument.pdf",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/5/5_AgreementDoc.jpg",
+      "RelativePath": "onboarding/3/LicenseDocument.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1663,15 +1663,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\5\\5_AgreementDoc.jpg"
+      "OriginalItemSpec": "wwwroot\\onboarding\\3\\LicenseDocument.pdf"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\5_LicenseDoc.jpg",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\4\\BackgroundCheck.jpg",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/5/5_LicenseDoc.jpg",
+      "RelativePath": "onboarding/4/BackgroundCheck.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1680,15 +1680,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\5\\5_LicenseDoc.jpg"
+      "OriginalItemSpec": "wwwroot\\onboarding\\4\\BackgroundCheck.jpg"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5_AgreementDoc.jpg",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\BackgroundCheck.jpg",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/5_AgreementDoc.jpg",
+      "RelativePath": "onboarding/5/BackgroundCheck.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1697,15 +1697,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\5_AgreementDoc.jpg"
+      "OriginalItemSpec": "wwwroot\\onboarding\\5\\BackgroundCheck.jpg"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5_Non-Disclosure Agreement.jpg",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\BackgroundCheck.pdf",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/5_Non-Disclosure Agreement.jpg",
+      "RelativePath": "onboarding/5/BackgroundCheck.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1714,15 +1714,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\5_Non-Disclosure Agreement.jpg"
+      "OriginalItemSpec": "wwwroot\\onboarding\\5\\BackgroundCheck.pdf"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\7_BackgroundDoc.jpg",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\HIPAACompliance.pdf",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/7/7_BackgroundDoc.jpg",
+      "RelativePath": "onboarding/5/HIPAACompliance.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1731,15 +1731,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\7\\7_BackgroundDoc.jpg"
+      "OriginalItemSpec": "wwwroot\\onboarding\\5\\HIPAACompliance.pdf"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\7_BackgroundDoc.jpg.bmp",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\IndependentContractorAgreement.pdf",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/7/7_BackgroundDoc.jpg.bmp",
+      "RelativePath": "onboarding/5/IndependentContractorAgreement.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1748,15 +1748,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\7\\7_BackgroundDoc.jpg.bmp"
+      "OriginalItemSpec": "wwwroot\\onboarding\\5\\IndependentContractorAgreement.pdf"
     },
     {
-      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\8\\8_AgreementDoc.jpg",
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\LicenseDocument.pdf",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
       "BasePath": "_content/HelloDoc",
-      "RelativePath": "onboarding/8/8_AgreementDoc.jpg",
+      "RelativePath": "onboarding/5/LicenseDocument.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1765,7 +1765,58 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\onboarding\\8\\8_AgreementDoc.jpg"
+      "OriginalItemSpec": "wwwroot\\onboarding\\5\\LicenseDocument.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\Non-DisclosureAgreement.pdf",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "onboarding/5/Non-DisclosureAgreement.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\onboarding\\5\\Non-DisclosureAgreement.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\HIPAACompliance.pdf",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "onboarding/7/HIPAACompliance.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\onboarding\\7\\HIPAACompliance.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\IndependentContractorAgreement.pdf",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "onboarding/7/IndependentContractorAgreement.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\onboarding\\7\\IndependentContractorAgreement.pdf"
     },
     {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\data (13).xlsx",

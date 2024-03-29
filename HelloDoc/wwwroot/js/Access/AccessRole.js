@@ -1,9 +1,10 @@
-﻿var regextext = /^[a-zA-Z-, ]+$/i;
-
-window.onload = function () {
-    $('.admin-layout-nav').removeClass('admin-layout-nav-active');
+﻿window.onload = function () {
+    $('.admin-layout-nav').removeClass('admin-layout-nav-active')
     $('#nav-access-tab').addClass('admin-layout-nav-active');
 }
+
+var regextext = /^[a-zA-Z-, ]+$/i;
+
 
 $('#createaccessrole-btn').on('click', function () {
     $.ajax({

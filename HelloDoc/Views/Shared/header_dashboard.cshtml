@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -115,19 +114,19 @@
                 <button class="nav-link me-4" id="nav-access-tab" data-bs-toggle="tab" data-bs-target="#nav-access" type="button" role="tab" aria-controls="nav-access" aria-selected="false">Access</button>
                 <button class="nav-link me-4" id="nav-record-tab" data-bs-toggle="tab" data-bs-target="#nav-record" type="button" role="tab" aria-controls="nav-record" aria-selected="false">Records</button>*@
 
-                <a class="admin-layout-nav admin-layout-nav-active text-secondary fw-bold me-2" id="nav-home-tab" asp-action="AdminDashboard" asp-controller="Admin">Dashboard</a>
-                <a class="admin-layout-nav text-secondary fw-bold me-1" id="nav-provider-location-tab">Provider Location</a>
-                <a class="admin-layout-nav text-secondary fw-bold nav-profile-tab-for-load-profile" id="nav-profile-tab" asp-action="AdminProfile" asp-controller="Admin">My Profile</a>
+                <a class="admin-layout-nav fw-bold me-2" id="nav-home-tab" asp-action="AdminDashboard" asp-controller="Admin">Dashboard</a>
+                <a class="admin-layout-nav fw-bold me-1" id="nav-provider-location-tab">Provider Location</a>
+                <a class="admin-layout-nav fw-bold nav-profile-tab-for-load-profile " id="nav-profile-tab" asp-action="AdminProfile" asp-controller="Admin">My Profile</a>
 
-                <a class="admin-layout-nav text-secondary fw-bold btn dropdown shadow-none" id="nav-provider-tab" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Providers</a>
+                <a class="admin-layout-nav  fw-bold btn dropdown shadow-none" id="nav-provider-tab" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Providers</a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a id="provider-tab" asp-action="ProviderMenu" asp-controller="Provider" class="dropdown-item text-center">Provider</a>
-                    <a id="provider-scheduling" class="dropdown-item text-center">Scheduling</a>
-                    <a class="dropdown-item text-center">Invoicing</a>
+                    <a id="provider-tab" asp-action="ProviderMenu" asp-controller="Provider" class="dropdown-item">Provider</a>
+                    <a id="provider-scheduling" class="dropdown-item">Scheduling</a>
+                    <a class="dropdown-item">Invoicing</a>
                 </div>
-                <a class="admin-layout-nav text-secondary fw-bold" id="nav-partner-tab">Partners</a>
-                <a class="admin-layout-nav text-secondary fw-bold" id="nav-access-tab" asp-controller="Access" asp-action="AccessRole">Access</a>
-                <a class="admin-layout-nav text-secondary fw-bold" id="nav-record-tab">Records</a>
+                <a class="admin-layout-nav fw-bold" id="nav-partner-tab">Partners</a>
+                <a class="admin-layout-nav fw-bold" id="nav-access-tab" asp-controller="Access" asp-action="AccessRole">Access</a>
+                <a class="admin-layout-nav fw-bold" id="nav-record-tab">Records</a>
             </div>
         </nav>
     </div>

@@ -1,4 +1,9 @@
-﻿
+﻿window.onload = function () {
+    $('.admin-layout-nav').removeClass('admin-layout-nav-active');
+    $('#nav-provider-tab').addClass('admin-layout-nav-active');
+
+    console.log("hbjhbkjnllknhuyfyadmin-layout-nav-active")
+}
 var email;
 var providerid;
 $('.clickcontactprovider').on('click', function () {
@@ -763,18 +768,25 @@ $('#SelectFileToUpload').on('change', function () {
     formData.append('file', file); // Append the file
     formData.append('providerid', providerid); // Append other data
     formData.append('onboardinguploadvalue', onboardinguploadvalue); // Append other data
+    let x = file.name;
+    let extention = x.split('.').pop();
+    if (extention != "pdf") {
+        alert("please upload pdf file")
+    }
+    else {
 
-    $.ajax({
-        url: '/Provider/uploadFile', // Replace with your server endpoint
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            toastr.success(response.message)
-        },
-        error: function (xhr, status, error) {
-            console.error(error);
-        }
-    });
+        $.ajax({
+            url: '/Provider/uploadFile', // Replace with your server endpoint
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $('#providermenudiv').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
 });

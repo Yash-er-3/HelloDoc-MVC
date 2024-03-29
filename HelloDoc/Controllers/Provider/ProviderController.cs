@@ -64,6 +64,7 @@ namespace HelloDoc.Controllers.Provider
             var physiciandata = _context.Physicians.FirstOrDefault(p => p.Physicianid == providerid);
             var model = new ProviderData
             {
+                providerid = physiciandata.Physicianid,
                 UserName = physiciandata.Firstname + " " + physiciandata.Lastname,
                 password = aspnetuser.Passwordhash,
                 role = rolelist,
@@ -87,10 +88,10 @@ namespace HelloDoc.Controllers.Provider
                 MedicalLicence = physiciandata.Medicallicense,
                 SynchronizeEmail = physiciandata.Syncemailaddress,
                 IsAgreementDoc = physiciandata.Isagreementdoc,
-                IsCredentialDoc = physiciandata.Isagreementdoc,
+                IsCredentialDoc = physiciandata.Iscredentialdoc,
                 IsBackgroundDoc = physiciandata.Isbackgrounddoc,
                 IsLicenseDoc = physiciandata.Islicensedoc,
-                IsNonDisclosureDoc = physiciandata.Istrainingdoc
+                IsNonDisclosureDoc = physiciandata.Isnondisclosuredoc
             };
             return View(model);
         }
@@ -226,7 +227,7 @@ namespace HelloDoc.Controllers.Provider
             {
 
                 string extension = Path.GetExtension(file.FileName);
-                string filename = providerid + "_" + onboardinguploadvalue + extension;
+                string filename = onboardinguploadvalue + extension;
 
                 string folderpath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "onboarding", providerid.ToString());
 
@@ -242,7 +243,7 @@ namespace HelloDoc.Controllers.Provider
 
 
 
-                var physician = _context.Physicians.FirstOrDefault(x => x.Physicianid == providerid);
+                Physician physician = _context.Physicians.FirstOrDefault(x => x.Physicianid == providerid);
                 
 
                 BitArray bitset = new BitArray(1);
@@ -250,33 +251,36 @@ namespace HelloDoc.Controllers.Provider
                 // Set some bits
                 bitset[0] = true; // Set the first bit to 1
 
-                if (onboardinguploadvalue == "Independent Contractor Agreement")
+                if (onboardinguploadvalue == "IndependentContractorAgreement")
                 {
                     physician.Isagreementdoc = bitset;
                 }
-                else if (onboardinguploadvalue == "Background Check")
+                else if (onboardinguploadvalue == "BackgroundCheck")
                 {
                     physician.Isbackgrounddoc = bitset;
 
                 }
-                else if (onboardinguploadvalue == "HIPAA Compliance")
+                else if (onboardinguploadvalue == "HIPAACompliance")
                 {
                     physician.Iscredentialdoc = bitset;
 
                 }
-                else if (onboardinguploadvalue == "Non-Disclosure Agreement")
+                else if (onboardinguploadvalue == "Non-DisclosureAgreement")
                 {
                     physician.Isnondisclosuredoc = bitset;
 
                 }
-                else if (onboardinguploadvalue == "License Document")
+                else if (onboardinguploadvalue == "LicenseDocument")
                 {
                     physician.Islicensedoc = bitset;
 
                 }
+
+                _context.Update(physician);
+                _context.SaveChanges();
             }
 
-            return Json(new { message = "File Uploaded Successfully" });
+            return RedirectToAction("EditProviderAccount",new {providerid = providerid});
         }
     }
 }

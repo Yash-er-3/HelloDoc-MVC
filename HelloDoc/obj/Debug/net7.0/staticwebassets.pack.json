@@ -373,40 +373,52 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\3_AgreementDoc.jpg",
-      "PackagePath": "staticwebassets\\onboarding\\3\\3_AgreementDoc.jpg"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\BackgroundCheck.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\3\\BackgroundCheck.jpg"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\3_BackgroundDoc.jpg",
-      "PackagePath": "staticwebassets\\onboarding\\3\\3_BackgroundDoc.jpg"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\HIPAACompliance.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\3\\HIPAACompliance.pdf"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\5_AgreementDoc.jpg",
-      "PackagePath": "staticwebassets\\onboarding\\5\\5_AgreementDoc.jpg"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\LicenseDocument.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\3\\LicenseDocument.pdf"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\5_LicenseDoc.jpg",
-      "PackagePath": "staticwebassets\\onboarding\\5\\5_LicenseDoc.jpg"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\4\\BackgroundCheck.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\4\\BackgroundCheck.jpg"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5_AgreementDoc.jpg",
-      "PackagePath": "staticwebassets\\onboarding\\5_AgreementDoc.jpg"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\BackgroundCheck.jpg",
+      "PackagePath": "staticwebassets\\onboarding\\5\\BackgroundCheck.jpg"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5_Non-Disclosure Agreement.jpg",
-      "PackagePath": "staticwebassets\\onboarding\\5_Non-Disclosure Agreement.jpg"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\BackgroundCheck.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\5\\BackgroundCheck.pdf"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\7_BackgroundDoc.jpg",
-      "PackagePath": "staticwebassets\\onboarding\\7\\7_BackgroundDoc.jpg"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\HIPAACompliance.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\5\\HIPAACompliance.pdf"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\7_BackgroundDoc.jpg.bmp",
-      "PackagePath": "staticwebassets\\onboarding\\7\\7_BackgroundDoc.jpg.bmp"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\IndependentContractorAgreement.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\5\\IndependentContractorAgreement.pdf"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\8\\8_AgreementDoc.jpg",
-      "PackagePath": "staticwebassets\\onboarding\\8\\8_AgreementDoc.jpg"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\LicenseDocument.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\5\\LicenseDocument.pdf"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\5\\Non-DisclosureAgreement.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\5\\Non-DisclosureAgreement.pdf"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\HIPAACompliance.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\7\\HIPAACompliance.pdf"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\IndependentContractorAgreement.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\7\\IndependentContractorAgreement.pdf"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig Contact your Provider.jpg",
