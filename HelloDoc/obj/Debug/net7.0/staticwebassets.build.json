@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "UWAjCOs5QWLKj0eOa6Om/O7By9JUTaDT/tHiUxUhrpw=",
+  "Hash": "LFQK8BVLVxe+xY4MSgw12dotTviJwr2mYEZUZn35zNY=",
   "Source": "HelloDoc",
   "BasePath": "_content/HelloDoc",
   "Mode": "Default",
@@ -627,6 +627,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\Provider\\Provider.js"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Scheduling\\Scheduling.js",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "js/Scheduling/Scheduling.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Scheduling\\Scheduling.js"
     },
     {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\site.js",

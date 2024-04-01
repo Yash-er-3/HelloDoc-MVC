@@ -137,6 +137,10 @@
       "PackagePath": "staticwebassets\\js\\Provider\\Provider.js"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Scheduling\\Scheduling.js",
+      "PackagePath": "staticwebassets\\js\\Scheduling\\Scheduling.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\darklight.js",
       "PackagePath": "staticwebassets\\js\\darklight.js"
     },
