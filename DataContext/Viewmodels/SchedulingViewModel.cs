@@ -17,6 +17,7 @@ namespace Services.Viewmodels
         public DateTime starttime { get; set; }
         public DateTime endtime { get; set; }
         public int repeatcount { get; set; }
+        public int shiftid { get; set; }
 
     }
 }

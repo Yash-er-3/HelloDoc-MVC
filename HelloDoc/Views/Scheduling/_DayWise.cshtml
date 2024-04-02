@@ -40,7 +40,7 @@
             <td>Coverage</td>
             @for (int i = 0; i < 24; i++)
             {
-                <td class="dates"></td>
+                <td class="dates" style="background-color:#efabd2;"></td>
             }
         </tr>
         @foreach (var obj in Model.physicians)
@@ -72,10 +72,10 @@
                                     wid = 58;
                                 }
                                 perstart /= 2;
-                                <td id="i_@obj.Physicianid" colspan="@diff" class="p-0">
-                                    <div class="dates d-flex align-items-center justify-content-center" style="height:70.5px;margin-left:@perstart%;width:@wid%">
+                                <td id="i_@obj.Physicianid" colspan="@diff" >
+                                    <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn small text-white" value="@item.Shiftid" @*data-bs-toggle="modal" data-bs-target="#viewShiftModal"*@ style="background-color:#efabd2; margin-left:@perstart%;width:@wid%">
                                         @item.Starttime.ToString("hh:mm tt")-@item.Endtime.ToString("hh:mm tt")
-                                    </div>
+                                    </button>
                                 </td>
                                 i += (@diff - 1);
 
@@ -105,5 +105,11 @@
 
     var currentDay = $('#currentDay').val();
     $('#showDate').text(currentDay);
+
+    $('.viewshiftbtn').on('click',function(){
+        let shiftid = $(this).val();
+        $('#shiftidviewmodel').val(shiftid);
+    });
+
 
 </script>

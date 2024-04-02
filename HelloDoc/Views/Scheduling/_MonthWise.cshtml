@@ -1,4 +1,4 @@
-﻿@model Services.Viewmodels.MonthWiseScheduling
+﻿@model Services.Viewmodels.MonthWiseScheduling;
 @using Microsoft.AspNetCore.Html
 @using Microsoft.AspNetCore.Mvc.Rendering
 
@@ -26,9 +26,9 @@
             x = 4;
         }
         var date = 1;
-        <div class="table-responsive">
-            <table class="calendar-table">
-                <tr class="text-white">
+        <div class="table-responsive shadow">
+            <table class="table calendar-table table-bordered text-center">
+                <tr class="text-white bg-secondary">
                     <th>Sun</th>
                     <th>Mon</th>
                     <th>Tue</th>
@@ -39,27 +39,31 @@
                 </tr>
                 @{
 
-
                     @for (var i = 0; i < x; i++)
                     {
 
                         <tr>
+
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+
+                        </tr>
+                        <tr>
                             @for (var j = 0; j < 7; j++)
                             {
+                                var shift = Model.shiftdetails.Where(u => u.Shiftdate.Month == now.Month && u.Shiftdate.Year == now.Year);
+                                var chkbool = 0;
                                 <td class="p-0">
                                     <table class="w-100">
                                         <tr>
-                                            @if ((i == 0 && j < (int)firstDay) || date > daysInMonth)
+                                            @if ((i == 0 && j < (int)firstDay) || date >= daysInMonth)
                                             {
                                                 <td></td>
-                                            }
-
-                                            else if (date == today && todaydate == now)
-                                            {
-                                                <td class="today">
-                                                    @(date++)
-                                                </td>
-
                                             }
                                             else
                                             {
@@ -67,14 +71,93 @@
                                                 <td class="dates">
                                                     @(date++)
                                                 </td>
-
+                                                chkbool = 1;
                                             }
                                         </tr>
-                                        <tr><td></td></tr>
-                                        <tr><td></td></tr>
-                                        <tr><td></td></tr>
-                                        <tr><td></td></tr>
-                                        <tr><td></td> </tr>
+                                        @{
+                                            if (chkbool == 1)
+                                            {
+                                                shift = shift.Where(u => u.Shiftdate.Day.ToString() == (date - 1).ToString()).ToList();
+                                            }
+
+                                        }
+                                        @if (chkbool == 1)
+                                        {
+                                            if (shift.Count() > 5)
+                                            {
+                                                int count = 4;
+                                                @foreach (var obj in shift)
+                                                {
+                                                    if (count > 0)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <div class="text-white small" style="background-color:#efabd2">
+                                                                    @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
+
+                                                                    @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <tr class="d-none mailto:more_@shift.ElementAt(0).Shiftid">
+                                                            <td>
+                                                                <div class="text-white small" style="background-color:#efabd2">
+                                                                    @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
+                                                                    @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    count--;
+
+                                                }
+                                                <tr>
+                                                    <td class="p-0">
+                                                        <button mailto:onclick="monthwisereadmore('more_@shift.ElementAt(0).Shiftid')" class="btn p-0" id="readmore">Read more</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                int count = 5;
+                                                @foreach (var obj in shift)
+                                                {
+                                                    if (count > 0)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <div class="text-white small" style="background-color:#efabd2">
+                                                                    @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
+                                                                    <br/>
+                                                                    @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    count--;
+
+                                                }
+                                                @while (count > 0)
+                                                {
+                                                    <tr><td></td></tr>
+                                                    count--;
+                                                }
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <tr><td></td></tr>
+                                            <tr><td></td></tr>
+                                            <tr><td></td></tr>
+                                            <tr><td></td></tr>
+                                            <tr><td></td></tr>
+
+                                        }
                                     </table>
                                 </td>
 
@@ -83,6 +166,7 @@
 
                             }
                         </tr>
+
 
 
                     }
@@ -102,5 +186,19 @@
 
     var currentdate = $('#currentMonth').val();
     $('#showDate').text(currentdate);
+
+    function monthWiseReadMore(id) {
+        var x = document.getElementById('readmore');
+        if (x.innerHTML == "Read more") {
+            x.innerHTML = "Read less";
+        }
+        else {
+            x.innerHTML = "Read more";
+        }
+        var ids = document.getElementsByClassName(id);
+        for (var i = 0; i < ids.length; i++) {
+            ids[i].classList.toggle('d-none');
+        }
+    }
 
 </script>

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Services.Viewmodels;
 using System.Collections;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static Vonage.VonageUrls;
 
 namespace HelloDoc.Controllers.Scheduling
 {
@@ -50,7 +52,9 @@ namespace HelloDoc.Controllers.Scheduling
                     WeekWiseScheduling week = new WeekWiseScheduling
                     {
                         date = currentDate,
-                        physicians = physician
+                        physicians = physician,
+                        shiftdetails = _context.Shiftdetails.Include(u => u.Shift).ToList()
+
                     };
                     return PartialView("_WeekWise", week);
 
@@ -58,6 +62,8 @@ namespace HelloDoc.Controllers.Scheduling
                     MonthWiseScheduling month = new MonthWiseScheduling
                     {
                         date = currentDate,
+                        physicians = physician,
+                        shiftdetails = _context.Shiftdetails.Include(u => u.Shift).ToList()
                     };
                     return PartialView("_MonthWise", month);
 
@@ -160,7 +166,7 @@ namespace HelloDoc.Controllers.Scheduling
             {
                 valueforweek = 6;
             }
-            if (shift.Isrepeat == new BitArray(new[] { true }))
+            if (shift.Isrepeat[0] == true)
             {
                 for (int j = 0; j < shift.Weekdays.Count(); j++)
                 {
@@ -188,8 +194,8 @@ namespace HelloDoc.Controllers.Scheduling
                             Shiftid = shift.Shiftid,
                             Shiftdate = DateOnly.FromDateTime(newcurdate),
                             Regionid = model.regionid,
-                            Starttime = new DateTime(0, 0, 0, model.starttime.Hour, model.starttime.Minute, model.starttime.Second),
-                            Endtime = new DateTime(0, 0, 0, model.endtime.Hour, model.endtime.Minute, model.endtime.Second),
+                            Starttime = new DateTime(newcurdate.Year, newcurdate.Month, newcurdate.Day, model.starttime.Hour, model.starttime.Minute, model.starttime.Second),
+                            Endtime = new DateTime(newcurdate.Year, newcurdate.Month, newcurdate.Day, model.endtime.Hour, model.endtime.Minute, model.endtime.Second),
                             Isdeleted = new BitArray(new[] { false })
                         };
                         _context.Shiftdetails.Add(shiftdetailnew);
@@ -200,5 +206,21 @@ namespace HelloDoc.Controllers.Scheduling
             }
             return RedirectToAction("Scheduling");
         }
+        //public IActionResult viewShiftEdit(SchedulingViewModel obj)
+        //{
+        //    var currentDate = DateTime.Parse(date);
+        //    List<Physician> physician = _context.Physicianregions.Include(u => u.Physician).Where(u => u.Regionid == regionid).Select(u => u.Physician).ToList();
+        //    if (regionid == 0)
+        //    {
+        //        physician = _context.Physicians.ToList();
+        //    }
+        //    DayWiseScheduling day = new DayWiseScheduling
+        //    {
+        //        date = currentDate,
+        //        physicians = physician,
+        //        shiftdetails = _context.Shiftdetails.Include(u => u.Shift).ToList()
+        //    };
+        //    return PartialView("_DayWise", day);
+        //}
     }
 }
