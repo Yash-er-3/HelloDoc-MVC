@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
 
 
-<div id="calendar" class="my-3">
+<div id="calendar " class="my-3 shadow  bg-white">
     @{
         // Get the current month and year
         var now = Model.date;
@@ -29,13 +29,13 @@
         <div class="table-responsive shadow">
             <table class="table calendar-table table-bordered text-center">
                 <tr class="text-white bg-secondary">
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
+                    <th style="width:14.28%">Sun</th>
+                    <th style="width:14.28%">Mon</th>
+                    <th style="width:14.28%">Tue</th>
+                    <th style="width:14.28%">Wed</th>
+                    <th style="width:14.28%">Thu</th>
+                    <th style="width:14.28%">Fri</th>
+                    <th style="width:14.28%">Sat</th>
                 </tr>
                 @{
 
@@ -83,7 +83,7 @@
                                         }
                                         @if (chkbool == 1)
                                         {
-                                            if (shift.Count() > 5)
+                                            if (shift.Count() > 4)
                                             {
                                                 int count = 4;
                                                 @foreach (var obj in shift)
@@ -92,23 +92,42 @@
                                                     {
                                                         <tr>
                                                             <td>
-                                                                <div class="text-white small" style="background-color:#efabd2">
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn w-100 small text-white"
+                                                                        value="@obj.Shiftdetailid" data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (obj.Status == 2)
+                                                                {
+                                                                    @:style="background-color:#ABde97; width: -webkit-fill-available;color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:#efabd2; width: -webkit-fill-available; color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
                                                                     @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
-
+                                                                    <br />
                                                                     @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
-                                                                </div>
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                     }
                                                     else
                                                     {
 
-                                                        <tr class="d-none mailto:more_@shift.ElementAt(0).Shiftid">
+                                                        <tr class="d-none more_@shift.ElementAt(0).Shiftid">
                                                             <td>
-                                                                <div class="text-white small" style="background-color:#efabd2">
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn w-100 small text-white"
+                                                                        value="@obj.Shiftdetailid" data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (obj.Status == 2)
+                                                                {
+                                                                    @:style="background-color:#ABde97; width: -webkit-fill-available;color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:#efabd2; width: -webkit-fill-available; color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
                                                                     @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
+                                                                    <br />
                                                                     @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
-                                                                </div>
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                     }
@@ -117,7 +136,7 @@
                                                 }
                                                 <tr>
                                                     <td class="p-0">
-                                                        <button mailto:onclick="monthwisereadmore('more_@shift.ElementAt(0).Shiftid')" class="btn p-0" id="readmore">Read more</button>
+                                                        <button value="more_@shift.ElementAt(0).Shiftid" class="btn p-0 px-md-1 px-xl-4 shadow-none text-white readmore" id="readmore" style="background-color:#3c7b9d;width:-webkit-fit-content;">Read more</button>
                                                     </td>
                                                 </tr>
                                             }
@@ -130,11 +149,20 @@
                                                     {
                                                         <tr>
                                                             <td>
-                                                                <div class="text-white small" style="background-color:#efabd2">
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn w-100 small text-white"
+                                                                        value="@obj.Shiftdetailid" data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (obj.Status == 2)
+                                                                {
+                                                                    @:style="background-color:#ABde97; width: -webkit-fill-available;color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:#efabd2; width: -webkit-fill-available; color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
                                                                     @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
-                                                                    <br/>
+                                                                    <br />
                                                                     @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
-                                                                </div>
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                     }
@@ -187,18 +215,61 @@
     var currentdate = $('#currentMonth').val();
     $('#showDate').text(currentdate);
 
-    function monthWiseReadMore(id) {
-        var x = document.getElementById('readmore');
-        if (x.innerHTML == "Read more") {
-            x.innerHTML = "Read less";
+
+    $('.readmore').on('click', function () {
+        let id = $(this).val();
+
+        let x = $(this).html()
+        if (x == "Read more") {
+            $(this).html("Read less");
         }
         else {
-            x.innerHTML = "Read more";
+            $(this).html("Read more");
         }
         var ids = document.getElementsByClassName(id);
         for (var i = 0; i < ids.length; i++) {
             ids[i].classList.toggle('d-none');
         }
-    }
+        // }
+    });
+
+
+    $('.viewshiftbtn').on('click', function () {
+        console.log("dhsgb")
+
+        let shiftid = $(this).val();
+        $('#shiftidviewmodel').val(shiftid);
+
+        $.ajax({
+            url: '/Scheduling/ViewShiftOpen',
+            data: { shiftdetailid: shiftid },
+            success: function (response) {
+                $("#viewShiftModal").modal();
+
+                let starttimeviewshift = new Date(response.starttime);
+                let endtimeviewshift = new Date(response.endtime);
+                let options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                let starttimeString = starttimeviewshift.toLocaleTimeString('en-US', options);
+                let endtimeString = endtimeviewshift.toLocaleTimeString('en-US', options);
+
+
+                $('#viewshiftregion').val(response.regionname)
+
+                $('#viewshiftphysicianname').empty();
+                $('#viewshiftphysicianname').append(
+                    $('<option>', {
+                        value: response.physicianname,
+                        text: response.physicianname,
+                    }));
+                $('#viewshiftshiftdate').val(response.shiftdateviewshift)
+                $('#viewshiftstartdate').val(starttimeString)
+                $('#viewshiftenddate').val(endtimeString)
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            }
+        });
+
+    });
 
 </script>

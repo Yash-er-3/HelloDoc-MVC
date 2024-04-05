@@ -7,37 +7,37 @@
     <input type="hidden" value="@currentDay" id="currentDay" />
     var f = 0;
 }
-<div class="table-responsive">
+<div class="table-responsive bg-white shadow">
     <table class="calendar-table table-bordered table">
         <tr>
-            <th>Staff</th>
-            <th>12A</th>
-            <th>1A</th>
-            <th>2A</th>
-            <th>3A</th>
-            <th>4A</th>
-            <th>5A</th>
-            <th>6A</th>
-            <th>7A</th>
-            <th>8A</th>
-            <th>9A</th>
-            <th>10A</th>
-            <th>11A</th>
-            <th>12P</th>
-            <th>1P</th>
-            <th>2P</th>
-            <th>3P</th>
-            <th>4P</th>
-            <th>5P</th>
-            <th>6P</th>
-            <th>7P</th>
-            <th>8P</th>
-            <th>9P</th>
-            <th>10P</th>
-            <th>11P</th>
+            <th class="border-0" style="width:10%">Staff</th>
+            <th style="width:3.75%">12A</th>
+            <th style="width:3.75%">1A</th>
+            <th style="width:3.75%">2A</th>
+            <th style="width:3.75%">3A</th>
+            <th style="width:3.75%">4A</th>
+            <th style="width:3.75%">5A</th>
+            <th style="width:3.75%">6A</th>
+            <th style="width:3.75%">7A</th>
+            <th style="width:3.75%">8A</th>
+            <th style="width:3.75%">9A</th>
+            <th style="width:3.75%">10A</th>
+            <th style="width:3.75%">11A</th>
+            <th style="width:3.75%">12P</th>
+            <th style="width:3.75%">1P</th>
+            <th style="width:3.75%">2P</th>
+            <th style="width:3.75%">3P</th>
+            <th style="width:3.75%">4P</th>
+            <th style="width:3.75%">5P</th>
+            <th style="width:3.75%">6P</th>
+            <th style="width:3.75%">7P</th>
+            <th style="width:3.75%">8P</th>
+            <th style="width:3.75%">9P</th>
+            <th style="width:3.75%">10P</th>
+            <th style="width:3.75%">11P</th>
         </tr>
         <tr>
-            <td>Coverage</td>
+            <td class="border-0">Coverage</td>
             @for (int i = 0; i < 24; i++)
             {
                 <td class="dates" style="background-color:#efabd2;"></td>
@@ -49,11 +49,11 @@
             <tr>
                 @if (obj.Photo == null)
                 {
-                    <td class="d-flex"><i class="fa-solid fa-user me-1 mt-1"></i> @obj.Firstname @obj.Lastname.ElementAt(0).</td>
+                    <td class="d-flex border-0 h-100"><i class="fa-solid fa-user me-1 mt-1"></i> @obj.Firstname @obj.Lastname.ElementAt(0).</td>
                 }
                 else
                 {
-                    <td class="d-flex"><img class="me-1" src="@obj.Photo" height="25px" width="25px" /> @obj.Firstname @obj.Lastname.ElementAt(0).</td>
+                    <td class="d-flex border-0 h-100"><img class="me-1" src="@obj.Photo" height="25px" width="25px" /> @obj.Firstname @obj.Lastname.ElementAt(0).</td>
                 }
                 @for (int i = 0; i < 24; i++)
                 {
@@ -65,15 +65,23 @@
                             var diff = item.Endtime.Hour - item.Starttime.Hour + 1;
                             if (item.Starttime.Hour <= i && item.Endtime.Hour >= i)
                             {
-                                var perstart = (item.Starttime.Minute / 60.00) * 100;
-                                int wid = 100;
-                                if (item.Endtime.Minute != 0)
+                                var perstart = ((item.Starttime.Minute / 42.00) * 100) / diff;
+                                var perend = (((40 - item.Endtime.Minute) / 60.00) * 100) / diff;
+                                if (perend < 0)
                                 {
-                                    wid = 58;
+                                    perend = 0;
                                 }
                                 perstart /= 2;
-                                <td id="i_@obj.Physicianid" colspan="@diff" >
-                                    <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn small text-white" value="@item.Shiftid" @*data-bs-toggle="modal" data-bs-target="#viewShiftModal"*@ style="background-color:#efabd2; margin-left:@perstart%;width:@wid%">
+                                <td  colspan="@diff" >
+                                    <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn small text-white" value="@item.Shiftdetailid"
+                                            data-bs-toggle="modal" data-bs-target="#viewShiftModal" @if (item.Status == 2)
+                                    {
+                                        @:style="background-color:#abde97; margin-left : @perstart%; margin-right: @perend%;width: -webkit-fill-available;color: rgb(26, 62, 24);font-weight:600;"
+                                    }
+                                    else
+                                    {
+                                        @:style="background-color:#efabd2; margin-left : @perstart%; margin-right: @perend%;  width: -webkit-fill-available; color: rgb(87, 1, 51);font-weight:600;"
+                                    }>
                                         @item.Starttime.ToString("hh:mm tt")-@item.Endtime.ToString("hh:mm tt")
                                     </button>
                                 </td>
@@ -106,10 +114,41 @@
     var currentDay = $('#currentDay').val();
     $('#showDate').text(currentDay);
 
-    $('.viewshiftbtn').on('click',function(){
+
+    $('.viewshiftbtn').on('click', function () {
         let shiftid = $(this).val();
         $('#shiftidviewmodel').val(shiftid);
+        $.ajax({
+            url: '/Scheduling/ViewShiftOpen',
+            data: { shiftdetailid: shiftid },
+            success: function (response) {
+                $("#viewShiftModal").modal();
+
+                let starttimeviewshift = new Date(response.starttime);
+                let endtimeviewshift = new Date(response.endtime);
+                let options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                let starttimeString = starttimeviewshift.toLocaleTimeString('en-US', options);
+                let endtimeString = endtimeviewshift.toLocaleTimeString('en-US', options);
+
+               
+                $('#viewshiftregion').val(response.regionname)
+
+                $('#viewshiftphysicianname').empty();
+                $('#viewshiftphysicianname').append(
+                    $('<option>', {
+                        value: response.physicianname,
+                        text: response.physicianname,
+                    }));
+                $('#viewshiftshiftdate').val(response.shiftdateviewshift)
+                $('#viewshiftstartdate').val(starttimeString)
+                $('#viewshiftenddate').val(endtimeString)
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            }
+        });
+
     });
 
-
+  
 </script>

@@ -1,0 +1,110 @@
+﻿@using Services.Viewmodels
+
+@model ShiftForReviewModel;
+
+<div>
+    <div class="d-flex justify-content-between align-items-center mt-2">
+        <h4>Requested Shifts</h4>
+        <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
+            <span class="back-btn p-2" style="color: #00b8e6;">&lt;Back</span>
+        </a>
+    </div>
+
+
+    <div class="mt-3 bg-white shadow rounded-3">
+
+        <div class="d-flex justify-content-between p-2">
+            <div class="d-flex">
+                <select name="regionname" id="schedulingregion" class="form-select shadow-none mt-3">
+                    <option class="regionselect" selected value="">All Region</option>
+
+                    @foreach (var item in Model.regions)
+                    {
+                        <option class="regionselect" value="@item.Regionid" itemid="@item.Regionid">@item.Name</option>
+
+                    }
+                </select>
+            </div>
+            <div class="d-flex">
+                <button class="p-2 mx-2 text-white btn-info border-0 shadow-none rounded d-flex align-items-center">
+                    <span class="d-none d-lg-block ps-2">View Current Month Shift</span>
+                </button>
+                <button class="p-2 mx-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center requestedshifts">
+                    <span class="d-none d-lg-block ps-2">Approved Selected</span>
+                </button>
+                <button class="p-2 ms-2 text-white rounded btn-danger border-0 shadow-none d-flex align-items-center">
+                    <span class="d-none d-lg-block ps-2">Delete Selected</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="w-100">
+                <thead class="p-1" style="background-color: rgb(235, 235, 235) ; color: black !important">
+                    <tr>
+                        <th style="width : 12%; text-align : center!important">
+                            <input type="checkbox" id="header-checkbox-reviewshift" />
+                        </th>
+                        <th style="width : 24%">Staff <i class="bi bi-arrow-up"></i></th>
+                        <th style="width : 17%">Day</th>
+                        <th style="width : 21%">Time</th>
+                        <th style="width : 14%">Region</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var obj in Model.shiftreviewlist)
+                    {
+
+
+                        <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
+                            <td style="width : 12%; text-align : center!important">
+                                <input type="checkbox" class="individual-checkbox-reviewshift" name="reviewshiftcheckbox" value="@obj.Shiftdetailid"/>
+
+                            </td>
+                            <td style="width : 24%">
+                                @foreach (var item in Model.physicians)
+                                {
+                                    if (item.Physicianid == obj.Shift.Physicianid)
+                                    {
+                                       @: @item.Firstname @item.Lastname
+                                    }
+                                }
+                            </td>
+                            <td style="width : 17%">@obj.Shiftdate.ToString("MMM dd, yyyy")</td>
+                            <td style="width : 21%">@obj.Starttime.ToString("hh:mm tt") - @obj.Endtime.ToString("hh:mm tt")</td>
+                            <td style="width : 14%">
+                                @foreach(var item in Model.regions)
+                                {
+                                    if(item.Regionid == obj.Regionid)
+                                    {
+                                        @item.Name
+                                    }
+                                }
+                            </td>
+
+                        </tr>
+                    }
+                    @* @foreach (var physician in Model.physicians)
+                    {
+                    <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
+                    <td style="width : 12%; text-align : center!important">
+                    <input type="checkbox" />
+
+                    </td>
+                    <td style="width : 24%">@physician.Firstname @physician.Lastname</td>
+                    <td style="width : 17%">Physician</td>
+                    <td style="width : 21%">UnAvailable</td>
+                    <td style="width : 14%">Active</td>
+
+                    </tr>
+                    }*@
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/Scheduling/Scheduling.js" asp-append-version="true"></script>

@@ -37,11 +37,11 @@
 
 .allstatus {
     width: 16.6% !important;
-    padding: 4px!important;
+    padding: 4px !important;
 }
 
 .nav-link {
-    padding: 8px!important;
+    padding: 8px !important;
 }
 
 .bottomarrow {
@@ -114,8 +114,8 @@
         border-top: 15px solid #906cb6;
     }
 
-.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover{
-    border:none;
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+    border: none;
 }
 
 
@@ -148,7 +148,6 @@
 .green-dot {
     --bs-table-bg: #5fbc61 !important;
     color: #5fbc61 !important;
-
 }
 
 .orange-dot {
@@ -180,7 +179,7 @@
 }
 
 .search-icon {
-    margin-left:10px;
+    margin-left: 10px;
     padding-left: 25px;
     background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
     background-size: 20px;
@@ -213,22 +212,22 @@
     z-index: 5 !important;
 }
 
-.accordion-button::after{
-    display:none;
+.accordion-button::after {
+    display: none;
 }
 
-.modal-footer{
-    border:none;
+.modal-footer {
+    border: none;
 }
 
-.offcanvas{
+.offcanvas {
     max-width: 70% !important;
-    position:absolute !important;
-    top:9% !important;
+    position: absolute !important;
+    top: 9% !important;
 }
 
-.offcanvas-backdrop{
-    position:absolute !important;
+.offcanvas-backdrop {
+    position: absolute !important;
 }
 
 input[type=radio] {
@@ -241,7 +240,7 @@ input[type=radio] {
 
 @media only screen and (max-width:900px) {
     .allstatus {
-        width: 33.3%!important
+        width: 33.3% !important
     }
 }
 
@@ -256,8 +255,8 @@ input[type=radio] {
         border-top: none !important;
     }
 
-    .dashboardtab{
-        padding:0px !important;
+    .dashboardtab {
+        padding: 0px !important;
     }
 
 
@@ -266,9 +265,10 @@ input[type=radio] {
     }
 
     .small {
-        font-size: 0.75rem!important;
+        font-size: 0.75rem !important;
     }
 }
+
 .dropdown-item:hover {
     background-color: #17a2b8 !important;
     color: white !important;
@@ -277,6 +277,7 @@ input[type=radio] {
     transition-property: letter-spacing !important;
     transition-duration: 0.3s !important;
 }
+
 .admin-layout-nav {
     margin: 10px 5px;
     padding: 5px;
@@ -298,9 +299,30 @@ input[type=radio] {
 .admin-layout-nav-mobile-active {
     background-color: lightgray !important;
 }
+
 .admin-layout-nav-active {
     padding: 3px 5px 5px 5px;
     border-bottom: 2px solid #17a2b8 !important;
     color: #17a2b8 !important;
     font-size: 16.4px;
 }
+
+#calendar-hidden {
+    border: 0px;
+    background-color: transparent;
+    background: url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) 97% 50% no-repeat;
+    position: absolute;
+    opacity: 0;
+    margin-top: 3px;
+}
+
+    #calendar-hidden::-webkit-inner-spin-button,
+    #calendar-hidden::-webkit-calendar-picker-indicator {
+        /* display: none;
+    -webkit-appearance: none; */
+        margin: 0;
+    }
+
+    #calendar-hidden::-webkit-datetime-edit {
+        display: none;
+    }
