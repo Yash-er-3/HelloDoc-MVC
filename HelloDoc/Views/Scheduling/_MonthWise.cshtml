@@ -56,7 +56,7 @@
                         <tr>
                             @for (var j = 0; j < 7; j++)
                             {
-                                var shift = Model.shiftdetails.Where(u => u.Shiftdate.Month == now.Month && u.Shiftdate.Year == now.Year);
+                                var shift = Model.shiftdetails.Where(u => u.Shiftdate.Month == now.Month && u.Shiftdate.Year == now.Year && u.Isdeleted[0] == false);
                                 var chkbool = 0;
                                 <td class="p-0">
                                     <table class="w-100">
@@ -136,7 +136,7 @@
                                                 }
                                                 <tr>
                                                     <td class="p-0">
-                                                        <button value="more_@shift.ElementAt(0).Shiftid" class="btn p-0 px-md-1 px-xl-4 shadow-none text-white readmore" id="readmore" style="background-color:#3c7b9d;width:-webkit-fit-content;">Read more</button>
+                                                        <button value="more_@shift.ElementAt(0).Shiftid" class="btn p-0 w-100 shadow-none text-white readmore" id="readmore" style="background-color:#3c7b9d;width:-webkit-fit-content;">Read more</button>
                                                     </td>
                                                 </tr>
                                             }

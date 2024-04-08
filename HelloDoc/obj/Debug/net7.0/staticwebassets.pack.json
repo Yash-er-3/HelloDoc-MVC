@@ -417,6 +417,10 @@
       "PackagePath": "staticwebassets\\onboarding\\5\\Non-DisclosureAgreement.pdf"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\BackgroundCheck.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\7\\BackgroundCheck.pdf"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\HIPAACompliance.pdf",
       "PackagePath": "staticwebassets\\onboarding\\7\\HIPAACompliance.pdf"
     },

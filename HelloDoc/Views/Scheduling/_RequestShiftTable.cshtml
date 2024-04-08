@@ -1,0 +1,62 @@
+﻿@using Services.Viewmodels
+
+@model ShiftForReviewModel;
+
+@{
+    Layout = null;
+}
+
+<table class="w-100">
+    <thead class="p-1" style="background-color: rgb(235, 235, 235) ; color: black !important">
+        <tr>
+            <th style="width : 12%; text-align : center!important">
+                <input type="checkbox" id="header-checkbox-reviewshift" />
+            </th>
+            <th style="width : 24%">Staff <i class="bi bi-arrow-up"></i></th>
+            <th style="width : 17%">Day</th>
+            <th style="width : 21%">Time</th>
+            <th style="width : 14%">Region</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var obj in Model.shiftreviewlist)
+        {
+
+            <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
+                <td style="width : 12%; text-align : center!important">
+                    <input type="checkbox" class="individual-checkbox-reviewshift" name="reviewshiftcheckbox" value="@obj.Shiftdetailid" />
+
+                </td>
+                <td style="width : 24%">
+                    @foreach (var item in Model.physicians)
+                    {
+                        if (item.Physicianid == obj.Shift.Physicianid)
+                        {
+                            @: @item.Firstname @item.Lastname
+                        }
+                    }
+                </td>
+                <td style="width : 17%">@obj.Shiftdate.ToString("MMM dd, yyyy")</td>
+                <td style="width : 21%">@obj.Starttime.ToString("hh:mm tt") - @obj.Endtime.ToString("hh:mm tt")</td>
+                <td style="width : 14%">
+                    @foreach (var item in Model.regions)
+                    {
+                        if (item.Regionid == obj.Regionid)
+                        {
+                            @item.Name
+                        }
+                    }
+                </td>
+
+            </tr>
+        }
+
+
+
+    </tbody>
+
+
+
+</table>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LFQK8BVLVxe+xY4MSgw12dotTviJwr2mYEZUZn35zNY=",
+  "Hash": "9GGk4Ch93maFz5GsxXhQzoHJJREU/Xsm92Hxl2XhwJU=",
   "Source": "HelloDoc",
   "BasePath": "_content/HelloDoc",
   "Mode": "Default",
@@ -1800,6 +1800,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\onboarding\\5\\Non-DisclosureAgreement.pdf"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\BackgroundCheck.pdf",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "onboarding/7/BackgroundCheck.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\onboarding\\7\\BackgroundCheck.pdf"
     },
     {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\7\\HIPAACompliance.pdf",

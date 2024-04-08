@@ -9,6 +9,8 @@ filterDate.setMinutes(filterDate.getMinutes() - timezoneOffset);
 
 function loadSchedulingPartial(PartialName) {
     currentPartial = PartialName;
+    localStorage.setItem('currentPartial', PartialName)
+
     $.ajax({
         url: '/Scheduling/LoadSchedulingPartial',
         data: { PartialName: PartialName, date: filterDate.toISOString(), 'regionid': regionid, status: status },
@@ -310,55 +312,37 @@ $('#addshiftstartdate , #addshiftenddate').on('change', function () {
 
         }
     }
-
-
 });
 
 $('#calendar-icon-datepicker').click(function () {
     console.log("cal")
     $('#calendar-hidden').click();
 })
-
-
 $('.requestedshifts').click(function () {
-
 
     $.ajax({
         url: '/Scheduling/RequestedShifts',
-        data: { currentPartial : currentPartial, filterDate : filterDate.toISOString(), regionid : regionid },
+        /*data: { currentPartial : currentPartial, filterDate : filterDate.toISOString(), regionid : regionid },*/
         success: function (response) {
-            $('#scheduling-div').html(response);
+            $('#scheduling-div').html(response)
+
+            //var totalCount = response;
+            //var pageSize = 10; // Customize your page size here
+
+            //// Calculate the total number of pages
+            //var totalPages = Math.ceil(totalCount / pageSize);
+
+            //for (var i = 1; i <= totalPages; i++) {
+            //    $('#paginationButtons').append('<button onclick="loadStaff(' + i + ')">Page ' + i + '</button>');
+            //}
+
+            //// Load initial staff data (e.g., page 1)
+            //loadStaff(1);
+
+
         },
         error: function (status, xhr, error) {
             console.error(error)
         }
     });
 })
-
-
-$("#header-checkbox-reviewshift").change(function () {
-    $(".individual-checkbox-reviewshift").prop("checked", this.checked);
-    console.log("run check")
-});
-
-$(".individual-checkbox-reviewshift").change(function () {
-    var selectedshiftvalues = [];
-    $(".individual-checkbox-reviewshift:checked").each(function () {
-        selectedshiftvalues.push($(this).val());
-    });
-
-    $.ajax({
-        url: '/Scheduling/ApproveSelectedShift',
-        data: selectedshiftvalues,
-        method: 'POST',
-        success: function (response) {
-            $('#scheduling-div').html(response);
-
-        },
-        error: function (status, xhr, error) {
-            console.error(error)
-        }
-    });
-
-
-});

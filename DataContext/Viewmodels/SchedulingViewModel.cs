@@ -34,5 +34,7 @@ namespace Services.Viewmodels
 
         public List <Shiftdetail> shiftreviewlist { get; set; }
         public List<Physician> physicians { get; set; }
+
+        public int totalCount { get; set; }
     }
 }

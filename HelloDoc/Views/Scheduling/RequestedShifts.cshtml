@@ -2,7 +2,7 @@
 
 @model ShiftForReviewModel;
 
-<div>
+<div id="requestedshift-div">
     <div class="d-flex justify-content-between align-items-center mt-2">
         <h4>Requested Shifts</h4>
         <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
@@ -29,82 +29,123 @@
                 <button class="p-2 mx-2 text-white btn-info border-0 shadow-none rounded d-flex align-items-center">
                     <span class="d-none d-lg-block ps-2">View Current Month Shift</span>
                 </button>
-                <button class="p-2 mx-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center requestedshifts">
+                <button class="p-2 mx-2 text-white rounded btn-info border-0 shadow-none d-flex align-items-center" value="approve" id="approve-selected-requestedshift">
                     <span class="d-none d-lg-block ps-2">Approved Selected</span>
                 </button>
-                <button class="p-2 ms-2 text-white rounded btn-danger border-0 shadow-none d-flex align-items-center">
+                <button class="p-2 ms-2 text-white rounded btn-danger border-0 shadow-none d-flex align-items-center" value="delete" id="delete-selected-requestedshift">
                     <span class="d-none d-lg-block ps-2">Delete Selected</span>
                 </button>
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="w-100">
-                <thead class="p-1" style="background-color: rgb(235, 235, 235) ; color: black !important">
-                    <tr>
-                        <th style="width : 12%; text-align : center!important">
-                            <input type="checkbox" id="header-checkbox-reviewshift" />
-                        </th>
-                        <th style="width : 24%">Staff <i class="bi bi-arrow-up"></i></th>
-                        <th style="width : 17%">Day</th>
-                        <th style="width : 21%">Time</th>
-                        <th style="width : 14%">Region</th>
-                    </tr>
-                </thead>
 
-                <tbody>
+        <div class="table-responsive" id="requestshifttable">
 
-                    @foreach (var obj in Model.shiftreviewlist)
-                    {
-
-
-                        <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
-                            <td style="width : 12%; text-align : center!important">
-                                <input type="checkbox" class="individual-checkbox-reviewshift" name="reviewshiftcheckbox" value="@obj.Shiftdetailid"/>
-
-                            </td>
-                            <td style="width : 24%">
-                                @foreach (var item in Model.physicians)
-                                {
-                                    if (item.Physicianid == obj.Shift.Physicianid)
-                                    {
-                                       @: @item.Firstname @item.Lastname
-                                    }
-                                }
-                            </td>
-                            <td style="width : 17%">@obj.Shiftdate.ToString("MMM dd, yyyy")</td>
-                            <td style="width : 21%">@obj.Starttime.ToString("hh:mm tt") - @obj.Endtime.ToString("hh:mm tt")</td>
-                            <td style="width : 14%">
-                                @foreach(var item in Model.regions)
-                                {
-                                    if(item.Regionid == obj.Regionid)
-                                    {
-                                        @item.Name
-                                    }
-                                }
-                            </td>
-
-                        </tr>
-                    }
-                    @* @foreach (var physician in Model.physicians)
-                    {
-                    <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
-                    <td style="width : 12%; text-align : center!important">
-                    <input type="checkbox" />
-
-                    </td>
-                    <td style="width : 24%">@physician.Firstname @physician.Lastname</td>
-                    <td style="width : 17%">Physician</td>
-                    <td style="width : 21%">UnAvailable</td>
-                    <td style="width : 14%">Active</td>
-
-                    </tr>
-                    }*@
-                </tbody>
-            </table>
-
+          
         </div>
+
+        <div id="paginationButtons"></div>
+    </div>
+    <div class="d-none" id="currentDateValue">
+        @DateTime.Now.Date.ToString("MMM dd yyyy")
     </div>
 </div>
 
-<script src="/js/Scheduling/Scheduling.js" asp-append-version="true"></script>
+
+<script>
+
+    var regionid;
+    var status;
+    var filterDate = new Date($('#currentDateValue').text());
+    var currentPartial = "";
+    var timezoneOffset = filterDate.getTimezoneOffset();
+    filterDate.setMinutes(filterDate.getMinutes() - timezoneOffset);
+
+    var currentPartial = localStorage.getItem('currentPartial')
+
+        loadStaff(1)
+
+
+    var pageSize;
+    function loadStaff(page) {
+
+        localStorage.getItem('filterDate')
+
+        $.ajax({
+            url: '/Scheduling/RequestedShiftsCount',
+            data: {
+                currentPartial: currentPartial, filterDate: filterDate.toISOString(), 'regionid': regionid
+            },
+            async: false,
+            success: function (response) {
+                // Update the staffContainer with the retrieved staff details
+                pageSize = 10; // Customize your page size here
+                var totalCount = response;
+                // Calculate the total number of pages
+                var totalPages = Math.ceil(totalCount / pageSize);
+                $('#paginationButtons').html("")
+                for (var i = 1; i <= totalPages; i++) {
+                    $('#paginationButtons').append('<button onclick="loadStaff(' + i + ')">Page ' + i + '</button>');
+                }
+
+            },
+            error: function (status, xhr, error) {
+                console.error(error)
+            }
+        });
+
+
+
+
+        // Make an AJAX request to get staff data for the specified page
+        $.ajax({
+            url: '/Scheduling/RequestedShiftsPagination',
+            async: false,
+
+            data: {
+                currentPartial: currentPartial, filterDate: filterDate.toISOString(), 'regionid': regionid, page: page, pageSize: pageSize
+            },
+            success: function (response) {
+                // Update the staffContainer with the retrieved staff details
+                $('#requestshifttable').html(response)
+
+            },
+            error: function (status, xhr, error) {
+                console.error(error)
+            }
+        });
+    }
+
+
+    $("#header-checkbox-reviewshift").change(function () {
+        $(".individual-checkbox-reviewshift").prop("checked", this.checked);
+        console.log("run check")
+    });
+
+
+
+    $('#approve-selected-requestedshift,#delete-selected-requestedshift').click(function () {
+
+        var selectedshiftvalues = [];
+        $(".individual-checkbox-reviewshift:checked").each(function () {
+            selectedshiftvalues.push($(this).val());
+        });
+
+        var clickvalue = $(this).val();
+
+        console.log(selectedshiftvalues)
+
+        $.ajax({
+            url: '/Scheduling/ApproveSelectedShift',
+            data: { selectedshiftvalues: selectedshiftvalues, clickvalue: clickvalue },
+            method: 'POST',
+            success: function (response) {
+                $('#scheduling-div').html(response);
+
+            },
+            error: function (status, xhr, error) {
+                console.error(error)
+            }
+        });
+    });
+</script>

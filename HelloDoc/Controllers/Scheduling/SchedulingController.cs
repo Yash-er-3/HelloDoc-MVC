@@ -315,7 +315,8 @@ namespace HelloDoc.Controllers.Scheduling
             }
             if (model.eventvalue == "delete")
             {
-                _context.Shiftdetails.Remove(update);
+                update.Isdeleted = new BitArray(new[] { true });
+                _context.Shiftdetails.Update(update);
 
             }
 
@@ -326,8 +327,18 @@ namespace HelloDoc.Controllers.Scheduling
 
         }
 
+        public IActionResult RequestedShifts()
+        {
+            ShiftForReviewModel modal = new ShiftForReviewModel();
+            modal.regions = _context.Regions.ToList();
+           
 
-        public IActionResult RequestedShifts(string currentPartial, string filterDate, int regionid)
+            
+
+            return View(modal);
+        }
+
+        public int RequestedShiftsCount(string currentPartial, string filterDate, int regionid)
         {
             ShiftForReviewModel modal = new ShiftForReviewModel();
             modal.regions = _context.Regions.ToList();
@@ -339,9 +350,7 @@ namespace HelloDoc.Controllers.Scheduling
 
             if (regionid != 0)
             {
-
-
-                shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1 && s.Regionid == regionid).ToList();
+                shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1 && s.Regionid == regionid && s.Isdeleted != new BitArray(new[] { true })).ToList();
 
             }
             else
@@ -349,20 +358,64 @@ namespace HelloDoc.Controllers.Scheduling
 
                 if (currentPartial == "_DayWise")
                 {
-                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1).ToList();
+                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
                 }
                 else if (currentPartial == "_WeekWise")
                 {
                     var prevsunday = date.AddDays(-(int)date.DayOfWeek);
                     var nextsunday = date.AddDays(7 - (int)date.DayOfWeek);
 
-                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= prevsunday && s.Shiftdate < nextsunday && s.Status == 1).ToList();
+                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= prevsunday && s.Shiftdate < nextsunday && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
                 }
-                 else if (currentPartial == "_MonthWise")
+                else if (currentPartial == "_MonthWise")
                 {
                     var monthStart = new DateOnly(date.Year, date.Month, 1);
                     var monthEnd = monthStart.AddMonths(1).AddDays(-1);
-                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= monthStart && s.Shiftdate <= monthEnd && s.Status == 1).ToList();
+                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= monthStart && s.Shiftdate <= monthEnd && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
+                }
+
+
+            }
+            modal.shiftreviewlist = shiftreviewdata;
+
+            return shiftreviewdata.Count();
+        }
+
+
+        public IActionResult RequestedShiftsPagination(string currentPartial, string filterDate, int regionid, int page, int pageSize)
+        {
+            ShiftForReviewModel modal = new ShiftForReviewModel();
+            modal.regions = _context.Regions.ToList();
+            modal.physicians = _context.Physicians.ToList();
+
+            DateOnly date = DateOnly.ParseExact(filterDate.Substring(0, 10), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            List<Shiftdetail> shiftreviewdata = new List<Shiftdetail>();
+
+
+            if (regionid != 0)
+            {
+                shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1 && s.Regionid == regionid && s.Isdeleted != new BitArray(new[] { true })).ToList();
+
+            }
+            else
+            {
+
+                if (currentPartial == "_DayWise")
+                {
+                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
+                }
+                else if (currentPartial == "_WeekWise")
+                {
+                    var prevsunday = date.AddDays(-(int)date.DayOfWeek);
+                    var nextsunday = date.AddDays(7 - (int)date.DayOfWeek);
+
+                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= prevsunday && s.Shiftdate < nextsunday && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
+                }
+                else if (currentPartial == "_MonthWise")
+                {
+                    var monthStart = new DateOnly(date.Year, date.Month, 1);
+                    var monthEnd = monthStart.AddMonths(1).AddDays(-1);
+                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= monthStart && s.Shiftdate <= monthEnd && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
                 }
 
 
@@ -370,13 +423,51 @@ namespace HelloDoc.Controllers.Scheduling
             modal.shiftreviewlist = shiftreviewdata;
 
 
-            return View(modal);
+            var startIndex = (page - 1) * pageSize;
+
+            var pagedata = shiftreviewdata.Skip(startIndex).Take(pageSize).ToList();
+
+            modal.shiftreviewlist = pagedata;
+
+            return PartialView("_RequestShiftTable", modal);
+
+
         }
 
-        public IActionResult ApproveSelectedShift(List<string> selectedshiftvalues)
+        public IActionResult ApproveSelectedShift(List<string> selectedshiftvalues, string clickvalue)
         {
 
-            return View();
+
+
+            if (clickvalue == "approve")
+            {
+                foreach (var shiftdetailid in selectedshiftvalues)
+                {
+                    Shiftdetail x = _context.Shiftdetails.FirstOrDefault(s => s.Shiftdetailid == int.Parse(shiftdetailid));
+                    x.Status = 2;
+                    _context.Shiftdetails.Update(x);
+
+                }
+            }
+
+
+            else if (clickvalue == "delete")
+            {
+                foreach (var shiftdetailid in selectedshiftvalues)
+                {
+                    Shiftdetail x = _context.Shiftdetails.FirstOrDefault(s => s.Shiftdetailid == int.Parse(shiftdetailid));
+                    x.Isdeleted = new BitArray(new[] { true });
+                    _context.Shiftdetails.Update(x);
+
+                }
+            }
+
+
+            _context.SaveChanges();
+
+
+
+            return RedirectToAction("");
         }
     }
 }

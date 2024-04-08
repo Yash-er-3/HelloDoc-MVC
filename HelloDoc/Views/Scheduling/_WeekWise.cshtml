@@ -36,7 +36,7 @@
         </tr>
         @foreach (var obj in Model.physicians)
         {
-            var shift = Model.shiftdetails.Where(u => u.Shiftdate >= DateOnly.FromDateTime(previousSunday) && u.Shiftdate <= DateOnly.FromDateTime(previousSunday.AddDays(6)) && u.Shift.Physicianid == obj.Physicianid).ToList();
+            var shift = Model.shiftdetails.Where(u => u.Shiftdate >= DateOnly.FromDateTime(previousSunday) && u.Shiftdate <= DateOnly.FromDateTime(previousSunday.AddDays(6)) && u.Shift.Physicianid == obj.Physicianid && u.Isdeleted[0] == false).ToList();
 
             <tr>
                 @if (obj.Photo == null)
