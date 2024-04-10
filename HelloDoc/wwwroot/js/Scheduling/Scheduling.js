@@ -10,6 +10,7 @@ filterDate.setMinutes(filterDate.getMinutes() - timezoneOffset);
 function loadSchedulingPartial(PartialName) {
     currentPartial = PartialName;
     localStorage.setItem('currentPartial', PartialName)
+    localStorage.setItem('filterDate', filterDate.toISOString())
 
     $.ajax({
         url: '/Scheduling/LoadSchedulingPartial',

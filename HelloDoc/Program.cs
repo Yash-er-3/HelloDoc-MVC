@@ -25,6 +25,11 @@ builder.Services.AddScoped<IViewCaseRepository,ViewCaseRepository >();
 builder.Services.AddScoped<IBlockCaseRepo, BlockCaseRepo>();
 builder.Services.AddScoped<IAddOrUpdateRequestStatusLog, AddOrUpdateRequestStatusLog>();
 builder.Services.AddScoped<IAddOrUpdateRequestNotes, AddOrUpdateRequestNotes>();
+builder.Services.AddScoped<IVendorRepository, VendorRepository>();
+builder.Services.AddScoped<IunitOfWork, unitOfWork>();
+
+
+
 builder.Services.AddScoped<IAuthorizatoinRepository, AuthorizationRepository>();
 builder.Services.AddScoped<IJwtRepository, JwtRepository>();
 

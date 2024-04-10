@@ -44,7 +44,7 @@
           
         </div>
 
-        <div id="paginationButtons"></div>
+        <div class="d-flex justify-content-end" id="paginationButtons"></div>
     </div>
     <div class="d-none" id="currentDateValue">
         @DateTime.Now.Date.ToString("MMM dd yyyy")
@@ -56,25 +56,23 @@
 
     var regionid;
     var status;
-    var filterDate = new Date($('#currentDateValue').text());
     var currentPartial = "";
-    var timezoneOffset = filterDate.getTimezoneOffset();
-    filterDate.setMinutes(filterDate.getMinutes() - timezoneOffset);
 
     var currentPartial = localStorage.getItem('currentPartial')
+    var filterDate = localStorage.getItem('filterDate')
+  
 
-        loadStaff(1)
+    loadStaff(1)
 
 
     var pageSize;
     function loadStaff(page) {
 
-        localStorage.getItem('filterDate')
 
         $.ajax({
             url: '/Scheduling/RequestedShiftsCount',
             data: {
-                currentPartial: currentPartial, filterDate: filterDate.toISOString(), 'regionid': regionid
+                currentPartial: currentPartial, filterDate: filterDate, 'regionid': regionid
             },
             async: false,
             success: function (response) {
@@ -85,7 +83,7 @@
                 var totalPages = Math.ceil(totalCount / pageSize);
                 $('#paginationButtons').html("")
                 for (var i = 1; i <= totalPages; i++) {
-                    $('#paginationButtons').append('<button onclick="loadStaff(' + i + ')">Page ' + i + '</button>');
+                    $('#paginationButtons').append('<button class="mx-1 btn-info" onclick="loadStaff(' + i + ')">Page ' + i + '</button>');
                 }
 
             },
@@ -103,7 +101,7 @@
             async: false,
 
             data: {
-                currentPartial: currentPartial, filterDate: filterDate.toISOString(), 'regionid': regionid, page: page, pageSize: pageSize
+                currentPartial: currentPartial, filterDate: filterDate, 'regionid': regionid, page: page, pageSize: pageSize
             },
             success: function (response) {
                 // Update the staffContainer with the retrieved staff details

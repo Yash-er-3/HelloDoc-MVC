@@ -141,6 +141,14 @@
       "PackagePath": "staticwebassets\\js\\Scheduling\\Scheduling.js"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Vendor\\PartialViewVendor.js",
+      "PackagePath": "staticwebassets\\js\\Vendor\\PartialViewVendor.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Vendor\\Vendor.js",
+      "PackagePath": "staticwebassets\\js\\Vendor\\Vendor.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\darklight.js",
       "PackagePath": "staticwebassets\\js\\darklight.js"
     },
@@ -429,6 +437,22 @@
       "PackagePath": "staticwebassets\\onboarding\\7\\IndependentContractorAgreement.pdf"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\143 index.html",
+      "PackagePath": "staticwebassets\\upload\\143 index.html"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\144 script.js",
+      "PackagePath": "staticwebassets\\upload\\144 script.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\145 Patient site_mobile.png",
+      "PackagePath": "staticwebassets\\upload\\145 Patient site_mobile.png"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\146 View documents_1.png",
+      "PackagePath": "staticwebassets\\upload\\146 View documents_1.png"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig Contact your Provider.jpg",
       "PackagePath": "staticwebassets\\upload\\Fig Contact your Provider.jpg"
     },
@@ -521,12 +545,24 @@
       "PackagePath": "staticwebassets\\upload\\Fig8. Admin dashboard in To Close state.jpg"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig9. Admin dashboard in Unpaid state (70).jpg",
+      "PackagePath": "staticwebassets\\upload\\Fig9. Admin dashboard in Unpaid state (70).jpg"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig9. Admin dashboard in Unpaid state - Copy.jpg",
       "PackagePath": "staticwebassets\\upload\\Fig9. Admin dashboard in Unpaid state - Copy.jpg"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig9. Admin dashboard in Unpaid state.jpg",
       "PackagePath": "staticwebassets\\upload\\Fig9. Admin dashboard in Unpaid state.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Patient site_forget password_mobile.png",
+      "PackagePath": "staticwebassets\\upload\\Patient site_forget password_mobile.png"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Patient site_login_mobile.png",
+      "PackagePath": "staticwebassets\\upload\\Patient site_login_mobile.png"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\data (13).xlsx",
