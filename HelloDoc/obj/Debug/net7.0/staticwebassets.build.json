@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OhkBpqDMth2nN9yfJomfihI5sQ9eyRFZ3cNEwFeB1lE=",
+  "Hash": "qeBF3p1IhL3pSEWFhfsWmZjuTr5G865n/t2T3D1J3Pg=",
   "Source": "HelloDoc",
   "BasePath": "_content/HelloDoc",
   "Mode": "Default",
@@ -391,6 +391,23 @@
       "OriginalItemSpec": "wwwroot\\images\\light.png"
     },
     {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\no data gif.gif",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "images/no data gif.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\no data gif.gif"
+    },
+    {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\person-circle.png",
       "SourceId": "HelloDoc",
       "SourceType": "Discovered",
@@ -406,6 +423,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\person-circle.png"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\profile-icon.png",
+      "SourceId": "HelloDoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\",
+      "BasePath": "_content/HelloDoc",
+      "RelativePath": "images/profile-icon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\profile-icon.png"
     },
     {
       "Identity": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Access\\AccessRole.js",

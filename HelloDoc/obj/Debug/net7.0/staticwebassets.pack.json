@@ -85,8 +85,16 @@
       "PackagePath": "staticwebassets\\images\\light.png"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\no data gif.gif",
+      "PackagePath": "staticwebassets\\images\\no data gif.gif"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\person-circle.png",
       "PackagePath": "staticwebassets\\images\\person-circle.png"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\images\\profile-icon.png",
+      "PackagePath": "staticwebassets\\images\\profile-icon.png"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Access\\AccessRole.js",

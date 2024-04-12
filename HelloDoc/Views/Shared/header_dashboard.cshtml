@@ -121,7 +121,7 @@
                 <button class="nav-link me-4" id="nav-record-tab" data-bs-toggle="tab" data-bs-target="#nav-record" type="button" role="tab" aria-controls="nav-record" aria-selected="false">Records</button>*@
 
                 <a class="admin-layout-nav fw-bold me-2" id="nav-home-tab" asp-action="AdminDashboard" asp-controller="Admin">Dashboard</a>
-                <a class="admin-layout-nav fw-bold me-1" id="nav-provider-location-tab">Provider Location</a>
+                <a asp-controller="ProviderLocation" asp-action="ProviderLocation" class="admin-layout-nav fw-bold me-1" id="nav-provider-location-tab">Provider Location</a>
                 <a class="admin-layout-nav fw-bold nav-profile-tab-for-load-profile " id="nav-profile-tab" asp-action="AdminProfile" asp-controller="Admin">My Profile</a>
 
                 <a class="admin-layout-nav  fw-bold btn dropdown shadow-none" id="nav-provider-tab" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Providers</a>
@@ -131,7 +131,14 @@
                     <a class="dropdown-item">Invoicing</a>
                 </div>
                 <a class="admin-layout-nav fw-bold" id="nav-partner-tab" asp-action="Vendor" asp-controller="Vendor">Partners</a>
-                <a class="admin-layout-nav fw-bold" id="nav-access-tab" asp-controller="Access" asp-action="AccessRole">Access</a>
+                <a asp-controller="Vendor" asp-action="Vendor" class="admin-layout-nav  fw-bold" id="nav-partner-tab">Partners</a>
+                @*<a class="admin-layout-nav fw-bold" id="nav-access-tab" asp-controller="Access" asp-action="AccessRole">Access</a>*@
+                <a class="admin-layout-nav  fw-bold" id="nav-access-tab" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Access</a>
+                <div class="dropdown-menu" aria-labelledby="nav-access-tab">
+                    <a class="dropdown-item" asp-controller="Access" asp-action="AccessRole"> Access</a>
+                    <a class="dropdown-item" asp-controller="Admin" asp-action="CreateAdmin">Create Admin</a>
+                    <a class="dropdown-item" asp-controller="Access" asp-action="UserAccess">User Access</a>
+                </div>
                 @*<a class="admin-layout-nav fw-bold" id="nav-record-tab" asp-action="SearchRecords" asp-controller="Records">Records</a>*@
                 <a class="admin-layout-nav  fw-bold" id="nav-record-tab" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Records</a>
                 <div class="dropdown-menu" aria-labelledby="nav-record-tab">

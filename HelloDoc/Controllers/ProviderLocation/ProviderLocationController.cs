@@ -1,7 +1,5 @@
-﻿using HalloDoc.DataContext;
-using HelloDoc.DataContext;
+﻿using HelloDoc.DataContext;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
 using Services.ViewModels;
 
 namespace HalloDoc.Controllers.ProviderLocation

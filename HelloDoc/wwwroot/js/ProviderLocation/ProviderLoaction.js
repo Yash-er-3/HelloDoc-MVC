@@ -13,7 +13,7 @@ $.ajax({
 
     success: function (response) {
         console.log(locationdata);
-        locationdata = JSON.parse(response)
+        locationdata = response
         console.log(locationdata);
         //response.map(function (res) {
         //    L.marker([res.latitude, res.longitude]).addTo(map)
@@ -46,7 +46,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 for (var i = 0; i < locationdata.length; i++) {
     var popupContent;
     var iconHtml = '<div class="d-flex" style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden; border: 4px solid #008000;">' +
-        '<img src="' + locationdata[i].Photo + '" style="width: 100%; height: auto;" />' +
+        '<img src="' + locationdata[i].photo + '" style="width: 100%; height: auto;" />' +
         '</div>' +
         '<div style="width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 15px solid #008000; margin-left : 5px ;margin-top: -4px;"></div>';
 
@@ -56,17 +56,17 @@ for (var i = 0; i < locationdata.length; i++) {
         iconSize: [30, 45], // size of the icon
         iconAnchor: [15, 45], // point of the icon which will correspond to marker's location
     });
-    if (locationdata[i].Photo != null) {
-        popupContent = '<img class="openeditphy" data-id="' + locationdata[i].Physicianid + '" width = "60%" src="' + locationdata[i].Photo + '" />' +
-            '<p>Physician: ' + locationdata[i].Name + '</p>';
+    if (locationdata[i].photo != null) {
+        popupContent = '<img class="openeditphy" data-id="' + locationdata[i].Physicianid + '" width = "60%" src="' + locationdata[i].photo + '" />' +
+            '<p>Physician: ' + locationdata[i].name + '</p>';
     }
     else {
         popupContent = '<img class="openeditphy" data-id="' + locationdata[i].Physicianid + '" width = "60%" src="/images/profile-icon.png" />' +
-            '<p>Physician: ' + locationdata[i].Name + '</p>';
+            '<p>Physician: ' + locationdata[i].name + '</p>';
     }
     //var popupContent = '<img class="openeditphy" data-id="' + locationdata[i].Physicianid + '" width = "60%" src="' + locationdata[i].Photo + '" />' +
     //    '<p>Physician: ' + locationdata[i].Name + '</p>';
-    var marker = L.marker([locationdata[i].Lat, locationdata[i].Long], { icon: customIcon }).addTo(map)
+    var marker = L.marker([locationdata[i].lat, locationdata[i].long], { icon: customIcon }).addTo(map)
         .bindPopup(popupContent);
 
     marker.on('popupopen', function (e) {
@@ -78,6 +78,9 @@ for (var i = 0; i < locationdata.length; i++) {
                 data: { physicianid: physicianid },
                 success: function (result) {
                     $('#providerLocationMainDiv').html(result);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error+"dghshd")
                 }
             });
         });
