@@ -1,7 +1,7 @@
 ﻿
 
 $('.editvendor').on('click', function () {
-
+    console.log("edit")
     var vendorid = $(this).val();
 
     $.ajax({

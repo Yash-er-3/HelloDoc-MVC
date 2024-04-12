@@ -41,6 +41,7 @@ namespace Services.Viewmodels
         public string UploadPhoto { get; set; }
         public string AdminNotes { get; set; }
         public List<Physicianregion> phyregionlist { get; set; }
+        public List<Role> rolelist { get; set; }
 
 
         public BitArray IsAgreementDoc { get; set; }

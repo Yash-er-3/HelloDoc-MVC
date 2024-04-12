@@ -1,0 +1,33 @@
+﻿@model Services.Viewmodels.PatientHistoryViewModel
+
+@{
+    Layout = null;
+}
+
+<table class="table">
+    <thead style="background-color: rgb(235, 235, 235) ; color: black !important; font-weight:700">
+        <tr>
+            <td style="width:12%">First Name</td>
+            <td style="width:12%">Last Name</td>
+            <td style="width:16%">Email</td>
+            <td style="width:13%">Phone</td>
+            <td style="width:39%">Address</td>
+            <td style="width:8%">Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.UserList)
+        {            
+        <tr>
+            <td>@item.Firstname</td>
+            <td>@item.Lastname</td>
+            <td>@item.Email</td>
+            <td>@item.Mobile</td>
+            <td>@item.Street @item.City @item.State</td>
+            <td>
+                <a asp-controller="Records" asp-action="PatientRecord" asp-route-id="@item.Userid" class="btn btn-outline-info">Explore</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -1,10 +1,13 @@
 ﻿using HelloDoc.DataModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace Services.Viewmodels
 {
     public class VendorViewModel
     {
         public string profession { get; set; }
+
+        [Required]
         public string businessName { get; set; }
         public string email { get; set; }
         public string fax { get; set; }
@@ -15,7 +18,7 @@ namespace Services.Viewmodels
         public string state { get; set; }
         public string Zip { get; set; }
 
-
+        public int vendorid { get; set; } // for edit purpose
         public List<Region> regionlist { get; set; }
         public List<Healthprofessional> healthProfessionallist { get; set; }
         public List<Healthprofessionaltype> healthProfessionalTypelist { get; set; }

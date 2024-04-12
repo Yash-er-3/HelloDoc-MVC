@@ -2,6 +2,7 @@
 
 @model Services.Viewmodels.VendorViewModel
 
+@Html.Partial("notification")
 
 
 <div class="container mt-5">
@@ -9,7 +10,15 @@
     <div class="d-flex justify-content-between align-items-center mt-2">
         <div class="d-flex">
 
-            <h4>Add Business</h4>
+            @if (@Model.vendorid != 0)
+            {
+                <h4>Update Business</h4>
+            }
+            else
+            {
+                <h4>Add Business</h4>
+
+            }
 
         </div>
 
@@ -25,13 +34,16 @@
 
     <div class="border-0 shadow rounded-3 px-4 py-2 mt-2 bg-white">
 
-        <form method="post">
+        <form asp-action="Vendor" asp-controller="Vendor" method="post">
+
+            <input type="text" asp-for="vendorid" id="vendoridcancelbtn" value="@Model.vendorid" hidden />
+
             <div class="mt-3 d-flex row">
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
                         <input type="text" asp-for="businessName" class="form-control shadow-none" placeholder="Fax Number">
                         <label class="FloatingInput" for="Name">Business Name</label>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="businessName" class="text-danger small"></span>
 
                     </div>
                 </div>
@@ -39,12 +51,23 @@
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group">
                         <select asp-for="profession" name="profession" class="form-select fs-6 py-3 shadow-none  border-secondary">
-                            <option value="@Model.profession" selected hidden>@Model.profession</option>
-                              @foreach (var item in Model.healthProfessionalTypelist)
+
+                            @if (Model.businessName != null)
                             {
-                            <option value="@item.Healthprofessionalid">@item.Professionname</option>
-                            } 
+                                <option value="@Model.profession" selected hidden>@Model.profession</option>
+                            }
+                            else
+                            {
+                                <option value="@Model.profession" selected hidden>Add Profession</option>
+                            }
+
+                            @foreach (var item in Model.healthProfessionalTypelist)
+                            {
+                                <option value="@item.Healthprofessionalid">@item.Professionname</option>
+                            }
                         </select>
+                        <span asp-validation-for="profession" class="text-danger small"></span>
+
                     </div>
                 </div>
 
@@ -53,45 +76,48 @@
                     <div class="form-floating ">
                         <input type="text" asp-for="fax" class="form-control shadow-none disable" placeholder="Fax Number">
                         <label class="FloatingInput" for="Name">Fax Number</label>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="fax" class="text-danger small"></span>
 
                     </div>
                 </div>
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3 form-floating">
-                    <div class="form-control p-0">
-                        <input asp-for="phone"
-                               type="tel" maxlength="10"
-                               style="border: none; padding: 18px 2% 18px 50px; width:inherit" />
-                        <span  class="text-danger small"></span>
 
+                <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+
+
+                    <div class="telephone rounded form-floating">
+                        <div class="input-group d-flex align-items-center rounded ">
+                            <input type="tel" asp-for="phone" id="tel" class="form-control disable viewcasephone" maxlength="10" placeholder="">
+                        </div>
                     </div>
+                    <span asp-validation-for="phone" class="text-danger small"></span>
                 </div>
+
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
                         <input type="email" asp-for="email" class="form-control shadow-none" placeholder="Email">
                         <label class="FloatingInput" for="Name">Email</label>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="email" class="text-danger small"></span>
 
                     </div>
                 </div>
 
-            
+
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
                         <input type="text" asp-for="businesscontact" class="form-control shadow-none" placeholder="Business Contact">
                         <label class="FloatingInput" for="Name">Business Contact</label>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="businesscontact" class="text-danger small"></span>
                     </div>
                 </div>
 
 
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
                     <div class="form-floating">
-                        <input type="text" asp-for="street"  class="form-control shadow-none" placeholder="street">
+                        <input type="text" asp-for="street" class="form-control shadow-none" placeholder="street">
                         <label class="FloatingInput">Street</label>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="street" class="text-danger small"></span>
 
                     </div>
                 </div>
@@ -100,16 +126,16 @@
                     <div class="form-floating">
                         <input type="text" asp-for="city" class="form-control shadow-none" placeholder="city">
                         <label class="FloatingInput">City</label>
-                        <span id="admininfo-city" class="text-danger small"></span>
+                        <span asp-validation-for="city" id="admininfo-city" class="text-danger small"></span>
 
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
                     <div class="form-floating">
                         <input type="text" asp-for="state" class="form-control shadow-none" placeholder="State">
                         <label class="FloatingInput">State</label>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="state" class="text-danger small"></span>
 
                     </div>
                 </div>
@@ -118,23 +144,41 @@
                     <div class="form-floating">
                         <input type="text" asp-for="Zip" id="zip-adminprofile" class="form-control shadow-none mdisabled" placeholder="zip">
                         <label class="FloatingInput">Zip</label>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="Zip" class="text-danger small"></span>
 
                     </div>
                 </div>
 
                 <div class="justify-content-end d-flex mt-4">
 
-                    <div class="mx-1">
-                        <button type="button" class="btn btn-info shadow-none text-white py-2 ordersubmit">
-                            Submit
-                        </button>
-                    </div>
-                    <div class="mx-1">
-                        <button type="button" class="btn btn-outline-info shadow-none py-2">
-                            Cancel
-                        </button>
-                    </div>
+                    @if (Model.businessName != null)
+                    {
+                        <div class="mx-1">
+                            <button type="submit" class="btn btn-info shadow-none text-white py-2">
+                                Save
+                            </button>
+                        </div>
+                        <div class="mx-1">
+                            <button type="reset" class="btn btn-outline-info shadow-none py-2" id="editbusinesscancelbtn">
+                                Cancel
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mx-1">
+                            <button type="submit" class="btn btn-info shadow-none text-white py-2">
+                                Submit
+                            </button>
+                        </div>
+                        <div class="mx-1">
+                            <button type="reset" class="btn btn-outline-info shadow-none py-2" id="addbusinesscancelbtn">
+                                Cancel
+                            </button>
+                        </div>
+                    }
+
+
                 </div>
             </div>
         </form>
@@ -142,4 +186,36 @@
     </div>
 </div>
 
-   
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    try {
+        const phoneInputField = document.querySelector("#tel");
+        const phoneInput = window.intlTelInput(phoneInputField, {
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        });
+    }
+    catch {
+
+    }
+
+
+
+    $('#editbusinesscancelbtn').on('click', function () {
+        console.log("edit")
+        var vendorid = $('#vendoridcancelbtn').val();
+
+        $.ajax({
+            url: '/Vendor/AddVendorAccount',
+            data: { vendorid: vendorid },
+
+            success: function (response) {
+                $('#vendormaindiv').html(response)
+            }
+        })
+    });
+
+
+
+
+</script>

@@ -1,0 +1,213 @@
+﻿@using Services.Viewmodels
+
+@model ProviderData;
+
+@Html.Partial("notification")
+
+
+@*contact your provider modal*@
+<div class="modal fade" id="ContactProviderModal" tabindex="-1" role="dialog" aria-labelledby="ContactProviderModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Contact Your Provider</h5>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="ContactProviderModalSubmit" method="post">
+
+                    <small class="text-secondary">Choose communication to send message.</small>
+                    <br>
+                    <div class="mt-3">
+                        <label>
+                            <input type="radio" id="smscontact" name="contactMethod" value="SMS"> SMS
+                        </label>
+                        <br>
+                        <label class="mt-2">
+                            <input type="radio" id="emailcontact" name="contactMethod" value="Email"> Email
+                        </label>
+                        <br>
+                        <label class="mt-2">
+                            <input type="radio" id="bothcontact" name="contactMethod" value="Both"> Both
+                        </label>
+                    </div>
+
+
+                    <div class="form-floating mt-3">
+                        <textarea id="ContactProviderNote" class="form-control shadow-none" asp-for="ContactMessage" placeholder="Reason for Block Request" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Message</label>
+                        <span id="ContactProviderSpan" class="small text-danger"></span>
+
+                    </div>
+                    <div class="d-flex float-end mt-4">
+                        <button type="button" id="contactprovidersubmitbtn" class="btn btn-info text-white mx-2 shadow-none">Send</button>
+                        <button type="button" class="btn border-info text-info shadow-none" data-dismiss="modal">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="w-100">
+        <thead class="p-1" style="background-color: rgb(235, 235, 235) ; color: black !important">
+            <tr>
+                <th style="width : 12%; text-align : center!important">Stop <br />Notification</th>
+                <th style="width : 24%" id="ordericon">Provider Name <i class="bi bi-arrow-up"></i></th>
+                <th style="width : 17%">Role</th>
+                <th style="width : 21%">On Call Status</th>
+                <th style="width : 14%">Status</th>
+                <th style="width : 13% ; text-align : center!important">Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr id="saveButton" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
+                <td class="d-flex justify-content-center">
+                    <button class="p-1 text-white bg-info rounded border-info d-flex align-items-center">
+                        <span class="">Save</span>
+                    </button>
+                </td>
+            </tr>
+            @foreach (var physician in Model.physicians)
+            {
+                <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
+                    <td style="width : 12%; text-align : center!important">
+                        <input type="checkbox" />
+
+                    </td>
+                    <td style="width : 24%">@physician.Firstname @physician.Lastname</td>
+                    <td style="width : 17%">
+                        @foreach(var item in Model.rolelist)
+                        {
+                            if(item.Roleid == physician.Roleid)
+                            {
+                                @item.Name
+                            }
+                        }
+                    </td>
+                    <td style="width : 21%">
+                      Unavailable
+                    </td>
+                    <td style="width : 14%">Active</td>
+                    <td style="width : 13% ; text-align : center!important">
+                        <div class="d-flex justify-content-start">
+                            <button value="@physician.Email" type="button" class="btn btn-outline-info shadow-none border-info justify-content-start p-1 py-0 d-flex clickcontactprovider" data-toggle="modal" data-target="#ContactProviderModal">
+                                <div class="rounded align-item-center p-1 px-2">
+                                    Contact
+                                </div>
+                                @*<input type="text" class="contactprovidermodalopenbtn" value="@physician.Email" />*@
+                            </button>
+                            <button type="button" class="btn btn-outline-info shadow-none border-info justify-content-start ms-1 p-1 py-0 d-flex editprovideraccount" value="@physician.Physicianid">
+                                <div class="rounded align-item-center p-1 px-2">
+                                    Edit
+                                </div>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+<script>
+    var email;
+    var providerid;
+
+    //region filter
+    $('.regionfilter_providermenu').on('change', function () {
+        var regionid = $(this).val();
+        console.log("djbjbjb")
+        $.ajax({
+            url: '/Provider/ProviderMenuPartial',
+            data: { regionid: regionid },
+            success: function (response) {
+                $('#providermenutable').html(response)
+            }
+        });
+    })
+
+
+    //edit btn
+    $('.editprovideraccount').on('click', function () {
+        providerid = $(this).attr('value')
+        console.log(providerid)
+        $.ajax({
+            url: '/Provider/EditProviderAccount',
+            type: 'GET',
+            data: { providerid: providerid },
+            success: function (response) {
+                $('#providermenudiv').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.error(error)
+            }
+        });
+    });
+
+
+
+    //to get email
+    $('.clickcontactprovider').on('click', function () {
+        email = $(this).attr('value')
+    })
+
+    //note validate
+    $('#ContactProviderNote').on('input', function () {
+
+        var value = $('#ContactProviderNote').val();
+
+        if (value == "") {
+            $('#ContactProviderSpan').html('*Required')
+        }
+        else {
+            const regex = /^[^\s\W,-/][\w\s,-/]*$/i
+
+            if (!regex.test(value)) {
+                $('#ContactProviderSpan').html('*not valid')
+            } else {
+                $('#ContactProviderSpan').html('')
+            }
+        }
+    });
+
+    //contact btn
+    $('#contactprovidersubmitbtn').on('click', function () {
+
+        var selectedoption = $('input[name="contactMethod"]:checked').val();
+
+        if (!selectedoption) {
+            alert("Please select at least one option (SMS, Email, or Both).");
+        }
+        else if ($('#ContactProviderNote').val() == "") {
+            $('#ContactProviderSpan').html("*Required");
+        }
+        else {
+            var message = $('#ContactProviderNote').val()
+            console.log(email)
+            console.log(message)
+
+            $.ajax({
+                url: '/Provider/ContactProviderSubmit',
+                type: 'POST',
+                data: { email, message, selectedoption },
+                success: function (response) {
+                    $('#ContactProviderModal').Modal('hide')
+                    //$('#nav-tabContent').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error)
+                }
+            });
+        }
+
+    });
+</script>

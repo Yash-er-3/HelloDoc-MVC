@@ -23,12 +23,30 @@ namespace HelloDoc.Controllers.Provider
         }
 
         [HttpGet]
-        public IActionResult ProviderMenu()
+        public IActionResult ProviderMenu(int regionid)
         {
             ProviderData data = new ProviderData();
             data.regions = _context.Regions.ToList();
             data.physicians = _context.Physicians.ToList();
             return View(data);
+        }
+
+        public IActionResult ProviderMenuPartial(int regionid)
+        {
+
+            ProviderData data = new ProviderData();
+            data.regions = _context.Regions.ToList();
+            data.rolelist = _context.Roles.ToList();
+            if(regionid != 0)
+            {
+                data.physicians = _context.Physicians.Where(x => x.Regionid == regionid).ToList();
+            }
+            else
+            {
+                data.physicians = _context.Physicians.ToList();
+            }
+
+            return PartialView("_ProviderMenuTable",data);
         }
 
         [HttpPost]

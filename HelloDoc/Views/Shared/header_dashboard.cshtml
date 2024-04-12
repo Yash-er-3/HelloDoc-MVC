@@ -21,7 +21,13 @@
     <link rel="stylesheet" href="~/css/fourrequest.css" />
     <link rel="stylesheet" href="~/css/submitrequest.css" />
     <link rel="stylesheet" href="~/css/admin_dashboard.css" asp-append-version="true" />
-
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
     <style>
         .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
             background: none;
@@ -104,8 +110,8 @@
     <div class="mainnav bg-white d-none d-sm-block">
         <nav class="shadow">
             <div class="ps-4 nav nav-tabs border-bottom-0 border-start-0 d-flex border-end-0 border border-2" id="nav-tab" role="tablist">
-                
-               @* <button class="nav-link active me-4" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Dashboard</button>
+
+                @* <button class="nav-link active me-4" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Dashboard</button>
                 <button class="nav-link me-4" id="nav-provider-location-tab" data-bs-toggle="tab" data-bs-target="#nav-provider-location" type="button" role="tab" aria-controls="nav-provider-location" aria-selected="false">Provider Location</button>
                 <button class="nav-link me-4 my-profile-load-page" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">My Profile</button>
                 <button class="nav-link me-4" id="nav-provider-tab" data-bs-toggle="dropdown" data-bs-target="#nav-provider" type="button" role="tab" aria-controls="nav-provider" aria-selected="false">Providers</button>
@@ -126,7 +132,15 @@
                 </div>
                 <a class="admin-layout-nav fw-bold" id="nav-partner-tab" asp-action="Vendor" asp-controller="Vendor">Partners</a>
                 <a class="admin-layout-nav fw-bold" id="nav-access-tab" asp-controller="Access" asp-action="AccessRole">Access</a>
-                <a class="admin-layout-nav fw-bold" id="nav-record-tab">Records</a>
+                @*<a class="admin-layout-nav fw-bold" id="nav-record-tab" asp-action="SearchRecords" asp-controller="Records">Records</a>*@
+                <a class="admin-layout-nav  fw-bold" id="nav-record-tab" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Records</a>
+                <div class="dropdown-menu" aria-labelledby="nav-record-tab">
+                    <a class="dropdown-item" asp-controller="Records" asp-action="SearchRecords">Search Record</a>
+                    <a class="dropdown-item" asp-controller="Records" asp-action="EmailLog">Email Log</a>
+                    <a class="dropdown-item" asp-controller="Records" asp-action="SMSLog">SMS Log</a>
+                    <a class="dropdown-item" asp-controller="Records" asp-action="PatientHistory">Patient History</a>
+                    <a class="dropdown-item" asp-controller="Records" asp-action="BlockHistory">Block History</a>
+                </div>
             </div>
         </nav>
     </div>
@@ -146,7 +160,7 @@
                     <button class="nav-link me-4 my-profile-load-page" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">My Profile</button>
                     <button class="nav-link me-4" id="nav-provider-tab" data-bs-toggle="tab" data-bs-target="#nav-provider" type="button" role="tab" aria-controls="nav-provider" aria-selected="false">Providers</button>
 
-                   
+
                     <button class="nav-link me-4" id="nav-partner-tab" data-bs-toggle="tab" data-bs-target="#nav-partner" type="button" role="tab" aria-controls="nav-partner" aria-selected="false">Partners</button>
                     <button class="nav-link me-4" id="nav-access-tab" data-bs-toggle="tab" data-bs-target="#nav-access" type="button" role="tab" aria-controls="nav-access" aria-selected="false">Access</button>
                     <button class="nav-link me-4" id="nav-record-tab" data-bs-toggle="tab" data-bs-target="#nav-record" type="button" role="tab" aria-controls="nav-record" aria-selected="false">Records</button>
@@ -177,6 +191,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <script src="~/js/darklight.js" asp-append-version="true"></script>
     <script src="/js/Admin/Admindashboard.js" asp-append-version="true"></script>
 

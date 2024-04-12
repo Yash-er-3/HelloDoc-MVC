@@ -133,8 +133,36 @@
       "PackagePath": "staticwebassets\\js\\Admin\\excel-download.js"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderLocation\\ProviderLoaction.js",
+      "PackagePath": "staticwebassets\\js\\ProviderLocation\\ProviderLoaction.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Provider\\Provider.js",
       "PackagePath": "staticwebassets\\js\\Provider\\Provider.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Records\\BlockHistory.js",
+      "PackagePath": "staticwebassets\\js\\Records\\BlockHistory.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Records\\EmailLog.js",
+      "PackagePath": "staticwebassets\\js\\Records\\EmailLog.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Records\\PatientHistory.js",
+      "PackagePath": "staticwebassets\\js\\Records\\PatientHistory.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Records\\PatientRecord.js",
+      "PackagePath": "staticwebassets\\js\\Records\\PatientRecord.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Records\\Records.js",
+      "PackagePath": "staticwebassets\\js\\Records\\Records.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Records\\SMSLog.js",
+      "PackagePath": "staticwebassets\\js\\Records\\SMSLog.js"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Scheduling\\Scheduling.js",

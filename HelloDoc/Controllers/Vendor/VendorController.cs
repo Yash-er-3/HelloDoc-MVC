@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HelloDoc.DataModels;
+using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 using Services.Viewmodels;
 using Services.ViewModels;
@@ -13,9 +14,38 @@ namespace HalloDoc.Controllers.Vendor
             _unit = unit;
         }
 
-        public IActionResult Vendor()
+        public IActionResult Vendor(VendorViewModel formdata)
         {
             VendorViewModel modal = new VendorViewModel();
+
+            if (formdata.vendorid != 0)
+            {
+                var editdata = _unit.vendor.EditVendorData(formdata);
+
+                if (editdata == 1)
+                {
+                    TempData["success"] = "Business Updated Successfully";
+                }
+                else
+                {
+                    TempData["error"] = "Error!";
+
+                }
+            }
+            else if(formdata.businessName != null)
+            {
+                var adddata = _unit.vendor.AddVendorData(formdata);
+                if (adddata == 1)
+                {
+                    TempData["success"] = "Business Added Successfully";
+                }
+                else
+                {
+                    TempData["error"] = "Error!";
+
+                }
+            }
+
             modal = _unit.vendor.getVendorData();
 
             return View(modal);
@@ -46,12 +76,12 @@ namespace HalloDoc.Controllers.Vendor
 
             if (vendorid == 0)
             {
-                modal = _unit.vendor.EditVendorData(vendorid);
+                modal = _unit.vendor.GetEditVendorData(vendorid);
                 return View(modal);
             }
             else
             {
-                modal = _unit.vendor.EditVendorData(vendorid);
+                modal = _unit.vendor.GetEditVendorData(vendorid);
             }
 
             return View(modal);

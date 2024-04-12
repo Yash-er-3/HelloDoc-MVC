@@ -3,77 +3,25 @@
     $('#nav-provider-tab').addClass('admin-layout-nav-active');
 
     console.log("hbjhbkjnllknhuyfyadmin-layout-nav-active")
+
 }
+
 var email;
 var providerid;
-$('.clickcontactprovider').on('click', function () {
-    email = $(this).attr('value')
 
-})
-
-$('#ContactProviderNote').on('input', function () {
-
-    var value = $('#ContactProviderNote').val();
-
-    if (value == "") {
-        $('#ContactProviderSpan').html('*Required')
-    }
-    else {
-        const regex = /^[^\s\W,-/][\w\s,-/]*$/i
-
-        if (!regex.test(value)) {
-            $('#ContactProviderSpan').html('*not valid')
-        } else {
-            $('#ContactProviderSpan').html('')
-        }
-    }
+$(document).ready(function () {
+    loadview();
 });
-
-$('#contactprovidersubmitbtn').on('click', function () {
-
-    var selectedoption = $('input[name="contactMethod"]:checked').val();
-
-    if (!selectedoption) {
-        alert("Please select at least one option (SMS, Email, or Both).");
-    }
-    else if ($('#ContactProviderNote').val() == "") {
-        $('#ContactProviderSpan').html("*Required");
-    }
-    else {
-        var message = $('#ContactProviderNote').val()
-        console.log(email)
-        console.log(message)
-
-        $.ajax({
-            url: '/Provider/ContactProviderSubmit',
-            type: 'POST',
-            data: { email, message, selectedoption },
-            success: function (response) {
-                //$('#nav-tabContent').html(response);
-            },
-            error: function (xhr, status, error) {
-                console.error(error)
-            }
-        });
-    }
-
-});
-
-$('.editprovideraccount').on('click', function () {
-    providerid = $(this).attr('value')
-    console.log(providerid)
+function loadview() {
+    debugger
     $.ajax({
-        url: '/Provider/EditProviderAccount',
-        type: 'GET',
-        data: { providerid: providerid },
+        url: '/Provider/ProviderMenuPartial',
         success: function (response) {
-            $('#providermenudiv').html(response);
-        },
-        error: function (xhr, status, error) {
-            console.error(error)
+            $('#providermenutable').html(response)
         }
     });
-});
+}
+
 
 //both sign and upload
 
@@ -758,7 +706,6 @@ $('#ppdisable-adminnotes').on('input', function () {
 
 
 //for onboarding
-
 
 $('#SelectFileToUpload').on('change', function () {
     var fileInput = document.getElementById('SelectFileToUpload');

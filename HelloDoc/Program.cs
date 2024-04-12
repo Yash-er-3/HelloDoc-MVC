@@ -27,6 +27,7 @@ builder.Services.AddScoped<IAddOrUpdateRequestStatusLog, AddOrUpdateRequestStatu
 builder.Services.AddScoped<IAddOrUpdateRequestNotes, AddOrUpdateRequestNotes>();
 builder.Services.AddScoped<IVendorRepository, VendorRepository>();
 builder.Services.AddScoped<IunitOfWork, unitOfWork>();
+builder.Services.AddScoped<IRecordRepository, RecordRepository>();
 
 
 

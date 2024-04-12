@@ -1,0 +1,141 @@
+﻿@using Services.Viewmodels
+
+@model List<RecordViewModel>;
+
+@{
+    Layout = null;
+}
+@Html.Partial("notification")
+
+
+
+<table class="w-100">
+    <thead style="background-color: rgb(235, 235, 235) ; color: black !important">
+        <tr>
+            <th class="text-center p-3 fw-medium" width="">Patient Name</th>
+            <th class="text-center p-3 fw-medium" width="">Requestor</th>
+            <th class="text-center p-3 fw-medium" width="">Date Of Service</th>
+            <th class="text-center p-3 fw-medium" width="">Close Case Date <i class="bi bi-arrow-up"></i></th>
+            <th class="text-center p-3 fw-medium" width="">Email</th>
+            <th class="text-center p-3 fw-medium" width="">Phone Number</th>
+            <th class="text-center p-3 fw-medium" width="">Address</th>
+            <th class="text-center p-3 fw-medium" width="">Zip</th>
+            <th class="text-center p-3 fw-medium" width="">Request Status</th>
+            <th class="text-center p-3 fw-medium" width="">Physician</th>
+            <th class="text-center p-3 fw-medium" width="">Physician Note</th>
+            <th class="text-center p-3 fw-medium" width="">Cancelled By Provider Note</th>
+            <th class="text-center p-3 fw-medium" width="">Admin Note</th>
+            <th class="text-center p-3 fw-medium" width="">Patient Note</th>
+            <th class="text-center p-3 fw-medium" width="">Delete Permanently</th>
+            @* <th>
+
+
+            </th>*@
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var obj in Model)
+        {
+
+            <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
+
+                <td class="p-3">
+                    @obj.PatientName
+                </td>
+                <td class="p-3">
+
+                    @obj.Requestor
+                </td>
+                <td class="p-3">
+                    @obj.DateOfService
+                </td>
+
+                <td class="p-3">
+                    @obj.CloseCaseDate
+
+                </td>
+                <td class="p-3"> @obj.Email </td>
+                <td class="p-3">@obj.PhoneNumber</td>
+                <td class="p-3">@obj.Address</td>
+                <td class="p-3">@obj.Zip</td>
+                <td class="p-3">
+                    @if (obj.RequestStatus == 1)
+                    {
+                        @: NEW
+                    }
+                    else if (obj.RequestStatus == 2)
+                    {
+                        @: PENDING
+                    }
+                    else if (obj.RequestStatus == 3 || obj.RequestStatus==7 || obj.RequestStatus == 8)
+                    {
+                        @: TOCLOSE
+                    }
+                    else if (obj.RequestStatus == 4 || obj.RequestStatus == 5)
+                    {
+                        @: ACTIVE
+
+                    }
+                    else if (obj.RequestStatus == 6)
+                    {
+                        @: CONCLUDE
+
+                    }
+                    else if (obj.RequestStatus == 9)
+                    {
+                        @: UNPAID
+
+                    }
+                    else if (obj.RequestStatus == 10)
+                    {
+                        @: CLEAR
+
+                    }
+                    else if (obj.RequestStatus == 11)
+                    {
+                        @: BLOCK
+                    }
+                </td>
+                <td class="p-3">
+
+                    @obj.Physician
+                </td>
+                <td class="p-3"> @obj.PhysicianNote </td>
+                <td class="p-3"> @obj.CancelProviderNote </td>
+                <td class="p-3">
+                    @obj.AdminNote
+                </td>
+                <td class="p-3">@obj.PatientNote</td>
+                <td>
+                    <button class="btn btn-outline-info rounded-3 p-2 mx-2 shadow-none deleterequest" value="@obj.requestid">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+
+
+
+    </tbody>
+
+
+
+</table>
+
+<script>
+    $('.deleterequest').on('click', function () {
+
+        var requestid = $(this).val();
+
+        $.ajax({
+            url: '/Records/DeleteRecords',
+            data: { requestid: requestid },
+            success: function (response) {
+                $('#searchrecordstable').html(response)
+            }
+
+        });
+    });
+</script>

@@ -136,12 +136,64 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGF0aWVudFx2aWV3ZG9jLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projects/HelloDoc/HelloDoc/Views/ProviderLocation/ProviderLocation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJMb2NhdGlvblxQcm92aWRlckxvY2F0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projects/HelloDoc/HelloDoc/Views/Provider/EditProviderAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcRWRpdFByb3ZpZGVyQWNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Provider/ProviderMenu.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcUHJvdmlkZXJNZW51LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Provider/_ProviderMenuTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJcX1Byb3ZpZGVyTWVudVRhYmxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/BlockHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xCbG9ja0hpc3RvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/EmailLog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xFbWFpbExvZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/PatientHistory.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xQYXRpZW50SGlzdG9yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/PatientRecord.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xQYXRpZW50UmVjb3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/SearchRecords.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xTZWFyY2hSZWNvcmRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/SMSLog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xTTVNMb2cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/_BlockHistoryTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xfQmxvY2tIaXN0b3J5VGFibGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/_EmailLogTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xfRW1haWxMb2dUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/_PatientHistoryTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xfUGF0aWVudEhpc3RvcnlUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/_SearchRecordsTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xfU2VhcmNoUmVjb3Jkc1RhYmxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Records/_SMSLogTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVjb3Jkc1xfU01TTG9nVGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Scheduling/RequestedShifts.cshtml]

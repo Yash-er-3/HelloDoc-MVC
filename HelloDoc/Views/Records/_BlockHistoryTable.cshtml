@@ -1,0 +1,101 @@
+﻿@using Services.Viewmodels
+
+@model List<RecordViewModel>;
+
+@{
+    Layout = null;
+}
+@Html.Partial("notification")
+
+<table class="w-100">
+    <thead style="background-color: rgb(235, 235, 235) ; color: black !important">
+        <tr>
+            <th class="p-3 fw-medium" width="15%">Patient Name</th>
+            <th class="p-3 fw-medium" width="15%">Phone NUmber</th>
+            <th class="p-3 fw-medium" width="15%">Email</th>
+            <th class="p-3 fw-medium" width="15%">Created Date</th>
+            <th class="p-3 fw-medium" width="15%">Notes</th>
+            <th class="p-3 text-center fw-medium" width="15%">Is Active</th>
+            <th class="p-3 fw-medium" width="10%">Action</th>
+
+            @* <th>
+
+
+            </th>*@
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var obj in Model)
+        {
+
+            <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
+
+                <td class="p-3">
+                    @obj.PatientName
+                </td>
+                <td class="p-3">
+
+                    @obj.PhoneNumber
+                </td>
+                <td class="p-3">
+                    @obj.Email
+                </td>
+
+                <td class="p-3">
+                    @obj.DateOfService
+
+                </td>
+                <td class="p-3">
+                    @obj.PatientNote
+                </td>
+                <td class="text-center">
+                    <input type="checkbox" style="accent-color:#00b8e6" />
+                </td>
+                <td>
+                    <button class="btn btn-outline-info rounded-3 p-2 mx-2 shadow-none unblockbtn_blockhistory" value="@obj.requestid">
+                        Unblock
+                    </button>
+                </td>
+            </tr>
+        }
+
+
+
+    </tbody>
+
+
+
+</table>
+
+<script>
+
+    $('.unblockbtn_blockhistory').on('click', function () {
+
+        var requestid = $(this).val();
+
+        $.ajax({
+            url: '/Records/UnblockbtnBlockHistory',
+            data: { requestid: requestid },
+            success: function (response) {
+                $('#blockhistorystable').html(response)
+            }
+
+        });
+    });
+
+        //$('.deleterequest').on('click', function () {
+
+        //    var requestid = $(this).val();
+
+        //    $.ajax({
+        //        url: '/Records/DeleteRecords',
+        //        data: { requestid: requestid },
+        //        success: function (response) {
+        //            $('#searchrecordstable').html(response)
+        //        }
+
+        //    });
+        //});
+</script>
