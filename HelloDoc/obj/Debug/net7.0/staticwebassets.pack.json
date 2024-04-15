@@ -145,6 +145,18 @@
       "PackagePath": "staticwebassets\\js\\ProviderLocation\\ProviderLoaction.js"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\CardWithTable.js",
+      "PackagePath": "staticwebassets\\js\\ProviderSide\\CardWithTable.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\ProviderSide.js",
+      "PackagePath": "staticwebassets\\js\\ProviderSide\\ProviderSide.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\TableContent.js",
+      "PackagePath": "staticwebassets\\js\\ProviderSide\\TableContent.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Provider\\Provider.js",
       "PackagePath": "staticwebassets\\js\\Provider\\Provider.js"
     },
@@ -419,6 +431,14 @@
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\0\\IndependentContractorAgreement.png",
+      "PackagePath": "staticwebassets\\onboarding\\0\\IndependentContractorAgreement.png"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\14\\IndependentContractorAgreement.png",
+      "PackagePath": "staticwebassets\\onboarding\\14\\IndependentContractorAgreement.png"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\3\\BackgroundCheck.jpg",

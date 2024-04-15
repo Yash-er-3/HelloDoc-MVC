@@ -37,4 +37,15 @@ namespace Services.Viewmodels
 
         public int totalCount { get; set; }
     }
+
+    public class ProviderOnCall
+    {
+        public IEnumerable<Shiftdetail> shiftdetaillist { get; set; }
+        public IEnumerable<Shift> shiftlist { get; set; }
+        public IEnumerable<Physician> ondutyphysicianlist { get; set; }
+        public IEnumerable<Physician> offdutyphysicianlist { get; set; }
+        public List<Region> regions { get; set; }
+        public int selectedRegionid { get; set; }
+
+    }
 }

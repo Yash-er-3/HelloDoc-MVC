@@ -414,10 +414,7 @@ namespace HelloDoc.Controllers.Scheduling
 
             }
 
-
-
             modal.shiftreviewlist = shiftreviewdata;
-
 
             var startIndex = (page - 1) * pageSize;
 
@@ -456,9 +453,158 @@ namespace HelloDoc.Controllers.Scheduling
 
             _context.SaveChanges();
 
-
-
             return RedirectToAction("");
         }
+
+
+        //provider on call
+
+        public IActionResult ProviderOnCall(string PartialName, string date, int regionid, int status)
+        {
+            ProviderOnCall model = new ProviderOnCall();
+            DateOnly dateOnly;
+            IEnumerable<Physician> physicianlist = new List<Physician>();
+            if (regionid != 0)
+            {
+                physicianlist = _context.Physicians.Where(m => m.Regionid == regionid).ToList();
+            }
+            else
+            {
+                physicianlist = _context.Physicians.ToList();
+            }
+            if (PartialName == "_WeekWise")
+            {
+                DateTime dateTime = DateTime.Parse(date);
+                dateOnly = DateOnly.FromDateTime(dateTime.AddDays(-(int)dateTime.DayOfWeek + (int)DayOfWeek.Sunday));
+            }
+            else if (PartialName == "_MonthWise")
+            {
+                dateOnly = DateOnly.FromDateTime(DateTime.Parse(date).AddDays(-DateTime.Parse(date).Day + 1));
+            }
+            else
+            {
+                dateOnly = DateOnly.ParseExact(date.Substring(0, 10), "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
+
+            if (PartialName == "_DayWise")
+            {
+
+                List<Shiftdetail> shiftdetaillist = new List<Shiftdetail>();
+                if (status != 0 && regionid != 0)
+                {
+                    shiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Status == status && m.Isdeleted != new BitArray(new[] { true }) && m.Regionid == regionid && m.Shiftdate == dateOnly).ToList();
+                }
+                else if (regionid != 0)
+                {
+
+                    shiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Regionid == regionid && m.Isdeleted != new BitArray(new[] { true }) && m.Shiftdate == dateOnly).ToList();
+                }
+                else if (status != 0)
+                {
+                    shiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Status == status && m.Isdeleted != new BitArray(new[] { true }) && m.Shiftdate == dateOnly).ToList();
+
+                }
+                else
+                {
+                    shiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Shiftdate == dateOnly && m.Isdeleted != new BitArray(new[] { true })).ToList();
+                }
+
+                IEnumerable<Physician> ondutyphysician = new List<Physician>();
+                foreach (var item in shiftdetaillist)
+                {
+                    var x = _context.Physicians.Where(m => m.Physicianid == item.Shift.Physicianid).ToList();
+                    ondutyphysician = ondutyphysician.Concat(x);
+                }
+                model.offdutyphysicianlist = physicianlist.Except(ondutyphysician);
+                model.ondutyphysicianlist = ondutyphysician.Distinct();
+            }
+
+            if (PartialName == "_WeekWise")
+            {
+                List<DateOnly> weekDates = new List<DateOnly>();
+                for (int i = 0; i < 7; i++)
+                {
+                    weekDates.Add(dateOnly.AddDays(i));
+                }
+                List<Shiftdetail> weekShiftdetaillist = new List<Shiftdetail>();
+                foreach (var weekDate in weekDates)
+                {
+                    List<Shiftdetail> tempShiftdetaillist = new List<Shiftdetail>();
+                    if (status != 0 && regionid != 0)
+                    {
+                        tempShiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Status == status && m.Isdeleted != new BitArray(new[] { true }) && m.Regionid == regionid && m.Shiftdate == weekDate).ToList();
+                    }
+                    else if (regionid != 0)
+                    {
+                        tempShiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Regionid == regionid && m.Isdeleted != new BitArray(new[] { true }) && m.Shiftdate == weekDate).ToList();
+
+                    }
+                    else if (status != 0)
+                    {
+                        tempShiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Status == status && m.Isdeleted != new BitArray(new[] { true }) && m.Shiftdate == weekDate).ToList();
+
+                    }
+                    else
+                    {
+                        tempShiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Shiftdate == weekDate && m.Isdeleted != new BitArray(new[] { true })).ToList();
+                    }
+                    weekShiftdetaillist.AddRange(tempShiftdetaillist);
+                }
+                IEnumerable<Physician> weekondutyphysician = new List<Physician>();
+                foreach (var item in weekShiftdetaillist)
+                {
+                    var x = _context.Physicians.Where(m => m.Physicianid == item.Shift.Physicianid).ToList();
+                    weekondutyphysician = weekondutyphysician.Concat(x);
+                }
+                model.offdutyphysicianlist = physicianlist.Except(weekondutyphysician);
+                model.ondutyphysicianlist = weekondutyphysician.Distinct();
+            }
+            if (PartialName == "_MonthWise")
+            {
+                List<DateOnly> monthDates = new List<DateOnly>();
+                for (int i = 1; i <= DateTime.DaysInMonth(dateOnly.Year, dateOnly.Month); i++)
+                {
+                    monthDates.Add(dateOnly.AddDays(i - 1));
+                }
+
+                List<Shiftdetail> monthShiftdetaillist = new List<Shiftdetail>();
+                foreach (var monthDate in monthDates)
+                {
+                    List<Shiftdetail> tempShiftdetaillist = new List<Shiftdetail>();
+                    if (status != 0 && regionid != 0)
+                    {
+                        tempShiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Status == status && m.Isdeleted != new BitArray(new[] { true }) && m.Regionid == regionid && m.Shiftdate == monthDate).ToList();
+                    }
+                    else if (regionid != 0)
+                    {
+                        tempShiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Regionid == regionid && m.Isdeleted != new BitArray(new[] { true }) && m.Shiftdate == monthDate).ToList();
+
+                    }
+                    else if (status != 0)
+                    {
+                        tempShiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Regionid == regionid && m.Isdeleted != new BitArray(new[] { true }) && m.Shiftdate == monthDate).ToList();
+
+                    }
+                    else
+                    {
+                        tempShiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Shiftdate == monthDate && m.Isdeleted != new BitArray(new[] { true })).ToList();
+                    }
+                    monthShiftdetaillist.AddRange(tempShiftdetaillist);
+                }
+
+                IEnumerable<Physician> monthondutyphysician = new List<Physician>();
+                foreach (var item in monthShiftdetaillist)
+                {
+                    var x = _context.Physicians.Where(m => m.Physicianid == item.Shift.Physicianid).ToList();
+                    monthondutyphysician = monthondutyphysician.Concat(x);
+                }
+                model.offdutyphysicianlist = physicianlist.Except(monthondutyphysician);
+                model.ondutyphysicianlist = monthondutyphysician.Distinct();
+            }
+            model.regions = _context.Regions.ToList();
+            model.selectedRegionid = regionid;
+            return View(model);
+        }
+
     }
 }

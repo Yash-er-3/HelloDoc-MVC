@@ -1,0 +1,445 @@
+﻿@using Services.Viewmodels
+@model ProviderData
+
+<Partial name="notification" />
+
+<div class="modal fade" id="ModalToOpen" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="p-4 m-auto border border-1 border-info rounded-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>E-Signature</h1>
+                        <p>Sign in the canvas below and save your signature as an image!</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <canvas class="border border-secondary rounded-2" id="sig-canvas" width="300" height="160">
+                            Get a better browser, bro.
+                        </canvas>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="p-2 px-3 text-white bg-info rounded border-info  mx-2 px-3 shadow-none" id="sig-submitBtn">Submit Signature</button>
+                        <button class="btn border-info text-info shadow-none" id="sig-clearBtn">Clear Signature</button>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="button" id="Cancelbutton" class="btn border-info text-info shadow-none" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<div class="container">
+    <form asp-controller="Provider" asp-action="CreateProviderAccount" method="post" enctype="multipart/form-data">
+
+        <div class="d-flex justify-content-between align-items-center w-100 my-3">
+            <h4>Create Physician Account</h4>
+            <a asp-controller="Provider" asp-action="ProviderMenu" class="text-decoration-none">
+                <span class="back-btn p-2" style="color: #00b8e6;">&lt;Back</span>
+            </a>
+        </div>
+        <div class="container-fluid my-3 bg-white  rounded-3 shadow">
+            <div class="row px-2">
+
+                <h5 class="my-3">Account Information</h5>
+                <div class="col-12 col-sm-4 form-floating mb-3 ">
+                    <input type="text" asp-for="UserName"
+                           class="form-control"
+                           placeholder="Username" />
+                    <label class="d-flex justify-content-between ps-4">User Name</label>
+                    <span asp-validation-for="UserName" class="text-danger small"></span>
+                </div>
+                <div class="col-12 col-sm-4 form-floating mb-3">
+                    <input type="text" asp-for="password"
+                           class="form-control" id="password-editprovideraccount"
+                           placeholder="Username"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">Password</label>
+                    <span class="text-danger" id="resetpassword-editprovideraccount-span" asp-validation-for="password"></span>
+                </div>
+
+                <div class="col-12 col-sm-4 form-floating">
+                    <select class="form-select form-select-lg  fs-6 shadow-none aidisabled" asp-for="selectedroleid" aria-label=".form-select-lg example">
+                        <option class="fs-6">Select Role</option>
+                        @foreach (var item in Model.rolelist)
+                        {
+                            <option value="@item.Roleid" class="fs-6">@item.Name</option>
+                        }
+                    </select>
+                    <label for="floatingTextarea" class="text-secondary ms-3">Role</label>
+
+                </div>
+
+
+                @* ********************************************************************************************************************************************* *@
+
+
+                <h5 class="mb-3">Physician Information</h5>
+                <div class="col-12 col-sm-6 form-floating mb-3 ">
+                    <input type="text" asp-for="firstname"
+                           class="form-control pidisabled" id="firstname-editprovideraccount"
+                           placeholder="Username"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">First Name</label>
+                    <span id="firstname-editprovideraccount-span" class="text-danger" asp-validation-for="firstname"></span>
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3">
+                    <input type="text" asp-for="lastname"
+                           class="form-control pidisabled"
+                           placeholder="Username" id="lastname-editprovideraccount"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">Last Name</label>
+                    <span id="lastname-editprovideraccount-span" class="text-danger" asp-validation-for="lastname"></span>
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3 ">
+                    <input type="text" asp-for="email"
+                           class="form-control pidisabled" id="email-editprovideraccount"
+                           placeholder="Username"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">Email</label>
+                    <span id="email-editprovideraccount-span" class="text-danger" asp-validation-for="email"></span>
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3">
+                    <div class="form-control p-0">
+                        <input asp-for="phonenumber" placeholder="9865321457"
+                               type="tel" class="pidisabled" id="phone" maxlength="10"
+                               style="border: none; padding: 18px 2% 18px 50px; width:inherit" />
+                        <span id="phone-editprovideraccount-span" class="text-danger" asp-validation-for="phonenumber"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3">
+                    <input type="text" asp-for="MedicalLicence"
+                           class="form-control pidisabled"
+                           placeholder="Username" id="medicallicense-editprovideraccount"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">Medical License</label>
+                    <span id="medicallicense-editprovideraccount-span" class="text-danger" asp-validation-for="MedicalLicence"></span>
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3">
+                    <input type="text" asp-for="NPINumber"
+                           class="form-control pidisabled"
+                           placeholder="Username" id="npinumber-editprovideraccount"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">NPI Number</label>
+                    <span id="npinumber-editprovideraccount-span" class="text-danger" asp-validation-for="NPINumber"></span>
+                </div>
+
+                <div class="col-12 col-sm-6  mb-4">
+                    @foreach (var item in Model.regions)
+                    {
+                        <div class="form-check form-check-inline ">
+                            <input class="form-check-input pidisabled adminselectedregion-adminprofile" type="checkbox" id="@item.Regionid" value="@item.Regionid" name="selectedregion">
+                            <label class="form-check-label" for="@item.Regionid">@item.Name</label>
+                        </div>
+                    }
+                    <div>
+                        <span class="text-danger small" id="selectedregion-editprovideraccount-span" asp-validation-for="selectedregion"></span>
+                    </div>
+                </div>
+
+
+                @* ********************************************************************************************************************************************* *@
+
+                <h5 class="mb-3">Mailing & Billing Information</h5>
+                <div class="col-12 col-sm-6 form-floating mb-3 ">
+                    <input type="text" asp-for="address1" id="address1-editprovideraccount"
+                           class="form-control mbdisabled"
+                           placeholder="Username"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">Address 1</label>
+                    <span class="small text-danger" id="address1-editprovideraccount-span" asp-validation-for="address1"></span>
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3">
+
+                    <input type="text" asp-for="address2" id="address2-editprovideraccount"
+                           class="form-control mbdisabled"
+                           placeholder="Username"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">Address 2</label>
+                    <span class="small text-danger" id="address2-editprovideraccount-span" asp-validation-for="address2"></span>
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3">
+
+                    <input type="text" asp-for="city" id="city-editprovideraccount"
+                           class="form-control mbdisabled"
+                           placeholder="Username"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">City</label>
+                    <span class="small text-danger" id="city-editprovideraccount-span" asp-validation-for="city"></span>
+                </div>
+                <div class="col-12 col-sm-6 form-floating">
+
+                    <select class="form-select form-select-lg  fs-6 shadow-none mbdisabled" aria-label=".form-select-lg example">
+
+                        @foreach (var item in Model.regions)
+                        {
+                            <option class="fs-6">@item.Name</option>
+                        }
+                    </select>
+                    <label for="floatingTextarea" class="text-secondary ms-3">State</label>
+
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3">
+
+                    <input type="text" asp-for="zip" id="zip-editprovideraccount"
+                           class="form-control mbdisabled" min="5" maxlength="6"
+                           placeholder="Username"
+                           aria-label="Username" />
+                    <label class="d-flex justify-content-between ps-4">Zip</label>
+                    <span class="small text-danger" id="zip-editprovideraccount-span" asp-validation-for="zip"></span>
+                </div>
+                <div class="col-12 col-sm-6 form-floating mb-3">
+                    <div class="form-control p-0">
+                        <input id="alterphonenumber-editprovideraccount" asp-for="alterphonenumber"
+                               type="tel" class="mbdisabled" maxlength="10" class="mbdisabled"
+                               name="PhoneNumber"
+                               style="border: none; padding: 18px 2% 15px 50px; width:inherit" />
+                        <span class="small text-danger" id="alterphonenumber-editprovideraccount-span" asp-validation-for="alterphonenumber"></span>
+
+                    </div>
+                </div>
+
+
+
+                @* ***************************************************************************************************************************************************************** *@
+                <h5>Provider Profile</h5>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                    <div class="form-floating">
+                        <input type="text" asp-for="BusinessName" id="businessname-editprovideraccount" class="form-control shadow-none ppdisabled" placeholder="Business Name">
+                        <label class="FloatingInput">Business Name</label>
+                        <span class="text-danger small" id="businessname-editprovideraccount-span" asp-validation-for="BusinessName"></span>
+                    </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                    <div class="form-floating">
+                        <input type="text" asp-for="BusinessWebsite" id="businesswebsite-editprovideraccount" class="form-control shadow-none ppdisabled" placeholder="Business Website">
+                        <label class="FloatingInput">Business Website</label>
+                        <span class="text-danger small" id="businesswebsite-editprovideraccount-span" asp-validation-for="BusinessWebsite"></span>
+                    </div>
+                </div>
+
+             
+
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-3">
+                    <input type="text" asp-for="UploadPhoto" id="photostring_createprovider" hidden />
+                    <div class="row d-flex">
+                        <div class="col-12 ">
+                            <div class="form-group rounded d-flex align-items-center justify-content-between border border-1 bg-body-secondary">
+                                <div class="px-3 table-responsive">
+                                    <input type="file" id="uploadPhoto" hidden class="data3" />
+                                    <label role="button" for="uploadPhoto" id="photoLabel" class="choosenfile text-nowrap text-secondary">No item selected</label>
+                                </div>
+                                <button class="photoUploadBtn px-2 py-1 d-flex ms-1 border-1 rounded-2 shadow-none data3 toEnable" type="button">
+                                    <div class="d-flex align-items-center shadow-none"><i class="bi bi-cloud-arrow-up p-2"></i><div class="d-none d-md-block">Upload</div></div>
+                                </button>
+                            </div>
+                        </div>
+                        <span id="photoError" class="text-danger"></span>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center uploadedPhotoDiv d-none col-12 p-3" >
+                        <img src="" style="width:25vw; height:25vh; object-fit:contain" id="uploadedPhotoImg" />
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-12 mt-3 mb-4">
+                    <div class="form-floating">
+                        <textarea asp-for="AdminNotes" class="form-control shadow-none ppdisabled"
+                                  placeholder="Admin Notes" id="adminnote-editprovider"
+                                  style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Admin Notes</label>
+                        <span class="text-danger small" id="adminnote-editprovider-span" asp-validation-for="AdminNotes"></span>
+                    </div>
+                </div>
+
+
+                <hr class="text-muted" style="border : 1px solid black" />
+
+                <h5>Onboarding</h5>
+
+                <div class="table-responsive small mb-3" style="font-weight: bold">
+                    <table>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" name="onbordingcheckbox" class="form-check-input" disabled />
+                            </td>
+                            <td class="p-2 px-3">
+                                Independent Contractor Agreement
+                            </td>
+                            <td class="p-2 ">
+                                <input type="file" class="UploadFileCreateProvider visually-hidden" placeholder="" asp-for="AgreementDoc" accept=".pdf" />
+                                <label asp-for="AgreementDoc" class="btn btn-info">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    Upload
+                                </label>
+                            </td>
+
+                        </tr>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" name="onbordingcheckbox" class="form-check-input" disabled />
+
+                            </td>
+                            <td class="p-2 px-3">
+                                Background Check
+                            </td>
+                            <td class="p-2">
+
+                                <input type="file" class="UploadFileCreateProvider visually-hidden" asp-for="BackgroundDoc" accept=".pdf" />
+                                <label asp-for="BackgroundDoc" class="btn btn-info">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    Upload
+                                </label>
+                            </td>
+
+
+                        </tr>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" name="onbordingcheckbox" class="form-check-input" disabled />
+
+                            </td>
+                            <td class="p-2 px-3">
+                                HIPAA Compliance
+                            </td>
+                            <td class="p-2">
+
+                                <input type="file" class="UploadFileCreateProvider visually-hidden" asp-for="CredentialDoc" accept=".pdf" />
+
+                                <label asp-for="CredentialDoc" class="btn btn-info">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    Upload
+                                </label>
+                            </td>
+
+
+                        </tr>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" name="onbordingcheckbox" class="form-check-input" disabled />
+
+                            </td>
+                            <td class="p-2 px-3">
+                                Non-Disclosure Agreement
+                            </td>
+                            <td class="p-2">
+
+                                <input type="file" class="UploadFileCreateProvider visually-hidden" asp-for="NonDisclosureDoc" accept=".pdf" />
+                                <label asp-for="NonDisclosureDoc" class="btn btn-info">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    Upload
+                                </label>
+                            </td>
+
+                        </tr>
+                        <tr class="p-1">
+                            <td class="p-2">
+                                <input type="checkbox" name="onbordingcheckbox" class="form-check-input" disabled />
+
+
+                            </td>
+                            <td class="p-2 px-3">
+                                License Document
+                            </td>
+                            <td class="p-2">
+
+                                <input type="file" class="UploadFileCreateProvider visually-hidden" asp-for="LicenseDoc" accept=".pdf" />
+                                <label asp-for="LicenseDoc" class="btn btn-info">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    Upload
+                                </label>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+
+                <hr class="text-muted" style="border : 1px solid black" />
+                <div class="d-flex justify-content-end mb-3">
+                    <div class="mx-1 d-flex">
+                        <button type="submit" class="btn btn-success shadow-none text-white viewNotes small px-3">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    window.onload = function () {
+        $('#nav-provider-tab').addClass('admin-layout-nav-active');
+    }
+
+    //Create Provider Account
+
+    $('.UploadFileCreateProvider').on('change', function () {
+
+
+        $(this).closest('tr').find('input[name="onbordingcheckbox"]').prop('checked', true);
+
+    });
+
+    var actualBtnsign = document.getElementById('uploadPhoto');
+    var fileChosensign = document.getElementById('photoLabel');
+    actualBtnsign.addEventListener('change', function () {
+        var filesname = this.files[0].name;
+        console.log(filesname)
+        for (var i = 1; i < this.files.length; i++) {
+            filesname = filesname + " + " + this.files[i].name;
+        }
+        fileChosensign.style.fontSize = "15px";
+        fileChosensign.style.fontWeight = "bold"
+        fileChosensign.textContent = filesname;
+        fileChosensign.ariaPlaceholder = filesname;
+        console.log("run")
+    });
+
+    $('.photoUploadBtn').on('click', function (e) {
+        if ($('#photoLabel').html() != "No item selected") {
+            debugger
+            var fileInput = document.querySelector('#uploadPhoto');
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+
+            reader.onloadend = function () {
+                var base64String = reader.result;
+                console.log(base64String)
+                $('#photostring_createprovider').val(base64String)
+            };
+
+            reader.onload = function (e) {
+                $('#uploadedPhotoImg').attr('src', e.target.result);
+            };
+            reader.readAsDataURL($('#uploadPhoto')[0].files[0]);
+            $('#photoError').html("");
+            flag = 0;
+            $('.uploadedPhotoDiv').removeClass('d-none');
+            $('.photoDiv').addClass('d-none');
+        }
+        else {
+            $('#photoError').html("*Please upload photo");
+        }
+    })
+
+</script>

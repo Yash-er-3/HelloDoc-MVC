@@ -30,13 +30,15 @@ namespace HelloDoc.Controllers.Admin
         private readonly IBlockCaseRepo _blockCaseRepo;
         private readonly IAddOrUpdateRequestStatusLog _addOrUpdateRequestStatusLog;
         private readonly IAddOrUpdateRequestNotes _addOrUpdateRequestNotes;
+        private readonly IAdd _add;
+
 
         byte[] key = { 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
         byte[] iv = { 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
 
 
         public AdminController(IRequestRepository requestRepository, IRequestDataRepository requestDataRepository, IViewCaseRepository view, HelloDocDbContext context,
-            IBlockCaseRepo blockCaseRepo, IAddOrUpdateRequestStatusLog addOrUpdateRequestStatusLog, IAddOrUpdateRequestNotes addOrUpdateRequestNotes)
+            IBlockCaseRepo blockCaseRepo, IAddOrUpdateRequestStatusLog addOrUpdateRequestStatusLog, IAddOrUpdateRequestNotes addOrUpdateRequestNotes, IAdd add)
         {
             _request = requestRepository;
             _data = requestDataRepository;
@@ -45,6 +47,7 @@ namespace HelloDoc.Controllers.Admin
             _blockCaseRepo = blockCaseRepo;
             _addOrUpdateRequestStatusLog = addOrUpdateRequestStatusLog;
             _addOrUpdateRequestNotes = addOrUpdateRequestNotes;
+            _add = add; 
         }
         // GET: AdminController
 
@@ -55,7 +58,7 @@ namespace HelloDoc.Controllers.Admin
             if (HttpContext.Session.GetInt32("AdminId") != null)
             {
 
-                var requests = _request.GetAll().ToList();
+                var requests = _request.GetAll().ToList();  
                 var region = _context.Regions.ToList();
                 var casetag = _context.Casetags.ToList();
                 var physician = _context.Physicians.ToList();
@@ -732,6 +735,21 @@ namespace HelloDoc.Controllers.Admin
             return RedirectToAction("Admindashboard");
         }
 
-
+        public IActionResult CreateAdmin()
+        {
+            UserAllDataViewModel model = new UserAllDataViewModel();
+            model.regionlist = _context.Regions.ToList();
+            var rolelist = _context.Roles.Where(m => m.Accounttype == 0 || m.Accounttype == 1).ToList();
+            model.rolelist = rolelist;
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult CreateAdminAccount(UserAllDataViewModel obj)
+        {
+            int adminid = (int)HttpContext.Session.GetInt32("AdminId");
+            _add.AddAdmin(obj, adminid);
+            TempData["success"] = "Admin Account created successfully";
+            return RedirectToAction("Admindashboard");
+        }
     }
 }

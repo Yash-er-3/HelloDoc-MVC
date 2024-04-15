@@ -57,11 +57,11 @@ for (var i = 0; i < locationdata.length; i++) {
         iconAnchor: [15, 45], // point of the icon which will correspond to marker's location
     });
     if (locationdata[i].photo != null) {
-        popupContent = '<img class="openeditphy" data-id="' + locationdata[i].Physicianid + '" width = "60%" src="' + locationdata[i].photo + '" />' +
+        popupContent = '<img class="openeditphy" data-id="' + locationdata[i].physicianid + '" width = "60%" src="' + locationdata[i].photo + '" />' +
             '<p>Physician: ' + locationdata[i].name + '</p>';
     }
     else {
-        popupContent = '<img class="openeditphy" data-id="' + locationdata[i].Physicianid + '" width = "60%" src="/images/profile-icon.png" />' +
+        popupContent = '<img class="openeditphy" data-id="' + locationdata[i].physicianid + '" width = "60%" src="/images/profile-icon.png" />' +
             '<p>Physician: ' + locationdata[i].name + '</p>';
     }
     //var popupContent = '<img class="openeditphy" data-id="' + locationdata[i].Physicianid + '" width = "60%" src="' + locationdata[i].Photo + '" />' +
@@ -71,11 +71,12 @@ for (var i = 0; i < locationdata.length; i++) {
 
     marker.on('popupopen', function (e) {
         $('.openeditphy').on('click', function () {
-            var physicianid = ($(this).data('id'));
+            var physicianid = $(this).data('id');
+            console.log(physicianid);
             $.ajax({
                 url: '/Provider/EditProviderAccount',
-                type: 'POST',
-                data: { physicianid: physicianid },
+                type: 'GET',
+                data: { providerid: physicianid },
                 success: function (result) {
                     $('#providerLocationMainDiv').html(result);
                 },

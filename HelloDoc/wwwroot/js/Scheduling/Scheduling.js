@@ -347,3 +347,35 @@ $('.requestedshifts').click(function () {
         }
     });
 })
+
+
+$('#provideroncall').on('click', function () {
+
+    $.ajax({
+        url: '/Scheduling/ProviderOnCall',
+        data: { PartialName: currentPartial, date: filterDate.toISOString(), 'regionid': regionid, status: status },
+        success: function(data) {
+            $("#scheduling-div").html(data);
+        },
+        error: function (e) {
+            console.log(e);
+        }
+    })
+})
+
+$('#regionDropDownProviderOnCall').on('change', function () {
+    console.log("dbvfhv")
+    regionid = $(this).val()
+    console.log(filterDate)
+    $.ajax({
+        url: '/Scheduling/ProviderOnCall',
+        data: { PartialName: currentPartial, date: filterDate.toISOString(), 'regionid': regionid, status: status },
+
+        success: function (response) {
+            $('#scheduling-div').html(response);
+        },
+        error: function (xhr, textStatus, errorThrown) {
+            console.log('Error', errorThrown);
+        }
+    });
+});

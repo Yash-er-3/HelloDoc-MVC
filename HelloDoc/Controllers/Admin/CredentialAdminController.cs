@@ -35,7 +35,6 @@ namespace HelloDoc.Controllers.Admin
 
         public IActionResult Logout()
         {
-
             Response.Cookies.Delete("jwt");
             return RedirectToAction("Admin", "CredentialAdmin");
         }
@@ -43,28 +42,15 @@ namespace HelloDoc.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> Login(Aspnetuser user)
         {
-            var admin = _context.Admins.FirstOrDefault(m => m.Email == user.Email);
-            if (admin != null)
-            {
-                HttpContext.Session.SetString("AdminName", $"{admin.Firstname}{admin.Lastname}");
-            }
+            
             int valid = adminCredential.Login(user);
             
-            var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
-            LoggedInPersonViewModel loggedInPersonViewModel = new LoggedInPersonViewModel();
-            loggedInPersonViewModel.AspnetId = correct.Id;
-            loggedInPersonViewModel.UserName = correct.Username;
-            var Roleid = _context.Aspnetuserroles.FirstOrDefault(x => x.Userid == correct.Id).Roleid.ToString();
-            loggedInPersonViewModel.Role = _context.Aspnetroles.FirstOrDefault(x => x.Id == Roleid).Name;
-            Response.Cookies.Append("jwt", _jwtRepository.GenerateJwtToken(loggedInPersonViewModel));
-
             if(user.Email ==  null)
             {
                 TempData["Email"] = "Please Enter email!";
                 TempData["EmailStyle"] = "border-danger";
                 return RedirectToAction("Admin", "CredentialAdmin");
             }
-
             else if (valid == 2)
             {
                 TempData["WrongPassword"] = "Enter Correct Password";
@@ -85,8 +71,43 @@ namespace HelloDoc.Controllers.Admin
                 TempData["EmailStyle"] = "border-danger";
                 return RedirectToAction("Admin", "CredentialAdmin");
             }
+            else if(valid == 5)
+            {
+                var physician = _context.Physicians.FirstOrDefault(m => m.Email == user.Email);
+                if (physician != null)
+                {
+                    HttpContext.Session.SetString("AdminName", $"{physician.Firstname}{physician.Lastname}");
+                }
+
+
+                var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
+                LoggedInPersonViewModel loggedInPersonViewModel = new LoggedInPersonViewModel();
+                loggedInPersonViewModel.AspnetId = correct.Id;
+                loggedInPersonViewModel.UserName = correct.Username;
+                var Roleid = _context.Aspnetuserroles.FirstOrDefault(x => x.Userid == correct.Id).Roleid.ToString();
+                loggedInPersonViewModel.Role = _context.Aspnetroles.FirstOrDefault(x => x.Id == Roleid).Name;
+                Response.Cookies.Append("jwt", _jwtRepository.GenerateJwtToken(loggedInPersonViewModel));
+
+                TempData["success"] = "Login SuccessFull...";
+                return RedirectToAction("ProviderDashboard", "ProviderSide");
+            }
             else
             {
+                var admin = _context.Admins.FirstOrDefault(m => m.Email == user.Email);
+                if (admin != null)
+                {
+                    HttpContext.Session.SetString("AdminName", $"{admin.Firstname}{admin.Lastname}");
+                }
+
+                var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
+                LoggedInPersonViewModel loggedInPersonViewModel = new LoggedInPersonViewModel();
+                loggedInPersonViewModel.AspnetId = correct.Id;
+                loggedInPersonViewModel.UserName = correct.Username;
+                var Roleid = _context.Aspnetuserroles.FirstOrDefault(x => x.Userid == correct.Id).Roleid.ToString();
+                loggedInPersonViewModel.Role = _context.Aspnetroles.FirstOrDefault(x => x.Id == Roleid).Name;
+
+
+                Response.Cookies.Append("jwt", _jwtRepository.GenerateJwtToken(loggedInPersonViewModel));
                 TempData["success"] = "Login SuccessFull...";
                 return RedirectToAction("Admindashboard", "Admin");
             }

@@ -1,4 +1,5 @@
 ﻿using HelloDoc.DataModels;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,14 +43,20 @@ namespace Services.Viewmodels
         public string AdminNotes { get; set; }
         public List<Physicianregion> phyregionlist { get; set; }
         public List<Role> rolelist { get; set; }
-
-
         public BitArray IsAgreementDoc { get; set; }
         public BitArray IsBackgroundDoc { get; set; }
         public BitArray IsCredentialDoc { get; set; }
         public BitArray IsNonDisclosureDoc { get; set; }
         public BitArray IsLicenseDoc { get; set; }
-
         public int[] selectedregion { get; set; }
+        public int selectedroleid { get; set; }
+        public IFormFile? AgreementDoc { get; set; }
+        public IFormFile? BackgroundDoc { get; set; }
+        public IFormFile? CredentialDoc { get; set; }
+        public IFormFile? NonDisclosureDoc { get; set; }
+        public IFormFile? LicenseDoc { get; set; }
+
+        public List<Physiciannotification> isnotificationstopped { get; set; }
+
     }
 }

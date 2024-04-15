@@ -13,13 +13,13 @@ namespace Services.Implementation
     {
         private HelloDocDbContext _context;
         private IHttpContextAccessor _httpcontext;
-        
+
 
         public AdminCredential(HelloDocDbContext context, IHttpContextAccessor httpContextAccessor) : base(context)
         {
             _context = context;
             _httpcontext = httpContextAccessor;
-        
+
         }
 
         public void Save()
@@ -30,7 +30,26 @@ namespace Services.Implementation
         public int Login(Aspnetuser user)
         {
             var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
-           
+
+            if (_context.Physicians.Any(x => x.Email == user.Email))
+            {
+                var x = _context.Physicians.FirstOrDefault(x => x.Email == user.Email);
+
+                if (x != null)
+                {
+                    if (correct.Passwordhash != user.Passwordhash)
+                    {
+                       
+
+                        return 2;
+                    }
+                }
+                int id = x.Physicianid;
+
+                _httpcontext.HttpContext.Session.SetInt32("AdminId", id);
+                return 5;
+
+            }
 
             if (correct != null)
             {
@@ -54,12 +73,12 @@ namespace Services.Implementation
             }
             else
             {
-               
                 return 4;
             }
+
         }
 
-       
+
     }
 }
 

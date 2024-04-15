@@ -13,7 +13,6 @@ $(document).ready(function () {
     loadview();
 });
 function loadview() {
-    debugger
     $.ajax({
         url: '/Provider/ProviderMenuPartial',
         success: function (response) {
@@ -736,4 +735,18 @@ $('#SelectFileToUpload').on('change', function () {
             }
         });
     }
+});
+
+ //creating provider account
+$('#createproviderbtn').on('click', function () {
+
+    $.ajax({
+        url: '/Provider/CreateProviderAccount', // Replace with your server endpoint
+        success: function (response) {
+            $('#providermenudiv').html(response);
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }    
+    });
 });

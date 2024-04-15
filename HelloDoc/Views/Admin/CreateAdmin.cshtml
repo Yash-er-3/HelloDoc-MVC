@@ -1,21 +1,20 @@
-﻿@using Services.ViewModels
+﻿@using Services.Viewmodels
 @model UserAllDataViewModel
 @{
-    Layout = "_Admin";
+    Layout = "header_dashboard";
 }
-<Partial name="Toast" />
+<Partial name="notification" />
+
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-<div class="container bg-light">
+<div class="container">
     <div class="d-flex justify-content-between align-items-center w-100 my-3">
-        <h4 class="fw-bold">MY Profile</h4>
-        <a asp-controller="Admin" asp-action="AdminDashboard"
-           class="btn m-0 btn-outline-info  px-2 ">
-            <i class="fa-solid fa-chevron-left"></i>
-            Back
+        <h4>Create Account</h4>
+       <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
+            <span class="back-btn p-2" style="color: #00b8e6;">&lt;Back</span>
         </a>
     </div>
-    <div class="container-fluid my-3 bg-white shadow">
+    <div class="container-fluid my-3 bg-white shadow rounded-3">
         <form id="createAdminAccountForm">
             <div class="row px-2">
 
@@ -97,8 +96,8 @@
                     @foreach (var item in Model.regionlist)
                     {
                         <div class="form-check form-check-inline ">
-                            <input class="form-check-input a adminselectedregion-createadmin" type="checkbox" id="@item.RegionId" value="@item.RegionId">
-                            <label class="form-check-label" for="@item.RegionId">@item.Name</label>
+                            <input class="form-check-input a adminselectedregion-createadmin" type="checkbox" id="@item.Regionid" value="@item.Regionid">
+                            <label class="form-check-label" for="@item.Regionid">@item.Name</label>
                         </div>
                     }
                 </div>
@@ -183,16 +182,6 @@
 
 
 <script>
-    var phoneInputField = document.querySelector("#phone-CreateAdmin");
-    var phoneInput = window.intlTelInput(phoneInputField, {
-        utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
-    var phoneInputField2 = document.querySelector("#alterphonenumber-CreateAdmin");
-    var phoneInput = window.intlTelInput(phoneInputField2, {
-        utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
     $("#createAdminAccountForm").submit(function (event) {
         debugger;
         event.preventDefault();
@@ -207,9 +196,8 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                dataType: 'json',
                 success: function (response) {
-
+                    window.location.href = "https://localhost:44300/";
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     console.log('Error while updating physician info:', errorThrown);

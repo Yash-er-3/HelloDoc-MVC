@@ -69,7 +69,7 @@
         <tbody>
             <tr id="saveButton" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
                 <td class="d-flex justify-content-center">
-                    <button class="p-1 text-white bg-info rounded border-info d-flex align-items-center">
+                    <button class="p-1 text-white bg-info rounded border-info d-none align-items-center" id="savebtnNotificationProvider">
                         <span class="">Save</span>
                     </button>
                 </td>
@@ -78,8 +78,11 @@
             {
                 <tr class="p-1" style="border-top : 10px solid transparent ; border-bottom : 10px solid transparent">
                     <td style="width : 12%; text-align : center!important">
-                        <input type="checkbox" />
-
+                        <input type="checkbox" value="@physician.Physicianid" name="providernotificationcheckbox" class="providernotificationcheckbox"
+                        @if (Model.isnotificationstopped.Any(m => m.Pysicianid == physician.Physicianid))
+                        {
+                            @:checked
+                        } />
                     </td>
                     <td style="width : 24%">@physician.Firstname @physician.Lastname</td>
                     <td style="width : 17%">
@@ -210,4 +213,28 @@
         }
 
     });
+
+    $('.providernotificationcheckbox').on('change', function () {
+        $('#savebtnNotificationProvider').removeClass('d-none');
+    });
+    $('#savebtnNotificationProvider').on('click', function () {
+        $('#savebtnNotificationProvider').addClass('d-none');
+        let provideridlist = [];
+        $('input[type="checkbox"]:checked').each(function () {
+            provideridlist.push($(this).val());
+        });
+        console.log(provideridlist)
+        $.ajax({
+            url: '/Provider/UpdateNotification',
+            data: { "provideridlist": provideridlist },
+            type: 'POST',
+            success: function () {
+
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
 </script>
