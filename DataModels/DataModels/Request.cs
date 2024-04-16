@@ -137,6 +137,9 @@ public partial class Request
 
     [InverseProperty("Request")]
     public virtual ICollection<Requeststatuslog> Requeststatuslogs { get; set; } = new List<Requeststatuslog>();
+    
+    [InverseProperty("Request")]
+    public virtual ICollection<Encounter> Encounters { get; set; } = new List<Encounter>();
 
     [ForeignKey("Requesttypeid")]
     [InverseProperty("Requests")]

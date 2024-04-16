@@ -1,0 +1,298 @@
+﻿@using Services.Viewmodels
+@model EncounterFormViewModel
+
+@{
+    Layout = null;
+}
+
+<div class="container">
+    <div class="">
+        <div class="d-flex justify-content-between">
+            <div class="h3 subinfotext fw-bold">Encounter Form</div>
+            <div>
+                <a onclick="location.reload()">
+                    <button class="d-flex babtn rounded align-item-center p-1 px-2">
+                        <div><img src="~/res/back.png" width="15px" height="10px"></div>
+                        <div><span>Back</span></div>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="bg-light rounded p-3 shadow" id="content">
+            <h3 class="mb-3 h1 text-center text-info fw-bolder">Medical Report-Confidential</h3>
+            <form asp-action="EncounterFormSubmit" asp-controller="Dashboard" asp-area="AdminArea" method="post">
+                <div class="row d-flex">
+                    <input type="text" value="@Model.RequestId" id="Requestid" asp-for="@Model.RequestId" hidden />
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="text" class="form-control" placeholder="" asp-for="Firstname"><span>First Name</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Firstname"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="text" class="form-control" placeholder="" asp-for="Lastname"><span>Last Name</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Lastname"></span>
+                    </div>
+                    <div class="py-2 col-12">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="text" class="form-control" placeholder="" asp-for="Location"><span>Location</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Location"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="date" class="form-control" placeholder="" asp-for="DOB" readonly><span>Date Of Births</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="DOB"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="date" class="form-control" placeholder="" asp-for="Dateofservice"><span>Date of Service</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Dateofservice"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="telephone rounded">
+                            <div class="input-group d-flex align-items-center rounded ">
+                                <input type="tel" class="form-control" asp-for="Mobile">
+                            </div>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Mobile"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="email" class="form-control" placeholder="" asp-for="Email"><span>Email</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Email"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="HistoryOfIllness" row-="2"></textarea><span>History of Present Illeness or Injury</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="HistoryOfIllness"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="MedicalHistory" row-="2"></textarea><span>Medical History</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="MedicalHistory"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Medication" row-="2"></textarea><span>Medication</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Medication"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Allergies" row-="2"></textarea><span>Allergies</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Allergies"></span>
+                    </div>
+                    <div class="py-2 col-sm-6 col-md-4 col-lg-4 col-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="number" class="form-control" placeholder="" asp-for="Temp"><span>Temp</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Temp"></span>
+                    </div>
+                    <div class="py-2 col-sm-6 col-md-4 col-lg-4 col-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="number" class="form-control" placeholder="" asp-for="HR"><span>HR</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="HR"></span>
+                    </div>
+                    <div class="py-2 col-sm-6 col-md-4 col-xl-4 col-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="number" class="form-control" placeholder="" asp-for="RR"><span>RR</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="RR"></span>
+                    </div>
+                    <div class="py-2 col-sm-6 col-md-2 col-xl-2 col-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="number" class="form-control" placeholder="" asp-for="BPs"><span>Blood pressure(Systolic)</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="BPs"></span>
+                    </div>
+                    <div class="py-2 col-sm-6 col-md-2 col-xl-2 col-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="number" class="form-control" placeholder="" asp-for="BPd"><span>Blood pressure(Diastolic)</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="BPd"></span>
+                    </div>
+                    <div class="py-2 col-sm-6 col-md-4 col-xl-4 col-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="number" class="form-control" placeholder="" asp-for="O2"><span>O2</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="O2"></span>
+                    </div>
+                    <div class="py-2 col-sm-6 col-md-4 col-xl-4 col-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <input type="text" class="form-control" placeholder="" asp-for="Pain"><span>Pain</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Pain"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6 ">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Heent" row-="2"></textarea><span>Heent</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Heent"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="CV" row-="2"></textarea><span>CV</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="CV"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Chest" row-="2"></textarea><span>Chest</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Chest"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="ABD" row-="2"></textarea><span>ABD</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="ABD"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Extr" row-="2"></textarea><span>Extr</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Extr"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Skin" row-="2"></textarea><span>Skin</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Skin"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Neuro" row-="2"></textarea><span>Neuro</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Neuro"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Other" row-="2"></textarea><span>Other</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Other"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Diagnosis" row-="2"></textarea><span>Diagnosis</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Diagnosis"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="TreatmentPlan" row-="2"></textarea><span>TreatmentPlan</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="TreatmentPlan"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="MedicationsDispended" row-="2"></textarea><span>Medications Dispended</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="MedicationsDispended"></span>
+                    </div>
+                    <div class="py-2 col-sm-12 col-md-6 col-xl-6">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Procedure" row-="2"></textarea><span>Procedure</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Procedure"></span>
+                    </div>
+                    <div class="py-2 col-12">
+                        <div class="form-group d-flex align-items-center rounded">
+                            <textarea class="form-control" placeholder="" asp-for="Followup" row-="2"></textarea><span>Followup</span>
+                        </div>
+                        <span class="text-danger spanofvalid" asp-validation-for="Followup"></span>
+                    </div>
+                    <div class="d-grid gap-2 d-flex justify-content-center  justify-content-md-end mt-4 pt-4 mb-3">
+                        @if (Model.role == "Admin" || (!Model.isFinaled))
+                        {
+                            <button type="button" class="p-2px-3mx-2 text-white bg-info rounded border-info" id="Savechanges">Save Changes</button>
+                        }
+                        @if (!Model.isFinaled)
+                        {
+                            <button type="button" class="p-2px-3mx-2 text-white rounded" id="finalize" style="background-color : rebeccapurple ; border-color : rebeccapurple">Finalize</button>
+                        }
+                        <button type="button" class="btn btn-outline-info" onclick="location.reload()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="~/css/error.css" asp-append-version="true" />
+<script>
+    var observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            if (mutation.target.textContent.trim() !== '') {
+                mutation.target.parentNode.classList.add('error');
+            } else {
+                mutation.target.parentNode.classList.remove('error');
+            }
+        });
+    });
+
+    var config = { attributes: true, childList: true, characterData: true };
+
+    $('.spanofvalid').each(function () {
+        observer.observe(this, config);
+    });
+
+    $('input[type="tel"]').each(function () {
+        var iti = window.intlTelInput(this, {
+            nationalMode: false,
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+        });
+        $(this).on('blur', function () {
+            var fullNumber = iti.getNumber();
+            var countryCode = iti.getSelectedCountryData().dialCode;
+            if (fullNumber.startsWith("+" + countryCode + "+" + countryCode)) {
+                fullNumber = fullNumber.replace("+" + countryCode + "+", "+");
+            }
+            console.log(fullNumber);
+            $(this).val(fullNumber);
+        });
+    });
+
+    $('#finalize').on('click', function () {
+        var id = $('#Requestid').val();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You can not make changes after this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Finalize it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/AdminArea/Dashboard/FinalizeEncounter',
+                    data: { id },
+                    type: 'POST',
+                    success: function (result) {
+                        $('#nav-tabContent').html(result);
+                        Swal.fire({
+                            title: "Finalized!",
+                            text: "Encounter  has been Finalized.",
+                            icon: "success"
+                        });
+                    },
+                });
+            }
+        });
+    })
+
+
+    $('#Savechanges').on('click', function () {
+        $(this).closest('form').submit();
+    });
+
+</script>

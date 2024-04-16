@@ -57,14 +57,6 @@ namespace HelloDoc.Controllers.Admin
                 TempData["PassStyle"] = "border-danger";
                 return RedirectToAction("Admin", "CredentialAdmin");
             }
-            else if (valid == 3)
-            {
-                TempData["WrongPassword"] = "You're not Admin!";
-                TempData["PassStyle"] = "border-danger";
-                TempData["EmailStyle"] = "border-danger";
-                return RedirectToAction("Admin", "CredentialAdmin");
-
-            }
             else if (valid == 4)
             {
                 TempData["Email"] = "Enter correct email!";
@@ -77,8 +69,8 @@ namespace HelloDoc.Controllers.Admin
                 if (physician != null)
                 {
                     HttpContext.Session.SetString("AdminName", $"{physician.Firstname}{physician.Lastname}");
+                    HttpContext.Session.SetInt32("PhysicianId", physician.Physicianid);
                 }
-
 
                 var correct = _context.Aspnetusers.FirstOrDefault(m => m.Email == user.Email);
                 LoggedInPersonViewModel loggedInPersonViewModel = new LoggedInPersonViewModel();
@@ -87,7 +79,6 @@ namespace HelloDoc.Controllers.Admin
                 var Roleid = _context.Aspnetuserroles.FirstOrDefault(x => x.Userid == correct.Id).Roleid.ToString();
                 loggedInPersonViewModel.Role = _context.Aspnetroles.FirstOrDefault(x => x.Id == Roleid).Name;
                 Response.Cookies.Append("jwt", _jwtRepository.GenerateJwtToken(loggedInPersonViewModel));
-
                 TempData["success"] = "Login SuccessFull...";
                 return RedirectToAction("ProviderDashboard", "ProviderSide");
             }

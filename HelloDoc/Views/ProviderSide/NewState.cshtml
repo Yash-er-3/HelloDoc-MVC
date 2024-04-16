@@ -3,19 +3,15 @@
 
 
 
-<div class="table-responsive mx-4 bg-white pt-2 d-none d-md-block export-download" >
+<div class="table-responsive mx-4 bg-white pt-2 d-none d-md-block export-download">
     <table class="table mt-5 small align-middle " id="dtBasicExample">
         <thead>
             <tr class="bg-light">
                 <th class="d-none"></th>
                 <th class="d-none"></th>
                 <th scope="col">Name</th>
-                <th scope="col">Date Of Birth</th>
-                <th scope="col">Requestor</th>
-                <th scope="col">Requestor Date</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
-                <th scope="col">Notes</th>
                 <th scope="col">Chat With</th>
                 <th scope="col">Actions</th>
 
@@ -68,9 +64,6 @@
                             @item.PatientName <div class="btn btn-outline-light btn-sm"><i class="fa-regular fa-envelope fa-sm"></i></div>
                         </div>
                     </td>
-                    <td>@item.PatientDOB</td>
-                    <td>@item.RequestTypeName(item.RequestType)</td>
-                    <td>@item.RequestedDate</td>
                     <td>
                         <div class="border rounded-1 p-1 d-flex justify-content-around ">
                             <i class="bi bi-telephone"></i>
@@ -109,9 +102,7 @@
                         }
                     </td>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Address</td>
-                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Notes</td>
                     <td>
-                        @item.ProviderEmail
                         <div class="d-flex">
 
                             <button class="btn btn-outline-light p-1 shadow-none"
@@ -133,17 +124,11 @@
                                 Actions
                             </button>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <button type="button" class="dropdown-item text-secondary getname" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAssign">
-                                        <i class="fa-regular fa-rectangle-list me-2"></i>Assign case
-                                    </button>
-                                </li>
-                                <li>
-                                    @*<a class="dropdown-item text-secondary" >
-                                </a>*@
 
-                                    <button type="button" value="@item.PatientName" class="dropdown-item text-secondary getname" id="@item.RequestId" value="@item.PatientName" data-toggle="modal" data-target="#exampleModal">
-                                        <i class="fa-regular fa-circle-xmark me-2"></i>Cancel case
+                                <li>
+                                    <button class="dropdown-item text-secondary acceptRequest" value="@item.RequestId">
+                                        <i class="bi bi-view-list me-2"></i>
+                                        Accept
                                     </button>
                                 </li>
                                 <li>
@@ -158,11 +143,7 @@
                                         <i class="fa-solid fa-book-journal-whills me-2"></i>View Notes
                                     </button>
                                 </li>
-                                <li>
-                                    <button type="button" id="@item.RequestId" value="@item.PatientName" class="dropdown-item text-secondary getname" data-toggle="modal" data-target="#exampleModalBlock">
-                                        <i class="fa-regular fa-circle-xmark me-2"></i>Block case
-                                    </button>
-                                </li>
+
                             </ul>
 
 
@@ -269,14 +250,14 @@
 
                         <div class="col-6 d-flex justify-content-center">
                             <button type="button" class="btn w-100 text-white rounded-pill p-1 btn-sm text-secondary getname" style="background:#c40eff;" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAssign">
-                              
+
                                 Assign case
                             </button>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
 
                             <button type="button" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" id="@item.RequestId" value="@item.PatientName" data-toggle="modal" data-target="#exampleModal">
-                                
+
                                 Cancel case
                             </button>
                         </div>
@@ -286,7 +267,7 @@
                         <div class="col-6 d-flex justify-content-center">
 
                             <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewNotes">
-                              
+
                                 View Notes
                             </button>
                         </div>
@@ -294,7 +275,7 @@
                         <div class="col-6 d-flex justify-content-center">
 
                             <button type="button" id="@item.RequestId" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" data-toggle="modal" data-target="#exampleModalBlock">
-                               
+
                                 Block Patient
                             </button>
                         </div>
@@ -316,3 +297,37 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 
 <script src="~/js/ProviderSide/TableContent.js" asp-append-version="true"></script>
+
+<script>
+
+    $('.acceptRequest').on('click', function () {
+        console.log("accept")
+        var requestid = $(this).val();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Accept it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/ProviderSide/AcceptRequest',
+                    data: { requestid: requestid },
+                    success: function (response) {
+                        $('#adminLayoutMainDiv').html(response)
+                    }
+                })
+                Swal.fire({
+                    title: "Accepted!",
+                    text: "Request Accepted Successfully.",
+                    icon: "success"
+                });
+            }
+        });
+    });
+
+
+</script>

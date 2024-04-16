@@ -5,5 +5,6 @@
         public IVendorRepository vendor { get; }
         public IRecordRepository records { get; }
         public IRequestRepository _request { get; }
+        public IUpdateData _updateData { get; }
     }
 }

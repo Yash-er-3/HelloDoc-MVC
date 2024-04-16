@@ -152,6 +152,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJTaWRlXENvbmNsdWRlU3RhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projects/HelloDoc/HelloDoc/Views/ProviderSide/Encounter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJTaWRlXEVuY291bnRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projects/HelloDoc/HelloDoc/Views/ProviderSide/NewState.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJTaWRlXE5ld1N0YXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

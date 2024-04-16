@@ -39,7 +39,6 @@ namespace Services.Implementation
                 {
                     if (correct.Passwordhash != user.Passwordhash)
                     {
-                       
 
                         return 2;
                     }
@@ -66,16 +65,12 @@ namespace Services.Implementation
                     }
                     return 2;
                 }
-                else
-                {
-                    return 3;
-                }
             }
             else
             {
                 return 4;
             }
-
+            return 0;
         }
 
 

@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="~/css/submitrequest.css" />
     <link rel="stylesheet" href="~/css/admin_dashboard.css" asp-append-version="true" />
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin="" />
@@ -111,13 +114,12 @@
     <div class="mainnav bg-white d-none d-sm-block">
         <nav class="shadow">
             <div class="ps-2 nav nav-tabs border-bottom-0 border-start-0 d-flex border-end-0 border border-2" id="nav-tab" role="tablist">
-
                 <a class="admin-layout-nav fw-bold me-2" id="nav-home-tab" asp-action="ProviderDashboard" asp-controller="ProviderSide">Dashboard</a>
                 <a asp-controller="ProviderLocation" asp-action="ProviderLocation" class="admin-layout-nav fw-bold me-1" id="nav-provider-location-tab">Invoicing</a>
                 <a class="admin-layout-nav fw-bold nav-profile-tab-for-load-profile " id="nav-profile-tab" asp-action="AdminProfile" asp-controller="Admin">My Schedule</a>
                 <a class="admin-layout-nav fw-bold nav-profile-tab-for-load-profile " id="nav-profile-tab" asp-action="AdminProfile" asp-controller="Admin">My Profile</a>
 
-               
+
             </div>
         </nav>
     </div>
@@ -169,6 +171,7 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    
     <script src="~/js/darklight.js" asp-append-version="true"></script>
     <script src="/js/Admin/Admindashboard.js" asp-append-version="true"></script>
 

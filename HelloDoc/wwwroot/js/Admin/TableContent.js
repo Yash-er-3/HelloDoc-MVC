@@ -208,30 +208,7 @@ $(document).ready(function () {
 
     })
 
-    $('.encounter-save').on('click', function (e) {
-        var requestid = $('.requestid').val();
-        var encountervalue = $('input[name="options-outlined"]:checked').attr('value');
-        //if (encountervalue == "Consult") {
-        //}
-        console.log(encountervalue)
-        console.log(requestid)
-
-        $.ajax({
-            url: '/Admin/EncounterSubmit',
-            type: 'GET',
-            data: { requestid: requestid, encountervalue: encountervalue },
-            success: function (data) {
-                $('#exampleModalEncounter').click();
-                $('#nav-home').html(data);
-                location.reload();
-
-            },
-            error: function (xhr, status, error) {
-                console.log(error);
-            }
-
-        })
-    })
+  
 
     $('.data-agreement').on('click', function (e) {
         console.log("send agree gayu");

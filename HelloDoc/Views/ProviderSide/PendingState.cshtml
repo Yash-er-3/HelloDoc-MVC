@@ -8,13 +8,8 @@
                 <th class="d-none"></th>
                 <th class="d-none"></th>
                 <th scope="col">Name</th>
-                <th scope="col">Date Of Birth</th>
-                <th scope="col">Requestor</th>
-                <th scope="col">Physician Name</th>
-                <th scope="col">Date Of Service</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
-                <th scope="col">Notes</th>
                 <th scope="col">Chat With</th>
                 <th scope="col">Actions</th>
 
@@ -67,10 +62,6 @@
                             @item.PatientName <div class="btn btn-outline-light btn-sm"><i class="fa-regular fa-envelope fa-sm"></i></div>
                         </div>
                     </td>
-                    <td>@item.PatientDOB</td>
-                    <td>@item.RequestTypeName(item.RequestType)</td>
-                    <td>@item.RequestorName</td>
-                    <td>@item.RequestedDate</td>
                     <td>
                         <div class="border rounded-1 p-1 d-flex justify-content-around ">
                             <i class="bi bi-telephone"></i>
@@ -109,7 +100,6 @@
                         }
                     </td>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Address</td>
-                    <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Notes</td>
                     <td>
 
                         <div class="d-flex">
@@ -127,7 +117,7 @@
                                     aria-expanded="false">
                                 <i class="bi bi-person-badge-fill"></i>
                                 <span>
-                                    Provider
+                                    Admin
                                 </span>
                             </button>
 
@@ -143,6 +133,12 @@
                             </button>
                             <ul class="dropdown-menu">
 
+                                <li>
+                                    <button class="dropdown-item text-secondary data-agreement getname" value="@item.RequestId" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAgreement">
+                                        <i class="bi bi-view-list me-2"></i>
+                                        Send Agreement
+                                    </button>
+                                </li>
                                 <li>
                                     <button class="dropdown-item text-secondary Viewcase" value="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
@@ -166,19 +162,7 @@
                                         Transfer
                                     </button>
                                 </li>
-                                <li>
-                                    <button class="dropdown-item text-secondary getname" data-toggle="modal" data-target="#ClearModal" id="@item.RequestId">
-                                        <i class="bi bi-view-list me-2"></i>
-                                        Clear Case
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item text-secondary data-agreement getname" value="@item.RequestId" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAgreement">
-                                        <i class="bi bi-view-list me-2"></i>
-                                        Send Agreement
-                                    </button>
-                                </li>
-
+                               
                             </ul>
 
 

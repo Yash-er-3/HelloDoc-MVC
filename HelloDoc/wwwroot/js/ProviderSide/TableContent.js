@@ -198,15 +198,6 @@ $(document).ready(function () {
 
 
 
-    $('.consult').on('click', function (e) {
-        $('.arrivaltime-dropdown').removeClass('d-none')
-
-    })
-
-    $('.housecall').on('click', function (e) {
-        $('.arrivaltime-dropdown').addClass('d-none')
-
-    })
 
     $('.encounter-save').on('click', function (e) {
         var requestid = $('.requestid').val();
@@ -217,14 +208,12 @@ $(document).ready(function () {
         console.log(requestid)
 
         $.ajax({
-            url: '/Admin/EncounterSubmit',
-            type: 'GET',
+            url: '/ProviderSide/EncounterSubmit',
             data: { requestid: requestid, encountervalue: encountervalue },
             success: function (data) {
                 $('#exampleModalEncounter').click();
                 $('#nav-home').html(data);
                 location.reload();
-
             },
             error: function (xhr, status, error) {
                 console.log(error);

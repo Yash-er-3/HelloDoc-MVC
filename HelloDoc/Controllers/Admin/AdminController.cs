@@ -19,7 +19,7 @@ using System.Globalization;
 
 namespace HelloDoc.Controllers.Admin
 {
-    [AuthorizationRepository("Admin")]
+    [AuthorizationRepository("Admin,Physician")]
 
     public class AdminController : Controller
     {
@@ -210,7 +210,7 @@ namespace HelloDoc.Controllers.Admin
         {
             var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
             var physician = _context.Physicians.FirstOrDefault(m => m.Firstname + m.Lastname == physicianname);
-            request.Status = 2;
+            //request.Status = 2;
             request.Physicianid = physician.Physicianid;
             _context.Requests.Update(request);
             _context.SaveChanges();
@@ -444,6 +444,12 @@ namespace HelloDoc.Controllers.Admin
             SendEmailAndSMS.SendSMS();
 
             TempData["success"] = "Agreement sent in Email..!";
+
+            int physicianid = (int)HttpContext.Session.GetInt32("PhysicianId");
+            if(physicianid != null)
+            {
+                return RedirectToAction("ProviderDashboard","ProviderSide");
+            }
             return RedirectToAction("AdminDashboard");
         }
 
@@ -547,17 +553,7 @@ namespace HelloDoc.Controllers.Admin
             _context.SaveChanges();
             return RedirectToAction("Admindashboard");
         }
-        public void EncounterSubmit(int requestid, string encountervalue)
-        {
-            var requestdata = _context.Requests.FirstOrDefault(x => x.Requestid == requestid);
-            if (encountervalue == "Housecall" && requestdata != null)
-            {
-                requestdata.Status = 6;
-                _context.Requests.Update(requestdata);
-                _context.SaveChanges();
-            }
-
-        }
+       
 
 
         public IActionResult AdminProfile()

@@ -8,12 +8,8 @@
                 <th class="d-none"></th>
                 <th class="d-none"></th>
                 <th scope="col">Name</th>
-                <th scope="col">Date Of Birth</th>
-                <th scope="col">Physician Name</th>
-                <th scope="col">Date Of Service</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
-                <th scope="col">Chat With</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -64,9 +60,7 @@
                             @item.PatientName <div class="btn btn-outline-light btn-sm"><i class="fa-regular fa-envelope fa-sm"></i></div>
                         </div>
                     </td>
-                    <td>@item.PatientDOB</td>
-                    <td>@item.RequestorName</td>
-                    <td>@item.RequestedDate</td>
+                   
                     <td>
                         <div class="border rounded-1 p-1 d-flex justify-content-around ">
                             <i class="bi bi-telephone"></i>
@@ -105,29 +99,7 @@
                         }
                     </td>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Address</td>
-                    <td>
-                       
-                        <div class="d-flex">
-                            <button class="btn btn-outline-light p-1 me-2 shadow-none"
-                                    type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                <i class="bi bi-person-fill"></i>
-                                <span>
-                                    Patient
-                                </span>
-                            </button>
-
-                            <button class="btn btn-outline-light p-1 shadow-none"
-                                    type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                <i class="bi bi-person-badge-fill"></i>
-                                <span>
-                                    Provider
-                                </span>
-                            </button>
-
-                        </div>
-                    </td>
+                   
                     <td>
                         <div class="dropstart ms-2">
                             <button class="btn btn-outline-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -135,6 +107,12 @@
                             </button>
                             <ul class="dropdown-menu">
 
+                                <li>
+                                    <button class="dropdown-item text-secondary" value="@item.RequestId">
+                                        <i class="bi bi-view-list me-2"></i>
+                                        Conclude
+                                    </button>
+                                </li> 
                                 <li>
                                     <button class="dropdown-item text-secondary Viewcase" value="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
@@ -152,18 +130,7 @@
                                         <i class="fa-solid fa-book-journal-whills me-2"></i>View Notes
                                     </button>
                                 </li>
-                                <li>
-                                    <button class="dropdown-item text-secondary orders" value="@item.RequestId">
-                                        <i class="bi bi-view-list me-2"></i>
-                                        Orders
-                                    </button>
-                                </li>
-                                <li>
-                                    <button class="dropdown-item text-secondary" value="@item.RequestId">
-                                        <i class="bi bi-view-list me-2"></i>
-                                        Doctors Note
-                                    </button>
-                                </li>
+                               
                                 <li>
                                     <button class="dropdown-item text-secondary" value="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
@@ -178,7 +145,6 @@
 
                 </tr>
             }
-
 
         </tbody>
     </table>
