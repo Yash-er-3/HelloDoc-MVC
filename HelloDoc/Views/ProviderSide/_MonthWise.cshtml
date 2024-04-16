@@ -1,0 +1,275 @@
+﻿@model Services.Viewmodels.MonthWiseScheduling;
+@using Microsoft.AspNetCore.Html
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+
+<div id="calendar " class="my-3 shadow  bg-white">
+    @{
+        // Get the current month and year
+        var now = Model.date;
+        var currentMonth = now.Month;
+        var currentYear = now.Year;
+        var today = now.Day;
+        var todaydate = DateTime.Now.Date;
+        // Generate the calendar table
+        var currentDate = now.ToString("MMMM yyyy");
+        <input type="hidden" id="currentMonth" value="@currentDate" />
+        var daysInMonth = DateTime.DaysInMonth(currentYear, currentMonth);
+        var firstDay = new DateTime(currentYear, currentMonth, 1).DayOfWeek;
+        int x = 5;
+        if (firstDay.ToString() == "Saturday")
+        {
+            x = 6;
+        }
+        if (daysInMonth == 28 && firstDay.ToString() == "Sunday")
+        {
+            x = 4;
+        }
+        var date = 1;
+        <div class="table-responsive shadow">
+            <table class="table calendar-table table-bordered text-center">
+                <tr class="text-white bg-secondary">
+                    <th style="width:14.28%">Sun</th>
+                    <th style="width:14.28%">Mon</th>
+                    <th style="width:14.28%">Tue</th>
+                    <th style="width:14.28%">Wed</th>
+                    <th style="width:14.28%">Thu</th>
+                    <th style="width:14.28%">Fri</th>
+                    <th style="width:14.28%">Sat</th>
+                </tr>
+                @{
+
+                    @for (var i = 0; i < x; i++)
+                    {
+
+                        <tr>
+
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+                            <td class="bg-white"></td>
+
+                        </tr>
+                        <tr>
+                            @for (var j = 0; j < 7; j++)
+                            {
+                                var shift = Model.shiftdetails.Where(u => u.Shiftdate.Month == now.Month && u.Shiftdate.Year == now.Year && u.Isdeleted[0] == false);
+                                var chkbool = 0;
+                                <td class="p-0">
+                                    <table class="w-100">
+                                        <tr>
+                                            @if ((i == 0 && j < (int)firstDay) || date >= daysInMonth)
+                                            {
+                                                <td></td>
+                                            }
+                                            else
+                                            {
+
+                                                <td class="dates">
+                                                    @(date++)
+                                                </td>
+                                                chkbool = 1;
+                                            }
+                                        </tr>
+                                        @{
+                                            if (chkbool == 1)
+                                            {
+                                                shift = shift.Where(u => u.Shiftdate.Day.ToString() == (date - 1).ToString()).ToList();
+                                            }
+
+                                        }
+                                        @if (chkbool == 1)
+                                        {
+                                            if (shift.Count() > 4)
+                                            {
+                                                int count = 4;
+                                                @foreach (var obj in shift)
+                                                {
+                                                    if (count > 0)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn w-100 small text-white"
+                                                                        value="@obj.Shiftdetailid" data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (obj.Status == 2)
+                                                                {
+                                                                    @:style="background-color:#ABde97; width: -webkit-fill-available;color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:#efabd2; width: -webkit-fill-available; color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
+                                                                    @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
+                                                                    <br />
+                                                                    @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <tr class="d-none more_@shift.ElementAt(0).Shiftid">
+                                                            <td>
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn w-100 small text-white"
+                                                                        value="@obj.Shiftdetailid" data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (obj.Status == 2)
+                                                                {
+                                                                    @:style="background-color:#ABde97; width: -webkit-fill-available;color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:#efabd2; width: -webkit-fill-available; color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
+                                                                    @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
+                                                                    <br />
+                                                                    @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    count--;
+
+                                                }
+                                                <tr>
+                                                    <td class="p-0">
+                                                        <button value="more_@shift.ElementAt(0).Shiftid" class="btn p-0 w-100 shadow-none text-white readmore" id="readmore" style="background-color:#3c7b9d;width:-webkit-fit-content;">Read more</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                int count = 5;
+                                                @foreach (var obj in shift)
+                                                {
+                                                    if (count > 0)
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                <button class="dates d-flex align-items-center justify-content-center border-0 viewshiftbtn w-100 small text-white"
+                                                                        value="@obj.Shiftdetailid" data-bs-toggle="modal" data-bs-target="#viewShiftModal"
+                                                                @if (obj.Status == 2)
+                                                                {
+                                                                    @:style="background-color:#ABde97; width: -webkit-fill-available;color: rgb(26, 62, 24); font-weight:600"
+                                                                }
+                                                                else
+                                                                {
+                                                                    @:style="background-color:#efabd2; width: -webkit-fill-available; color: rgb(87, 1, 51); font-weight:600"
+                                                                }>
+                                                                    @obj.Starttime.ToString("hh:mm tt")-@obj.Endtime.ToString("hh:mm tt")
+                                                                    <br />
+                                                                    @obj.Shift.Physician.Firstname, @obj.Shift.Physician.Lastname
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    count--;
+
+                                                }
+                                                @while (count > 0)
+                                                {
+                                                    <tr><td></td></tr>
+                                                    count--;
+                                                }
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <tr><td></td></tr>
+                                            <tr><td></td></tr>
+                                            <tr><td></td></tr>
+                                            <tr><td></td></tr>
+                                            <tr><td></td></tr>
+
+                                        }
+                                    </table>
+                                </td>
+
+
+
+
+                            }
+                        </tr>
+
+
+
+                    }
+
+                }
+
+
+            </table>
+        </div>
+    }
+</div>
+
+
+<script>
+    $('.removeactive').removeClass('active text-white');
+    $('#Month').addClass('active text-white');
+
+    var currentdate = $('#currentMonth').val();
+    $('#showDate').text(currentdate);
+
+
+    $('.readmore').on('click', function () {
+        let id = $(this).val();
+
+        let x = $(this).html()
+        if (x == "Read more") {
+            $(this).html("Read less");
+        }
+        else {
+            $(this).html("Read more");
+        }
+        var ids = document.getElementsByClassName(id);
+        for (var i = 0; i < ids.length; i++) {
+            ids[i].classList.toggle('d-none');
+        }
+        // }
+    });
+
+
+    $('.viewshiftbtn').on('click', function () {
+        console.log("dhsgb")
+
+        let shiftid = $(this).val();
+        $('#shiftidviewmodel').val(shiftid);
+
+        $.ajax({
+            url: '/Scheduling/ViewShiftOpen',
+            data: { shiftdetailid: shiftid },
+            success: function (response) {
+                $("#viewShiftModal").modal();
+
+                let starttimeviewshift = new Date(response.starttime);
+                let endtimeviewshift = new Date(response.endtime);
+                let options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+                let starttimeString = starttimeviewshift.toLocaleTimeString('en-US', options);
+                let endtimeString = endtimeviewshift.toLocaleTimeString('en-US', options);
+
+
+                $('#viewshiftregion').val(response.regionname)
+
+                $('#viewshiftphysicianname').empty();
+                $('#viewshiftphysicianname').append(
+                    $('<option>', {
+                        value: response.physicianname,
+                        text: response.physicianname,
+                    }));
+                $('#viewshiftshiftdate').val(response.shiftdateviewshift)
+                $('#viewshiftstartdate').val(starttimeString)
+                $('#viewshiftenddate').val(endtimeString)
+            },
+            error: function (xhr, textStatus, error) {
+                console.log(error)
+            }
+        });
+
+    });
+
+</script>

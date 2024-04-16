@@ -1,6 +1,4 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
-using Microsoft.EntityFrameworkCore;
+﻿using HelloDoc;
 using Services.Contracts;
 using Services.Viewmodels;
 using System.Collections;
@@ -20,7 +18,7 @@ namespace Services.Implementation
             return regions;
         }
         public VendorViewModel getVendorData()
-        {   
+        {
             VendorViewModel model = new VendorViewModel();
             model.healthProfessionallist = _context.Healthprofessionals.Where(h => h.Isdeleted == new BitArray(new[] { false })).OrderBy(x => x.Vendorname).ToList();
             model.healthProfessionalTypelist = _context.Healthprofessionaltypes.ToList();
@@ -136,7 +134,7 @@ namespace Services.Implementation
 
         public int AddVendorData(VendorViewModel formdata)
         {
-           
+
 
             Healthprofessional healthprofessional = new Healthprofessional
             {
@@ -152,7 +150,7 @@ namespace Services.Implementation
                 Phonenumber = formdata.phone,
                 Email = formdata.email,
                 Businesscontact = formdata.businesscontact,
-                Isdeleted = new BitArray(new[] {false} )
+                Isdeleted = new BitArray(new[] { false })
             };
 
             _context.Healthprofessionals.Add(healthprofessional);

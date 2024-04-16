@@ -10,7 +10,7 @@ namespace Services.Implementation
         public IUpdateData _updateData { get; private set; }
 
 
-        public unitOfWork(IVendorRepository Vendor,IRecordRepository Record, IRequestRepository request, IUpdateData updateData)
+        public unitOfWork(IVendorRepository Vendor, IRecordRepository Record, IRequestRepository request, IUpdateData updateData)
         {
             vendor = Vendor;
             records = Record;

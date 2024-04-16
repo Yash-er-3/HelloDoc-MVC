@@ -1,5 +1,4 @@
-﻿using HelloDoc.DataModels;
-using Services.Viewmodels;
+﻿using Services.Viewmodels;
 
 namespace Services.Contracts
 {

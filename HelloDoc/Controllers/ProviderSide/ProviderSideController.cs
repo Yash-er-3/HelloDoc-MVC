@@ -1,15 +1,11 @@
-﻿using DataAccess.ServiceRepository.IServiceRepository;
-using DataAccess.ServiceRepository;
-using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using DataAccess.ServiceRepository;
+using DataAccess.ServiceRepository.IServiceRepository;
 using HelloDoc.Views.Shared;
 using Microsoft.AspNetCore.Mvc;
-using NPOI.SS.Formula.Functions;
+using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
-using Services.Implementation;
 using Services.Viewmodels;
 using System.Collections;
-using System.Diagnostics.Metrics;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 
@@ -134,14 +130,13 @@ namespace HelloDoc.Controllers.ProviderSide
                 _context.Requests.Update(requestdata);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Encounter", "ProviderSide");
+            return RedirectToAction("Encounter", new { requestid = requestid });
         }
 
-        [AuthorizationRepository("Admin,Physician")]
-        [HttpGet]
         public IActionResult Encounter(int requestid)
         {
             var request = _context.Requests.FirstOrDefault(x => x.Requestid == requestid);
+            var requestclients = _context.Requestclients.FirstOrDefault(x => x.Requestid == requestid);
 
             var encounter = _context.Encounters.FirstOrDefault(x => x.RequestId == requestid);
             var jwtservice = HttpContext.RequestServices.GetService<IJwtRepository>();
@@ -165,12 +160,12 @@ namespace HelloDoc.Controllers.ProviderSide
             if (request.Status == 6 && encounter == null)
             {
                 EncounterFormViewModel model = new EncounterFormViewModel();
-                model.Firstname = request.Requestclients.First().Firstname;
-                model.Lastname = request.Requestclients.First().Lastname;
-                model.DOB = new DateTime(Convert.ToInt32(request.User.Intyear), DateTime.ParseExact(request.User.Strmonth, "MMMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(request.User.Intdate)).ToString("yyyy-MM-dd");
-                model.Mobile = request.Requestclients.FirstOrDefault().Phonenumber;
-                model.Email = request.Requestclients.FirstOrDefault().Email;
-                model.Location = request.Requestclients.FirstOrDefault().Address;
+                model.Firstname = requestclients.Firstname;
+                model.Lastname = requestclients.Lastname;
+                model.DOB = new DateTime(Convert.ToInt32(requestclients.Intyear), DateTime.ParseExact(requestclients.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, (int)requestclients.Intdate).ToString("yyyy-MM-dd");
+                model.Mobile = requestclients.Phonenumber;
+                model.Email = requestclients.Email;
+                model.Location = requestclients.Address;
                 model.isFinaled = !fortrue[0];
                 model.RequestId = request.Requestid;
                 return View(model);
@@ -179,12 +174,12 @@ namespace HelloDoc.Controllers.ProviderSide
             {
                 EncounterFormViewModel model = new EncounterFormViewModel();
                 model.RequestId = request.Requestid;
-                model.Firstname = request.Requestclients.First().Firstname;
-                model.Lastname = request.Requestclients.First().Lastname;
-                model.DOB = new DateTime(Convert.ToInt32(request.User.Intyear), DateTime.ParseExact(request.User.Strmonth, "MMMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(request.User.Intdate)).ToString("yyyy-MM-dd");
-                model.Mobile = request.Requestclients.FirstOrDefault().Phonenumber;
-                model.Email = request.Requestclients.FirstOrDefault().Email;
-                model.Location = request.Requestclients.FirstOrDefault().Address;
+                model.Firstname = requestclients.Firstname;
+                model.Lastname = requestclients.Lastname;
+                model.DOB = new DateTime(Convert.ToInt32(requestclients.Intyear), DateTime.ParseExact(requestclients.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, (int)requestclients.Intdate).ToString("yyyy-MM-dd");
+                model.Mobile = requestclients.Phonenumber;
+                model.Email = requestclients.Email;
+                model.Location = requestclients.Address;
                 model.isFinaled = !fortrue[0];
                 model.HistoryOfIllness = encounter.HistoryIllness;
                 model.MedicalHistory = encounter.MedicalHistory;
@@ -213,6 +208,10 @@ namespace HelloDoc.Controllers.ProviderSide
                 model.role = role;
                 return View(model);
             }
+            //else if(request.Status == 6 && encounter.IsFinalized[0] == true)
+            //{
+            //    return BadRequest("Already Finalized");
+            //}
             else if ((request.Status == 6 || request.Status == 7 || request.Status == 8 || request.Status == 3) && encounter.IsFinalized != fortrue)
             {
                 return PartialView("_DownLoadEncounter", new { requestid = request.Requestid, role = role });
@@ -223,12 +222,32 @@ namespace HelloDoc.Controllers.ProviderSide
             }
         }
 
-        [AuthorizationRepository("Admin,Physician")]
+        [HttpPost]
+        public IActionResult OnHouseOpenEncounter(int requestid)
+        {
+            int physicianid = (int)HttpContext.Session.GetInt32("PhysicianId");
+
+            var request = _context.Requests.FirstOrDefault(x => x.Requestid == requestid);
+            request.Status = 6;
+            _context.Requests.Update(request);
+            Requeststatuslog requeststatuslog = new Requeststatuslog();
+            requeststatuslog.Status = request.Status;
+            requeststatuslog.Requestid = requestid;
+            requeststatuslog.Notes = "Provider click on housecall";
+            requeststatuslog.Createddate = DateTime.Now;
+            requeststatuslog.Physicianid = physicianid;
+            _context.Requeststatuslogs.Add(requeststatuslog);
+            _context.SaveChanges();
+            return RedirectToAction("Encounter", new { requestid = requestid });
+        }
+
         [HttpPost]
         public IActionResult EncounterFormSubmit(EncounterFormViewModel model)
         {
             int physicianid = (int)HttpContext.Session.GetInt32("PhysicianId");
             int adminid = (int)HttpContext.Session.GetInt32("AdminId");
+
+            var requestclient = _context.Requestclients.FirstOrDefault(x => x.Requestid == model.RequestId);
 
             BitArray fortrue = new BitArray(1);
             fortrue[0] = true;
@@ -239,11 +258,11 @@ namespace HelloDoc.Controllers.ProviderSide
             {
                 encounter = new Encounter();
             }
-            request.Requestclients.First().Firstname = model.Firstname;
-            request.Requestclients.First().Lastname = model.Lastname;
-            request.Requestclients.FirstOrDefault().Phonenumber = model.Mobile;
-            request.Requestclients.FirstOrDefault().Email = model.Email;
-            request.Requestclients.FirstOrDefault().Address = model.Location;
+            requestclient.Firstname = model.Firstname;
+            requestclient.Lastname = model.Lastname;
+            requestclient.Phonenumber = model.Mobile;
+            requestclient.Email = model.Email;
+            requestclient.Address = model.Location;
             encounter.HistoryIllness = model.HistoryOfIllness;
             encounter.MedicalHistory = model.MedicalHistory;
             encounter.Medications = model.Medication;
@@ -271,23 +290,23 @@ namespace HelloDoc.Controllers.ProviderSide
             _context.Requests.Update(request);
             if (encounter.RequestId == 0)
             {
-                encounter.RequestId = request.Requestid;
-                encounter.Createddate = DateTime.Now;
-                encounter.Createdby = _context.Physicians.FirstOrDefault(x => x.Physicianid == physicianid).Aspnetuserid;
+                encounter.RequestId = requestclient.Requestid;
+                encounter.Date = DateTime.Now;
+                //encounter. = _context.Physicians.FirstOrDefault(x => x.Physicianid == physicianid).Aspnetuserid;
                 _context.Encounters.Add(encounter);
             }
             else
             {
                 _context.Encounters.Update(encounter);
-                encounter.Modifieddate = DateTime.Now;
-                if (physicianid != -1)
-                {
-                    encounter.Modifiedby = _context.Physicians.FirstOrDefault(x => x.Physicianid == physicianid).Aspnetuserid;
-                }
-                if (adminid != -1)
-                {
-                    encounter.Modifiedby = _context.Admins.FirstOrDefault(x => x.Adminid == adminid).Aspnetuserid;
-                }
+                //encounter.Modifieddate = DateTime.Now;
+                //if (physicianid != -1)
+                //{
+                //    encounter.Modifiedby = _context.Physicians.FirstOrDefault(x => x.Physicianid == physicianid).Aspnetuserid;
+                //}
+                //if (adminid != -1)
+                //{
+                //    encounter.Modifiedby = _context.Admins.FirstOrDefault(x => x.Adminid == adminid).Aspnetuserid;
+                //}
             }
             _context.SaveChanges();
             var jwtservice = HttpContext.RequestServices.GetService<IJwtRepository>();
@@ -308,6 +327,338 @@ namespace HelloDoc.Controllers.ProviderSide
             {
                 return RedirectToAction("ProviderDashboard", "ProviderSide");
             }
+        }
+
+        [HttpPost]
+        public IActionResult FinalizeEncounter(int requestid)
+        {
+            BitArray fortrue = new BitArray(1);
+            fortrue[0] = true;
+            var encounter = _context.Encounters.FirstOrDefault(x => x.RequestId == requestid);
+            if (encounter == null)
+            {
+                var enounternew = new Encounter();
+                enounternew.RequestId = requestid;
+                enounternew.IsFinalized = fortrue;
+                enounternew.Date = DateTime.Now;
+             
+                _context.Encounters.Add(enounternew);
+                _context.SaveChanges();
+            }
+            else
+            {
+                encounter.IsFinalized = fortrue;
+                _context.Encounters.Update(encounter);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ProviderDashboard", "ProviderSide");
+        }
+
+        public IActionResult EditEncounterAsAdmin(int requestid)
+        {
+            var requestclient = _context.Requestclients.FirstOrDefault(x => x.Requestid == requestid);
+
+            var encounter = _context.Encounters.FirstOrDefault(x => x.RequestId == requestclient.Requestid);
+            EncounterFormViewModel model = new EncounterFormViewModel();
+            model.RequestId = requestclient.Requestid;
+            model.Firstname = requestclient.Firstname;
+            model.Lastname = requestclient.Lastname;
+            model.DOB = new DateTime(Convert.ToInt32(requestclient.Intyear), DateTime.ParseExact(requestclient.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, (int)requestclient.Intdate).ToString("yyyy-MM-dd");
+            model.Mobile = requestclient.Phonenumber;
+            model.Email = requestclient.Email;
+            model.Location = requestclient.Address;
+            model.HistoryOfIllness = encounter.HistoryIllness;
+            model.MedicalHistory = encounter.MedicalHistory;
+            model.Medication = encounter.Medications;
+            model.Allergies = encounter.Allergies;
+            model.Temp = encounter.Temp;
+            model.HR = encounter.Hr;
+            model.RR = encounter.Rr;
+            model.BPs = encounter.BpS;
+            model.BPd = encounter.BpD;
+            model.O2 = encounter.O2;
+            model.Pain = encounter.Pain;
+            model.Heent = encounter.Heent;
+            model.CV = encounter.Cv;
+            model.Chest = encounter.Chest;
+            model.ABD = encounter.Abd;
+            model.Extr = encounter.Extr;
+            model.Skin = encounter.Skin;
+            model.Neuro = encounter.Neuro;
+            model.Other = encounter.Other;
+            model.Diagnosis = encounter.Diagnosis;
+            model.TreatmentPlan = encounter.TreatmentPlan;
+            model.MedicationsDispended = encounter.MedicationDispensed;
+            model.Procedure = encounter.Procedures;
+            model.Followup = encounter.FollowUp;
+            model.isFinaled = encounter.IsFinalized[0];
+            model.role = "Admin";
+            return PartialView("Encounter", model);
+        }
+
+        public IActionResult MyScheduling()
+        {
+            SchedulingViewModel modal = new SchedulingViewModel();
+            modal.regions = _context.Regions.ToList();
+            return View(modal);
+        }
+
+        public IActionResult LoadSchedulingPartial(string PartialName, string date, int regionid, int status)
+        {
+            var currentDate = DateTime.Parse(date);
+            List<Physician> physician = _context.Physicianregions.Include(u => u.Physician).Where(u => u.Regionid == regionid).Select(u => u.Physician).ToList();
+            if (regionid == 0)
+            {
+                physician = _context.Physicians.ToList();
+            }
+
+            switch (PartialName)
+            {
+
+                case "_DayWise":
+                    DayWiseScheduling day = new DayWiseScheduling
+                    {
+                        date = currentDate,
+                        physicians = physician,
+
+                    };
+                    if (regionid != 0 && status != 0)
+                    {
+                        day.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid && m.Status == status).ToList();
+                    }
+                    else if (regionid != 0)
+                    {
+                        day.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid).ToList();
+
+                    }
+                    else if (status != 0)
+                    {
+                        day.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Status == status).ToList();
+
+                    }
+                    else
+                    {
+                        day.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).ToList();
+                    }
+                    return PartialView("_DayWise", day);
+
+                case "_WeekWise":
+                    WeekWiseScheduling week = new WeekWiseScheduling
+                    {
+                        date = currentDate,
+                        physicians = physician,
+
+                    };
+
+                    if (regionid != 0 && status != 0)
+                    {
+                        week.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid && m.Status == status).ToList();
+                    }
+                    else if (regionid != 0)
+                    {
+                        week.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid).ToList();
+
+                    }
+                    else if (status != 0)
+                    {
+                        week.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Status == status).ToList();
+
+                    }
+                    else
+                    {
+                        week.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).ToList();
+                    }
+                    return PartialView("_WeekWise", week);
+
+                case "_MonthWise":
+                    MonthWiseScheduling month = new MonthWiseScheduling
+                    {
+                        date = currentDate,
+                        physicians = physician,
+                    };
+                    if (regionid != 0 && status != 0)
+                    {
+                        month.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid && m.Status == status).ToList();
+                    }
+                    else if (regionid != 0)
+                    {
+                        month.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Regionid == regionid).ToList();
+
+                    }
+                    else if (status != 0)
+                    {
+                        month.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).Where(m => m.Status == status).ToList();
+
+                    }
+                    else
+                    {
+                        month.shiftdetails = _context.Shiftdetails.Include(u => u.Shift).ToList();
+                    }
+                    return PartialView("_MonthWise", month);
+
+                default:
+                    return PartialView("_DayWise");
+            }
+        }
+
+        public List<Physician> filterregion(string regionid)
+        {
+            List<Physician> physicians = _context.Physicianregions.Where(u => u.Regionid.ToString() == regionid).Select(y => y.Physician).ToList();
+            return physicians;
+        }
+
+        public IActionResult AddShift(SchedulingViewModel model)
+        {
+            int adminid = (int)HttpContext.Session.GetInt32("AdminId");
+            var admin = _context.Admins.FirstOrDefault(m => m.Adminid == adminid);
+            Aspnetuser aspnetadmin = _context.Aspnetusers.FirstOrDefault(m => m.Id == admin.Aspnetuserid);
+            var chk = Request.Form["repeatdays"].ToList();
+            var shiftid = _context.Shifts.Where(u => u.Physicianid == model.providerid).Select(u => u.Shiftid).ToList();
+            if (shiftid.Count() > 0)
+            {
+                foreach (var obj in shiftid)
+                {
+                    var shiftdetailchk = _context.Shiftdetails.Where(u => u.Shiftid == obj && u.Shiftdate == DateOnly.FromDateTime(model.shiftdate)).ToList();
+                    if (shiftdetailchk.Count() > 0)
+                    {
+                        foreach (var item in shiftdetailchk)
+                        {
+                            if ((model.starttime >= item.Starttime && model.starttime <= item.Endtime) || (model.endtime >= item.Starttime && model.endtime <= item.Endtime))
+                            {
+                                TempData["error"] = "Shift is already assigned in this time";
+                                return RedirectToAction("Scheduling");
+                            }
+                        }
+                    }
+                }
+            }
+            Shift shift = new Shift
+            {
+                Physicianid = model.providerid,
+                Startdate = DateOnly.FromDateTime(model.shiftdate),
+                Repeatupto = model.repeatcount,
+                Createddate = DateTime.Now,
+                Createdby = aspnetadmin.Id
+            };
+            foreach (var obj in chk)
+            {
+                shift.Weekdays += obj;
+            }
+            if (model.repeatcount > 0)
+            {
+                shift.Isrepeat = new BitArray(new[] { true });
+            }
+            else
+            {
+                shift.Isrepeat = new BitArray(new[] { false });
+            }
+            _context.Shifts.Add(shift);
+            _context.SaveChanges();
+            DateTime curdate = model.shiftdate;
+            Shiftdetail shiftdetail = new Shiftdetail();
+            shiftdetail.Shiftid = shift.Shiftid;
+            shiftdetail.Shiftdate = DateOnly.FromDateTime(curdate);
+            shiftdetail.Regionid = model.regionid;
+            shiftdetail.Starttime = model.starttime;
+            shiftdetail.Endtime = model.endtime;
+            shiftdetail.Isdeleted = new BitArray(new[] { false });
+            shiftdetail.Status = 1;
+            _context.Shiftdetails.Add(shiftdetail);
+            _context.SaveChanges();
+
+            var dayofweek = model.shiftdate.DayOfWeek.ToString();
+            int valueforweek;
+            if (dayofweek == "Sunday")
+            {
+                valueforweek = 0;
+            }
+            else if (dayofweek == "Monday")
+            {
+                valueforweek = 1;
+            }
+            else if (dayofweek == "Tuesday")
+            {
+                valueforweek = 2;
+            }
+            else if (dayofweek == "Wednesday")
+            {
+                valueforweek = 3;
+            }
+            else if (dayofweek == "Thursday")
+            {
+                valueforweek = 4;
+            }
+            else if (dayofweek == "Friday")
+            {
+                valueforweek = 5;
+            }
+            else
+            {
+                valueforweek = 6;
+            }
+            if (shift.Isrepeat[0] == true)
+            {
+                for (int j = 0; j < shift.Weekdays.Count(); j++)
+                {
+                    var z = shift.Weekdays;
+                    var p = shift.Weekdays.ElementAt(j).ToString();
+                    int ele = Int32.Parse(p);
+                    int x;
+                    if (valueforweek > ele)
+                    {
+                        x = 6 - valueforweek + 1 + ele;
+                    }
+                    else
+                    {
+                        x = ele - valueforweek;
+                    }
+                    if (x == 0)
+                    {
+                        x = 7;
+                    }
+                    DateTime newcurdate = model.shiftdate.AddDays(x);
+                    for (int i = 0; i < model.repeatcount; i++)
+                    {
+                        Shiftdetail shiftdetailnew = new Shiftdetail
+                        {
+                            Shiftid = shift.Shiftid,
+                            Shiftdate = DateOnly.FromDateTime(newcurdate),
+                            Regionid = model.regionid,
+                            Starttime = new DateTime(newcurdate.Year, newcurdate.Month, newcurdate.Day, model.starttime.Hour, model.starttime.Minute, model.starttime.Second),
+                            Endtime = new DateTime(newcurdate.Year, newcurdate.Month, newcurdate.Day, model.endtime.Hour, model.endtime.Minute, model.endtime.Second),
+                            Isdeleted = new BitArray(new[] { false }),
+                            Status = 1
+                        };
+                        _context.Shiftdetails.Add(shiftdetailnew);
+                        _context.SaveChanges();
+                        newcurdate = newcurdate.AddDays(7);
+                    }
+                }
+            }
+            return RedirectToAction("Scheduling");
+        }
+        public SchedulingViewModel ViewShiftOpen(int shiftdetailid)
+        {
+
+            Shiftdetail shiftdata = _context.Shiftdetails.Include(x => x.Shift).FirstOrDefault(s => s.Shiftdetailid == shiftdetailid);
+
+            SchedulingViewModel model = new SchedulingViewModel
+            {
+                regionname = _context.Regions.FirstOrDefault(r => r.Regionid == shiftdata.Regionid).Regionid.ToString(),
+                physicianname = _context.Physicians.FirstOrDefault(p => p.Physicianid == shiftdata.Shift.Physicianid).Firstname + " "
+                                + _context.Physicians.FirstOrDefault(p => p.Physicianid == shiftdata.Shift.Physicianid).Lastname,
+                shiftdateviewshift = shiftdata.Shiftdate,
+                starttime = shiftdata.Starttime,
+                endtime = shiftdata.Endtime,
+            };
+
+            return model;
+
+        }
+
+        public IActionResult MyProfile()
+        {
+            return View();
         }
     }
 }

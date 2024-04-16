@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-namespace HelloDoc.DataModels;
+namespace HelloDoc;
 
 [Table("request")]
 public partial class Request
@@ -114,6 +111,9 @@ public partial class Request
     public virtual ICollection<Emaillog> Emaillogs { get; set; } = new List<Emaillog>();
 
     [InverseProperty("Request")]
+    public virtual ICollection<Encounter> Encounters { get; set; } = new List<Encounter>();
+
+    [InverseProperty("Request")]
     public virtual ICollection<Orderdetail> Orderdetails { get; set; } = new List<Orderdetail>();
 
     [ForeignKey("Physicianid")]
@@ -137,9 +137,6 @@ public partial class Request
 
     [InverseProperty("Request")]
     public virtual ICollection<Requeststatuslog> Requeststatuslogs { get; set; } = new List<Requeststatuslog>();
-    
-    [InverseProperty("Request")]
-    public virtual ICollection<Encounter> Encounters { get; set; } = new List<Encounter>();
 
     [ForeignKey("Requesttypeid")]
     [InverseProperty("Requests")]

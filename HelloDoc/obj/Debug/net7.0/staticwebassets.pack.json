@@ -153,6 +153,10 @@
       "PackagePath": "staticwebassets\\js\\ProviderSide\\ProviderSide.js"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\Scheduling.js",
+      "PackagePath": "staticwebassets\\js\\ProviderSide\\Scheduling.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\TableContent.js",
       "PackagePath": "staticwebassets\\js\\ProviderSide\\TableContent.js"
     },

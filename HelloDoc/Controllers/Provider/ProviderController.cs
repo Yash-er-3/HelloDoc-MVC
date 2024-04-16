@@ -1,11 +1,7 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Services.Viewmodels;
-using System;
 using System.Collections;
-using System.IO;
 
 namespace HelloDoc.Controllers.Provider
 {
@@ -37,7 +33,7 @@ namespace HelloDoc.Controllers.Provider
             ProviderData data = new ProviderData();
             data.regions = _context.Regions.ToList();
             data.rolelist = _context.Roles.ToList();
-            if(regionid != 0)
+            if (regionid != 0)
             {
                 data.physicians = _context.Physicians.Where(x => x.Regionid == regionid).ToList();
             }
@@ -46,7 +42,7 @@ namespace HelloDoc.Controllers.Provider
                 data.physicians = _context.Physicians.ToList();
             }
             data.isnotificationstopped = _context.Physiciannotifications.ToList();
-            return PartialView("_ProviderMenuTable",data);
+            return PartialView("_ProviderMenuTable", data);
         }
 
         [HttpPost]
@@ -262,7 +258,7 @@ namespace HelloDoc.Controllers.Provider
 
 
                 Physician physician = _context.Physicians.FirstOrDefault(x => x.Physicianid == providerid);
-                
+
 
                 BitArray bitset = new BitArray(1);
 
@@ -298,7 +294,7 @@ namespace HelloDoc.Controllers.Provider
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("EditProviderAccount",new {providerid = providerid});
+            return RedirectToAction("EditProviderAccount", new { providerid = providerid });
         }
 
         public IActionResult CreateProviderAccount()
@@ -395,7 +391,7 @@ namespace HelloDoc.Controllers.Provider
                     physician.Islicensedoc = new BitArray(new[] { true });
                 }
 
-               
+
 
 
                 Physicianregion physicianregion = new Physicianregion
@@ -408,7 +404,7 @@ namespace HelloDoc.Controllers.Provider
                     _context.Add(physicianregion);
                 }
                 //id
-              
+
                 TempData["success"] = "Physician Account Created Successfully..!";
                 _context.SaveChanges();
 

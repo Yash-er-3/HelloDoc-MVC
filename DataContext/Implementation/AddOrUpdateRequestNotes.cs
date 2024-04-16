@@ -1,12 +1,6 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc;
 using Services.Contracts;
 using Services.Viewmodels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
@@ -44,6 +38,6 @@ namespace Services.Implementation
             }
         }
 
-       
+
     }
 }

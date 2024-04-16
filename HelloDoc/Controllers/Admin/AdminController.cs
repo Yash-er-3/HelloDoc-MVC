@@ -1,20 +1,15 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using DataAccess.ServiceRepository;
 using HelloDoc.ViewModels;
 using HelloDoc.Views.Shared;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
+using Services.Implementation;
 using Services.Viewmodels;
 using System.Collections;
-using System.Net.Mail;
-using System.Net;
-using static Services.Viewmodels.allrequestdataViewModel;
-using DataAccess.ServiceRepository;
-using Microsoft.EntityFrameworkCore;
-using Services.Implementation;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Globalization;
+using System.Net;
+using System.Net.Mail;
 //using Twilio.Http;
 
 namespace HelloDoc.Controllers.Admin
@@ -47,7 +42,7 @@ namespace HelloDoc.Controllers.Admin
             _blockCaseRepo = blockCaseRepo;
             _addOrUpdateRequestStatusLog = addOrUpdateRequestStatusLog;
             _addOrUpdateRequestNotes = addOrUpdateRequestNotes;
-            _add = add; 
+            _add = add;
         }
         // GET: AdminController
 
@@ -58,7 +53,7 @@ namespace HelloDoc.Controllers.Admin
             if (HttpContext.Session.GetInt32("AdminId") != null)
             {
 
-                var requests = _request.GetAll().ToList();  
+                var requests = _request.GetAll().ToList();
                 var region = _context.Regions.ToList();
                 var casetag = _context.Casetags.ToList();
                 var physician = _context.Physicians.ToList();
@@ -446,9 +441,9 @@ namespace HelloDoc.Controllers.Admin
             TempData["success"] = "Agreement sent in Email..!";
 
             int physicianid = (int)HttpContext.Session.GetInt32("PhysicianId");
-            if(physicianid != null)
+            if (physicianid != null)
             {
-                return RedirectToAction("ProviderDashboard","ProviderSide");
+                return RedirectToAction("ProviderDashboard", "ProviderSide");
             }
             return RedirectToAction("AdminDashboard");
         }
@@ -553,7 +548,7 @@ namespace HelloDoc.Controllers.Admin
             _context.SaveChanges();
             return RedirectToAction("Admindashboard");
         }
-       
+
 
 
         public IActionResult AdminProfile()

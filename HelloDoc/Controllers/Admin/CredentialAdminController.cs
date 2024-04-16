@@ -1,13 +1,7 @@
-﻿using DataAccess.ServiceRepository;
-using DataAccess.ServiceRepository.IServiceRepository;
-using HelloDoc.DataContext;
-using HelloDoc.DataModels;
-using Microsoft.AspNetCore.Http;
+﻿using DataAccess.ServiceRepository.IServiceRepository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
 using Services.Viewmodels;
-using System.Net;
 
 namespace HelloDoc.Controllers.Admin
 {
@@ -42,10 +36,10 @@ namespace HelloDoc.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> Login(Aspnetuser user)
         {
-            
+
             int valid = adminCredential.Login(user);
-            
-            if(user.Email ==  null)
+
+            if (user.Email == null)
             {
                 TempData["Email"] = "Please Enter email!";
                 TempData["EmailStyle"] = "border-danger";
@@ -63,7 +57,7 @@ namespace HelloDoc.Controllers.Admin
                 TempData["EmailStyle"] = "border-danger";
                 return RedirectToAction("Admin", "CredentialAdmin");
             }
-            else if(valid == 5)
+            else if (valid == 5)
             {
                 var physician = _context.Physicians.FirstOrDefault(m => m.Email == user.Email);
                 if (physician != null)

@@ -1,5 +1,5 @@
 ﻿
-using HelloDoc.DataContext;
+using HelloDoc;
 using Services.Contracts;
 
 namespace Services.Implementation

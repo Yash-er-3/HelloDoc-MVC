@@ -1,15 +1,8 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc;
 using HelloDoc.Views.Shared;
-using Microsoft.EntityFrameworkCore;
 using Services.Viewmodels;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
@@ -46,6 +39,7 @@ namespace Services.Implementation
                                                RequestId = req.Requestid,
                                                RegionId = req.Requestclients.FirstOrDefault(x => x.Requestid == req.Requestid).Regionid,
                                                PhysicianId = req.Physicianid,
+                                               status = req.Status
                                            };
             return allRequestDataViewModels.ToList();
         }
@@ -80,7 +74,7 @@ namespace Services.Implementation
         }
 
 
-        public  List<allrequestdataViewModel> GetAllRequestProviderData(int status, int physicianid)
+        public List<allrequestdataViewModel> GetAllRequestProviderData(int status, int physicianid)
         {
 
             var allRequestDataViewModels = from user in _db.Users
@@ -105,11 +99,12 @@ namespace Services.Implementation
                                                RequestId = req.Requestid,
                                                RegionId = req.Requestclients.FirstOrDefault(x => x.Requestid == req.Requestid).Regionid,
                                                PhysicianId = req.Physicianid,
+                                               status = req.Status,
                                            };
             return allRequestDataViewModels.ToList();
         }
 
-        public void TransferCase(int requestid, AdminDashboardViewModel note,int physicianid)
+        public void TransferCase(int requestid, AdminDashboardViewModel note, int physicianid)
         {
             var request = _db.Requests.FirstOrDefault(m => m.Requestid == requestid);
             request.Status = 1;
@@ -128,7 +123,7 @@ namespace Services.Implementation
             _db.Requeststatuslogs.Add(statuslog);
             _db.SaveChanges();
         }
-     
+
 
     }
 }

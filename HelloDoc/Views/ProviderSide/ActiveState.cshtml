@@ -103,10 +103,9 @@
                     </td>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Address</td>
                     <td>
-
                         @if(item.status == 5)
                         {
-                            <button class="btn-outline-info text-dark">
+                            <button class="btn-outline-info text-dark housecallbtnclick" value="@item.RequestId">
                                 Housecall
                             </button>
                         }
@@ -349,5 +348,5 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<script src="~/js/Admin/TableContent.js" asp-append-version="true"></script>
+<script src="~/js/ProviderSide/TableContent.js" asp-append-version="true"></script>
 

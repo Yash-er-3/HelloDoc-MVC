@@ -1,6 +1,5 @@
 ﻿
-using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+using HelloDoc;
 using Microsoft.AspNetCore.Mvc;
 using Services.ViewModels;
 using System.Collections;

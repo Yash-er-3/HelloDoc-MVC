@@ -1,14 +1,8 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Services.Viewmodels;
-using System;
 using System.Collections;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static Vonage.ProactiveConnect.Lists.SyncStatus;
-using static Vonage.VonageUrls;
 
 namespace HelloDoc.Controllers.Scheduling
 {

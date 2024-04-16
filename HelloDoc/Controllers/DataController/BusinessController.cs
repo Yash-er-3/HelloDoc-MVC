@@ -1,9 +1,6 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using HelloDoc.ViewModels;
 
 namespace HelloDoc.Controllers.DataController
 {

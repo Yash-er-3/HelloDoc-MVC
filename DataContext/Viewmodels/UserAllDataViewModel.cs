@@ -1,10 +1,5 @@
-﻿using HelloDoc.DataModels;
-using System;
-using System.Collections.Generic;
+﻿using HelloDoc;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Viewmodels
 {

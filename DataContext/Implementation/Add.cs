@@ -1,5 +1,4 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc;
 using Services.Contracts;
 using Services.Viewmodels;
 

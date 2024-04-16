@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-namespace HelloDoc.DataModels;
+namespace HelloDoc;
 
 [Table("physician")]
 public partial class Physician
@@ -39,7 +36,6 @@ public partial class Physician
     public string? Medicallicense { get; set; }
 
     [Column("photo")]
-
     public string? Photo { get; set; }
 
     [Column("adminnotes")]
@@ -120,7 +116,6 @@ public partial class Physician
     public BitArray? Islicensedoc { get; set; }
 
     [Column("signature")]
-
     public string? Signature { get; set; }
 
     [Column("iscredentialdoc", TypeName = "bit(1)")]

@@ -1,4 +1,4 @@
-﻿using HelloDoc.DataContext;
+﻿using HelloDoc;
 using Microsoft.AspNetCore.Mvc;
 using Services.ViewModels;
 

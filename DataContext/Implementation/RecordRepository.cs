@@ -1,5 +1,4 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc;
 using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
 using Services.Viewmodels;
@@ -301,7 +300,7 @@ namespace Services.Implementation
         public List<PatientRecordViewModel> GetPatientRecordData(int userid)
         {
             List<PatientRecordViewModel> patientRecordViewModels = new List<PatientRecordViewModel>();
-            List<HelloDoc.DataModels.Request> request = _context.Requests.Include(m => m.Requestclients).Include(m => m.Requeststatuslogs).Where(m => m.Userid == userid).ToList();
+            List<Request> request = _context.Requests.Include(m => m.Requestclients).Include(m => m.Requeststatuslogs).Where(m => m.Userid == userid).ToList();
             foreach (var item in request)
             {
                 PatientRecordViewModel model = new PatientRecordViewModel();

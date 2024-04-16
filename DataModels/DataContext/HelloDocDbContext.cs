@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using HelloDoc.DataModels;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace HelloDoc.DataContext;
+namespace HelloDoc;
 
 public partial class HelloDocDbContext : DbContext
 {
@@ -36,6 +32,7 @@ public partial class HelloDocDbContext : DbContext
     public virtual DbSet<Concierge> Concierges { get; set; }
 
     public virtual DbSet<Emaillog> Emaillogs { get; set; }
+
     public virtual DbSet<Encounter> Encounters { get; set; }
 
     public virtual DbSet<Healthprofessional> Healthprofessionals { get; set; }
@@ -208,7 +205,6 @@ public partial class HelloDocDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("Encounter_pkey");
 
-            entity.Property(e => e.Id).HasDefaultValueSql("nextval('\"Encounter_Id_seq\"'::regclass)");
             entity.Property(e => e.IsFinalized).HasDefaultValueSql("'0'::\"bit\"");
 
             entity.HasOne(d => d.Request).WithMany(p => p.Encounters)

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Services.Viewmodels
 {
@@ -26,7 +21,7 @@ namespace Services.Viewmodels
         [RegularExpression(@"^(\+\d{1,3}[- ]?)?\d{10}$", ErrorMessage = "Mobile number format is not valid")]
         public string Mobile { get; set; }
 
-        [EmailAddress(ErrorMessage = "Invalid Email Address")]  
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
         [RegularExpression(@"^[a-zA-Z0-9,\'\s]*$", ErrorMessage = "Special characters are not allowed except comma and quote")]
         public string HistoryOfIllness { get; set; }
@@ -38,7 +33,7 @@ namespace Services.Viewmodels
         public string Medication { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9,\'\s]*$", ErrorMessage = "Special characters are not allowed except comma and quote")]
-        public string Allergies { get; set;}
+        public string Allergies { get; set; }
 
         [Required]
         public decimal? Temp { get; set; }
@@ -60,7 +55,7 @@ namespace Services.Viewmodels
         public string Heent { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9,\'\s]*$", ErrorMessage = "Special characters are not allowed except comma and quote")]
-        public  string CV { get; set; }
+        public string CV { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9,\'\s]*$", ErrorMessage = "Special characters are not allowed except comma and quote")]
         public string Chest { get; set; }
@@ -87,7 +82,7 @@ namespace Services.Viewmodels
         public string TreatmentPlan { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9,\'\s]*$", ErrorMessage = "Special characters are not allowed except comma and quote")]
-        public string MedicationsDispended { get; set;}
+        public string MedicationsDispended { get; set; }
 
         [RegularExpression(@"^[a-zA-Z0-9,\'\s]*$", ErrorMessage = "Special characters are not allowed except comma and quote")]
         public string Procedure { get; set; }

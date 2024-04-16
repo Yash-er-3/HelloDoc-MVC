@@ -1,11 +1,6 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HelloDoc.DataModels;
-using HelloDoc.ViewModels;
-using System.Collections;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HelloDoc.Controllers.DataController
 {
@@ -20,13 +15,14 @@ namespace HelloDoc.Controllers.DataController
             _log = log;
             _env = env;
         }
-        public IActionResult patient() { 
+        public IActionResult patient()
+        {
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> patient(PatientInfo r)
         {
-           
+
             var Aspnetuser = await _log.Aspnetusers.FirstOrDefaultAsync(m => m.Email == r.Email);
 
             if (Aspnetuser == null)
@@ -100,7 +96,7 @@ namespace HelloDoc.Controllers.DataController
                 Intyear = int.Parse(r.DOB.ToString("yyyy")),
                 Intdate = int.Parse(r.DOB.ToString("dd")),
                 Strmonth = r.DOB.ToString("MMM")
-        };
+            };
 
             _log.Requestclients.Add(requestclient);
             _log.SaveChanges();
@@ -108,7 +104,7 @@ namespace HelloDoc.Controllers.DataController
 
             if (r.Upload != null)
             {
-                uploadFile(r.Upload,request.Requestid);
+                uploadFile(r.Upload, request.Requestid);
             }
 
             if (HttpContext.Session.GetInt32("UserId") != null)
@@ -120,12 +116,12 @@ namespace HelloDoc.Controllers.DataController
 
         }
 
-        public void uploadFile(List<IFormFile> upload,int id)
+        public void uploadFile(List<IFormFile> upload, int id)
         {
 
-            foreach(var item in upload)
+            foreach (var item in upload)
             {
-                String path = _env.WebRootPath + "/upload/" + id + " " +item.FileName;
+                String path = _env.WebRootPath + "/upload/" + id + " " + item.FileName;
                 FileStream stream = new FileStream(path, FileMode.Create);
 
                 item.CopyTo(stream);
@@ -140,7 +136,7 @@ namespace HelloDoc.Controllers.DataController
                 _log.SaveChanges();
             }
 
-           
+
         }
 
         [Route("/CreatePatient/patient/checkmail/{email}")]
@@ -151,7 +147,7 @@ namespace HelloDoc.Controllers.DataController
             return Json(new { exists = emailExists });
         }
 
-       
+
 
     }
 }

@@ -1,12 +1,6 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
-using HelloDoc.ViewModels;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Http;
+﻿using HelloDoc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.Security.Policy;
 
 namespace HelloDoc.Controllers
 {
@@ -53,7 +47,7 @@ namespace HelloDoc.Controllers
             var userdata = Context.Users.FirstOrDefault(m => m.Userid == id);
             userdata.Firstname = dash.user.Firstname;
             userdata.Lastname = dash.user.Lastname;
-            userdata.Mobile = dash.user.Mobile; 
+            userdata.Mobile = dash.user.Mobile;
             userdata.City = dash.user.City;
             userdata.State = dash.user.State;
             userdata.Street = dash.user.Street;
@@ -61,7 +55,7 @@ namespace HelloDoc.Controllers
             userdata.Modifieddate = DateTime.Now;
             userdata.Strmonth = dash.DOB.ToString("MMM");
             userdata.Intdate = int.Parse(dash.DOB.ToString("dd"));
-            userdata.Intyear= int.Parse(dash.DOB.ToString("yyyy"));
+            userdata.Intyear = int.Parse(dash.DOB.ToString("yyyy"));
 
             Context.Users.Update(userdata);
             Context.SaveChanges();

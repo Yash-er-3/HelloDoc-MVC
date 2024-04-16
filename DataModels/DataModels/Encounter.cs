@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using HelloDoc.DataModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace HelloDoc;
 
-[Table("encounter")]
+[Table("Encounter")]
 public partial class Encounter
 {
     [Key]
@@ -94,20 +90,6 @@ public partial class Encounter
 
     [StringLength(200)]
     public string? FollowUp { get; set; }
-
-    [Column("createddate", TypeName = "timestamp without time zone")]
-    public DateTime? Createddate { get; set; }
-
-    [Column("createdby")]
-    [StringLength(128)]
-    public string? Createdby { get; set; }
-
-    [Column("modifieddate", TypeName = "timestamp without time zone")]
-    public DateTime? Modifieddate { get; set; }
-
-    [Column("modifiedby")]
-    [StringLength(128)]
-    public string? Modifiedby { get; set; }
 
     [ForeignKey("RequestId")]
     [InverseProperty("Encounters")]

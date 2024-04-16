@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
@@ -13,14 +12,14 @@ namespace HelloDoc.ViewModels
         public String Symptoms { get; set; }
 
         [StringLength(100)]
-        [RegularExpression(@"^[a-zA-Z]+$",ErrorMessage = "Enter Valid Firstname")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Enter Valid Firstname")]
         [Required(ErrorMessage = "Firstname is required")]
-        public String FirstName { get; set;}
+        public String FirstName { get; set; }
 
         [StringLength(100)]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Enter a Valid Lastname")]
         [Required(ErrorMessage = "Last Name is required")]
-        public String LastName { get; set;}
+        public String LastName { get; set; }
 
         [Required(ErrorMessage = "Date Of Birth is required")]
         public DateTime DOB { get; set; }
@@ -28,7 +27,7 @@ namespace HelloDoc.ViewModels
         [StringLength(50)]
         [RegularExpression(@"^[a-zA-Z0-9._%+-]+@(gmail\.com|yahoo\.com|gov\.in)$", ErrorMessage = "Enter a valid email address with valid domain")]
         [Required(ErrorMessage = "Please enter your Email Address")]
-        public String Email { get; set;}
+        public String Email { get; set; }
 
         public String Password { get; set; }
 
@@ -38,24 +37,24 @@ namespace HelloDoc.ViewModels
         [StringLength(23)]
         [RegularExpression(@"^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$", ErrorMessage = "Please enter valid phone number")]
         [Required(ErrorMessage = "Plese enter your Phone Number")]
-        public String PhoneNumber { get; set;}
+        public String PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Street is required")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Enter valid Street")]
         [RegularExpression(@"^(?=.*\S)[a-zA-Z0-9\s.,'-]+$", ErrorMessage = "Enter a valid street address")]
         //[RegularExpression(@"^[a-zA-Z0-9\s.,'-]+$", ErrorMessage = "Enter a valid street address")]
-        public String Street { get; set;}
+        public String Street { get; set; }
 
         [Required(ErrorMessage = "City is required")]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Enter valid City")]
         [RegularExpression(@"^(?=.*\S)[a-zA-Z\s.'-]+$", ErrorMessage = "Enter a valid city name")]
-        public String City { get; set;}
+        public String City { get; set; }
 
         [Required(ErrorMessage = "State is required")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Enter valid State")]
         [RegularExpression(@"^(?=.*\S)[a-zA-Z\s.'-]+$", ErrorMessage = "Enter a valid State name")]
         //[RegularExpression(@"^[A-Z]{2}$", ErrorMessage = "Enter a valid state abbreviation (e.g., NY, CA)")]
-        public String State { get; set;}
+        public String State { get; set; }
 
         [Required(ErrorMessage = "Zip Code is required")]
         [StringLength(10, ErrorMessage = "Enter valid Zip Code")]
@@ -64,9 +63,9 @@ namespace HelloDoc.ViewModels
 
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Enter Valid Symptoms")]
         [MaybeNull]
-        public String Room { get; set;}
+        public String Room { get; set; }
 
-        public List<IFormFile> Upload { get; set;}
+        public List<IFormFile> Upload { get; set; }
     }
 }
 

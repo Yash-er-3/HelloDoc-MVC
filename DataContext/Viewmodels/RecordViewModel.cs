@@ -1,4 +1,4 @@
-﻿using HelloDoc.DataModels;
+﻿using HelloDoc;
 using System.Collections;
 
 namespace Services.Viewmodels
@@ -25,7 +25,7 @@ namespace Services.Viewmodels
         public string AdminNote { get; set; }
         public string PatientNote { get; set; }
 
-       
+
         public enum Requestby
         {
             first,
@@ -36,15 +36,15 @@ namespace Services.Viewmodels
             VIP
         }
 
-       
+
 
         public string RequestTypeName(int by)
         {
             string By = ((Requestby)by).ToString();
             return By;
-        } 
-        
-       
+        }
+
+
     }
     public class PatientHistoryViewModel
     {

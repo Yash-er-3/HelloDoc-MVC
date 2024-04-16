@@ -96,6 +96,6 @@ namespace HelloDoc.ViewModels
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Enter Valid Symptoms")]
         [MaybeNull]
         public String Room { get; set; }
-      
+
     }
 }

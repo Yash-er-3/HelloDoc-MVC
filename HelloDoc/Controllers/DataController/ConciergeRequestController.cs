@@ -1,15 +1,11 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HelloDoc.DataModels;
-using HelloDoc.ViewModels;
-using System.Collections;
 using System.Globalization;
 
 namespace HelloDoc.Controllers.DataController
 {
-    public class ConciergeRequestController:Controller
+    public class ConciergeRequestController : Controller
     {
         private readonly HelloDocDbContext _log;
 
@@ -67,7 +63,7 @@ namespace HelloDoc.Controllers.DataController
                 _log.Add(r);
                 _log.SaveChanges();
 
-                Concierge con = new Concierge();    
+                Concierge con = new Concierge();
 
                 con.Conciergename = c.FirstName + c.LastName;
                 con.Address = c.Room + " , " + c.Street + " , " + c.City + " , " + c.State;
@@ -92,11 +88,11 @@ namespace HelloDoc.Controllers.DataController
                 _log.Add(reqcon);
                 _log.SaveChanges();
 
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
-                return RedirectToAction("submitrequest","Home");
+                return RedirectToAction("submitrequest", "Home");
             }
         }
     }

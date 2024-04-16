@@ -196,19 +196,22 @@ $(document).ready(function () {
 
     })
 
-
-
-    $('.consult').on('click', function (e) {
-        $('.arrivaltime-dropdown').removeClass('d-none')
-
-    })
-
-    $('.housecall').on('click', function (e) {
-        $('.arrivaltime-dropdown').addClass('d-none')
-
-    })
-
   
+    $('.encounterclick_conclude').on('click', function () {
+        var requestid = $(this).val();
+        $.ajax({
+            url: '/ProviderSide/Encounter',
+            data: { requestid: requestid },
+            success: function (data) {
+                $('#nav-home').html(data)
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+
+        })
+
+    })
 
     $('.data-agreement').on('click', function (e) {
         console.log("send agree gayu");

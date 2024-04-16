@@ -5,7 +5,7 @@
     Layout = null;
 }
 
-<div class="container">
+<div class="container mb-4">
     <div class="">
         <div class="d-flex justify-content-between">
             <div class="h3 subinfotext fw-bold">Encounter Form</div>
@@ -20,7 +20,7 @@
         </div>
         <div class="bg-light rounded p-3 shadow" id="content">
             <h3 class="mb-3 h1 text-center text-info fw-bolder">Medical Report-Confidential</h3>
-            <form asp-action="EncounterFormSubmit" asp-controller="Dashboard" asp-area="AdminArea" method="post">
+            <form asp-action="EncounterFormSubmit" asp-controller="ProviderSide" method="post">
                 <div class="row d-flex">
                     <input type="text" value="@Model.RequestId" id="Requestid" asp-for="@Model.RequestId" hidden />
                     <div class="py-2 col-sm-12 col-md-6 col-xl-6">
@@ -262,7 +262,7 @@
     });
 
     $('#finalize').on('click', function () {
-        var id = $('#Requestid').val();
+        var requestid = $('#Requestid').val();
         Swal.fire({
             title: "Are you sure?",
             text: "You can not make changes after this!",
@@ -274,8 +274,8 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '/AdminArea/Dashboard/FinalizeEncounter',
-                    data: { id },
+                    url: '/ProviderSide/FinalizeEncounter',
+                    data: { requestid },
                     type: 'POST',
                     success: function (result) {
                         $('#nav-tabContent').html(result);

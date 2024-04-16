@@ -1,6 +1,4 @@
-﻿
-using HelloDoc.DataModels;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace HelloDoc.ViewModels
 {

@@ -1,20 +1,14 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc;
 using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
     public class Repository<T> : IRepository<T> where T : class
     {
 
-         private readonly HelloDocDbContext _dbContext;
+        private readonly HelloDocDbContext _dbContext;
         internal DbSet<T> dbSet;
 
         public Repository(HelloDocDbContext dbContext)
@@ -41,7 +35,7 @@ namespace Services.Implementation
             return query.FirstOrDefault();
         }
 
-        
+
 
     }
 }

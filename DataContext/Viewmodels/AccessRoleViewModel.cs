@@ -1,4 +1,4 @@
-﻿using HelloDoc.DataModels;
+﻿using HelloDoc;
 
 namespace Services.ViewModels
 {

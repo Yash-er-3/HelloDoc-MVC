@@ -1,11 +1,8 @@
-﻿using HelloDoc.DataModels;
-using HelloDoc.Models;
+﻿using HelloDoc.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using System.Net.Mail;
 using System.Net;
-using HelloDoc.DataContext;
+using System.Net.Mail;
 
 namespace HelloDoc.Controllers
 {
@@ -15,7 +12,7 @@ namespace HelloDoc.Controllers
         private readonly HelloDocDbContext _context;
 
 
-        public HomeController(ILogger<HomeController> logger,HelloDocDbContext context)
+        public HomeController(ILogger<HomeController> logger, HelloDocDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -88,7 +85,7 @@ namespace HelloDoc.Controllers
             aspuser.Passwordhash = aspnetuser.Passwordhash;
             _context.Aspnetusers.Update(aspuser);
             _context.SaveChanges();
-            return RedirectToAction("registeredpatient","Home");
+            return RedirectToAction("registeredpatient", "Home");
         }
 
 

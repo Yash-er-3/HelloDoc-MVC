@@ -1,10 +1,6 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HelloDoc.DataModels;
-using HelloDoc.ViewModels;
-using System.Collections;
 using System.Globalization;
 
 namespace HelloDoc.Controllers.DataController
@@ -70,7 +66,7 @@ namespace HelloDoc.Controllers.DataController
 
 
                 Requestclient r = new Requestclient();
-                
+
                 r.Notes = f.Symptoms;
                 r.Requestid = request.Requestid;
                 r.Firstname = f.FirstName;
@@ -96,7 +92,7 @@ namespace HelloDoc.Controllers.DataController
                 //requestwisefile.Requestid = r.Requestid;
                 if (f.FileName != null)
                 {
-                    UploadTable(request.Requestid,f.FileName);
+                    UploadTable(request.Requestid, f.FileName);
                 }
 
                 return RedirectToAction("Index", "Home");

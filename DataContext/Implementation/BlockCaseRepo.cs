@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc;
 using Services.Contracts;
 
 namespace Services.Implementation
@@ -13,7 +7,7 @@ namespace Services.Implementation
     {
         private readonly HelloDocDbContext _context;
 
-        public BlockCaseRepo(HelloDocDbContext context):base(context)
+        public BlockCaseRepo(HelloDocDbContext context) : base(context)
         {
             _context = context;
         }
@@ -31,11 +25,11 @@ namespace Services.Implementation
                     Email = request.Email,
                     Reason = blocknotes,
                     Createddate = DateTime.Now,
-                    
+
                 };
 
                 request.Status = 11;
-                if(blockmodaldata != null)
+                if (blockmodaldata != null)
                 {
                     _context.Blockrequests.Add(blockmodaldata);
                     _context.SaveChanges();

@@ -1,6 +1,6 @@
 using DataAccess.ServiceRepository;
 using DataAccess.ServiceRepository.IServiceRepository;
-using HelloDoc.DataContext;
+using HelloDoc;
 using HelloDoc.Views.Shared;
 using Services.Contracts;
 using Services.Implementation;
@@ -18,10 +18,10 @@ builder.Services.AddSession(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HelloDocDbContext>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddScoped<IRequestRepository , RequestRepository>();
+builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 builder.Services.AddTransient<IAdminCredential, AdminCredential>();
-builder.Services.AddScoped<IRequestDataRepository , RequestDataRepository>();
-builder.Services.AddScoped<IViewCaseRepository,ViewCaseRepository >();
+builder.Services.AddScoped<IRequestDataRepository, RequestDataRepository>();
+builder.Services.AddScoped<IViewCaseRepository, ViewCaseRepository>();
 builder.Services.AddScoped<IBlockCaseRepo, BlockCaseRepo>();
 builder.Services.AddScoped<IAddOrUpdateRequestStatusLog, AddOrUpdateRequestStatusLog>();
 builder.Services.AddScoped<IAddOrUpdateRequestNotes, AddOrUpdateRequestNotes>();

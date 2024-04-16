@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Services.Contracts;
-using Services.Viewmodels;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Xml.Linq;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
-using System.Collections;
-using Services.Implementation;
+using Services.Contracts;
+using Services.Viewmodels;
 
 namespace HelloDoc.Controllers.Records
 {
@@ -160,7 +156,7 @@ namespace HelloDoc.Controllers.Records
             return PartialView("_BlockHistoryTable", blockhistorydata);
         }
 
-      
+
 
         public IActionResult PatientHistory()
         {

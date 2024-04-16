@@ -1,8 +1,6 @@
-﻿using HelloDoc.DataModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 using Services.Viewmodels;
-using Services.ViewModels;
 
 namespace HalloDoc.Controllers.Vendor
 {
@@ -32,7 +30,7 @@ namespace HalloDoc.Controllers.Vendor
 
                 }
             }
-            else if(formdata.businessName != null)
+            else if (formdata.businessName != null)
             {
                 var adddata = _unit.vendor.AddVendorData(formdata);
                 if (adddata == 1)
@@ -51,21 +49,21 @@ namespace HalloDoc.Controllers.Vendor
             return View(modal);
         }
 
-        public IActionResult VendorFilter(int professionid,string search,int vendorid)
+        public IActionResult VendorFilter(int professionid, string search, int vendorid)
         {
 
             VendorViewModel modal = new VendorViewModel();
 
-            if (professionid == 0 && search == null && vendorid == 0 )
+            if (professionid == 0 && search == null && vendorid == 0)
             {
                 modal = _unit.vendor.getVendorData();
 
             }
-            else if (professionid != 0 || search != null || vendorid!=0 )
+            else if (professionid != 0 || search != null || vendorid != 0)
             {
-                modal = _unit.vendor.getFilteredVendorData(professionid,search, vendorid);
+                modal = _unit.vendor.getFilteredVendorData(professionid, search, vendorid);
             }
-           
+
 
             return PartialView("_VendorTable", modal);
 
@@ -87,6 +85,6 @@ namespace HalloDoc.Controllers.Vendor
             return View(modal);
         }
 
-      
+
     }
 }

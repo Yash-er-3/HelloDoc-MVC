@@ -9,6 +9,6 @@ namespace DataAccess.ServiceRepository.IServiceRepository
     {
         string GenerateJwtToken(LoggedInPersonViewModel loggedInPerson);
 
-        bool ValidateToken(string token , out JwtSecurityToken jwtSecurityToken);
+        bool ValidateToken(string token, out JwtSecurityToken jwtSecurityToken);
     }
 }

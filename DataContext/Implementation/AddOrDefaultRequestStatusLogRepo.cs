@@ -1,11 +1,5 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+﻿using HelloDoc;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
@@ -18,7 +12,7 @@ namespace Services.Implementation
             _context = context;
         }
 
-        void IAddOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(int requestid, int? APId=null, string? cancelnote=null, int? transtophyid = null)
+        void IAddOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(int requestid, int? APId = null, string? cancelnote = null, int? transtophyid = null)
         {
             var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
             if (request != null)

@@ -1,6 +1,4 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -30,7 +28,8 @@ namespace HelloDoc.Controllers
 
                 }
 
-                if (match.Passwordhash == user.Passwordhash) {
+                if (match.Passwordhash == user.Passwordhash)
+                {
                     @TempData["msg"] = "<script>alert('Change succesfully');</script>";
                     TempData["success"] = "Login Successfull";
                     HttpContext.Session.SetInt32("UserId", users.Userid);

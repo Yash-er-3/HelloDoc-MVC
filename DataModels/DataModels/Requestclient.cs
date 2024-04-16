@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-namespace HelloDoc.DataModels;
+namespace HelloDoc;
 
 [Table("requestclient")]
 public partial class Requestclient

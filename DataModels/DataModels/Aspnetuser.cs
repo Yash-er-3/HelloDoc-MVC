@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-namespace HelloDoc.DataModels;
+namespace HelloDoc;
 
 [Table("aspnetusers")]
 public partial class Aspnetuser
@@ -17,11 +14,10 @@ public partial class Aspnetuser
     [Column("username")]
     [StringLength(256)]
     public string Username { get; set; } = null!;
-    [Required]
-    [StringLength(128)]
+
     [Column("passwordhash", TypeName = "character varying")]
     public string? Passwordhash { get; set; }
-    [Required]
+
     [Column("email")]
     [StringLength(256)]
     public string? Email { get; set; }

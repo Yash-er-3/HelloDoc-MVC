@@ -1,14 +1,7 @@
-﻿using HelloDoc.DataContext;
-using HelloDoc.DataModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using HelloDoc;
 using Services.Contracts;
 using Services.Viewmodels;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementation
 {

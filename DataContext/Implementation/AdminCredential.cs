@@ -1,10 +1,7 @@
 ﻿using DataAccess.ServiceRepository;
-using DataAccess.ServiceRepository.IServiceRepository;
-using HelloDoc.DataContext;
-using HelloDoc.DataModels;
+using HelloDoc;
 using Microsoft.AspNetCore.Http;
 using Services.Contracts;
-using Services.Viewmodels;
 
 namespace Services.Implementation
 {

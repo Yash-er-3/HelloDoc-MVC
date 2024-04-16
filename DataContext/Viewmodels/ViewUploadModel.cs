@@ -1,10 +1,5 @@
-﻿using HelloDoc.DataModels;
+﻿using HelloDoc;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Viewmodels
 {
@@ -21,7 +16,7 @@ namespace Services.Viewmodels
 
         public string Email { get; set; }
 
-        public string PhoneNumber { get; set; }    
+        public string PhoneNumber { get; set; }
         public int requestId { get; set; }
 
         public List<IFormFile> upload { get; set; }
