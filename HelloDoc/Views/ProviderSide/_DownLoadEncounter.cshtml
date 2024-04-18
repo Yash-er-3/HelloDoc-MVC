@@ -1,33 +1,50 @@
-﻿
-<h2>
-    kjbdfjaerkbnwirngf
-</h2>
-
-<div class="modal fade" id="downloadencounter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+﻿<div class="modal fade rounded-3 shadow" id="DownloadEncounterModal" tabindex="-1" role="dialog" aria-labelledby="SendAgreement" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title text-white" id="exampleModalLabel">Transfer Request</h5>
-                <button type="button" class="btn" data-dismiss="modal" aria-label="Close">
-                    <i class="fa-solid fa-xmark text-white"></i>
-                </button>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Download encounter</h1>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <small>Encounter form finalized successfully.</small>
-               <div>
-                   <button class="btn-info download_encounter">
-                       Download
-                   </button>
-               </div>
+            <input type="hidden" id="Requestid" value="@Model.requestid" />
+            <div class="modal-body d-flex flex-column">
+                <div class="d-flex justify-content-center">
+                    <div class="px-2">
+                        <button type="button" id="downloadencounter" class="btn btn-info">Download</button>
+                    </div>
+                    @if (Model.role == "Admin")
+                    {
+                        <div class="px-2">
+                            <button type="button" id="editencounter" class="btn btn-info">Edit EncounterForm</button>
+                        </div>
+                    }
+                </div>
             </div>
-
+            <div class="modal-footer">
+                <button type="button" id="closemodel" class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
+            </div>
         </div>
     </div>
 </div>
-@*
+
 <script>
-    $('.download_encounter').on('click',function(){
-
-
+    $('#editencounter').on('click', function () {
+        var id = $('#Requestid').val();
+        $.ajax({
+            url: '/AdminArea/Dashboard/EditEncounterAsAdmin',
+            data: { id },
+            type: 'POST',
+            success: function (result) {
+                $('#closemodel').trigger('click');
+                $('#nav-tabContent').html(result);
+            },
+        });
     })
-</script>*@
+    $('#downloadencounter').on('click', function () {
+        $('#closemodel').trigger('click');
+        var id = $('#Requestid').val();
+        var link = document.createElement('a');
+        link.href = '/AdminArea/Dashboard/DownloadEncounterAsAdmin?id=' + id;
+        link.click();
+    })
+
+</script>

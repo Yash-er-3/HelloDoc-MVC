@@ -72,10 +72,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUGVuZGluZ1N0YXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/HelloDoc/HelloDoc/Views/Admin/ReviewAgreement.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmV2aWV3QWdyZWVtZW50LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Projects/HelloDoc/HelloDoc/Views/Admin/ToCloseState.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVG9DbG9zZVN0YXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -100,6 +96,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbEFkbWluXEFkbWluLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projects/HelloDoc/HelloDoc/Views/CredentialAdmin/AdminForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbEFkbWluXEFkbWluRm9yZ290UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/CredentialAdmin/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlZGVudGlhbEFkbWluXFJlc2V0UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projects/HelloDoc/HelloDoc/Views/Home/forgotpassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxmb3Jnb3RwYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -118,6 +122,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Home/resetpassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxyZXNldHBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/Home/ReviewAgreement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXZpZXdBZ3JlZW1lbnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/Home/submitrequest.cshtml]
@@ -148,8 +156,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJTaWRlXEFjdGl2ZVN0YXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Projects/HelloDoc/HelloDoc/Views/ProviderSide/ConcludeCare.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJTaWRlXENvbmNsdWRlQ2FyZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Projects/HelloDoc/HelloDoc/Views/ProviderSide/ConcludeState.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJTaWRlXENvbmNsdWRlU3RhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/HelloDoc/HelloDoc/Views/ProviderSide/CreateRequestPhysician.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmlkZXJTaWRlXENyZWF0ZVJlcXVlc3RQaHlzaWNpYW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/HelloDoc/HelloDoc/Views/ProviderSide/Encounter.cshtml]

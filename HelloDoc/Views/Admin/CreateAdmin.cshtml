@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-12 col-sm-6 form-floating mb-3 ">
                     <input type="text" asp-for="email"
-                           class="form-control a" id="email-adminprofile"
+                           class="form-control emailadminprofileblur" id="email-adminprofile"
                            placeholder="Username"
                            aria-label="Username" />
                     <label class="d-flex justify-content-between ps-4">Email</label>
@@ -205,5 +205,23 @@
             });
         }
     });
+
+    $('.emailadminprofileblur').on('blur', function () {
+
+        var email = $('.emailadminprofileblur').val();
+        console.log(email);
+        $.ajax({
+            url: '/Admin/ValidateEmail',
+            type:'POST',
+            data:{email},
+            success: function (response) {
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                $('.emailadminprofileblur').val("");
+
+                Swal.fire("Email already Exist!");
+            }
+        })
+    })
 </script>
 

@@ -5,57 +5,32 @@ namespace Services.Implementation
     public static class EncryptDecrypt
     {
         private static readonly string EncryptionKey = GenerateRandomKey(256);
+        private static readonly char[] Digits = "0123456789".ToCharArray();
+        private static readonly char[] Alphabets = "ABCDEFGHIJ".ToCharArray();
 
         public static string Encrypt(string plainText)
         {
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Convert.FromBase64String(EncryptionKey);
-                aesAlg.IV = GenerateRandomIV(); // Generate a random IV for each encryption
-
-                aesAlg.Padding = PaddingMode.PKCS7; // Set the padding mode to PKCS7
-
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-                using (MemoryStream msEncrypt = new MemoryStream())
-                {
-                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                    {
-                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(plainText);
-                        }
-                    }
-                    return Convert.ToBase64String(aesAlg.IV.Concat(msEncrypt.ToArray()).ToArray());
-                }
-            }
+            return new string(plainText.Select(ch => EncryptCharacter(ch)).ToArray());
         }
 
         public static string Decrypt(string cipherText)
         {
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
-
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Convert.FromBase64String(EncryptionKey);
-                aesAlg.IV = cipherBytes.Take(16).ToArray();
-
-                aesAlg.Padding = PaddingMode.PKCS7; // Set the padding mode to PKCS7
-
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-                using (MemoryStream msDecrypt = new MemoryStream(cipherBytes, 16, cipherBytes.Length - 16))
-                {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
-                            return srDecrypt.ReadToEnd();
-                        }
-                    }
-                }
-            }
+            return new string(cipherText.Select(ch => DecryptCharacter(ch)).ToArray());
         }
+
+        private static char EncryptCharacter(char ch)
+        {
+            int index = Array.IndexOf(Digits, ch);
+            return index >= 0 ? Alphabets[index] : ch;
+        }
+
+        private static char DecryptCharacter(char ch)
+        {
+            int index = Array.IndexOf(Alphabets, ch);
+            return index >= 0 ? Digits[index] : ch;
+        }
+
+       
 
         private static byte[] GenerateRandomIV()
         {

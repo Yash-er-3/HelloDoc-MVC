@@ -110,4 +110,3 @@ $('#clearbtn_searchrecords').on('click', function () {
     })
 })
 
-

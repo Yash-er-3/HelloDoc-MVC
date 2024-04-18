@@ -8,6 +8,40 @@
 
 @Html.Partial("notification")
 
+<div class="modal fade" id="RequestAdminDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Request To Administrator</h5>
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fa-solid fa-xmark text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="RequestAdminForEdit" method="post">
+                    <div class="modal-body py-0">
+                        Need to send message to edit
+
+                        <div class="form-floating mt-3">
+                            <textarea class="form-control shadow-none" asp-for="blocknotes" placeholder="" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Message</label>
+                            <span asp-validation-for="blocknotes" class="small text-danger"></span>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 d-flex justify-content-end py-0">
+                        <button type="submit" class="btn btn-info text-white">Send</button>
+                        <button type="button" class="btn btn-outline-info shadow-none" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
 @*send link modal*@
 
 <div class="modal fade rounded-3 shadow" id="SendLinkAdminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -43,7 +77,6 @@
 
                     </div>
 
-
                 </div>
                 <div class="modal-footer border-0 pt-0 pb-3">
                     <button type="button" class="btn btn-info text-white shadow-none" id="sendlink-submit">Send</button>
@@ -53,8 +86,6 @@
         </div>
     </div>
 </div>
-
-
 @*Clear Case Modal *@
 <div class="modal fade rounded-3 shadow" id="ClearModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -95,7 +126,7 @@
                 </button>
             </div>
             <div class="modal-body  justify-content-center">
-                <input type="number" name="requestid" class="requestid" hidden />
+                <input type="number" name="requestid" class="requestid"  />
 
                 <div class="d-flex justify-content-center align-items-center">
                     <div class="px-2">
@@ -289,9 +320,11 @@
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         
 
+        <div id="PopUps">
 
+        </div>
 
-        <div class="container-fluid p-0 p-sm-3">
+        <div class="container-fluid p-0 p-sm-3 mb-5">
             <nav>
                 <div class="nav nav-tabs row g-0 border-0 mt-4" id="status-tab" role="tablist">
                     <div class="allstatus ">
@@ -374,7 +407,7 @@
                         </button>
                     </div>
                     <div class="px-0 px-sm-2 p-1 p-sm-2 text-white mx-1 bg-info rounded small" role="button">
-                        <a class="bg-info border-0 text-white text-decoration-none px-1" asp-action="CreateRequestAdmin" asp-controller="Admin">
+                        <a class="bg-info border-0 text-white text-decoration-none px-1" asp-action="CreateRequestPhysician" asp-controller="ProviderSide">
 
                             <i class="fa-solid fa-file-pen "></i>
                             <span class="d-none d-md-inline-block ps-1 fontsize">Create Requests</span>
@@ -386,7 +419,7 @@
                 </div>
             </div>
 
-            <div class="container-fluid  mt-3">
+            <div class="container-fluid mt-3">
                 <div class="row mx-1  rounded-top-4 py-3 bg-white d-sm-flex d-block justify-content-between bg-white px-2">
 
                     @* <div class="d-flex justify-content-between mt-4 mx-4 bg-white rounded-top-4">

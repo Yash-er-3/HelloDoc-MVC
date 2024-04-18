@@ -1,6 +1,6 @@
 ﻿@using Services.Viewmodels
 @model List<allrequestdataViewModel>;
-    
+
 <div class="table-responsive mx-4 bg-white pt-2 d-none d-md-block">
     <table class="table mt-5 small align-middle" id="dtBasicExample">
         <thead>
@@ -60,7 +60,7 @@
                             @item.PatientName <div class="btn btn-outline-light btn-sm"><i class="fa-regular fa-envelope fa-sm"></i></div>
                         </div>
                     </td>
-                   
+
                     <td>
                         <div class="border rounded-1 p-1 d-flex justify-content-around ">
                             <i class="bi bi-telephone"></i>
@@ -99,7 +99,7 @@
                         }
                     </td>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Address</td>
-                   
+
                     <td>
                         <div class="dropstart ms-2">
                             <button class="btn btn-outline-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -108,11 +108,11 @@
                             <ul class="dropdown-menu">
 
                                 <li>
-                                    <button class="dropdown-item text-secondary" value="@item.RequestId">
+                                    <button class="dropdown-item text-secondary concludeCarebtn" value="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
-                                        Conclude
+                                        Conclude Care
                                     </button>
-                                </li> 
+                                </li>
                                 <li>
                                     <button class="dropdown-item text-secondary Viewcase" value="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
@@ -130,9 +130,9 @@
                                         <i class="fa-solid fa-book-journal-whills me-2"></i>View Notes
                                     </button>
                                 </li>
-                               
+
                                 <li>
-                                    <button class="dropdown-item text-secondary encounterclick_conclude" value="@item.RequestId">
+                                    <button class="dropdown-item text-secondary encounterclick_concludep" value="@item.RequestId">
                                         <i class="bi bi-view-list me-2"></i>
                                         Encounter
                                     </button>
@@ -237,30 +237,36 @@
 
                         <div class="col-6 d-flex justify-content-center">
 
-                            <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewNotes">
-
-                                View Notes
-                            </button>
-                        </div>
-                        <div class="col-6 d-flex justify-content-center">
-
-                            <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary">
-
-                                Doctor Note
+                            <button class="dropdown-item text-secondary concludeCarebtn" value="@item.RequestId">
+                                Conclude Care
                             </button>
                         </div>
 
+
                         <div class="col-6 d-flex justify-content-center">
+
+                            <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary Viewcase">
+                                View Case
+                            </button>
+                        </div>
+                          <div class="col-6 d-flex justify-content-center">
 
                             <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewupload">
 
                                 View Uploads
                             </button>
                         </div>
+                          <div class="col-6 d-flex justify-content-center">
+
+                            <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewNotes">
+
+                                View Notes
+                            </button>
+                        </div>
 
                         <div class="col-6 d-flex justify-content-center">
 
-                            <button type="button" value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary encounter" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalEncounter">
+                            <button class="dropdown-item text-secondary encounterclick_concludep" value="@item.RequestId">
 
                                 Encounter
                             </button>
@@ -268,17 +274,7 @@
 
 
 
-                        <div class="col-6 d-flex justify-content-center">
-
-                            <button type="button" id="@item.RequestId" value="@item.RequestId" class="btn w-100 text-white bg-warning rounded-pill p-1 btn-sm text-secondary orders">
-
-                                Orders
-                            </button>
-                        </div>
-
-                        <div class="col-6 d-flex justify-content-center">
-                            <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">Email</a>
-                        </div>
+                      
 
                         <div class="d-flex justify-content-end">
                             <small class="mt-1">Chat with: &nbsp;</small>
@@ -312,4 +308,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="~/js/ProviderSide/TableContent.js" asp-append-version="true"></script>
-
+<script>
+    $('.concludeCarebtn').click(function () {
+        var requestid = $(this).val()
+        $.ajax({
+            url: '/ProviderSide/ConcludeCare',
+            data: { requestid: requestid },
+            success: function (data) {
+                $('#nav-home').html(data);
+            },
+        });
+    });
+</script>

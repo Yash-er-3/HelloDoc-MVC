@@ -1,4 +1,5 @@
 ﻿@model Services.Viewmodels.ViewCaseView;
+@inject IHttpContextAccessor accessor
 
 @{
     Layout = null;
@@ -23,7 +24,7 @@
 
                 <div>
 
-                    <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
+                    <a onclick="location.reload()" class="text-decoration-none">
                         <span class="back-btn p-2" style="color: #00b8e6;">&lt;Back</span>
                     </a>
 
@@ -103,14 +104,20 @@
                         </div>
                     </div>
 
-                    <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                        <button id="editButton" type="button" class="btn btn-outline-info shadow-none rounded-2 px-4 py-3">
-                            Edit
-                        </button>
-                        <button id="savebtn" type="button" class="btn btn-outline-info shadow-none rounded-2 px-4 py-3" hidden>
-                            Save
-                        </button>
-                    </div>
+                    @if (@accessor.HttpContext.Session.GetInt32("AdminId") != null)
+                    {
+                        <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <button id="editButton" type="button" class="btn btn-outline-info shadow-none rounded-2 px-4 py-3">
+                                Edit
+                            </button>
+                            <button id="savebtn" type="button" class="btn btn-outline-info shadow-none rounded-2 px-4 py-3" hidden>
+                                Save
+                            </button>
+                        </div>
+                    }
+
+
+
 
 
                     <h6 class="mt-3">Location Information</h6>
@@ -138,26 +145,44 @@
 
                     <div class="justify-content-end d-flex mt-4">
 
-
-                        @if (Model.status == 1)
+                        @if (@accessor.HttpContext.Session.GetInt32("AdminId") != null)
                         {
+                            @if (Model.status == 1)
+                            {
+                                <div class="mx-1">
+                                    <button type="button" class="btn btn-info shadow-none text-white py-2 getname" id="@Model.requestid" data-toggle="modal" data-target="#exampleModalAssign">
+                                        Assign
+                                    </button>
+                                </div>
+                            }
+
                             <div class="mx-1">
-                                <button type="button" class="btn btn-info shadow-none text-white py-2 getname" id="@Model.requestid" data-toggle="modal" data-target="#exampleModalAssign">
-                                    Assign
+                                <button type="button" value="@Model.requestid" class="btn btn-info shadow-none text-white py-2 viewNotes">
+                                    View Notes
+                                </button>
+                            </div>
+                            <div class="mx-1">
+                                <button type="button" class="btn btn-info shadow-none border-0 text-white py-2 bg-danger getname" id="@Model.requestid" value="@Model.FirstName @Model.LastName" data-toggle="modal" data-target="#exampleModal">
+                                    Cancel
                                 </button>
                             </div>
                         }
+                        @if (@accessor.HttpContext.Session.GetInt32("PhysicianId") != null)
+                        {
+                            <div class="mx-1">
+                                <button type="button" class="btn text-white bg-info rounded-2 px-2 py-2 viewNotes" value="@Model.requestid">View Notes </button>
+                            </div>
 
-                        <div class="mx-1">
-                            <button type="button" value="@Model.requestid" class="btn btn-info shadow-none text-white py-2 viewNotes">
-                                View Notes
-                            </button>
-                        </div>
-                        <div class="mx-1">
-                            <button type="button" class="btn btn-info shadow-none border-0 text-white py-2 bg-danger getname" id="@Model.requestid" value="@Model.FirstName @Model.LastName" data-toggle="modal" data-target="#exampleModal">
-                                Cancel
-                            </button>
-                        </div>
+                            @if (Model.status == 1)
+                            {
+                                <div class="mx-1">
+                                    <button type="button" class="btn text-white bg-success rounded-2 px-2 py-2 acceptRequest" value="@Model.requestid">Accept </button>
+                                </div>
+                                <div class="mx-1">
+                                    <button type="button" class="btn text-white bg-danger rounded-2 px-2 py-2 declineRequest" value="@Model.requestid">Decline </button>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
 

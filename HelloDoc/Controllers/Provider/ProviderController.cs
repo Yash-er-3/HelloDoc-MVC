@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Services.Contracts;
 using Services.Viewmodels;
 using System.Collections;
 
@@ -10,12 +11,14 @@ namespace HelloDoc.Controllers.Provider
 
         private readonly HelloDocDbContext _context;
         private readonly IWebHostEnvironment _env;
+        private readonly ISendEmailAndSMS sendEmailAndSMS;
 
 
-        public ProviderController(HelloDocDbContext context, IWebHostEnvironment env)
+        public ProviderController(HelloDocDbContext context, IWebHostEnvironment env, ISendEmailAndSMS sendEmailAndSMS)
         {
             _context = context;
             _env = env;
+            this.sendEmailAndSMS = sendEmailAndSMS;
         }
 
         [HttpGet]
@@ -51,16 +54,16 @@ namespace HelloDoc.Controllers.Provider
 
             if (selectedoption == "SMS")
             {
-                SendEmailAndSMS.SendSMS();
+                sendEmailAndSMS.SendSMS();
             }
             else if (selectedoption == "Email")
             {
-                SendEmailAndSMS.Sendemail(email, "Order for you", message);
+                sendEmailAndSMS.Sendemail(email, "Order for you", message);
             }
             else
             {
-                SendEmailAndSMS.Sendemail(email, "Order for you", message);
-                SendEmailAndSMS.SendSMS();
+                sendEmailAndSMS.Sendemail(email, "Order for you", message);
+                sendEmailAndSMS.SendSMS();
             }
 
             return RedirectToAction("Admindashboard", "Admin");
@@ -443,5 +446,7 @@ namespace HelloDoc.Controllers.Provider
             _context.SaveChanges();
             return RedirectToAction("ProviderMenu");
         }
+
+       
     }
 }

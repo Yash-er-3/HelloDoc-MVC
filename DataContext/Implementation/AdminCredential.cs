@@ -42,7 +42,6 @@ namespace Services.Implementation
                 }
                 int id = x.Physicianid;
 
-                _httpcontext.HttpContext.Session.SetInt32("AdminId", id);
                 return 5;
 
             }
@@ -56,7 +55,6 @@ namespace Services.Implementation
                     if (user.Passwordhash == correct.Passwordhash)
                     {
                         int id = admin.Adminid;
-                        _httpcontext.HttpContext.Session.SetInt32("AdminId", id);
                         _httpcontext.HttpContext.Session.SetString("UserName", admin.Firstname + admin.Lastname);
                         return 1;
                     }

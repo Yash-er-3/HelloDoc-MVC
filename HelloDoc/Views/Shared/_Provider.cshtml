@@ -80,7 +80,7 @@
     @*for responsive*@
     @{
 
-        int id = (int)Context.Session.GetInt32("AdminId");
+        int id = (int)Context.Session.GetInt32("PhysicianId");
         String username = Context.Session.GetString("AdminName");
     }
     <nav class="navbar navbar-light border-bottom px-1 bg-white" style="z-index:1050;">
@@ -95,7 +95,7 @@
         <div class="navdiv d-flex flex-row gap-2">
             <h6 class="mt-2 text-secondary d-sm-block d-none">Welcome , <strong>@username</strong></h6>
 
-            <a asp-action="Admin" asp-controller="CredentialAdmin">
+            <a asp-action="Logout" asp-controller="CredentialAdmin">
                 <button style="background-color: transparent;color:#00b8e6;" class="btn btn-outline-info">
                     <div><i class="bi bi-box-arrow-right d-sm-none"></i></div>
                     <div class="logouttext"><span class="d-none d-sm-block">log out</span></div>
@@ -115,10 +115,9 @@
         <nav class="shadow">
             <div class="ps-2 nav nav-tabs border-bottom-0 border-start-0 d-flex border-end-0 border border-2" id="nav-tab" role="tablist">
                 <a class="admin-layout-nav fw-bold me-2" id="nav-home-tab" asp-action="ProviderDashboard" asp-controller="ProviderSide">Dashboard</a>
-                <a asp-controller="" asp-action="" class="admin-layout-nav fw-bold me-1" id="nav-provider-location-tab">Invoicing</a>
+                <a class="admin-layout-nav fw-bold me-1" id="nav-provider-location-tab">Invoicing</a>
                 <a class="admin-layout-nav fw-bold nav-profile-tab-for-load-profile " id="nav-profile-tab" asp-action="MyScheduling" asp-controller="ProviderSide">My Schedule</a>
-                <a class="admin-layout-nav fw-bold nav-profile-tab-for-load-profile " id="nav-profile-tab" asp-action="AdminProfile" asp-controller="Admin">My Profile</a>
-
+                <a class="admin-layout-nav fw-bold nav-profile-tab-for-load-profile " id="nav-profile-tab" asp-action="MyProfile" asp-controller="ProviderSide">My Profile</a>
 
             </div>
         </nav>
@@ -136,9 +135,9 @@
                 <div class="nav nav-tabs border-bottom-0 border-start-0 border-end-0 border border-2 d-block" id="nav-tab" role="tablist">
 
                     <a class="nav-link active me-4 text-secondary fw-bold collapsed p-2" id="nav-home-tab" asp-action="ProviderDashboard" asp-controller="ProviderSide">Dashboard</a>
-                    <a asp-controller="ProviderLocation" asp-action="ProviderLocation" class="nav-link active me-4 text-secondary fw-bold collapsed p-2" id="nav-provider-location-tab">Invoicing</a>
+                    <a class="nav-link active me-4 text-secondary fw-bold collapsed p-2" id="nav-provider-location-tab">Invoicing</a>
                     <a class="nav-link active me-4 text-secondary fw-bold collapsed p-2" id="nav-profile-tab" asp-action="MyScheduling" asp-controller="ProviderSide">My Schedule</a>
-                    <a class="nav-link active me-4 text-secondary fw-bold collapsed p-2" id="nav-profile-tab" asp-action="AdminProfile" asp-controller="Admin">My Profile</a>
+                    <a class="nav-link active me-4 text-secondary fw-bold collapsed p-2" id="nav-profile-tab" asp-action="MyProfile" asp-controller="ProviderSide">My Profile</a>
 
 
 

@@ -12,14 +12,16 @@ namespace HelloDoc.Controllers.Admin
         private readonly IAdminCredential adminCredential;
         private readonly IJwtRepository _jwtRepository;
         private IAuthorizatoinRepository _authorizatoinRepository;
+        private ISendEmailAndSMS sendEmailAndSMS;
 
-        public CredentialAdminController(HelloDocDbContext context, IAdminCredential adminCredential, IJwtRepository jwtRepository, IAuthorizatoinRepository authorizatoinRepository)
+        public CredentialAdminController(HelloDocDbContext context, IAdminCredential adminCredential, IJwtRepository jwtRepository, 
+            IAuthorizatoinRepository authorizatoinRepository, ISendEmailAndSMS sendEmailAndSMS)
         {
             _context = context;
             this.adminCredential = adminCredential;
             _jwtRepository = jwtRepository;
             _authorizatoinRepository = authorizatoinRepository;
-
+            this.sendEmailAndSMS = sendEmailAndSMS;
         }
 
         public ActionResult Admin()
@@ -27,9 +29,50 @@ namespace HelloDoc.Controllers.Admin
             return View();
         }
 
+        public IActionResult AdminForgotPassword(Aspnetuser user)
+        {
+            return View(user);
+        }
+
+        //when mailed link opened
+        public IActionResult ResetPassword(string id)
+        {
+            var aspuser = _context.Aspnetusers.FirstOrDefault(x => x.Id == id);
+            return View(aspuser);
+        }
+
+        public IActionResult ResetPasswordEmail(Aspnetuser user)
+        {
+            string Id = (_context.Aspnetusers.FirstOrDefault(x => x.Email == user.Email)).Id;
+            string resetPasswordUrl = GenerateResetPasswordUrl(Id);
+
+            sendEmailAndSMS.Sendemail(user.Email, "Reset Your Password", $"Hello, reset your password using this link: {resetPasswordUrl}");
+
+            return RedirectToAction("Admin", "CredentialAdmin");
+        }
+
+        private string GenerateResetPasswordUrl(string userId)
+        {
+            string baseUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string resetPasswordPath = Url.Action("ResetPassword", "CredentialAdmin", new { id = userId });
+            return baseUrl + resetPasswordPath;
+        }
+        //when mailed link opened and submit for reset password
+        [HttpPost]
+        public IActionResult ResetPasswordBtn(Aspnetuser aspnetuser)
+        {
+            var aspuser = _context.Aspnetusers.FirstOrDefault(x => x.Id == aspnetuser.Id);
+            aspuser.Passwordhash = aspnetuser.Passwordhash;
+            _context.Aspnetusers.Update(aspuser);
+            _context.SaveChanges();
+            return RedirectToAction("Admin", "CredentialAdmin");
+        }
+
+
         public IActionResult Logout()
         {
             Response.Cookies.Delete("jwt");
+            HttpContext.Session.Clear();
             return RedirectToAction("Admin", "CredentialAdmin");
         }
 
@@ -81,6 +124,8 @@ namespace HelloDoc.Controllers.Admin
                 var admin = _context.Admins.FirstOrDefault(m => m.Email == user.Email);
                 if (admin != null)
                 {
+                    HttpContext.Session.SetInt32("AdminId", admin.Adminid);
+
                     HttpContext.Session.SetString("AdminName", $"{admin.Firstname}{admin.Lastname}");
                 }
 

@@ -1,7 +1,7 @@
 ﻿@using Services.Viewmodels
 @model List<allrequestdataViewModel>;
 
-<div class="table-responsive mx-4 bg-white pt-2 d-none d-md-block">
+<div class="table-responsive mx-4 bg-white mb-5 pt-2 d-none d-md-block">
     <table class="table mt-5 small align-middle " id="dtBasicExample">
         <thead>
             <tr class="bg-light">
@@ -266,21 +266,18 @@
 
                         <div class="col-6 d-flex justify-content-center">
                             <button type="button" class="btn w-100 bg-warning text-white rounded-pill p-1 btn-sm text-secondary data-agreement getname" value="@item.RequestId" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAgreement">
-
                                 Send Agreement
                             </button>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
 
                             <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewNotes">
-
                                 View Notes
                             </button>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
 
                             <button type="button" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" id="@item.RequestId" value="@item.PatientName" data-toggle="modal" data-target="#exampleModalTransfer" style="background:lightblue;">
-
                                 Transfer
                             </button>
                         </div>
@@ -288,25 +285,13 @@
                         <div class="col-6 d-flex justify-content-center">
 
                             <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewupload">
-
                                 View Uploads
                             </button>
                         </div>
 
 
 
-                        <div class="col-6 d-flex justify-content-center">
-
-                            <button type="button" id="@item.RequestId" value="@item.PatientName" class="btn bg-warning w-100 text-white rounded-pill p-1 btn-sm text-secondary getname" data-toggle="modal" data-target="#ClearModal">
-
-                                Clear Case
-                            </button>
-                        </div>
-
-                        <div class="col-6 d-flex justify-content-center">
-                            <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">Email</a>
-                        </div>
-
+                    
 
                     </div>
                 </div>

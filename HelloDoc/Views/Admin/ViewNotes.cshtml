@@ -1,4 +1,5 @@
 ﻿@model Services.Viewmodels.AdminDashboardViewModel;
+@inject IHttpContextAccessor accessor
 
 @{
     Layout = null;
@@ -17,12 +18,12 @@
                     </div>
 
                     <div>
-                        <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
+                        <a onclick="location.reload()" class="text-decoration-none">
                             <span class="back-btn p-2" style="color: #00b8e6;">&lt;Back</span>
                         </a>
                     </div>
                 </div>
-
+                    
                 <div class="row d-flex mt-3 px-2">
                     @if (Model.physicianname != null)
                     {
@@ -82,27 +83,30 @@
                         </div>
 
                     </div>
+                    @if (@accessor.HttpContext.Session.GetString("AdminId") != null)
+                    {
 
-                    <div class="p-2">
-                        <form>
-                            <div class="px-3 py-3 bg-white rounded-3 shadow">
-                                <div class="mt-2">
-                                    <div class="form-floating">
-                                        <textarea asp-for="blocknotes" name="" class="form-control shadow-none" placeholder="Patient Notes" style="height: 150px" id="note"></textarea>
-                                        <label for="note"><span class="bg-white">Admin Notes</span></label>
-                                        <input type="number" asp-for="requestid" id="reqid" value="@Model.requestid" hidden/>
-                                    </div>
+                        <div class="p-2">
+                            <form>
+                                <div class="px-3 py-3 bg-white rounded-3 shadow">
+                                    <div class="mt-2">
+                                        <div class="form-floating">
+                                            <textarea asp-for="blocknotes" name="" class="form-control shadow-none" placeholder="Patient Notes" style="height: 150px" id="note"></textarea>
+                                            <label for="note"><span class="bg-white">Admin Notes</span></label>
+                                            <input type="number" asp-for="requestid" id="reqid" value="@Model.requestid" hidden />
+                                        </div>
 
-                                    <div class="d-flex justify-content-end">
-                                        <button id="updatenotes" type="button" class="btn btn-info shadow-none text-white rounded-2 mt-4 px-2 py-2">
-                                            Save Changes
-                                        </button>
+                                        <div class="d-flex justify-content-end">
+                                            <button id="updatenotes" type="button" class="btn btn-info shadow-none text-white rounded-2 mt-4 px-2 py-2">
+                                                Save Changes
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
 
-                    </div>
+                        </div>
+                    }
                 </div>
 
             </div>

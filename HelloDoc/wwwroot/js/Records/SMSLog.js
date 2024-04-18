@@ -46,3 +46,4 @@ $('#clearSMSLogbtn').click(function () {
     //$("#EmailLogTable").load('@Url.Action("Records","GetEmailLogTable")', { 'Role': Role, 'ReceiverName': ReceiverName, 'Email': Email, 'CreatedDate': CreatedDate, 'SentDate': SentDate });
 
 });
+

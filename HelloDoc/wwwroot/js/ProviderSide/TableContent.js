@@ -2,8 +2,8 @@
 
 $('#dtBasicExample').DataTable({
 
-    "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
-    "pageLength": 5,
+    "lengthMenu": [[10, 20, -1], [10, 20, "All"]],
+    "pageLength": 10,
     language: {
         oPaginate: {
             sNext: '<i class="bi bi-caret-right-fill text-info"></i>',
@@ -222,7 +222,7 @@ $(document).ready(function () {
         })
     })
 
-    $('.housecallbtnclick').on('click', function () {
+    $('.housecallbtnclickp').on('click', function () {
         var requestid = $(this).val();
 
         $.ajax({
@@ -239,14 +239,17 @@ $(document).ready(function () {
         })
     })
 
-    $('.encounterclick_conclude').on('click', function () {
+    $('.encounterclick_concludep').on('click', function () {
         var requestid = $(this).val();
-        debugger
         $.ajax({
             url: '/ProviderSide/Encounter',
             data: { requestid: requestid },
-            success: function (data) {
-                $('#nav-tabContent').html(data);
+            success: function (result) {
+
+                $('#PopUps').html(result);
+                var my = new bootstrap.Modal(document.getElementById('DownloadEncounterModal'));
+                my.show();
+                $('#nav-tabContent').html(result);
             },
             error: function (xhr, status, error) {
                 console.log(error);

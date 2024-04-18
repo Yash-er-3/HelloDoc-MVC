@@ -149,12 +149,20 @@
       "PackagePath": "staticwebassets\\js\\ProviderSide\\CardWithTable.js"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\Concludecare.js",
+      "PackagePath": "staticwebassets\\js\\ProviderSide\\Concludecare.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\ProviderProfile.js",
+      "PackagePath": "staticwebassets\\js\\ProviderSide\\ProviderProfile.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\ProviderSide.js",
       "PackagePath": "staticwebassets\\js\\ProviderSide\\ProviderSide.js"
     },
     {
-      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\Scheduling.js",
-      "PackagePath": "staticwebassets\\js\\ProviderSide\\Scheduling.js"
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\ProviderSideScheduling.js",
+      "PackagePath": "staticwebassets\\js\\ProviderSide\\ProviderSideScheduling.js"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\ProviderSide\\TableContent.js",
@@ -187,6 +195,10 @@
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Records\\SMSLog.js",
       "PackagePath": "staticwebassets\\js\\Records\\SMSLog.js"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Records\\recordspagination.js",
+      "PackagePath": "staticwebassets\\js\\Records\\recordspagination.js"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Scheduling\\Scheduling.js",
@@ -441,6 +453,18 @@
       "PackagePath": "staticwebassets\\onboarding\\0\\IndependentContractorAgreement.png"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\10\\BackgroundCheck.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\10\\BackgroundCheck.pdf"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\10\\HIPAACompliance.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\10\\HIPAACompliance.pdf"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\10\\IndependentContractorAgreement.pdf",
+      "PackagePath": "staticwebassets\\onboarding\\10\\IndependentContractorAgreement.pdf"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\onboarding\\14\\IndependentContractorAgreement.png",
       "PackagePath": "staticwebassets\\onboarding\\14\\IndependentContractorAgreement.png"
     },
@@ -511,6 +535,14 @@
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\146 View documents_1.png",
       "PackagePath": "staticwebassets\\upload\\146 View documents_1.png"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\154 Fig8. Admin dashboard in To Close state.jpg",
+      "PackagePath": "staticwebassets\\upload\\154 Fig8. Admin dashboard in To Close state.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\156 Fig1. Platform login page.jpg",
+      "PackagePath": "staticwebassets\\upload\\156 Fig1. Platform login page.jpg"
     },
     {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\upload\\Fig Contact your Provider.jpg",

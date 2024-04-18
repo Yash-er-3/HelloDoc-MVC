@@ -1,4 +1,5 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject IHttpContextAccessor accessor
 
 
 @using Services.Viewmodels
@@ -13,7 +14,7 @@
                 Documents
             </div>
             <div class="d-flex">
-                <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
+                <a onclick="location.reload()" class="text-decoration-none" role="button">
                     <span class="back-btn" style="color: #00b8e6;">&lt;Back</span>
                 </a>
             </div>
@@ -62,16 +63,17 @@
                                 <i class="bi bi-cloud-arrow-down me-sm-2"></i>
                                 Download All
                             </button>
-
-
-                            <button role="button" class="btn btn-outline-info shadow-none mx-1" id="DeleteAllFiles">
-                                @*<i class="bi bi-trash3 me-sm-2"></i>*@
-                                Delete All
-                            </button>
-                            <button role="button" class="btn btn-outline-info shadow-none mx-1" id="sendEmail">
-                                @*<i class="bi bi-envelope me-sm-2"></i>*@
-                                Send Mail
-                            </button>
+                            @if (@accessor.HttpContext.Session.GetString("AdminId") != null)
+                            {
+                                <button role="button" class="btn btn-outline-info shadow-none mx-1" id="DeleteAllFiles">
+                                    @*<i class="bi bi-trash3 me-sm-2"></i>*@
+                                    Delete All
+                                </button>
+                                <button role="button" class="btn btn-outline-info shadow-none mx-1" id="sendEmail">
+                                    @*<i class="bi bi-envelope me-sm-2"></i>*@
+                                    Send Mail
+                                </button>
+                            }
 
 
 
@@ -96,16 +98,7 @@
                                             @m.Filename.Substring(45)
                                         </td>
                                         <td class="text-black">@m.Createddate</td>
-                                        @*  <td>
-                                    <a role="button" class="p-1 text-info border rounded-2 border-info text-decoration-none" href="~/upload/@System.IO.Path.GetFileName(@m.Filename)" download>
-                                    <span class="p-1 text-info border rounded-2 border-info">
-                                    <i class="bi bi-cloud-arrow-down"></i>
-                                    </span>
-                                    </a>
-                                    <span role="button" class="p-1 text-info border rounded-2 border-info mx-1">
-                                    <i class="bi bi-trash3"></i>
-                                    </span>
-                                    </td>*@
+                                      
 
                                         <td>
                                             <a class="text-decoration-none" href="~/upload/@System.IO.Path.GetFileName(@m.Filename)" download>
@@ -113,9 +106,14 @@
                                                 <i class="bi bi-cloud-arrow-down  btn btn-outline-info"></i>
                                             </a>
 
-                                            <button type="button" class="btn btn-outline-info deleteadmin" value="@m.Requestwisefileid">
-                                                <i class="bi bi-trash  "></i>
-                                            </button>
+                                            @if (@accessor.HttpContext.Session.GetString("AdminId") != null)
+                                            {
+
+                                                <button type="button" class="btn btn-outline-info deleteadmin" value="@m.Requestwisefileid">
+                                                    <i class="bi bi-trash  "></i>
+                                                </button>
+                                            }
+
                                         </td>
 
                                     </tr>

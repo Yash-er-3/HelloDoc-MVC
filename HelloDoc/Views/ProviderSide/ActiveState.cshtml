@@ -63,7 +63,7 @@
                             @item.PatientName <div class="btn btn-outline-light btn-sm"><i class="fa-regular fa-envelope fa-sm"></i></div>
                         </div>
                     </td>
-                    
+
                     <td>
                         <div class="border rounded-1 p-1 d-flex justify-content-around ">
                             <i class="bi bi-telephone"></i>
@@ -103,16 +103,16 @@
                     </td>
                     <td style="word-wrap: break-word;min-width: 160px;max-width: 160px;">@item.Address</td>
                     <td>
-                        @if(item.status == 5)
+                        @if (item.status == 5)
                         {
-                            <button class="btn-outline-info text-dark housecallbtnclick" value="@item.RequestId">
+                            <button class="btn-outline-info text-dark housecallbtnclickp" value="@item.RequestId">
                                 Housecall
                             </button>
                         }
-                       
+
                     </td>
                     <td>
-                      
+
                         <div class="d-flex">
                             <button class="btn btn-outline-light p-1 me-2 shadow-none"
                                     type="button" data-bs-toggle="dropdown"
@@ -270,21 +270,15 @@
 
                     <div class="row gy-2">
 
-                        
+
                         <div class="col-6 d-flex justify-content-center">
 
                             <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewNotes">
 
                                 View Notes
                             </button>
-                        </div> 
-                        <div class="col-6 d-flex justify-content-center">
-
-                            <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary">
-
-                                Doctor Note
-                            </button>
                         </div>
+
 
                         <div class="col-6 d-flex justify-content-center">
 
@@ -296,7 +290,7 @@
 
                         <div class="col-6 d-flex justify-content-center">
 
-                            <button type="button" value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary encounter" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalEncounter">
+                            <button class="dropdown-item text-secondary encounter" id="@item.RequestId" value="@item.RequestId" data-toggle="modal" data-target="#exampleModalEncounter">
 
                                 Encounter
                             </button>
@@ -306,17 +300,15 @@
 
                         <div class="col-6 d-flex justify-content-center">
 
-                            <button type="button" id="@item.RequestId" value="@item.RequestId" class="btn w-100 text-white bg-warning rounded-pill p-1 btn-sm text-secondary orders" >
+                            <button type="button" id="@item.RequestId" value="@item.RequestId" class="btn w-100 text-white bg-warning rounded-pill p-1 btn-sm text-secondary orders">
 
                                 Orders
                             </button>
                         </div>
 
-                        <div class="col-6 d-flex justify-content-center">
-                            <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">Email</a>
-                        </div>
 
-                        <div class="d-flex justify-content-end"> 
+
+                        <div class="d-flex justify-content-end">
                             <small class="mt-1">Chat with: &nbsp;</small>
                             <button class="btn btn-outline-info p-1 me-2 shadow-none"
                                     type="button" data-bs-toggle="dropdown"

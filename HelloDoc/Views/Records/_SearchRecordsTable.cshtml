@@ -9,7 +9,7 @@
 
 
 
-<table class="w-100">
+<table class="w-100 recordstab">
     <thead style="background-color: rgb(235, 235, 235) ; color: black !important">
         <tr>
             <th class="text-center p-3 fw-medium" width="">Patient Name</th>
@@ -120,22 +120,6 @@
 
     </tbody>
 
-
-
 </table>
+<script src="/js/Records/recordspagination.js"></script>
 
-<script>
-    $('.deleterequest').on('click', function () {
-
-        var requestid = $(this).val();
-
-        $.ajax({
-            url: '/Records/DeleteRecords',
-            data: { requestid: requestid },
-            success: function (response) {
-                $('#searchrecordstable').html(response)
-            }
-
-        });
-    });
-</script>

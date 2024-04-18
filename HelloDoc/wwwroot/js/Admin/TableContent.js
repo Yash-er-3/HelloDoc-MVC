@@ -2,8 +2,8 @@
 
 $('#dtBasicExample').DataTable({
 
-    "lengthMenu": [[5, 10, -1], [5, 10, "All"]],
-    "pageLength": 5,
+    "lengthMenu": [[10, 20, -1], [10, 20, "All"]],
+    "pageLength": 10,
     language: {
         oPaginate: {
             sNext: '<i class="bi bi-caret-right-fill text-info"></i>',

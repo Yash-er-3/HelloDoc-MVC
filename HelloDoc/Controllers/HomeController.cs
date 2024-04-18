@@ -1,5 +1,8 @@
 ﻿using HelloDoc.Models;
 using Microsoft.AspNetCore.Mvc;
+using Services.Contracts;
+using Services.Implementation;
+using Services.Viewmodels;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
@@ -10,12 +13,12 @@ namespace HelloDoc.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly HelloDocDbContext _context;
-
-
-        public HomeController(ILogger<HomeController> logger, HelloDocDbContext context)
+        private readonly IAddOrUpdateRequestStatusLog _addOrUpdateRequestStatusLog;
+        public HomeController(ILogger<HomeController> logger, HelloDocDbContext context, IAddOrUpdateRequestStatusLog addOrUpdateRequestStatusLog)
         {
             _logger = logger;
             _context = context;
+            _addOrUpdateRequestStatusLog = addOrUpdateRequestStatusLog;
         }
 
         public IActionResult Index()
@@ -71,7 +74,6 @@ namespace HelloDoc.Controllers
             return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
         }
 
-        // Handle the reset password URL in the same controller or in a separate one
         public IActionResult resetpassword(string id)
         {
             var aspuser = _context.Aspnetusers.FirstOrDefault(x => x.Id == id);
@@ -94,6 +96,41 @@ namespace HelloDoc.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        //review agrreement
+        public IActionResult ReviewAgreement(string id)
+        {
+            var requestid = int.Parse(EncryptDecrypt.Decrypt(id));
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
+            var model = new AdminDashboardViewModel
+            {
+                requestid = requestid,
+                PatientNameForAgreement = request.Firstname + " " + request.Lastname
+            };
+            return View(model);
+        }
+
+        public IActionResult IAgreeSendAgreement(int requestid)
+        {
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
+            request.Status = 4;
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid);
+            return RedirectToAction("PatientDashboard", "Patient");
+        }
+
+        [HttpPost]
+        public IActionResult cancelCaseModal(int id, AdminDashboardViewModel note)
+        {
+            var request = _context.Requests.FirstOrDefault(m => m.Requestid == id);
+            request.Status = 3;
+            _context.Requests.Update(request);
+            _context.SaveChanges();
+            var adminid = HttpContext.Session.GetInt32("AdminId");
+            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(id, adminid, note.blocknotes);
+            return RedirectToAction("Admindashboard");
         }
     }
 }

@@ -134,3 +134,60 @@ $(document).ready(function () {
     });
 });
 
+
+$('.acceptRequest').on('click', function () {
+    console.log("accept")
+    var requestid = $(this).val();
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Accept it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/ProviderSide/AcceptRequest',
+                data: { requestid: requestid },
+                success: function (response) {
+                    $('#adminLayoutMainDiv').html(response)
+                }
+            })
+            Swal.fire({
+                title: "Accepted!",
+                text: "Request Accepted Successfully.",
+                icon: "success"
+            });
+        }
+    });
+});
+
+$('.declineRequest').click(function () {
+    var requestid = $(this).val();
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You want to Decline Request?\nYou won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Decline it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/ProviderSide/DeclineRequest',
+                data: { requestid: requestid },
+                success: function (response) {
+                    $('#adminLayoutMainDiv').html(response)
+                    Swal.fire({
+                        title: "Declined!",
+                        text: "Request Declined Successfully.",
+                        icon: "success"
+                    });
+                }
+            })
+        }
+    });
+});

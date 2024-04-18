@@ -3,7 +3,7 @@
 
 
 
-<div class="table-responsive mx-4 bg-white pt-2 d-none d-md-block export-download">
+<div class="table-responsive mx-4 mb-5 bg-white pt-2 d-none d-md-block export-download">
     <table class="table mt-5 small align-middle " id="dtBasicExample">
         <thead>
             <tr class="bg-light">
@@ -249,21 +249,11 @@
                     <div class="row gy-2">
 
                         <div class="col-6 d-flex justify-content-center">
-                            <button type="button" class="btn w-100 text-white rounded-pill p-1 btn-sm text-secondary getname" style="background:#c40eff;" id="@item.RequestId" data-toggle="modal" data-target="#exampleModalAssign">
-
-                                Assign case
+                            <button type="button" class="btn w-100 text-white rounded-pill p-1 btn-sm text-secondary acceptRequest" style="background:#c40eff;" id="@item.RequestId">
+                                Accept
                             </button>
                         </div>
-                        <div class="col-6 d-flex justify-content-center">
-
-                            <button type="button" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" id="@item.RequestId" value="@item.PatientName" data-toggle="modal" data-target="#exampleModal">
-
-                                Cancel case
-                            </button>
-                        </div>
-
-
-
+                      
                         <div class="col-6 d-flex justify-content-center">
 
                             <button value="@item.RequestId" class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm text-secondary viewNotes">
@@ -272,18 +262,7 @@
                             </button>
                         </div>
 
-                        <div class="col-6 d-flex justify-content-center">
-
-                            <button type="button" id="@item.RequestId" value="@item.PatientName" class="btn w-100 bg-danger text-white rounded-pill p-1 btn-sm text-secondary getname" data-toggle="modal" data-target="#exampleModalBlock">
-
-                                Block Patient
-                            </button>
-                        </div>
-
-                        <div class="col-6 d-flex justify-content-center">
-                            <a class="btn w-100 bg-success text-white rounded-pill p-1 btn-sm">Email</a>
-                        </div>
-
+                      
 
                     </div>
                 </div>

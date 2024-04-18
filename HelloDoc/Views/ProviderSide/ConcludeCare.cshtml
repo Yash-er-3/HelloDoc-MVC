@@ -1,0 +1,152 @@
+﻿@using Services.Viewmodels
+@model ViewUploadModel
+@inject IHttpContextAccessor accessor
+
+
+<Partial name="Notification" />
+
+@{
+    Layout = null;
+}
+
+<div class="container  pt-3 pb-4">
+    <div class="d-flex justify-content-between mb-2">
+        <h4>Conclude Care</h4>
+        <a class="btn m-0 btn-outline-info  px-2" onclick="location.reload()" role="button">
+            <i class="fa-solid fa-chevron-left"></i>
+            Back
+        </a>
+    </div>
+    <div class="container-fluid bg-white shadow px-3 pt-3">
+        <div class="row">
+            <div class="col-12  text-secondary " style="font-size:15px;">Patient Name</div>
+            <div class="col-12 text-secondary">
+
+                <div>
+                    <strong class="h4 text-info fw-bold">@Model.FirstName @Model.LastName </strong>
+                </div>
+
+            </div>
+
+            <div class="mt-1 d-flex justify-content-between">
+                @* <form enctype="multipart/form-data">
+                <div class="row d-flex">
+                <div class="py-2 col-12 ">
+                <div class="form-group rounded d-flex align-items-center justify-content-between uploadbtndiv">
+                <div class="px-3 table-responsive">
+                <input type="file" id="actual-btn" multiple hidden asp-for="Upload" />
+                <label role="button" for="actual-btn" id="file-chosen" class="choosenfile text-dark text-nowrap">No item selected</label>
+                </div>
+                <button type="button" id="uploadBtnAdmin" class="uploadbtn px-2 py-1 d-flex ms-1 border-0">
+                <label role="button" class="d-flex align-items-center"><i class="bi bi-cloud-arrow-up p-2"></i><div>Upload</div></label>
+                </button>
+                </div>
+                </div>
+                </div>
+                </form> *@
+                <div>
+                    <h4>Encounter Forms</h4>
+                </div>
+                <div class="py-3">
+                    <form>
+                        <input type="file" id="actual-btn" asp-for="upload" multiple hidden />
+                        <input type="text" class="RequestsId" value="@Model.requestId" hidden />
+                        <label role="button" for="actual-btn" id="file-chosen" class="choosenfile text-nowrap text-secondary w-100 d-none">No item selected</label>
+                        <button type="button" class="uploadbtnconclude btn btn-outline-info px-2 py-1 d-flex">
+                            <label role="button" class="d-flex align-items-center">
+                                <i class="bi bi-cloud-arrow-up p-2"></i>
+                                <div>Upload</div>
+                            </label>
+                        </button>
+                    </form>
+                </div>
+
+                @*  <form>
+                <div class="row d-flex mt-3">
+                <div class="py-2 col-12 ">
+                <div class="form-group rounded d-flex align-items-center justify-content-between border border-2 uploadbtndiv">
+                <div class="px-3 table-responsive w-100">
+                <input type="file" id="actual-btn-viewupload" asp-for="Upload" multiple hidden />
+                <input type="text" class="RequestsId" value="@Model.requestid" hidden />
+                <label role="button" for="actual-btn-viewupload" id="file-chosen" class="choosenfile text-nowrap text-secondary w-100">No item selected</label>
+                </div>
+                <button type="button" class="uploadbtn px-2 py-1 d-flex ms-1 border-0">
+                <label role="button" class="d-flex align-items-center">
+                <i class="bi bi-cloud-arrow-up p-2"></i>
+                <div>Upload</div>
+                </label>
+                </button>
+                </div>
+                </div>
+                </div>
+                </form> *@
+            </div>
+        </div>
+
+
+        <span id="downloadallbtn-viewupload" class="text-danger"></span>
+
+        <div class="table-responsive">
+
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="80%" scope="col">Documents</th>
+                        <th width="20%" class="text-center" scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var m in Model.totalFiles)
+                    {
+                        <tr>
+                            <td class="text-black">
+                                @m.Filename.Substring(45)
+                            </td>
+
+                            <td>
+                                <a class="text-decoration-none" href="~/upload/@System.IO.Path.GetFileName(@m.Filename)" download>
+
+                                    <i class="bi bi-cloud-arrow-down btn btn-outline-info"></i>
+                                </a>
+
+
+
+                                <button type="button" class="btn btn-outline-info deleteadmin" value="@m.Requestwisefileid">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <div class="py-3">
+                <form>
+                    <input type="number" asp-for="requestId" id="rid" value="@Model.requestId" hidden />
+                    <div class=" pt-2">
+                        <textarea class="form-control" name="" asp-for="Notes"
+                                  placeholder="Notes" id="notes_physician"
+                                  style="height: 100px"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end pt-3 ">
+                        @if (Model.isfinalize == null)
+                        {
+                            <button value="notFinalize" type="button" class="btn btn-info text-white fw-normal ConcludeCareSubmitBtn">Conclude Care</button>
+                        }
+                        else
+                        {
+                            <button value="Finalize" type="button" class="btn btn-info text-white fw-normal ConcludeCareSubmitBtn">Conclude Care</button>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script src="~/js/Admin/ViewUpload.js" asp-append-version="true"> </script>
+<script src="~/js/ProviderSide/Concludecare.js" asp-append-version="true"> </script>
+

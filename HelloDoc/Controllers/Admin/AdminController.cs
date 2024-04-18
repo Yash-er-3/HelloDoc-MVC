@@ -7,6 +7,7 @@ using Services.Contracts;
 using Services.Implementation;
 using Services.Viewmodels;
 using System.Collections;
+using System.ComponentModel;
 using System.Globalization;
 using System.Net;
 using System.Net.Mail;
@@ -26,6 +27,8 @@ namespace HelloDoc.Controllers.Admin
         private readonly IAddOrUpdateRequestStatusLog _addOrUpdateRequestStatusLog;
         private readonly IAddOrUpdateRequestNotes _addOrUpdateRequestNotes;
         private readonly IAdd _add;
+        private readonly ISendEmailAndSMS sendEmailAndSMS;
+
 
 
         byte[] key = { 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16 };
@@ -33,7 +36,7 @@ namespace HelloDoc.Controllers.Admin
 
 
         public AdminController(IRequestRepository requestRepository, IRequestDataRepository requestDataRepository, IViewCaseRepository view, HelloDocDbContext context,
-            IBlockCaseRepo blockCaseRepo, IAddOrUpdateRequestStatusLog addOrUpdateRequestStatusLog, IAddOrUpdateRequestNotes addOrUpdateRequestNotes, IAdd add)
+            IBlockCaseRepo blockCaseRepo, IAddOrUpdateRequestStatusLog addOrUpdateRequestStatusLog, IAddOrUpdateRequestNotes addOrUpdateRequestNotes, IAdd add, ISendEmailAndSMS sendEmailAndSMS)
         {
             _request = requestRepository;
             _data = requestDataRepository;
@@ -43,6 +46,7 @@ namespace HelloDoc.Controllers.Admin
             _addOrUpdateRequestStatusLog = addOrUpdateRequestStatusLog;
             _addOrUpdateRequestNotes = addOrUpdateRequestNotes;
             _add = add;
+            this.sendEmailAndSMS = sendEmailAndSMS;
         }
         // GET: AdminController
 
@@ -237,7 +241,16 @@ namespace HelloDoc.Controllers.Admin
         public IActionResult UploadFiles(List<IFormFile> files, int RequestsId)
         {
             Add(RequestsId, files);
-            return RedirectToAction("ViewUpload", "Admin", new { requestid = RequestsId });
+            if (HttpContext.Session.GetInt32("AdminId") != null)
+            {
+                return RedirectToAction("ViewUpload", "Admin", new { requestid = RequestsId });
+
+            }
+            else
+            {
+                return RedirectToAction("ConcludeCare", "ProviderSide", new { requestid = RequestsId });
+
+            }
         }
         public void Add(int id, List<IFormFile> formFiles)
         {
@@ -433,38 +446,33 @@ namespace HelloDoc.Controllers.Admin
         [HttpPost]
         public IActionResult SendAgreementModal(int requestid, string email)
         {
-
             string AgreementUrl = GenerateAgreementUrl(requestid);
             SendEmail(email, "Confirm Your Agreement", $"Hello, Click On below Link for COnfirm Agreement: {AgreementUrl}");
-            SendEmailAndSMS.SendSMS();
+            sendEmailAndSMS.SendSMS();
 
             TempData["success"] = "Agreement sent in Email..!";
-
-            int physicianid = (int)HttpContext.Session.GetInt32("PhysicianId");
-            if (physicianid != null)
+            try
             {
-                return RedirectToAction("ProviderDashboard", "ProviderSide");
+                int physicianid = (int)HttpContext.Session.GetInt32("PhysicianId");
+                if (physicianid != null)
+                {
+                    return RedirectToAction("ProviderDashboard", "ProviderSide");
+                }
             }
+            catch
+            {
+
+            }
+           
             return RedirectToAction("AdminDashboard");
         }
 
-        public IActionResult ReviewAgreement(string id)
-        {
-            var requestid = int.Parse(EncryptDecrypt.Decrypt(id));
-            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
-            var model = new AdminDashboardViewModel
-            {
-                requestid = requestid,
-                PatientNameForAgreement = request.Firstname + " " + request.Lastname
-            };
-            return View(model);
-        }
-
+     
 
 
         private string GenerateAgreementUrl(int reqid)
         {
-            var link = "https://localhost:44300/Admin/ReviewAgreement/?id=" + EncryptDecrypt.Encrypt(reqid.ToString());
+            var link = "https://localhost:44300/Home/ReviewAgreement/?id=" + EncryptDecrypt.Encrypt(reqid.ToString());
             return link;
         }
         public IActionResult SendAgreement(string id)
@@ -489,15 +497,7 @@ namespace HelloDoc.Controllers.Admin
             return client.SendMailAsync(new MailMessage(from: mail, to: email, subject, message));
         }
 
-        public IActionResult IAgreeSendAgreement(int requestid)
-        {
-            var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
-            request.Status = 4;
-            _context.Requests.Update(request);
-            _context.SaveChanges();
-            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid);
-            return RedirectToAction("PatientDashboard", "Patient");
-        }
+       
 
 
         [HttpGet]
@@ -741,6 +741,22 @@ namespace HelloDoc.Controllers.Admin
             _add.AddAdmin(obj, adminid);
             TempData["success"] = "Admin Account created successfully";
             return RedirectToAction("Admindashboard");
+        }
+
+        //validate admin email
+        [HttpPost]
+        public IActionResult ValidateEmail(string email)
+        {
+            var validateemail = _context.Admins.FirstOrDefault(x => x.Email == email);
+
+            if(validateemail == null)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("no");
+            }
         }
     }
 }

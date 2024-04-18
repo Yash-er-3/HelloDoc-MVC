@@ -30,7 +30,7 @@ builder.Services.AddScoped<IunitOfWork, unitOfWork>();
 builder.Services.AddScoped<IRecordRepository, RecordRepository>();
 builder.Services.AddScoped<IAdd, Add>();
 builder.Services.AddScoped<IUpdateData, UpdateData>();
-
+builder.Services.AddScoped<ISendEmailAndSMS, SendEmailAndSMS>();
 
 
 builder.Services.AddScoped<IAuthorizatoinRepository, AuthorizationRepository>();

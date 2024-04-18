@@ -1,14 +1,36 @@
-﻿using System.Net;
+﻿using HelloDoc;
+using Services.Contracts;
+using Services.Implementation;
+using System.Collections;
+using System.Net;
 using System.Net.Mail;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 
-public static class SendEmailAndSMS
+public class SendEmailAndSMS : ISendEmailAndSMS
 {
+    private readonly HelloDocDbContext _context;
 
-
-    public static void SendSMS()
+    public SendEmailAndSMS(HelloDocDbContext context)
     {
+        _context = context;
+    }
+
+    public void SendSMS()
+    {
+
+        Smslog sms = new Smslog
+        {
+            Mobilenumber = "6351568818",
+            Createdate = DateTime.Now,
+            Sentdate = DateTime.Now,
+            Issmssent = new BitArray(new[] { true }),
+            Senttries = 1,
+            Smstemplate = "main"
+        };
+
+        _context.Add(sms);
+        _context.SaveChanges();
         var accountSid = "AC3536fafe53afa4ff18883525e84a0acd";
         var authToken = "2294f0d25917b127344576878688e200";
         TwilioClient.Init(accountSid, authToken);
@@ -19,9 +41,10 @@ public static class SendEmailAndSMS
            to: new Twilio.Types.PhoneNumber("+916351568818")
        );
 
+
     }
 
-    public static async Task Sendemail(string email, string subject, string message)
+    public async Task Sendemail(string email, string subject, string message)
     {
         try
         {
@@ -45,8 +68,20 @@ public static class SendEmailAndSMS
             mailMessage.To.Add(email);
 
 
+            Emaillog emaillog = new Emaillog();
+            emaillog.Subjectname = subject;
+            emaillog.Emailid = email;
+            emaillog.Createdate = DateTime.Now;
+            emaillog.Sentdate = DateTime.Now;
+            emaillog.Isemailsent = new BitArray(new[] { true });
+            emaillog.Emailtemplate = "emailtemplate";
+
+            _context.Add(emaillog);
+            _context.SaveChanges();
 
             await client.SendMailAsync(mailMessage);
+
+
 
         }
         catch (Exception ex)
