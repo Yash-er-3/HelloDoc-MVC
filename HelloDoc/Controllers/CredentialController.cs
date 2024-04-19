@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess.ServiceRepository.IServiceRepository;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -7,10 +8,12 @@ namespace HelloDoc.Controllers
     public class CredentialController : Controller
     {
         private readonly HelloDocDbContext _context;
+        private IAuthorizatoinRepository _authorizatoinRepository;
 
-        public CredentialController(HelloDocDbContext context)
+        public CredentialController(HelloDocDbContext context, IAuthorizatoinRepository authorizatoinRepository)
         {
             _context = context;
+            _authorizatoinRepository = authorizatoinRepository;
         }
 
         [HttpPost]
@@ -21,6 +24,13 @@ namespace HelloDoc.Controllers
             {
                 var match = await _context.Aspnetusers.FirstOrDefaultAsync(m => m.Email == user.Email);
                 var users = await _context.Users.FirstOrDefaultAsync(m => m.Email == user.Email);
+
+                if(users == null)
+                {
+                    TempData["email"] = "you are not an user!";
+                    return RedirectToAction("registeredpatient", "Home");
+                }
+
                 if (match == null)
                 {
                     TempData["email"] = "email doesn't exist";
@@ -48,7 +58,7 @@ namespace HelloDoc.Controllers
             {
                 TempData["style"] = "text-danger";
                 TempData["email"] = "Enter valid email";
-                //TempData["error"] = "Enter Valid Email and Password";
+                
 
                 return RedirectToAction("registeredpatient", "Home");
             }

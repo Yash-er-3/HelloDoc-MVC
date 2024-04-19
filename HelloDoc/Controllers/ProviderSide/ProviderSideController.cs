@@ -2,6 +2,8 @@
 using DataAccess.ServiceRepository.IServiceRepository;
 using HelloDoc.ViewModels;
 using HelloDoc.Views.Shared;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Ocsp;
@@ -424,7 +426,137 @@ namespace HelloDoc.Controllers.ProviderSide
             return PartialView("Encounter", model);
         }
 
+        private PdfPCell CreateCell(string content)
+        {
+            PdfPCell cell = new PdfPCell(new Phrase(content));
+            cell.Padding = 5;
+            return cell;
+        }
 
+        [HttpGet]
+        public IActionResult DownloadEncounterAsAdmin(int id)
+        {
+            var request = _context.Requests.Include(x => x.Requestclients).Include(x => x.User).FirstOrDefault(x => x.Requestid == id);
+            var encounter = _context.Encounters.FirstOrDefault(x => x.RequestId == request.Requestid);
+            EncounterFormViewModel model = new EncounterFormViewModel();
+            model.RequestId = request.Requestid;
+            model.Firstname = request.Requestclients.First().Firstname;
+            model.Lastname = request.Requestclients.First().Lastname;
+            model.DOB = new DateTime(Convert.ToInt32(request.User.Intyear), DateTime.ParseExact(request.User.Strmonth, "MMM", CultureInfo.InvariantCulture).Month, Convert.ToInt32(request.User.Intdate)).ToString("yyyy-MM-dd");
+            model.Mobile = request.Requestclients.FirstOrDefault().Phonenumber;
+            model.Email = request.Requestclients.FirstOrDefault().Email;
+            model.Location = request.Requestclients.FirstOrDefault().Address;
+            model.HistoryOfIllness = encounter.HistoryIllness;
+            model.MedicalHistory = encounter.MedicalHistory;
+            model.Medication = encounter.Medications;
+            model.Allergies = encounter.Allergies;
+            model.Temp = encounter.Temp;
+            model.HR = encounter.Hr;
+            model.RR = encounter.Rr;
+            model.BPs = encounter.BpS;
+            model.BPd = encounter.BpD;
+            model.O2 = encounter.O2;
+            model.Pain = encounter.Pain;
+            model.Heent = encounter.Heent;
+            model.CV = encounter.Cv;
+            model.Chest = encounter.Chest;
+            model.ABD = encounter.Abd;
+            model.Extr = encounter.Extr;
+            model.Skin = encounter.Skin;
+            model.Neuro = encounter.Neuro;
+            model.Other = encounter.Other;
+            model.Diagnosis = encounter.Diagnosis;
+            model.TreatmentPlan = encounter.TreatmentPlan;
+            model.MedicationsDispended = encounter.MedicationDispensed;
+            model.Procedure = encounter.Procedures;
+            model.Followup = encounter.FollowUp;
+            model.isFinaled = encounter.IsFinalized[0];
+            var pdf = new iTextSharp.text.Document();
+            using (var memoryStream = new MemoryStream())
+            {
+                var writer = PdfWriter.GetInstance(pdf, memoryStream);
+                pdf.Open();
+
+                // Create a table with two columns
+                PdfPTable table = new PdfPTable(2);
+
+
+                // Add cells to the table here:
+                table.AddCell(CreateCell("First Name"));
+                table.AddCell(CreateCell(model.Firstname ?? "N/A"));
+                table.AddCell(CreateCell("Last Name"));
+                table.AddCell(CreateCell(model.Lastname ?? "N/A"));
+                table.AddCell(CreateCell("DOB"));
+                table.AddCell(CreateCell(model.DOB?.ToString() ?? "N/A"));
+                table.AddCell(CreateCell("Mobile"));
+                table.AddCell(CreateCell(model.Mobile ?? "N/A"));
+                table.AddCell(CreateCell("Email"));
+                table.AddCell(CreateCell(model.Email ?? "N/A"));
+                table.AddCell(CreateCell("Location"));
+                table.AddCell(CreateCell(model.Location ?? "N/A"));
+                table.AddCell(CreateCell("History Of Illness"));
+                table.AddCell(CreateCell(model.HistoryOfIllness ?? "N/A"));
+                table.AddCell(CreateCell("Medical History"));
+                table.AddCell(CreateCell(model.MedicalHistory ?? "N/A"));
+                table.AddCell(CreateCell("Medication"));
+                table.AddCell(CreateCell(model.Medication ?? "N/A"));
+                table.AddCell(CreateCell("Allergies"));
+                table.AddCell(CreateCell(model.Allergies ?? "N/A"));
+                table.AddCell(CreateCell("Temp"));
+                table.AddCell(CreateCell(model.Temp?.ToString() ?? "N/A"));
+                table.AddCell(CreateCell("HR"));
+                table.AddCell(CreateCell(model.HR?.ToString() ?? "N/A"));
+                table.AddCell(CreateCell("RR"));
+                table.AddCell(CreateCell(model.RR?.ToString() ?? "N/A"));
+                table.AddCell(CreateCell("Blood pressure(Systolic)"));
+                table.AddCell(CreateCell(model.BPs?.ToString() ?? "N/A"));
+                table.AddCell(CreateCell("Blood pressure(Diastolic)"));
+                table.AddCell(CreateCell(model.BPd?.ToString() ?? "N/A"));
+                table.AddCell(CreateCell("O2"));
+                table.AddCell(CreateCell(model.O2?.ToString() ?? "N/A"));
+                table.AddCell(CreateCell("Pain"));
+                table.AddCell(CreateCell(model.Pain?.ToString() ?? "N/A"));
+                table.AddCell(CreateCell("Heent"));
+                table.AddCell(CreateCell(model.Heent ?? "N/A"));
+                table.AddCell(CreateCell("CV"));
+                table.AddCell(CreateCell(model.CV ?? "N/A"));
+                table.AddCell(CreateCell("Chest"));
+                table.AddCell(CreateCell(model.Chest ?? "N/A"));
+                table.AddCell(CreateCell("ABD"));
+                table.AddCell(CreateCell(model.ABD ?? "N/A"));
+                table.AddCell(CreateCell("Extr"));
+                table.AddCell(CreateCell(model.Extr ?? "N/A"));
+                table.AddCell(CreateCell("Skin"));
+                table.AddCell(CreateCell(model.Skin ?? "N/A"));
+                table.AddCell(CreateCell("Neuro"));
+                table.AddCell(CreateCell(model.Neuro ?? "N/A"));
+                table.AddCell(CreateCell("Other"));
+                table.AddCell(CreateCell(model.Other ?? "N/A"));
+                table.AddCell(CreateCell("Diagnosis"));
+                table.AddCell(CreateCell(model.Diagnosis ?? "N/A"));
+                table.AddCell(CreateCell("Treatment Plan"));
+                table.AddCell(CreateCell(model.TreatmentPlan ?? "N/A"));
+                table.AddCell(CreateCell("Medications Dispended"));
+                table.AddCell(CreateCell(model.MedicationsDispended ?? "N/A"));
+                table.AddCell(CreateCell("Procedure"));
+                table.AddCell(CreateCell(model.Procedure ?? "N/A"));
+                table.AddCell(CreateCell("Followup"));
+                table.AddCell(CreateCell(model.Followup ?? "N/A"));
+                table.AddCell(CreateCell("Is Finaled"));
+                table.AddCell(CreateCell(model.isFinaled.ToString() ?? "N/A"));
+
+                // Add the table to the PDF
+                pdf.Add(table);
+
+                pdf.Close();
+                writer.Close();
+
+                var bytes = memoryStream.ToArray();
+                var result = new FileContentResult(bytes, "application/pdf");
+                result.FileDownloadName = "Encounter_" + model.RequestId + ".pdf";
+                return result;
+            }
+        }
         public IActionResult MyProfile()
         {
             var physicianid = HttpContext.Session.GetInt32("PhysicianId");

@@ -15,23 +15,35 @@ namespace HelloDoc.Controllers.DataController
         }
 
         [HttpPost]
-
-        public async Task<IActionResult> Concierge(concierge c)
+        public IActionResult Concierge(concierge c)
         {
-            var aspnetuser = await _log.Aspnetusers.FirstOrDefaultAsync(m => m.Email == c.PEmail);
-            var user = await _log.Users.FirstOrDefaultAsync(m => m.Email == c.PEmail);
+            var aspnetuser =  _log.Aspnetusers.FirstOrDefault(m => m.Email == c.PEmail);
+            var user =  _log.Users.FirstOrDefault(m => m.Email == c.PEmail);
 
 
             if (aspnetuser != null)
             {
+                aspnetuser.Phonenumber = c.PhoneNumber;
+                user.Mobile = c.PhoneNumber;
+                user.Street = c.Street;
+                user.City = c.City;
+                user.State = c.State;
+                user.Zip = c.ZipCode;
+                user.Intyear = int.Parse(c.PDOB.ToString("yyyy"));
+                user.Intdate = int.Parse(c.PDOB.ToString("dd"));
+                user.Strmonth = c.PDOB.ToString("MMM");
+                _log.Aspnetusers.Update(aspnetuser);
+                _log.Users.Update(user);
+                _log.SaveChanges();
+
                 Request request = new Request
                 {
                     Requesttypeid = 3,
                     Userid = user.Userid,
-                    Firstname = c.PFirstName,
-                    Lastname = c.PLastName,
-                    Phonenumber = c.PPhoneNumber,
-                    Email = c.PEmail,
+                    Firstname = c.FirstName,
+                    Lastname = c.LastName,
+                    Phonenumber = c.PhoneNumber,
+                    Email = c.Email,
                     Status = 1,
                     Createddate = DateTime.Now,
                     Modifieddate = DateTime.Now,
@@ -46,10 +58,10 @@ namespace HelloDoc.Controllers.DataController
 
                 r.Notes = c.Symptoms;
                 r.Requestid = request.Requestid;
-                r.Firstname = c.FirstName;
-                r.Lastname = c.LastName;
-                r.Email = c.Email;
-                r.Phonenumber = c.PhoneNumber;
+                r.Firstname = c.PFirstName;
+                r.Lastname = c.PLastName;
+                r.Email = c.PEmail;
+                r.Phonenumber = c.PPhoneNumber;
                 r.State = c.State;
                 r.City = c.City;
                 r.Zipcode = c.ZipCode;
@@ -74,16 +86,16 @@ namespace HelloDoc.Controllers.DataController
                 con.Createddate = DateTime.Now;
                 con.Regionid = 1;
 
+
                 _log.Add(con);
                 _log.SaveChanges();
 
-                var requestdata = await _log.Requests.FirstOrDefaultAsync(m => m.Email == c.PEmail);
-                var condata = await _log.Concierges.FirstOrDefaultAsync(m => m.Conciergename == c.FirstName + c.LastName);
+             
 
                 Requestconcierge reqcon = new Requestconcierge();
 
-                reqcon.Requestid = requestdata.Requestid;
-                reqcon.Conciergeid = condata.Conciergeid;
+                reqcon.Requestid = r.Requestid;
+                reqcon.Conciergeid = con.Conciergeid;
 
                 _log.Add(reqcon);
                 _log.SaveChanges();

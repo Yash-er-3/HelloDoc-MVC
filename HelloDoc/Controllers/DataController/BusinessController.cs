@@ -15,21 +15,33 @@ namespace HelloDoc.Controllers.DataController
 
         [HttpPost]
 
-        public async Task<IActionResult> BusinessRequest(business b)
+        public IActionResult BusinessRequest(business b)
         {
-            var aspnetuser = await _log.Aspnetusers.FirstOrDefaultAsync(m => m.Email == b.PEmail);
-            var user = await _log.Users.FirstOrDefaultAsync(m => m.Email == b.PEmail);
+            var aspnetuser =  _log.Aspnetusers.FirstOrDefault(m => m.Email == b.PEmail);
+            var user =  _log.Users.FirstOrDefault(m => m.Email == b.PEmail);
             if (aspnetuser != null)
             {
+                aspnetuser.Phonenumber = b.PhoneNumber;
+                user.Mobile = b.PhoneNumber;
+                user.Street = b.Street;
+                user.City = b.City;
+                user.State = b.State;
+                user.Zip = b.ZipCode;
+                user.Intyear = int.Parse(b.PDOB.ToString("yyyy"));
+                user.Intdate = int.Parse(b.PDOB.ToString("dd"));
+                user.Strmonth = b.PDOB.ToString("MMM");
+                _log.Aspnetusers.Update(aspnetuser);
+                _log.Users.Update(user);
+                _log.SaveChanges();
 
                 Request request = new Request
                 {
                     Requesttypeid = 4,
                     Userid = user.Userid,
-                    Firstname = b.PFirstName,
-                    Lastname = b.PLastName,
-                    Email = b.PEmail,
-                    Phonenumber = b.PPhoneNumber,
+                    Firstname = b.FirstName,
+                    Lastname = b.LastName,
+                    Email = b.Email,
+                    Phonenumber = b.PhoneNumber,
                     Status = 1,
                     Createddate = DateTime.Now,
                     Casenumber = b.CaseNumber,
@@ -41,19 +53,19 @@ namespace HelloDoc.Controllers.DataController
                 {
                     Notes = b.Symptoms,
                     Requestid = request.Requestid,
-                    Firstname = b.FirstName,
-                    Lastname = b.LastName,
-                    Email = b.Email,
-                    Phonenumber = b.PhoneNumber,
-                    State = b.State,
+                    Firstname = b.PFirstName,
+                    Lastname = b.PLastName,
+                    Email = b.PEmail,
+                    Phonenumber = b.PPhoneNumber,
                     Street = b.Street,
                     City = b.City,
+                    State = b.State,
                     Zipcode = b.ZipCode,
                     Address = b.Room + " , " + b.Street + " , " + b.City + " , " + b.State,
                     Intyear = int.Parse(b.PDOB.ToString("yyyy")),
                     Intdate = int.Parse(b.PDOB.ToString("dd")),
                     Strmonth = b.PDOB.ToString("MMM"),
-                    Regionid = (int)user.Regionid
+                    Regionid = 1
                 };
                 _log.Add(requestclient);
                 _log.SaveChanges();
@@ -71,11 +83,10 @@ namespace HelloDoc.Controllers.DataController
                 };
                 _log.Businesses.Add(business);
                 _log.SaveChanges();
-                var requestdata = await _log.Requests.FirstOrDefaultAsync(m => m.Email == b.Email);
-                var buisnessdata = await _log.Businesses.FirstOrDefaultAsync(m => m.Name == b.FirstName + b.LastName);
+               
                 Requestbusiness requestbusiness = new Requestbusiness
                 {
-                    Requestid = requestdata.Requestid,
+                    Requestid = requestclient.Requestid,
                     Businessid = business.Businessid,
 
                 };

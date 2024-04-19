@@ -286,12 +286,14 @@ D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\refs\System.Xml.XmlSerializer.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\refs\System.Xml.XPath.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\refs\System.Xml.XPath.XDocument.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\refs\WindowsBase.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\BouncyCastle.Crypto.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Enums.NET.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Epoch.net.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\ExtendedNumerics.BigDecimal.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\ColorTranslations.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Humanizer.dll
+D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\itextsharp.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\jose-jwt.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\MathNet.Numerics.dll
 D:\Projects\HelloDoc\HelloDoc\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,6 +1,9 @@
 ﻿using HelloDoc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Ocsp;
+using Services.Contracts;
+using Services.Implementation;
 using System.Globalization;
 
 namespace HelloDoc.Controllers.DataController
@@ -8,10 +11,12 @@ namespace HelloDoc.Controllers.DataController
     public class CreateFamilyFriendController : Controller
     {
         private readonly HelloDocDbContext _log;
+        private readonly ISendEmailAndSMS sendEmailAndSMS;
 
-        public CreateFamilyFriendController(HelloDocDbContext log)
+        public CreateFamilyFriendController(HelloDocDbContext log, ISendEmailAndSMS senEmailAndSMS)
         {
             _log = log;
+            sendEmailAndSMS = senEmailAndSMS;
         }
         [HttpPost]
         public void UploadTable(int id, List<IFormFile> file)
@@ -47,14 +52,27 @@ namespace HelloDoc.Controllers.DataController
 
             if (aspnetuser != null)
             {
+                aspnetuser.Phonenumber = f.PhoneNumber;
+                user.Mobile = f.PhoneNumber;
+                user.Street = f.Street;
+                user.City = f.City;
+                user.State = f.State;
+                user.Zip = f.ZipCode;
+                user.Intyear = int.Parse(f.PDOB.ToString("yyyy"));
+                user.Intdate = int.Parse(f.PDOB.ToString("dd"));
+                user.Strmonth = f.PDOB.ToString("MMM");
+                _log.Aspnetusers.Update(aspnetuser);
+                _log.Users.Update(user);
+                _log.SaveChanges();
+
                 Request request = new Request
                 {
                     Requesttypeid = 2,
                     Userid = user.Userid,
-                    Firstname = f.PFirstName,
-                    Lastname = f.PLastName,
-                    Phonenumber = f.PPhoneNumber,
-                    Email = f.PEmail,
+                    Firstname = f.FirstName,
+                    Lastname = f.LastName,
+                    Email = f.Email,
+                    Phonenumber = f.PhoneNumber,
                     Status = 1,
                     Createddate = DateTime.Now,
                     Modifieddate = DateTime.Now,
@@ -65,14 +83,15 @@ namespace HelloDoc.Controllers.DataController
                 _log.SaveChanges();
 
 
+
                 Requestclient r = new Requestclient();
 
                 r.Notes = f.Symptoms;
                 r.Requestid = request.Requestid;
-                r.Firstname = f.FirstName;
-                r.Lastname = f.LastName;
-                r.Email = f.Email;
-                r.Phonenumber = f.PhoneNumber;
+                r.Firstname = f.PFirstName;
+                r.Lastname = f.PLastName;
+                r.Phonenumber = f.PPhoneNumber;
+                r.Email = f.PEmail;
                 r.State = f.State;
                 r.City = f.City;
                 r.Zipcode = f.ZipCode;
@@ -83,24 +102,55 @@ namespace HelloDoc.Controllers.DataController
                 r.Strmonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(f.PDOB.Month);
                 r.Regionid = 1;
 
+                //for someone else request
+                if (f.PFirstName == null && f.PLastName == null)
+                {
+                    var requestclient = _log.Requestclients.FirstOrDefault(x => x.Requestid == request.Requestid);
+                    r.Firstname = requestclient.Firstname;
+                    r.Lastname = requestclient.Lastname;
+                }
 
                 _log.Requestclients.Add(r);
                 _log.SaveChanges();
 
-                //Requestwisefile requestwisefile = new Requestwisefile();
 
-                //requestwisefile.Requestid = r.Requestid;
                 if (f.FileName != null)
                 {
                     UploadTable(request.Requestid, f.FileName);
                 }
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("submitrequest", "Home");
             }
             else
             {
                 return RedirectToAction("submitrequest", "Home");
             }
+        }
+
+        public bool EmailValidate(family f)
+        {
+            var aspnetuser = _log.Aspnetusers.FirstOrDefault(x => x.Email == f.Email);
+
+            if (aspnetuser != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private string GenerateAgreementUrl(string email)
+        {
+            //var encryptemail = EncryptDecrypt.Encrypt(email);
+            var link = "https://localhost:44300/Home/CreateUser?email=" + email;
+            return link;
+        }
+
+        public void CreateUserSendMail(string email)
+        {
+            string AgreementUrl = GenerateAgreementUrl(email);
+            sendEmailAndSMS.Sendemail(email, "Create Your Account", $"Hello, Click On below Link to create account: {AgreementUrl}");
         }
     }
 }

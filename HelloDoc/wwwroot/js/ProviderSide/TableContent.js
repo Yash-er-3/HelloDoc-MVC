@@ -249,7 +249,6 @@ $(document).ready(function () {
                 $('#PopUps').html(result);
                 var my = new bootstrap.Modal(document.getElementById('DownloadEncounterModal'));
                 my.show();
-                $('#nav-tabContent').html(result);
             },
             error: function (xhr, status, error) {
                 console.log(error);

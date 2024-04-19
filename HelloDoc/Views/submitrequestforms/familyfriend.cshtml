@@ -1,8 +1,9 @@
-﻿
-@{
+﻿@{
     Layout = "rpstyle";
 }
 @model HelloDoc.ViewModels.family;
+
+@Html.Partial("notification");
 
 <div class="container mt-3">
 
@@ -17,15 +18,6 @@
             </a>
         </div>
 
-        <!-- <div class="d-flex back-btn small">
-            <a href="../submitrequest.html"
-                class="d-flex text-decoration-none align-items-center border border-0 ">
-                <div class="d-flex">
-                    <img class="back" src="../images/back.png" alt="">
-                </div>
-                <span style="color: #00b8e6;">Back</span>
-            </a>
-        </div> -->
     </div>
 
     <div class=" border border-0 shadow rounded-1 px-3 py-2 mt-2 mb-5" id="content-color">
@@ -120,7 +112,7 @@
                             string max = DateTime.Now.ToString("yyyy-MM-dd");
                         }
                         <input type="date" asp-for="PDOB" class="form-control shadow-none  date-iconDark"
-                               placeholder="Date Of Birth" id="date-icon" max="@max"> 
+                               placeholder="Date Of Birth" id="date-icon" max="@max">
                         <label class="FloatingInput" for="Name">Date Of Birth</label>
                         <span asp-validation-for="PDOB" class="text-danger small"></span>
 
@@ -131,9 +123,9 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                     <div class="form-floating ">
-                        <input type="email" asp-for="PEmail" class="form-control shadow-none " placeholder="Email">
+                        <input type="email" id="email_familyfrnd" asp-for="PEmail" class="form-control shadow-none " placeholder="Email">
                         <label class="FloatingInput" for="Name">Email</label>
-                        <span asp-validation-for="PEmail" class="text-danger small"></span>
+                        <span asp-validation-for="PEmail" id="email_spanfamilyfrnd" class="text-danger small"></span>
 
                     </div>
                 </div>
@@ -221,7 +213,7 @@
 
                 <div class="justify-content-end d-flex">
                     <div class="mx-3">
-                        <button type="submit" class="border border-0 text-white sub rounded-2 px-3 py-2 small">
+                        <button type="button" id="submit_family" class="border border-0 text-white sub rounded-2 px-3 py-2 small">
                             Submit
                         </button>
                     </div>
@@ -245,8 +237,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
 <script>
-   
+
     const phoneInputField1 = document.querySelector("#tel1");
     const phoneInput1 = window.intlTelInput(phoneInputField1, {
         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
@@ -256,5 +251,54 @@
         "When Submitting the request, you must provide the correct contact information for the patient or responsibly party.Failure to provide the correct email and phone number will delay the service or be declined.",
         "warning", {
         closeOnClickOutside: true,
+    });
+
+    $('#submit_family').on('click', function () {
+
+        var email = $('#email_familyfrnd').val();
+        var regexemail = /^\w+@@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+        if (email == "") {
+            $('#email_spanfamilyfrnd').html("Please Enter Email")
+        }
+        else if (!regexemail.test(email)) {
+
+            $('#email_spanfamilyfrnd').html("Please Enter Valid Email")
+        }
+        else {
+            $.ajax({
+                url: '/CreateFamilyFriend/EmailValidate',
+                data: { email },
+                async: false,
+                success: function (response) {
+                    console.log(response)
+                    if (response) {
+                        document.getElementById('submit_family').type = "submit";
+                        $('#submit_family').click();
+                    } else {
+                        $.ajax({
+                            url: '/CreateFamilyFriend/CreateUserSendMail',
+                            data: { email: email },
+                            async: false,
+                            success: function (data) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "User Not Exist",
+                                    text: "Create User Account Page Link Sent on Patient email, First Create account and then try to submit this form"
+                                });
+                            }
+                        });
+                        //Swal.fire({
+                        //    icon: "error",
+                        //    title: "First Create Your Account",
+                        //    text: "Your account is not exist!, Account Creation Link will be sent to your email.",
+                        //});
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            })
+        }
+
     });
 </script>

@@ -1,4 +1,5 @@
 ﻿using HelloDoc.Models;
+using HelloDoc.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 using Services.Implementation;
@@ -6,6 +7,7 @@ using Services.Viewmodels;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
+using System.Transactions;
 
 namespace HelloDoc.Controllers
 {
@@ -44,12 +46,24 @@ namespace HelloDoc.Controllers
 
         public IActionResult PatientResetPasswordEmail(Aspnetuser user)
         {
-            string Id = (_context.Aspnetusers.FirstOrDefault(x => x.Email == user.Email)).Id;
-            string resetPasswordUrl = GenerateResetPasswordUrl(Id);
 
-            SendEmail(user.Email, "Reset Your Password", $"Hello, reset your password using this link: {resetPasswordUrl}");
+            var usercheck = _context.Users.FirstOrDefault(x => x.Email == user.Email);
 
-            return RedirectToAction("registeredpatient", "Home");
+            if (usercheck != null)
+            {
+                string Id = (_context.Aspnetusers.FirstOrDefault(x => x.Email == user.Email)).Id;
+
+                string resetPasswordUrl = GenerateResetPasswordUrl(Id);
+
+                SendEmail(user.Email, "Reset Your Password", $"Hello, reset your password using this link: {resetPasswordUrl}");
+                return RedirectToAction("registeredpatient", "Home");
+            }
+            else
+            {
+                TempData["error"] = "Email not exist";
+            }
+            return RedirectToAction("forgotpassword", "Home");
+
         }
 
         private string GenerateResetPasswordUrl(string userId)
@@ -132,5 +146,80 @@ namespace HelloDoc.Controllers
             _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(id, adminid, note.blocknotes);
             return RedirectToAction("Admindashboard");
         }
+
+        public IActionResult CreateUser(string email)
+        {
+            PatientInfo p = new PatientInfo();
+            p.Email = email;
+            return View(p);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser(PatientInfo p)
+        {
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+
+                    var usercheck = _context.Users.FirstOrDefault(x => x.Email == p.Email);
+                    if (usercheck != null)
+                    {
+                        TempData["error"] = "User Already Exist";
+                    }
+                    else
+                    {
+                        Aspnetuser aspnetuer = new Aspnetuser
+                        {
+                            Id = Guid.NewGuid().ToString(),
+                            Email = p.Email,
+                            Username = p.FirstName + " " + p.LastName,
+                            Passwordhash = p.Password,
+                            Createddate = DateTime.Now,
+                        };
+
+                        _context.Add(aspnetuer);
+                        _context.SaveChanges();
+
+                        Aspnetuserrole aspnetuserrole = new Aspnetuserrole
+                        {
+                            Userid = aspnetuer.Id,
+                            Roleid = "1"
+                        };
+
+                        _context.Add(aspnetuserrole);
+                        _context.SaveChanges();
+
+                        User user = new User
+                        {
+                            Aspnetuserid = aspnetuer.Id,
+                            Firstname = p.FirstName,
+                            Lastname = p.LastName,
+                            Email = p.Email,
+                            Intyear = int.Parse(aspnetuer.Createddate.ToString("yyyy")),
+                            Intdate = int.Parse(aspnetuer.Createddate.ToString("dd")),
+                            Strmonth = aspnetuer.Createddate.ToString("MMM"),
+                            Createdby = p.FirstName + " " + p.LastName,
+                            Createddate = DateTime.Now,
+                            Regionid = 1
+                        };
+                        _context.Add(user);
+                        _context.SaveChanges();
+                        transaction.Commit();
+                        TempData["success"] = "User Created Successfully";
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+
+
+            return RedirectToAction("registeredpatient", "Home");
+        }
+
     }
 }

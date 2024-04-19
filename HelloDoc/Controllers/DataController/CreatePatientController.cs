@@ -22,7 +22,6 @@ namespace HelloDoc.Controllers.DataController
         [HttpPost]
         public async Task<IActionResult> patient(PatientInfo r)
         {
-
             var Aspnetuser = await _log.Aspnetusers.FirstOrDefaultAsync(m => m.Email == r.Email);
 
             if (Aspnetuser == null)

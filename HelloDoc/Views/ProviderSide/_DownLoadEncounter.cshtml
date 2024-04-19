@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header bg-info">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Download encounter</h1>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <input type="hidden" id="Requestid" value="@Model.requestid" />
             <div class="modal-body d-flex flex-column">
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="closemodel" class="btn btn-outline-info" data-dismiss="modal">Cancel</button>
+                <button type="button" id="closemodel" class="btn btn-outline-info" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
         $('#closemodel').trigger('click');
         var id = $('#Requestid').val();
         var link = document.createElement('a');
-        link.href = '/AdminArea/Dashboard/DownloadEncounterAsAdmin?id=' + id;
+        link.href = '/ProviderSide/DownloadEncounterAsAdmin?id=' + id;
         link.click();
     })
 
