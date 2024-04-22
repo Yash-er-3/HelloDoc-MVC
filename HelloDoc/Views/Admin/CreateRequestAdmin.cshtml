@@ -2,6 +2,8 @@
 
 @{
     Layout = "header_dashboard";
+    ViewData["Title"] = "CreateRequest";
+
 }
 
 @model HelloDoc.ViewModels.PatientInfo;
@@ -212,73 +214,6 @@
     </div>
 </div>
 
-
-<script>
-    swal("Information",
-        "When Submitting the request, you must provide the correct contact information for the patient or responsibly party.Failure to provide the correct email and phone number will delay the service or be declined.",
-        "warning", {
-        closeOnClickOutside: true,
-    });
-
-
-    function checkEmailExists() {
-
-        var email = document.getElementById("patientEmail").value;
-
-        fetch('/CreatePatient/patient/checkmail/' + email)
-            .then(response => response.json())
-            .then(data => {
-                var patientPassword = document.getElementById('passwordFields1');
-                var patientConfirmPassword = document.getElementById('passwordFields2');
-
-                if (data.exists) {
-                    patientPassword.style.display = 'none';
-                    patientConfirmPassword.style.display = 'none';
-                    console.log("exist ")
-                }
-                else {
-                    patientPassword.style.display = 'block';
-                    patientConfirmPassword.style.display = 'block';
-                    console.log(" not exist ")
-
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-
-    const eyeicon = document.getElementById('eye-icon')
-    const password = document.getElementById('pswd')
-
-
-    function hideviewpswd() {
-        if (password.type === "password") {
-            eyeicon.classList.replace('bi-eye-fill', 'bi-eye-slash-fill')
-            password.type = "text"
-        }
-        else {
-            eyeicon.classList.replace('bi-eye-slash-fill', 'bi-eye-fill')
-            password.type = "password"
-
-        }
-
-    }
-
-    const eyeicon1 = document.getElementById('eye-icon-1')
-    const password1 = document.getElementById('pswd-1')
-    function hideviewpswd1() {
-        if (password1.type === "password") {
-            eyeicon1.classList.replace('bi-eye-fill', 'bi-eye-slash-fill')
-            password1.type = "text"
-        }
-        else {
-            eyeicon1.classList.replace('bi-eye-slash-fill', 'bi-eye-fill')
-            password1.type = "password"
-
-        }
-
-    }
-</script>
 
 
 

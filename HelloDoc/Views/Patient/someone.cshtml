@@ -11,21 +11,15 @@
         </div>
 
         <div>
-            <!-- <a href="../submitrequest.html"
-                class="d-flex text-decoration-none align-items-center border border-0 bg-transparent"> -->
-            <!-- <div class="d-flex">
-                <img class="back" src="../images/back.png" alt="">
-            </div> -->
             <a asp-controller="Patient" asp-action="PatientDashboard" class="text-decoration-none">
                 <span class="back-btn small" style="color: #00b8e6;">&lt;Back</span>
             </a>
-            <!-- </a> -->
         </div>
     </div>
 
     <div class="border border-0 shadow rounded-1 px-3 py-2 mt-2 mb-5" id="content-color">
-        <h6>Patient Information</h6>
-        <form asp-controller="CreateFamilyFriend" asp-action="Family" method="post" enctype="multipart/form-data">
+        <h6>Someone else Information</h6>
+        <form asp-controller="CreateFamilyFriend" asp-action="Family" asp-route-someone="someone" method="post" enctype="multipart/form-data">
             <div class="mt-3 d-flex row">
                 <div class="p-2 col-xl-12">
                     <div class="form-floating">
@@ -42,7 +36,7 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
-                        <input type="text" asp-for="FirstName" class="form-control shadow-none" placeholder="First Name">
+                        <input type="text" asp-for="PFirstName" class="form-control shadow-none" placeholder="First Name">
                         <label class="FloatingInput" for="Name">First Name</label>
                         <span asp-validation-for="FirstName" class="text-danger small"></span>
 
@@ -51,7 +45,7 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6">
                     <div class="form-floating ">
-                        <input type="text" asp-for="LastName" class="form-control shadow-none" placeholder="Last Name">
+                        <input type="text" asp-for="PLastName" class="form-control shadow-none" placeholder="Last Name">
                         <label class="FloatingInput" for="Name">Last Name</label>
                         <span asp-validation-for="LastName" class="text-danger small"></span>
 
@@ -74,9 +68,9 @@
 
                 <div class="p-2 col-xl-6 col-lg-6 col-md-6 col-sm-6 mt-2">
                     <div class="form-floating ">
-                        <input type="email" asp-for="PEmail" class="form-control shadow-none" placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
+                        <input type="email" id="email_someone" asp-for="PEmail" class="form-control shadow-none" placeholder="Email" id="patientEmail" onblur="checkEmailExists()">
                         <label class="FloatingInput" for="Name">Email</label>
-                        <span asp-validation-for="PEmail" class="text-danger small"></span>
+                        <span id="email_someonespan" asp-validation-for="PEmail" class="text-danger small"></span>
 
                     </div>
                 </div>
@@ -173,7 +167,7 @@
 
                 <div class="justify-content-end d-flex">
                     <div class="mx-3">
-                        <button type="submit" class="border border-0 text-white sub rounded-2 px-3 py-2 small">
+                        <button type="button" id="submit_someone" class="border border-0 text-white sub rounded-2 px-3 py-2 small">
                             Submit
                         </button>
                     </div>
@@ -195,5 +189,52 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+<script>
 
+    $('#submit_someone').on('click', function () {
+
+        var email = $('#email_someone').val();
+        var regexemail = /^\w+@@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+        if (email == "") {
+            $('#email_someonespan').html("Please Enter Email")
+        }
+        else if (!regexemail.test(email)) {
+
+            $('#email_someonespan').html("Please Enter Valid Email")
+        }
+        else {
+            $.ajax({
+                url: '/CreateFamilyFriend/EmailValidate',
+                data: { email },
+                async: false,
+                success: function (response) {
+                    console.log(response)
+                    if (response) {
+                        document.getElementById('submit_someone').type = "submit";
+                        $('#submit_someone').click();
+                    } else {
+                        $.ajax({
+                            url: '/CreateFamilyFriend/CreateUserSendMail',
+                            data: { email: email },
+                            async: false,
+                            success: function (data) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "User Not Exist",
+                                    text: "Create User Account Page Link Sent on Patient email, First Create account and then try to submit this form"
+                                });
+                            }
+                        });
+                        
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            })
+        }
+
+    });
+</script>

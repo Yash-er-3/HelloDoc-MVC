@@ -78,14 +78,11 @@ namespace HelloDoc.Controllers.Admin
             return alldata;
         }
 
-
-
         public IActionResult NewState()
         {
             var model = _data.GetAllRequestData(1);
             return View(model);
         }
-
 
         public IActionResult PendingState()
         {

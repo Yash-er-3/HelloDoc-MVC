@@ -195,54 +195,7 @@ $('#viewshiftstartdate , #viewshiftenddate').on('change', function () {
     }
 });
 
-$('#deletebtnviewshiftmodel').on('click', function () {
-    let shiftdetailsid = $('#shiftdetailidviewmodel').val()
-    console.log("sjhdihj" + shiftdetailsid)
-    $.ajax({
-        url: '/Scheduling/ViewShiftModelDeletebtn',
-        type: 'POST',
-        data: {
-            shiftdetailsid: shiftdetailsid
-        },
 
-        success: function (response) {
-            loadSchedulingPartial(currentPartial);
-            $('#viewShiftModal').modal('hide');
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Shift Deleted Successfully",
-                showConfirmButton: false,
-                timer: 1700
-            });
-        },
-        error: function (xhr, textStatus, errorThrown) {
-            console.log('Error:', errorThrown);
-        }
-    });
-
-});
-
-$('#returnbtnviewshiftmodel').on('click', function () {
-    let shiftdetailsid = $('#shiftdetailidviewmodel').val()
-    console.log("sjhdihj" + shiftdetailsid)
-    $.ajax({
-        url: '/Scheduling/ViewShiftModelReturnbtn',
-        type: 'POST',
-        data: {
-            shiftdetailsid: shiftdetailsid
-        },
-
-        success: function (response) {
-            loadSchedulingPartial(currentPartial);
-            $('#viewShiftModal').modal('hide');
-        },
-        error: function (xhr, textStatus, errorThrown) {
-            console.log('Error:', errorThrown);
-        }
-    });
-
-});
 $('#editbtnviewshiftmodel').click(function () {
     console.log("jdsbhjdbshj")
     $('#viewshiftstartdate').prop('disabled', false);
@@ -250,32 +203,42 @@ $('#editbtnviewshiftmodel').click(function () {
     $('#editbtnviewshiftmodel').addClass('d-none');
     $('#savebtnviewshiftmodel').removeClass('d-none');
 });
-$("#viewShiftForm").submit(function (event) {
-    event.preventDefault();
-    if ($("#viewShiftForm").valid()) {
-        var formData = new FormData(this);
-        console.log("djhsbwdhb")
+$('#viewShiftModal').on('hidden.bs.modal', function (e) {
+    $(this).remove();
+})
 
-        $.ajax({
-            url: '/Scheduling/ViewShiftModelSavebtn',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                loadSchedulingPartial(currentPartial);
-        $('#viewshiftstartdate').prop('disabled', true);
-        $('#viewshiftenddate').prop('disabled', true);
-        $('#editbtnviewshiftmodel').removeClass('d-none');
-        $('#savebtnviewshiftmodel').addClass('d-none');
-                $('#viewShiftModal').modal('hide');
+$('#savebtnviewshiftmodel').on('click', function () {
 
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log('Error while updating physician info:', errorThrown);
-            }
-        });
+    console.log("run view shift")
+
+    var eventvalue = $(this).val()
+
+
+    var model = {
+        starttime: $('#viewshiftstartdate').val(),
+        endtime: $('#viewshiftenddate').val(),
+        shiftdetailsid: $('#shiftidviewmodel').val(),
+        eventvalue: eventvalue
     }
+
+
+
+    $.ajax({
+        url: '/Scheduling/viewShiftEdit',
+        data: model,
+        success: function (response) {
+
+            $('#viewshiftstartdate').prop('disabled', true)
+            $('#viewshiftenddate').prop('disabled', true)
+            $('#editbtnviewshiftmodel').removeClass('d-none');
+            $('#savebtnviewshiftmodel').addClass('d-none');
+            loadSchedulingPartial(currentPartial);
+            $('#viewShiftModal').modal('hide');
+        },
+        error: function (xhr, textStatus, error) {
+            console.log(error)
+        }
+    });
 });
 
 

@@ -1,4 +1,8 @@
-﻿
+﻿window.onload = function () {
+    $('.admin-layout-nav').removeClass('admin-layout-nav-active')
+    $('#nav-profile-tab').addClass('admin-layout-nav-active');
+}
+
 var phoneInputField2 = document.querySelector("#phonenumber-adminprofile");
 var phoneInput = window.intlTelInput(phoneInputField2, {
     utilsScript:

@@ -432,3 +432,18 @@ function ModalNotesValidation(note) {
     }
     return false;
 };
+
+//for filter of patient family frnd concierge
+const radioButtons = document.querySelectorAll('input[type="radio"]');
+const radioDivs = document.querySelectorAll('.d-inline-block');
+radioButtons.forEach((radio, index) => {
+    radio.addEventListener('click', () => {
+        radioDivs.forEach((div, divIndex) => {
+            if (index - 1 === divIndex) {
+                div.classList.add('selected-border');
+            } else {
+                div.classList.remove('selected-border');
+            }
+        });
+    });
+});

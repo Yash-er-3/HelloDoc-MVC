@@ -31,17 +31,7 @@ public class SendEmailAndSMS : ISendEmailAndSMS
 
         _context.Add(sms);
         _context.SaveChanges();
-        var accountSid = "AC3536fafe53afa4ff18883525e84a0acd";
-        var authToken = "2294f0d25917b127344576878688e200";
-        TwilioClient.Init(accountSid, authToken);
-
-        var message = MessageResource.Create(
-           body: "yash sarvaiya",
-           from: new Twilio.Types.PhoneNumber("+19287560075"),
-           to: new Twilio.Types.PhoneNumber("+916351568818")
-       );
-
-
+       
     }
 
     public async Task Sendemail(string email, string subject, string message)

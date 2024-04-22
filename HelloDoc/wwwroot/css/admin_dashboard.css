@@ -326,3 +326,10 @@ input[type=radio] {
     #calendar-hidden::-webkit-datetime-edit {
         display: none;
     }
+.fontsize {
+    font-size: clamp(0.7rem,1.4vw,1rem);
+}
+
+.selected-border {
+    border-bottom: 1px solid #00b8e6; /* Customize the border color and thickness */
+}

@@ -45,10 +45,65 @@ namespace HelloDoc.Controllers.DataController
         }
 
         [HttpPost]
-        public async Task<IActionResult> Family(family f)
+        public async Task<IActionResult> Family(family f, string someone)
         {
             var aspnetuser = await _log.Aspnetusers.FirstOrDefaultAsync(m => m.Email == f.PEmail);
             var user = await _log.Users.FirstOrDefaultAsync(m => m.Email == f.PEmail);
+
+            if (someone == "someone")
+            {
+                var userid = HttpContext.Session.GetInt32("UserId");
+                var userloggedin = _log.Users.FirstOrDefault(x => x.Userid == userid);
+
+                if (userloggedin != null)
+                {
+                    Request req = new Request
+                    {
+                        Requesttypeid = 5,
+                        Userid = userloggedin.Userid,
+                        Firstname = userloggedin.Firstname,
+                        Lastname = userloggedin.Lastname,
+                        Email = userloggedin.Email,
+                        Phonenumber = userloggedin.Mobile,
+                        Status = 1,
+                        Createddate = DateTime.Now,
+                        Modifieddate = DateTime.Now,
+                    };
+
+                    _log.Add(req);
+                    _log.SaveChanges();
+
+                    Requestclient r = new Requestclient();
+
+                    r.Notes = f.Symptoms;
+                    r.Requestid = req.Requestid;
+                    r.Firstname = f.PFirstName;
+                    r.Lastname = f.PLastName;
+                    r.Phonenumber = f.PPhoneNumber;
+                    r.Email = f.PEmail;
+                    r.State = f.State;
+                    r.City = f.City;
+                    r.Zipcode = f.ZipCode;
+                    r.Address = f.Room + " , " + f.Street + " , " + f.City + " , " + f.State;
+                    user.Intyear = int.Parse(f.PDOB.ToString("yyyy"));
+                    user.Intdate = int.Parse(f.PDOB.ToString("dd"));
+                    user.Strmonth = f.PDOB.ToString("MMM");
+                    r.Strmonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(f.PDOB.Month);
+                    r.Regionid = 1;
+
+                    _log.Requestclients.Add(r);
+                    _log.SaveChanges();
+
+                    if (f.FileName != null)
+                    {
+                        UploadTable(req.Requestid, f.FileName);
+                    }
+                }
+
+               
+
+                return RedirectToAction("submitrequest", "Home");
+            }
 
             if (aspnetuser != null)
             {
@@ -83,7 +138,6 @@ namespace HelloDoc.Controllers.DataController
                 _log.SaveChanges();
 
 
-
                 Requestclient r = new Requestclient();
 
                 r.Notes = f.Symptoms;
@@ -102,13 +156,6 @@ namespace HelloDoc.Controllers.DataController
                 r.Strmonth = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(f.PDOB.Month);
                 r.Regionid = 1;
 
-                //for someone else request
-                if (f.PFirstName == null && f.PLastName == null)
-                {
-                    var requestclient = _log.Requestclients.FirstOrDefault(x => x.Requestid == request.Requestid);
-                    r.Firstname = requestclient.Firstname;
-                    r.Lastname = requestclient.Lastname;
-                }
 
                 _log.Requestclients.Add(r);
                 _log.SaveChanges();

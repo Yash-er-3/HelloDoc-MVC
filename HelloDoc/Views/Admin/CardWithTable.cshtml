@@ -220,28 +220,10 @@
 
 
 <style>
-    .fontsize{
-        font-size:clamp(0.7rem,1.4vw,1rem);
-    }
-
-    .selected-border {
-        border-bottom: 1px solid #00b8e6; /* Customize the border color and thickness */
-    }
+  
    
 </style>
 
 <script>
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
-    const radioDivs = document.querySelectorAll('.d-inline-block');
-    radioButtons.forEach((radio, index) => {
-        radio.addEventListener('click', () => {
-            radioDivs.forEach((div, divIndex) => {
-                if (index-1 === divIndex) {
-                    div.classList.add('selected-border');
-                } else {
-                    div.classList.remove('selected-border');
-                }
-            });
-        });
-    });
+  
 </script>

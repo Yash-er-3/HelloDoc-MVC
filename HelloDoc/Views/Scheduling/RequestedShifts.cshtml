@@ -26,7 +26,7 @@
                 </select>
             </div>
             <div class="d-flex">
-                <button class="px-2 mx-2 text-white btn-success border-0 shadow-none rounded">
+                <button class="px-2 mx-2 text-white btn-success border-0 shadow-none rounded" onclick="location.reload()">
                     <span class="d-none d-lg-block">View Current Month Shift</span>
                 </button>
                 <button class="px-2 mx-2 text-white rounded btn-success border-0 shadow-none" value="approve" id="approve-selected-requestedshift">
@@ -41,7 +41,6 @@
 
         <div class="table-responsive" id="requestshifttable">
 
-          
         </div>
 
         <div class="d-flex justify-content-end" id="paginationButtons"></div>
@@ -60,7 +59,7 @@
 
     var currentPartial = localStorage.getItem('currentPartial')
     var filterDate = localStorage.getItem('filterDate')
-  
+
 
     loadStaff(1)
 
@@ -91,8 +90,6 @@
                 console.error(error)
             }
         });
-
-
 
 
         // Make an AJAX request to get staff data for the specified page
@@ -146,4 +143,12 @@
             }
         });
     });
+
+    //for region sorting
+
+    $('#schedulingregion').on('change',function(){
+        regionid = $(this).val();
+
+        loadStaff()
+    })
 </script>

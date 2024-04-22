@@ -101,6 +101,10 @@
       "PackagePath": "staticwebassets\\js\\Access\\AccessRole.js"
     },
     {
+      "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Access\\CreateAdmin.js",
+      "PackagePath": "staticwebassets\\js\\Access\\CreateAdmin.js"
+    },
+    {
       "Id": "D:\\Projects\\HelloDoc\\HelloDoc\\wwwroot\\js\\Admin\\AdminProfile.js",
       "PackagePath": "staticwebassets\\js\\Admin\\AdminProfile.js"
     },

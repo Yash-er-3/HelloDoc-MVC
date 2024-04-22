@@ -121,11 +121,7 @@ if ($('#order-prescription').text() == "") {
             var vendorid = $('.secondDropdown').val();
             var RefillNumber = $('.RefillNum').val();
             var presription = $('.prescription').val();
-            //var OrderModal = {
-            //    requestid : requestid,
-            //    vendorid : vendorid
-            //}
-
+            
 
             $.ajax({
                 url: '/Admin/Orders',
@@ -135,7 +131,7 @@ if ($('#order-prescription').text() == "") {
                     RefillNumber: RefillNumber, presription: presription
                 },
                 success: function (data) {
-                    window.location.href = "https://localhost:44300/";
+                    window.location.reload();
                 },
                 error: function (xhr, status, error) {
                     console.log(error);

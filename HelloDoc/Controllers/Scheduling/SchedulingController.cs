@@ -334,7 +334,7 @@ namespace HelloDoc.Controllers.Scheduling
                                 + _context.Physicians.FirstOrDefault(p => p.Physicianid == shiftdata.Shift.Physicianid).Lastname,
                 shiftdateviewshift = shiftdata.Shiftdate,
                 starttime = shiftdata.Starttime,
-                endtime = shiftdata.Endtime,
+                endtime = shiftdata.Endtime
             };
 
             return model;
@@ -343,7 +343,6 @@ namespace HelloDoc.Controllers.Scheduling
 
         public void viewShiftEdit(SchedulingViewModel model)
         {
-
             var update = _context.Shiftdetails.FirstOrDefault(s => s.Shiftdetailid == model.shiftdetailsid);
 
             if (model.eventvalue == "return")
@@ -364,7 +363,6 @@ namespace HelloDoc.Controllers.Scheduling
             }
             if (model.eventvalue == "save")
             {
-
 
                 update.Starttime = model.starttime;
                 update.Endtime = model.endtime;
@@ -404,34 +402,33 @@ namespace HelloDoc.Controllers.Scheduling
             List<Shiftdetail> shiftreviewdata = new List<Shiftdetail>();
 
 
+
+
+
+            if (currentPartial == "_DayWise")
+            {
+                shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
+
+            }
+            else if (currentPartial == "_WeekWise")
+            {
+                var prevsunday = date.AddDays(-(int)date.DayOfWeek);
+                var nextsunday = date.AddDays(7 - (int)date.DayOfWeek);
+
+                shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= prevsunday && s.Shiftdate < nextsunday && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
+            }
+            else if (currentPartial == "_MonthWise")
+            {
+                var monthStart = new DateOnly(date.Year, date.Month, 1);
+                var monthEnd = monthStart.AddMonths(1).AddDays(-1);
+                shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= monthStart && s.Shiftdate <= monthEnd && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
+            }
+
             if (regionid != 0)
             {
-                shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1 && s.Regionid == regionid && s.Isdeleted != new BitArray(new[] { true })).ToList();
-
+                shiftreviewdata = shiftreviewdata.Where(x => x.Regionid == regionid).ToList();
             }
-            else
-            {
 
-                if (currentPartial == "_DayWise")
-                {
-                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate == date && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
-                }
-                else if (currentPartial == "_WeekWise")
-                {
-                    var prevsunday = date.AddDays(-(int)date.DayOfWeek);
-                    var nextsunday = date.AddDays(7 - (int)date.DayOfWeek);
-
-                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= prevsunday && s.Shiftdate < nextsunday && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
-                }
-                else if (currentPartial == "_MonthWise")
-                {
-                    var monthStart = new DateOnly(date.Year, date.Month, 1);
-                    var monthEnd = monthStart.AddMonths(1).AddDays(-1);
-                    shiftreviewdata = _context.Shiftdetails.Include(s => s.Shift).Where(s => s.Shiftdate >= monthStart && s.Shiftdate <= monthEnd && s.Status == 1 && s.Isdeleted != new BitArray(new[] { true })).ToList();
-                }
-
-
-            }
             modal.shiftreviewlist = shiftreviewdata;
 
             return shiftreviewdata.Count();
@@ -519,6 +516,7 @@ namespace HelloDoc.Controllers.Scheduling
 
         public IActionResult ProviderOnCall(string PartialName, string date, int regionid, int status)
         {
+            status = 2;
             ProviderOnCall model = new ProviderOnCall();
             DateOnly dateOnly;
             IEnumerable<Physician> physicianlist = new List<Physician>();
