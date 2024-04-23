@@ -1,6 +1,8 @@
 ﻿
 using HelloDoc;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Services.Viewmodels;
 using Services.ViewModels;
 using System.Collections;
 
@@ -64,10 +66,7 @@ namespace HalloDoc.Controllers.Access
             return PartialView("MenuFilterCheckbox", model);
         }
 
-        //public IActionResult MenuFilterCheckbox(AccessRoleViewModel model)
-        //{
-        //    return View(model);
-        //}
+
 
         [HttpPost]
         public IActionResult CreateRole(string rolename, int accounttype, int[] selectedmenu, int roleid)
@@ -157,5 +156,41 @@ namespace HalloDoc.Controllers.Access
             TempData["success"] = "Role Deleted Successfully!";
             return RedirectToAction("AccessRole");
         }
+
+        public IActionResult UserAccess()
+        {
+            var rolelist = _context.Roles.ToList();
+            List<AccessViewModel> model = new List<AccessViewModel>();
+            var aspuser = _context.Aspnetusers.Include(m => m.Aspnetuserroles).Where(m => m.Aspnetuserroles.FirstOrDefault().Roleid == "1" || m.Aspnetuserroles.FirstOrDefault().Roleid == "2").ToList();
+            foreach (var user in aspuser)
+            {
+                var access = new AccessViewModel();
+                access.Phone = user.Phonenumber;
+                if (user.Aspnetuserroles.Count() > 0)
+                {
+                    if (user.Aspnetuserroles.FirstOrDefault(m => m.Userid == user.Id).Roleid == 1.ToString())
+                    {
+                        var admin = _context.Admins.FirstOrDefault(m => m.Aspnetuserid == user.Id);
+                        access.Accounttype = 1.ToString();
+                        access.Status = admin.Status;
+                        access.Name = admin.Firstname + admin.Lastname;
+                        access.OpenRequest = _context.Requests.ToList().Count().ToString();
+                        access.AdminId = admin.Adminid;
+                    }
+                    if (user.Aspnetuserroles.FirstOrDefault(m => m.Userid == user.Id).Roleid == 2.ToString())
+                    {
+                        var physician = _context.Physicians.FirstOrDefault(m => m.Aspnetuserid == user.Id);
+                        access.Status = physician.Status;
+                        access.Accounttype = 2.ToString();
+                        access.Name = physician.Firstname + physician.Lastname;
+                        access.OpenRequest = _context.Requests.ToList().Where(m => m.Physicianid == physician.Physicianid).ToList().Count().ToString();
+                        access.physicianId = physician.Physicianid;
+                    }
+                }
+                model.Add(access);
+            }
+            return View(model);
+        }
+        public IActionResult AdminProfileFromUserAccess(int adminid)        {            var admin = _context.Admins.FirstOrDefault(m => m.Adminid == adminid);            var aspnetuser = _context.Aspnetusers.FirstOrDefault(m => m.Id == admin.Aspnetuserid);            var rolelist = _context.Aspnetroles.ToList();            var regionlist = _context.Regions.ToList();            var adminregionlist = _context.Adminregions.Where(m => m.Adminid == adminid).ToList();            var model = new UserAllDataViewModel            {                UserName = aspnetuser.Username,                password = aspnetuser.Passwordhash,                status = admin.Status,                role = rolelist,                firstname = admin.Firstname,                lastname = admin.Lastname,                email = admin.Email,                confirmationemail = admin.Email,                phonenumber = admin.Mobile,                regionlist = regionlist,                address1 = admin.Address1,                address2 = admin.Address2,                zip = admin.Zip,                alterphonenumber = admin.Altphone,                adminregionlist = adminregionlist,                check = false,            };            return PartialView("../Admin/AdminProfile", model);        }
     }
 }

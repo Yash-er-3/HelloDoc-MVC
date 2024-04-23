@@ -3,11 +3,11 @@
 
 
 
-<div class="container p-sm-5 my-sm-5 my-2 ">
+<div class="container p-sm-5 my-sm-5 my-2" id="reviewagreeresponse">
     <h4>
         To provide best medical service, we cannot determine the cost right away. If you agree to our service, so we will provide care and follow-up until all care is completed. So with this points, if you like us to provide care to you click on "Agree" and we'll get started immediately, if you do not agree simply click "Cancel".
     </h4>
-    <input type="number" asp-for="requestid" class="requestid" />
+    <input type="number" asp-for="requestid" class="requestid" hidden />
     <div class="d-flex justify-content-center my-5 ">
         <button type="button" class="btn btn-success m-sm-5 m-2 px-4 rounded-3 shadow Iagree" id="iagreee">
             I Agree
@@ -32,7 +32,7 @@
             </div>
             <form asp-action="cancelCaseModal" method="post">
                 <div class="modal-body">
-                    <input type="number" class="requestid" name="id" value="@Model.requestid" />
+                    <input type="number" class="requestid" name="id" value="@Model.requestid" hidden />
                     <h6 class="my-3 text-secondary fw-normal">Patient Name: <span class="text-info fw-normal pname">@Model.PatientNameForAgreement</span> </h6>
 
                     <div class="my-2 form-floating">
@@ -67,18 +67,23 @@
             type: 'POST',
             data: { "requestid": requestid },
             success: function (data) {
-                window.location.href = "https://localhost:44300/";
-            }
 
+                console.log(data)
+                $('#reviewagreeresponse').html(data);
+            },
+            error: function (jqXHR,error,status) {
+                $('#reviewagreeresponse').html(jqXHR.responseText);
+
+            }
         })
     });
 
     $('.canclebtn').on('click', function (e) {
-      
+
         var requestid = $('.requestid').val();
         console.log(requestid);
         $('.requestid').val(requestid);
-      
+
     });
 
 </script>

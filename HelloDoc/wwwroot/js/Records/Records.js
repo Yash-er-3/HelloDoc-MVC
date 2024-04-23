@@ -1,6 +1,7 @@
-﻿
-
-
+﻿window.onload = function () {
+    $('.admin-layout-nav').removeClass('admin-layout-nav-active');
+    $('#nav-record-tab').addClass('admin-layout-nav-active');
+}
 
 $(document).ready(function () {
     loadsearchtable()

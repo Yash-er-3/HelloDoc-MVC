@@ -297,6 +297,7 @@
                     data: { requestid: requestid },
                     success: function (response) {
                         $('#adminLayoutMainDiv').html(response)
+                        location.reload();
                     }
                 })
                 Swal.fire({

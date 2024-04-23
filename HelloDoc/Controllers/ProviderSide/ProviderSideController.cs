@@ -147,6 +147,28 @@ namespace HelloDoc.Controllers.ProviderSide
 
         }
 
+        public bool CheckFinalize(int requestid)
+        {
+            BitArray fortrue = new BitArray(1);
+            fortrue[0] = true;
+
+            var encounter = _context.Encounters.FirstOrDefault(x => x.RequestId == requestid);
+
+            if(encounter == null)
+            {
+                return false;
+            }
+
+            if (encounter.IsFinalized[0])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public IActionResult Encounter(int requestid)
         {
             var request = _context.Requests.FirstOrDefault(x => x.Requestid == requestid);
@@ -182,6 +204,7 @@ namespace HelloDoc.Controllers.ProviderSide
                 model.Location = requestclients.Address;
                 model.isFinaled = !fortrue[0];
                 model.RequestId = request.Requestid;
+                
                 return View(model);
             }
             else if (request.Status == 6 && encounter.IsFinalized[0] != true)

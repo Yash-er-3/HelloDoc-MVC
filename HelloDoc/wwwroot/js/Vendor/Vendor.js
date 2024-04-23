@@ -1,4 +1,7 @@
-﻿
+﻿window.onload = function () {
+    $('.admin-layout-nav').removeClass('admin-layout-nav-active');
+    $('#nav-partner-tab').addClass('admin-layout-nav-active');
+}
 var search = ""; //for search
 var professionid = 0; // for dropdown search profession
 var vendorid = 0; //for delete btn vendor

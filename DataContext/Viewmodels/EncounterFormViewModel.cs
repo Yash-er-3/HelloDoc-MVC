@@ -91,5 +91,7 @@ namespace Services.Viewmodels
         public string Followup { get; set; }
 
         public bool isFinaled { get; set; }
+
+        public bool check { get; set; }
     }
 }

@@ -85,18 +85,27 @@
                     </td>
                     <td style="width : 24%">@physician.Firstname @physician.Lastname</td>
                     <td style="width : 17%">
-                        @foreach(var item in Model.rolelist)
+                        @foreach (var item in Model.rolelist)
                         {
-                            if(item.Roleid == physician.Roleid)
+                            if (item.Roleid == physician.Roleid)
                             {
                                 @item.Name
                             }
                         }
                     </td>
                     <td style="width : 21%">
-                      Unavailable
+                        Unavailable
                     </td>
-                    <td style="width : 14%">Active</td>
+                    @if (physician.Status == 1)
+                    {
+
+                        <td style="width : 14%">Active</td>
+                    }
+                    else
+                    {
+
+                        <td style="width : 14%">InActive</td>
+                    }
                     <td style="width : 13% ; text-align : center!important">
                         <div class="d-flex justify-content-start">
                             <button value="@physician.Email" type="button" class="btn btn-outline-info shadow-none border-info justify-content-start p-1 py-0 d-flex clickcontactprovider" data-toggle="modal" data-target="#ContactProviderModal">

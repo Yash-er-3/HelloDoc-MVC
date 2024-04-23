@@ -575,6 +575,7 @@ namespace HelloDoc.Controllers.Admin
                 zip = admin.Zip,
                 alterphonenumber = admin.Altphone,
                 adminregionlist = selectedregionlist,
+                check = true,
             };
             return View(model);
         }

@@ -128,11 +128,21 @@ namespace HelloDoc.Controllers
         public IActionResult IAgreeSendAgreement(int requestid)
         {
             var request = _context.Requests.FirstOrDefault(m => m.Requestid == requestid);
-            request.Status = 4;
-            _context.Requests.Update(request);
-            _context.SaveChanges();
-            _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid);
-            return RedirectToAction("PatientDashboard", "Patient");
+
+            if(request.Status == 4)
+            {
+                return BadRequest("Already agreed!");
+            }
+            else
+            {
+                request.Status = 4;
+                _context.Requests.Update(request);
+                _context.SaveChanges();
+                _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid);
+                return RedirectToAction("PatientDashboard", "Patient");
+            }
+
+          
         }
 
         [HttpPost]

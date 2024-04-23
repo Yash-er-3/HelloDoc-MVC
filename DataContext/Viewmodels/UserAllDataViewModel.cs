@@ -5,7 +5,7 @@ namespace Services.Viewmodels
 {
     public class UserAllDataViewModel
     {
-
+        public bool check { get; set; }
         public int adminid { get; set; }
         [Required]
         [RegularExpression(@"[a-zA-Z0-9]+", ErrorMessage = "Username is not valid")]

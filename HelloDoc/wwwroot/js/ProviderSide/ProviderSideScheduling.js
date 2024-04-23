@@ -16,7 +16,7 @@ filterDate.setMinutes(filterDate.getMinutes() - timezoneOffset);
 var currentPartial = "";
 window.onload = function () {
     $('.admin-layout-nav').removeClass('admin-layout-nav-active');
-    $('#nav-partner-tab').addClass('admin-layout-nav-active');
+    $('#nav-scheduling-tab').addClass('admin-layout-nav-active');
 }
 function loadSchedulingPartial() {
     currentPartial = "_MonthWise";

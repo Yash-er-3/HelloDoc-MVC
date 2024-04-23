@@ -1,16 +1,20 @@
 ﻿@using Services.Viewmodels
 @model UserAllDataViewModel
-@{
+@if(Model.check){
     Layout = "header_dashboard";
     ViewData["Title"] = "Profile";
-
+}
+else
+{
+    Layout = null;
+    ViewData["Title"] = "Profile";
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
 
 @Html.Partial("notification")
 
-<div class="container mt-3">
+<div class="container mt-3 mb-5">
     <div class="d-flex justify-content-between align-items-center mt-2">
         <h4>My Profile</h4>
         <a asp-controller="Admin" asp-action="Admindashboard" class="text-decoration-none">
@@ -173,7 +177,7 @@
                     <option class="fs-6" value="Gujarat" selected>Gujarat</option>
                     <option class="fs-6" value="" selected>Maharastra</option>
                     <option class="fs-6" value="" selected>Goa</option>
-                   
+
                 </select>
                 <label for="floatingTextarea" class="text-secondary ms-3">State</label>
                 <span id="admininfo-state" class="text-danger small"></span>
@@ -222,3 +226,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 
 <script src="/js/Admin/AdminProfile.js" asp-append-version="true"></script>
+<script>
+    window.onload = function () {
+        $('.admin-layout-nav').removeClass('admin-layout-nav-active');
+        $('#nav-profile-tab').addClass('admin-layout-nav-active');
+    }
+</script>

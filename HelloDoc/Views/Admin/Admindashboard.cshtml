@@ -68,7 +68,7 @@
 
                         <img src="/images/alert.png" class="w-25 h-25 d-flex justify-content-center" />
                     </div>
-                    <input type="number" name="requestid" class="requestid" />
+                    <input type="number" name="requestid" class="requestid" hidden/>
 
 
                     <h4 class="d-flex justify-content-center">Confirmation For Clear Case</h4>
@@ -102,7 +102,7 @@
                 <i class="bi bi-circle-fill" id="requesttype-dot"></i> &nbsp;<span id="requesttype-agreement"></span>
                 <form asp-action="SendAgreementModal" method="post">
                     <small class="text-secondary">To Send Agreement please make sure you are updating the correct contact information below for the responsible party.</small>
-                    <input type="number" name="requestid" class="requestid" />
+                    <input type="number" name="requestid" class="requestid" hidden />
 
 
                     <div class="form-floating mt-3">
@@ -193,7 +193,7 @@
             <div class="modal-body">
                 <form asp-action="assignCaseModal" method="post">
                     <small class="text-secondary">To assign this request,search and select another Physician.</small>
-                    <input type="number" name="requestid" class="requestid" />
+                    <input type="number" name="requestid" class="requestid" hidden />
 
                     <div class="form-floating">
                         <select name="regionname" class="form-select shadow-none mt-3 getregion" id="TransferModalFirstDropDownSelect" aria-label="Floating label select example">
@@ -250,7 +250,7 @@
             <div class="modal-body">
                 <form asp-action="assignCaseModal" method="post">
                     <small class="text-secondary">To assign this request,search and select another Physician.</small>
-                    <input type="number" name="requestid" class="requestid" />
+                    <input type="number" name="requestid" class="requestid" hidden />
 
                     <div class="form-floating">
                         <select name="regionname" class="form-select shadow-none mt-3 getregion" id="AssignModalFirstDropDownSelect" aria-label="Floating label select example">

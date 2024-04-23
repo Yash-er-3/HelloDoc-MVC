@@ -213,7 +213,7 @@ $(document).ready(function () {
             success: function (data) {
                 $('#exampleModalEncounter').click();
                 $('#nav-tabContent').html(data);
-                location.reload();
+                //location.reload();
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -239,14 +239,45 @@ $(document).ready(function () {
         })
     })
 
+
     $('.encounterclick_concludep').on('click', function () {
         var requestid = $(this).val();
+        console.log("download encounter model open js")
         $.ajax({
-            url: '/ProviderSide/Encounter',
+            url: '/ProviderSide/CheckFinalize',
             data: { requestid: requestid },
             success: function (result) {
+                console.log(result)
+                if (result) {
+                    $.ajax({
+                        url: '/ProviderSide/Encounter',
+                        data: { requestid: requestid },
+                        success: function (result) {
+                            $('#PopUps').html(result);
+                            var my = new bootstrap.Modal(document.getElementById('DownloadEncounterModal'));
+                            my.show();
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
 
-                $('#PopUps').html(result);
+                    })
+                }
+                else {
+                    $.ajax({
+                        url: '/ProviderSide/Encounter',
+                        data: { requestid: requestid },
+                        success: function (result) {
+                            $('#nav-tabContent').html(result);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error);
+                        }
+
+                    })
+                }
+                console.log(result.IsAjax);
+                $('#download_Modal').html(result);
                 var my = new bootstrap.Modal(document.getElementById('DownloadEncounterModal'));
                 my.show();
             },

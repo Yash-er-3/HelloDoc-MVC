@@ -1,4 +1,8 @@
-﻿$('.unblockbtn_blockhistory').on('click', function () {
+﻿window.onload = function () {
+    $('.admin-layout-nav').removeClass('admin-layout-nav-active');
+    $('#nav-record-tab').addClass('admin-layout-nav-active');
+}
+$('.unblockbtn_blockhistory').on('click', function () {
 
     var requestid = $(this).val();
 

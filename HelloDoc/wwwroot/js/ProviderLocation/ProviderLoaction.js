@@ -1,11 +1,5 @@
 ﻿var locationdata;
-window.onload = function () {
-    $('.admin-layout-nav').removeClass('admin-layout-nav-active');
-    $('#nav-provider-location-tab').addClass('admin-layout-nav-active');
 
-
-
-}
 $.ajax({
     url: '/ProviderLocation/GetLocationS',
     method: 'GET',
