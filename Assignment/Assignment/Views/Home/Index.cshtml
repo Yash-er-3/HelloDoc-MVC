@@ -1,8 +1,35 @@
-﻿@{
+﻿@*@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor*@
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@using DataModels.ViewModels
+
+@model StudentDataViewmodel
+
+<div class="px-3 mx-5">
+
+
+    <div>
+
+        <div class="input-group mb-3">
+
+            <div class="w-100">
+                <input type="search" class="form-control w-100" placeholder="search" />
+            </div>
+        </div>
+        <div id="popups">
+
+        </div>
+
+        <div class="table-responsive" id="studentdetail_table">
+        </div>
+
+        <div id="studentdetail_pagination">
+        </div>
+    </div>
 </div>
+
+
+<script src="~/js/site.js"></script>

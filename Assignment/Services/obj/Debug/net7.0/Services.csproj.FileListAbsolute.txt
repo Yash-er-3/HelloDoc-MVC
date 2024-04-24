@@ -1,0 +1,17 @@
+D:\Projects\HelloDoc\Assignment\Services\bin\Debug\net7.0\Services.deps.json
+D:\Projects\HelloDoc\Assignment\Services\bin\Debug\net7.0\Services.runtimeconfig.json
+D:\Projects\HelloDoc\Assignment\Services\bin\Debug\net7.0\Services.dll
+D:\Projects\HelloDoc\Assignment\Services\bin\Debug\net7.0\Services.pdb
+D:\Projects\HelloDoc\Assignment\Services\bin\Debug\net7.0\DataModels.dll
+D:\Projects\HelloDoc\Assignment\Services\bin\Debug\net7.0\DataModels.pdb
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.csproj.AssemblyReference.cache
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.AssemblyInfoInputs.cache
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.AssemblyInfo.cs
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.csproj.CoreCompileInputs.cache
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.csproj.CopyComplete
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.dll
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\refint\Services.dll
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.pdb
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\Services.genruntimeconfig.cache
+D:\Projects\HelloDoc\Assignment\Services\obj\Debug\net7.0\ref\Services.dll

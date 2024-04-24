@@ -1,0 +1,85 @@
+﻿@using DataModels.ViewModels;
+
+@model StudentDataViewmodel;
+
+
+<div class="modal fade rounded-3 shadow" id="AddAndEditStudentModal" tabindex="-1" role="dialog" aria-labelledby="SendAgreement" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h1 class="modal-title fs-5 mt-3" id="staticBackdropLabel">Student Form</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form asp-action="AddStudent" asp-controller="Home" method="post">
+                <div class="modal-body">
+
+                    <div class="d-flex flex-row justify-content-between">
+                        <div class="form-floating w-100 me-2">
+                            <input asp-for="FirstName" type="text" class="form-control shadow-none" placeholder="Ex. Reet" required />
+                            <label for="floatingInput">First Name</label>
+                        </div>
+
+
+                        <div class="form-floating w-100">
+                            <input asp-for="LastName" type="text" class="form-control shadow-none" placeholder="LastName" required />
+                            <label for="floatingInput">Last Name</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-row justify-content-between">
+
+                        <div class="form-floating mt-3 w-100 me-2">
+                            <input asp-for="Email" type="email" class="form-control shadow-none" placeholder="Email" required />
+                            <label for="floatingInput">Email</label>
+                        </div>
+
+                        <div class="form-floating w-100 mt-3">
+                            <input asp-for="DOB" type="date" max="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control shadow-none" placeholder="Date Of Birth" required />
+                            <label for="floatingInput">Date Of Birth</label>
+                            <span class="text-secondary small">MM/DD/YYYY</span>
+                        </div>
+                    </div>
+                    Gender :
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" asp-for="Gender" type="radio" name="gender" id="inlineRadio1" value="Male">
+                        <label class="form-check-label" for="inlineRadio1">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" asp-for="Gender" type="radio" name="gender" id="inlineRadio2" value="Female">
+                        <label class="form-check-label" for="inlineRadio2">Female</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" asp-for="Gender" type="radio" name="gender" id="inlineRadio3" value="Others">
+                        <label class="form-check-label" for="inlineRadio3">Others</label>
+                    </div>
+
+                    <div class="d-flex flex-row justify-content-between">
+
+                        <div class="form-floating w-100 me-2 mt-3">
+                            <select asp-for="Grade" class="form-select disable shadow-none" id="Grade" aria-label="Floating label select example">
+                                <option value="0" selected>Grade</option>
+                                <option value="1st-3rd">1st-3rd</option>
+                                <option value="4th-6th">4th-6th</option>
+                                <option value="7th-8th">7th-8th</option>
+                                <option value="9th-12th">9th-12th</option>
+                            </select>
+                        </div>
+
+                        <div class="form-floating w-100 mt-3">
+                            <input asp-for="Course" type="text" class="form-control shadow-none" placeholder="Course" required />
+                            <label for="floatingInput">Course</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="submitbtn_addstudent" class="btn btn-info text-white shadow-none me-2">Save</button>
+                    <button type="button" class="btn btn-outline-info shadow-none" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/AddStudent.js"></script>

@@ -1,4 +1,26 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+$(document).ready(function () {
+    loadsearchtable()
+});
+function loadsearchtable() {
+    $.ajax({
+        url: '/Home/SearchRecordsFilter',
+        success: function (response) {
+            $('#studentdetail_table').html(response)
+        }
+    });
+}
 
-// Write your JavaScript code.
+$('#AddAndEditStudentBtn').on('click', function () {
+
+    $.ajax({
+        url: '/Home/openModal',
+        success: function (response) {
+            $('#popups').html(response);
+            var my = new bootstrap.Modal(document.getElementById('AddAndEditStudentModal'));
+            my.show();
+        }
+    })
+
+   
+})

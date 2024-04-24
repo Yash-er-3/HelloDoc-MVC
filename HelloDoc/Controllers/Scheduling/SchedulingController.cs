@@ -565,6 +565,8 @@ namespace HelloDoc.Controllers.Scheduling
                     shiftdetaillist = _context.Shiftdetails.Include(s => s.Shift).Where(m => m.Shiftdate == dateOnly && m.Isdeleted != new BitArray(new[] { true })).ToList();
                 }
 
+                shiftdetaillist = shiftdetaillist.Where(x => x.Starttime <= DateTime.Now && x.Endtime >= DateTime.Now).ToList(); 
+
                 IEnumerable<Physician> ondutyphysician = new List<Physician>();
                 foreach (var item in shiftdetaillist)
                 {

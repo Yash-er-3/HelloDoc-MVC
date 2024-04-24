@@ -1,0 +1,56 @@
+﻿@using DataModels.ViewModels;
+
+@model List<StudentDataViewmodel>;
+
+@{
+    Layout = null;
+}
+
+<table class="w-100" id="studentrecordstable">
+    <thead style="background-color: rgb(235, 235, 235) ; color: black !important">
+        <tr>
+            <th class="fw-medium">Student ID</th>
+            <th class="fw-medium">First Name</th>
+            <th class="fw-medium">Last Name</th>
+            <th class="fw-medium">Email</th>
+            <th class="fw-medium">Age</th>
+            <th class="fw-medium">Gender</th>
+            <th class="fw-medium">Course</th>
+            <th class="fw-medium">Grade</th>
+            <th class="fw-medium">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var student in Model)
+        {
+            <tr>
+
+                <td> @student.StudentId </td>
+                <td>@student.FirstName</td>
+                <td>@student.LastName</td>
+                <td>@student.Email</td>
+                <td>@student.Age</td>
+                <td>@student.Gender</td>
+                <td>
+                    @student.Course
+                </td>
+                <td>@student.Grade</td>
+                <td>
+                    <button class="editbtn_table" value="@student.StudentId">
+                        Edit
+                    </button>
+                    <button class="deletebtn_table" value="@student.StudentId">
+                        Delete
+                    </button>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+<script src="~/js/AddStudent.js"></script>

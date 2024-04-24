@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rjNjcSug/Horq5JW6erw6qv0MGXAVQPmxujsPLc8DOU=",
+  "Hash": "Dhk2Qq947mCqmgPNd9NHok1lYVanCk7OB5j3p55Mt+U=",
   "Source": "Assignment",
   "BasePath": "_content/Assignment",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Projects\\HelloDoc\\Assignment\\Assignment\\wwwroot\\js\\AddStudent.js",
+      "SourceId": "Assignment",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\HelloDoc\\Assignment\\Assignment\\wwwroot\\",
+      "BasePath": "_content/Assignment",
+      "RelativePath": "js/AddStudent.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\AddStudent.js"
     },
     {
       "Identity": "D:\\Projects\\HelloDoc\\Assignment\\Assignment\\wwwroot\\js\\site.js",
