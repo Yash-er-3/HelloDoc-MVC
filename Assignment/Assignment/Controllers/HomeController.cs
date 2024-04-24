@@ -61,10 +61,18 @@ namespace Assignment.Controllers
             return RedirectToAction("SearchRecordsFilter");
         }
 
-        public void DeleteStudent(string id)
+        public IActionResult DeleteStudent(string id)
         {
-            var deletedata = _studentDataRepo.deleteStudent(id);
+             _studentDataRepo.deleteStudent(id);
+
+            return RedirectToAction("SearchRecordsFilter");
+
         }
+
+        //public IActionResult SearchTableStudent(string SearchTableStudent)
+        //{
+        //    var searchdata = _studentDataRepo.searchTable(SearchTableStudent);
+        //}
 
         public IActionResult Privacy()
         {

@@ -24,3 +24,16 @@ $('#AddAndEditStudentBtn').on('click', function () {
 
    
 })
+
+$('#searchtable').on('keyup', function () {
+
+    var text = $('#searchtable').val();
+
+    $.ajax({
+        url: '/Home/SearchTableStudent',
+        data : text,
+        success: function (response) {
+            $('#studentdetail_table').html(response)
+        }
+    })
+})

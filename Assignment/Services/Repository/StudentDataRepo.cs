@@ -47,7 +47,6 @@ namespace Services.Repository
 
         public bool AddStudentData(string FirstName, string LastName, string Email, string DOB, string Gender, string Grade, string Course)
         {
-
             var courseid = smsDbContext.Courses.FirstOrDefault(x => x.Name.ToLower().Contains(Course.ToLower())).Id;
 
             Student modal = new Student
@@ -136,8 +135,12 @@ namespace Services.Repository
         {
             var rowdata = smsDbContext.Students.FirstOrDefault(x => x.Id == int.Parse(id));
 
+            smsDbContext.Remove(rowdata);
+            smsDbContext.SaveChanges();
+
         }
 
+      
 
     }
 }

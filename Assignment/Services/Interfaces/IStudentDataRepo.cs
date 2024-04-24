@@ -1,6 +1,7 @@
 ﻿using DataModels.DataModels;
 using DataModels.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Services.Repository;
 
 namespace Services.Interfaces
 {
@@ -16,5 +17,8 @@ namespace Services.Interfaces
         public StudentDataViewmodel GetStudentDataForEdit(string id);
         public void deleteStudent(string id);
         public bool EditStudentData(string FirstName, string LastName, string Email, string DOB, string Gender, string Grade, string Course,string id);
+
+
+
     }
 }

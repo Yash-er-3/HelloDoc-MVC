@@ -95,4 +95,5 @@ $('.deletebtn_table').on('click', function () {
         }
     })
 })
+
    
