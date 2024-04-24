@@ -141,8 +141,6 @@ namespace HelloDoc.Controllers
                 _addOrUpdateRequestStatusLog.AddOrUpdateRequestStatusLog(requestid);
                 return RedirectToAction("PatientDashboard", "Patient");
             }
-
-          
         }
 
         [HttpPost]
